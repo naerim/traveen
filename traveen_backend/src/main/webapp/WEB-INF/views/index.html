@@ -1,0 +1,67 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title>SSAFY</title>
+<style type="text/css">
+h1, h4 {
+	text-align: center;
+}
+
+a {
+	margin: 10px;
+}
+
+.inputtitle {
+	display: inline-block;
+	width: 80px;
+}
+</style>
+</head>
+<body>
+	<%@ include file="include/header.jsp"%>
+	<h1>출결 관리</h1>
+	<c:if test="${empty loginUser}">
+		<fieldset>
+			<h1>로그인 해주세요.</h1>
+			<form action="" method="post" id="loginForm">
+			<input type="hidden" name="action" value="login">
+			<div class="form-group">
+				<label for="id">id:</label> <input type="text" class="form-control"
+					id="id" name="id" placeholder="ID 입력" value="" autofocus="autofocus">
+			</div>
+			<div class="form-group">
+				<label for="pw">Password:</label> <input type="password"
+					class="form-control" id="pw" name="pw" placeholder="비밀번호 입력">
+			</div>
+
+			<button id="login" type="submit" class="btn btn-primary">로그인</button>
+		</form>
+
+		</fieldset>
+		</c:if>
+	<hr>
+	<h4>
+		<a href="${root}/attendance/regist">출결 이슈 등록</a>
+	</h4>
+	<h4>
+		<a href="${root}/attendance/list">출결 이슈 목록</a>
+	</h4>
+<script>    
+      document.querySelector("#login").addEventListener("click", function () {
+        if (!document.querySelector("#id").value) {
+          alert("아이디 입력!!");
+          return;
+        } else if (!document.querySelector("#pw").value) {
+          alert("비밀번호 입력!!");
+          return;
+        } else {
+          let form = document.querySelector("#loginForm");
+          form.setAttribute("action", "${root}/userinfo/login");
+          form.submit();
+        }
+      });
+    </script>
+</body>
+</html>
