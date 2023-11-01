@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Traveen</title>
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/notice.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <!-- header -->
+    <header>
+      <div class="header-container">
+        <div class="header-left">
+          <div id="logo"><a href="/">Traveen</a></div>
+          <div id="menulist">
+            <a href="#">여행지</a>
+            <a href="#">애프터 트래빈</a>
+            <a href="./notice-list.html">공지사항</a>
+          </div>
+        </div>
+        <button>로그인</button>
+      </div>
+      <i
+        class="fa-solid fa-bars fa-2x"
+        style="color: #454545"
+        id="hamburger"
+      ></i>
+    </header>
+
+    <!-- section -->
+    <section>
+      <h2 class="title">공지사항 수정</h2>
+      <h4 class="subtitle">Traveen의 공지사항을 수정해보세요.</h4>
+      <div class="table-container">
+        <form id="form-modify-notice" action="#" method="post">
+          <div class="input-title">제목</div>
+          <input
+            type="text"
+            placeholder="제목을 입력해주세요."
+            id="input-subject"
+            name="subject"
+            value="트래빈 전체 공지사항 입니다."
+          />
+          <div class="input-title">내용</div>
+          <textarea
+            name="content"
+            id="content"
+            cols="30"
+            rows="10"
+            placeholder="내용을 입력해주세요."
+          >
+공지사항 내용</textarea
+          >
+          <div class="line-notice"></div>
+          <div class="notice-two-btn-box">
+            <input type="reset" value="초기화" id="btn-reset" />
+            <input type="submit" value="수정" id="btn-modify-notice" />
+          </div>
+        </form>
+      </div>
+      <div class="btn-notice-box">
+        <button id="btn-notice-list">목록</button>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer>
+      <div class="footer-container">
+        <div>
+          <img src="./img/ssafy_logo.png" alt="" />
+        </div>
+        <div id="footer-right">
+          <p>이용약관 | 개인정보방침</p>
+          <div>
+            본 사이트의 콘텐츠는 저작권법의 보호를 받는 바 무단 전재, 복사, 배포
+            등을 금합니다.
+          </div>
+          <div>Copyright © SAMSUNG All Rights Reserved.</div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

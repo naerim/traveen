@@ -6,8 +6,14 @@
     <title>Traveen</title>
     <link rel="stylesheet" href="./css/common.css" />
     <link rel="stylesheet" href="./css/notice.css" />
-    <link rel="stylesheet" href="./css/notice-list.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/notice-detail.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
     <!-- header -->
@@ -32,11 +38,50 @@
 
     <!-- section -->
     <section>
-      <h2 class='title'>공지사항</h2>
-      <h4 class='subtitle'>Traveen의 공지사항을 확인해보세요.</h4>
+      <h2 class="title">공지사항</h2>
+      <h4 class="subtitle">Traveen의 공지사항을 확인해보세요.</h4>
       <div class="table-container">
-        공지사항
+        <div class="top-box">
+          <div class="left">트래빈 전체 공지사항입니다.</div>
+          <div class="right">
+            <div class="date">2023.11.01</div>
+            <div class="hit">조회수 10</div>
+          </div>
+        </div>
+        <div class="content-box">
+          <div class="content-title">트래빈 전체 공지사항 입니다.</div>
+          <div class="content">
+            국회는 선전포고, 국군의 외국에의 파견 또는 외국군대의 대한민국
+            영역안에서의 주류에 대한 동의권을 가진다. 모든 국민은 거주·이전의
+            자유를 가진다. 지방의회의 조직·권한·의원선거와 지방자치단체의 장의
+            선임방법 기타 지방자치단체의 조직과 운영에 관한 사항은 법률로
+            정한다. 대통령은 조국의 평화적 통일을 위한 성실한 의무를 진다.
+            예비비는 총액으로 국회의 의결을 얻어야 한다. 예비비의 지출은
+            차기국회의 승인을 얻어야 한다. 대법원과 각급법원의 조직은 법률로
+            정한다. 국방상 또는 국민경제상 긴절한 필요로 인하여 법률이 정하는
+            경우를 제외하고는, 사영기업을 국유 또는 공유로 이전하거나 그 경영을
+            통제 또는 관리할 수 없다. 국정의 중요한 사항에 관한 대통령의 자문에
+            응하기 위하여 국가원로로 구성되는 국가원로자문회의를 둘 수 있다. 이
+            헌법공포 당시의 국회의원의 임기는 제1항에 의한 국회의 최초의 집회일
+            전일까지로 한다. 재의의 요구가 있을 때에는 국회는 재의에 붙이고,
+            재적의원과반수의 출석과 출석의원 3분의 2 이상의 찬성으로 전과 같은
+            의결을 하면 그 법률안은 법률로서 확정된다. 대한민국의 경제질서는
+            개인과 기업의 경제상의 자유와 창의를 존중함을 기본으로 한다.
+            국무회의는 정부의 권한에 속하는 중요한 정책을 심의한다. 국민의
+            자유와 권리는 헌법에 열거되지 아니한 이유로 경시되지 아니한다.
+            국가는 대외무역을 육성하며, 이를 규제·조정할 수 있다.
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="btn-notice-admin-box">
+          <button>수정</button>
+          <button>삭제</button>
+        </div>
       </div>
+      <div class="btn-notice-box">
+        <button id="btn-notice-list">목록</button>
+      </div>
+    </section>
 
     <!-- footer -->
     <footer>
