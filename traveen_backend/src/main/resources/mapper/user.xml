@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.user.model.mapper.UserMapper">
+	<resultMap type="user" id="user" extends="user">
+		<result column="user_id" property="userId"/>
+		<result column="user_pwd" property="userPwd"/>
+		<result column="user_name" property="userName"/>
+		<result column="email_id" property="emailId"/>
+		<result column="email_domain" property="emailDomain"/>
+		<result column="mobile" property="mobile"/>
+		<result column="salt" property="salt"/>
+		<result column="join_date" property="joinDate"/>
+		<result column="position" property="position"/>
+	</resultMap>
+
+	<!-- 아이디 중복 체크 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(user_id)
+		from users
+		where user_id = #{userId}
+	</select>
+
+	<!-- 로그인 -->
+	<select id="login" parameterType="map" resultMap="user">
+		select user_id, user_pwd
+		from users
+		where user_id = #{userId} and user_pwd = #{userPwd}
+	</select>
+	
+	<insert id="join" parameterType="map">
+		insert into users (user_id, user_pwd, user_name, email_id, email_domain, mobile, salt, join_date, position)
+		values (#{userId}, #{userPwd}, #{userName}, #{emailId}, #{emailDomain}, #{mobile}, #{salt}, now(), #{position})
+	</insert>
+		
+	<select id="getUser" parameterType="string" resultMap="user">
+		select user_id, user_pwd, user_name, email_id, email_domain, mobile, salt, join_date, position
+		from users
+		where user_id = #{userId}
+	</select>
+	
+	<update id="updateUser" parameterType="user">
+		update members
+		<trim prefix="set" suffixOverrides=",">
+			<if test="userPwd != null">user_password = #{userPwd},</if>
+			<if test="emailId != null">email_id = #{emailId},</if>
+			<if test="emailDomain != null">email_domain = #{emailDomain},</if>
+		</trim>
+		where user_id = #{userId}
+	</update>
+	
+	<delete id="deleteMember" parameterType="String">
+		delete from members
+		where user_id = #{userId}
+	</delete>
+	
+</mapper>
