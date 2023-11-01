@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"com.ssafy"})
+@ComponentScan(basePackages = {"com.ssafy"})
 public class TraveenBackendApplication {
 
 	public static void main(String[] args) {

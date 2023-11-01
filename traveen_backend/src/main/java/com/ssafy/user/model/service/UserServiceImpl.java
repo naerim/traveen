@@ -10,7 +10,6 @@ import com.ssafy.user.model.mapper.UserMapper;
 @Service
 public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
-
 	public UserServiceImpl(UserMapper userMapper) {
 		super();
 		this.userMapper = userMapper;

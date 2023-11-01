@@ -1,15 +1,25 @@
 package com.ssafy.user.model;
 
 public class User {
+	/* 고유번호 */
 	private int idx;
+	/* 아이디 */
 	private String userId;
+	/* 비밀번호 */
 	private String userPwd;
+	/* 이름 */
 	private String userName;
+	/* 이메일 아이디 */
 	private String emailId;
+	/* 이메일 도메인 */
 	private String emailDomain;
+	/* 휴대전화 번호 */
 	private String mobile;
+	/* 해당 아이디의 고유한 salt */
 	private String salt;
+	/* 가입일 */
 	private String joinDate;
+	/* 등급 */
 	private String position;
 	
 	public int getIdx() {
