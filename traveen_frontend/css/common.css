@@ -6,6 +6,11 @@
   scroll-behavior: smooth;
 }
 
+a {
+    text-decoration: none;
+    color: #000;
+}
+
 header {
   z-index: 100;
   position: fixed;

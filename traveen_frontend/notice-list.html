@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Traveen</title>
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/notice.css" />
+    <link rel="stylesheet" href="./css/notice-list.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <!-- header -->
+    <header>
+      <div class="header-container">
+        <div class="header-left">
+          <div id="logo"><a href="/">Traveen</a></div>
+          <div id="menulist">
+            <a href="#">여행지</a>
+            <a href="#">애프터 트래빈</a>
+            <a href="./notice-list.html">공지사항</a>
+          </div>
+        </div>
+        <button>로그인</button>
+      </div>
+      <i
+        class="fa-solid fa-bars fa-2x"
+        style="color: #454545"
+        id="hamburger"
+      ></i>
+    </header>
+
+    <!-- section -->
+    <section>
+      <h2 class='title'>공지사항</h2>
+      <h4 class='subtitle'>Traveen의 공지사항을 확인해보세요.</h4>
+        <!-- top-box -->
+        <div class="top-box">
+          <div class="left">총 4건</div>
+          <div class="right">
+            <select name="select-notice" id="select-notice">
+              <option value="">전체</option>
+              <option value="subject">제목</option>
+            </select>
+            <input type="text" name='keyword' id='keyword' placeholder='검색어를 입력해주세요.'>
+            <button id='btn-search'>검색</button>
+            <button id='btm-insert'>글 등록</button>
+          </div>
+      </div>
+      <div class="table-container">
+        <!-- table -->
+        <table>
+            <!-- thead -->
+            <thead>
+                <tr>
+                    <th width='8%'>NO.</th>
+                    <th width='67%'>제목</th>
+                    <th width='15%'>게시일</th>
+                    <th width='10%'>조회수</th>
+                </tr>
+            </thead>
+            <!-- tbody -->
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td class='subject'>트래빈 전체 공지사항 입니다.</td>
+                    <td>2023.11.01</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td class='subject'><a href='#'>트래빈 전체 공지사항 입니다.</a></td>
+                    <td>2023.11.01</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td class='subject'>트래빈 전체 공지사항 입니다.</td>
+                    <td>2023.11.01</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td class='subject'>트래빈 전체 공지사항 입니다.</td>
+                    <td>2023.11.01</td>
+                    <td>2</td>
+                </tr> 
+  
+            </tbody>
+        </table>
+      </div>
+      <!-- pagination -->
+      <div class="pagination-container">
+        <div class="btn-prev">
+          &#60;이전
+        </div>
+        <span class="divider"></span>
+        <ul>
+          <li>1</li>
+          <li>2</li>
+        </ul>
+        <span class="divider"></span>
+        <div class="btn-next">다음&#62;</div>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer>
+      <div class="footer-container">
+        <div>
+          <img src="./img/ssafy_logo.png" alt="" />
+        </div>
+        <div id="footer-right">
+          <p>이용약관 | 개인정보방침</p>
+          <div>
+            본 사이트의 콘텐츠는 저작권법의 보호를 받는 바 무단 전재, 복사, 배포
+            등을 금합니다.
+          </div>
+          <div>Copyright © SAMSUNG All Rights Reserved.</div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
