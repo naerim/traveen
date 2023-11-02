@@ -45,15 +45,15 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public String login(@RequestParam Map<String, String> map, @RequestParam(name = "saveId", required = false) String saveid, Model model, HttpSession session, HttpServletResponse response) {
+	public String login(@RequestParam Map<String, String> map, @RequestParam(name = "saveId", required = false) String saveId, Model model, HttpSession session, HttpServletResponse response) {
 		logger.debug("login map : {}", map);
 		try {
 			User user = userService.login(map);
 			if(user != null) {
 				session.setAttribute("userinfo", user);
 				
-				Cookie cookie = new Cookie("user", map.get("userId"));
-				if("ok".equals(saveid)) {
+				Cookie cookie = new Cookie("user_id", map.get("userId"));
+				if("ok".equals(saveId)) {
 					cookie.setMaxAge(60*60*24*365*40);
 				} else {
 					cookie.setMaxAge(0);

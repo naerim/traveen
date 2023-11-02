@@ -14,6 +14,8 @@
 <body>
 	<!-- header -->
 	<%@ include file="../include/header.jsp"%>
+	<c:set var="idck" value="checked"/>
+	<c:set var="saveId" value="${cookie.user_id.value}"/>
 	<section>
 		<div class="auth-top">
 			<h2>로그인</h2>
@@ -21,7 +23,7 @@
 		<form class="input-box" id="form-login" method="post" action="#">
 			<div class="input-box-one">
 				<label for="userId">아이디</label> <input type="text" id="userId"
-					name="userId" placeholder="아이디를 입력해주세요." autofocus />
+					name="userId" placeholder="아이디를 입력해주세요." value="${saveId}" autofocus />
 			</div>
 			<div class="input-box-one">
 				<label for="userPwd">비밀번호</label> <input type="password"
@@ -29,7 +31,7 @@
 			</div>
 			<div class="input-mid-box">
 				<div class="checkbox-box">
-					<label> <input type="checkbox" /> 아이디 기억하기
+					<label> <input type="checkbox" name="saveId" ${idck}/> 아이디 기억하기
 					</label>
 				</div>
 				<a href="${root}/user/join">회원가입</a>
@@ -52,10 +54,10 @@
 <script>
 	document.querySelector("#btn-login").addEventListener("click", function() {
 		if (!document.querySelector("#userId").value) {
-			alert("아이디 입력!!");
+			alert("아이디를 입력해주세요.");
 			return;
 		} else if (!document.querySelector("#userPwd").value) {
-			alert("비밀번호 입력!!");
+			alert("비밀번호를 입력해주세요.");
 			return;
 		} else {
 			let form = document.querySelector("#form-login");
