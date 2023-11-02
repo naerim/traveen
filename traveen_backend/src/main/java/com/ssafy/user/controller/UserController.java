@@ -3,6 +3,7 @@ package com.ssafy.user.controller;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -30,30 +31,41 @@ public class UserController {
 		super();
 		this.userService = userService;
 	}
-	
-	@GetMapping("/{userId}")
+
+	@PostMapping("/{userId}")
 //	@ResponseBody
 	public String idCheck(@PathVariable("userId") String userId) throws Exception {
 		logger.debug("idCheck userid : {}", userId);
 		int cnt = userService.idCheck(userId);
-		return cnt + "";
+
+		if (cnt != 0) {
+			System.out.println("존재하는 아이디입니다.");
+			return "/user/join";
+		} else {
+			System.out.println("우~성공");
+			return "/user/join";
+		}
 	}
-	
+
 	@GetMapping("/login")
 	public String login() {
 		return "user/login";
 	}
-	
+
 	@PostMapping("/login")
-	public String login(@RequestParam Map<String, String> map, @RequestParam(name = "saveId", required = false) String saveId, Model model, HttpSession session, HttpServletResponse response) {
+	public String login(@RequestParam Map<String, String> map,
+			@RequestParam(name = "idSave", required = false) String idSave, Model model, HttpSession session,
+			HttpServletResponse response, HttpServletRequest req) {
 		logger.debug("login map : {}", map);
 		try {
 			User user = userService.login(map);
-			if(user != null) {
+			if (user != null) {
 				session.setAttribute("userinfo", user);
-				
-				Cookie cookie = new Cookie("user_id", map.get("userId"));
-				if("ok".equals(saveId)) {
+								
+				Cookie cookie = new Cookie("login_id", map.get("userId"));
+				cookie.setPath("/user");
+				System.out.println(idSave);
+				if("on".equals(idSave)) {
 					cookie.setMaxAge(60*60*24*365*40);
 				} else {
 					cookie.setMaxAge(0);
@@ -66,31 +78,31 @@ public class UserController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("msg", "로그인 중 문제 발생!!!");
-			return "error/error";
+			model.addAttribute("msg", "로그인 중 문제가 발생했습니다.");
+			return "error/500";
 		}
 	}
-	
+
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
 	}
-	
+
 	@GetMapping("/join")
 	public String join() {
 		return "user/join";
 	}
-	
+
 	@PostMapping("/join")
-	public String join(@RequestParam Map<String, String> map, Model model) {
+	public String join(@RequestParam Map<String, String> map, Model model) throws Exception {
 		try {
 			userService.join(map);
-			return "redirect:/user/login";
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("msg", "회원 가입 중 문제 발생!!!");
-			return "error/error";
+			model.addAttribute("msg", "회원가입 중 문제가 발생했습니다.");
+			return "error/500";
 		}
+		return "redirect:/";
 	}
 }

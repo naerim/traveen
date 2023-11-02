@@ -12,4 +12,5 @@ public interface UserMapper {
 	int idCheck(String userId) throws SQLException;
 	User login(Map<String, String> map) throws SQLException;
 	void join(Map<String, String> map) throws SQLException;
+	User getUser(String userId) throws SQLException;
 }

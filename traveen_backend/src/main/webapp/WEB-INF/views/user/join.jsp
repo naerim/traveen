@@ -28,7 +28,7 @@
             id="userId"
             name="userId"
           />
-          <button disabled id="btn-check-id">중복 확인</button>
+          <button id="btn-check-id">중복 확인</button>
         </div>
         <div class="input-title">이름</div>
         <input
@@ -69,6 +69,7 @@
         />
         <div class="input-title">비밀번호</div>
         <input
+          type="password"
           class="input-default"
           placeholder="비밀번호를 입력해주세요."
           id="userPwd"
@@ -76,6 +77,7 @@
         />
         <div class="input-title">비밀번호 확인</div>
         <input
+          type="password"
           class="input-default"
           placeholder="비밀번호를 확인해주세요."
           id="pwdCheck"
@@ -117,6 +119,17 @@
 		} else {
 			let form = document.querySelector("#form-join");
 			form.setAttribute("action", "${root}/user/join");
+			form.submit();
+		}
+	});
+	
+	document.querySelector("#btn-check-id").addEventListener("click", function() {
+		if (!document.querySelector("#userId").value) {
+			alert("아이디를 입력해주세요.");
+			return;
+		} else {
+			let form = document.querySelector("#form-join");
+			form.setAttribute("action", "${root}/user/${userId}");
 			form.submit();
 		}
 	});
