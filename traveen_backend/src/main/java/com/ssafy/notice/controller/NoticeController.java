@@ -66,9 +66,9 @@ public class NoticeController {
 	@GetMapping("/regist")
 	public String regist(@RequestParam Map<String, String> map, Model model) {
 		logger.debug("write call parameter {}", map);
-		model.addAttribute("pgno", map.get("pgno"));
-		model.addAttribute("key", map.get("key"));
-		model.addAttribute("word", map.get("word"));
+//		model.addAttribute("pgno", map.get("pgno"));
+//		model.addAttribute("key", map.get("key"));
+//		model.addAttribute("word", map.get("word"));
 		return "notice/regist";
 	}
 	
