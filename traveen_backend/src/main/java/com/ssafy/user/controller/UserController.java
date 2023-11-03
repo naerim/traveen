@@ -63,7 +63,7 @@ public class UserController {
 	@PostMapping("/login")
 	public String login(@RequestParam Map<String, String> map,
 			@RequestParam(name = "idSave", required = false) String idSave, Model model, HttpSession session,
-			HttpServletResponse response, HttpServletRequest req) {
+			HttpServletResponse response) {
 		logger.debug("login map : {}", map);
 		try {
 			User user = userService.login(map);
@@ -122,11 +122,23 @@ public class UserController {
 	}
 
 	@PostMapping("/myinfo")
-	public String myinfo(@RequestParam Map<String, String> map, RedirectAttributes rttr, HttpSession session) throws Exception {
+	public String myinfo(@RequestParam Map<String, String> map, HttpSession session) throws Exception {
 		logger.debug("myinfo map : {}");
 		userService.updateUser(map);
 		User user = userService.getUser(map.get("userId"));
 		session.setAttribute("userinfo", user);
+		return "redirect:/user/myinfo";
+	}
+
+	@PostMapping("/myinfo/pwd")
+	public String mypwd(@RequestParam Map<String, String> map, HttpSession session, RedirectAttributes rttr) throws Exception {
+		int cnt = userService.pwdCheck(map);
+		System.out.println(cnt);
+		if(cnt==1) { // 비밀번호가 일치할 때
+			rttr.addFlashAttribute("msg", "비밀번호가 변경되었습니다.");
+		} else { // 비밀번호가 일치하지 않을때
+			rttr.addFlashAttribute("msg", "비밀번호가 일치하지 않습니다.");
+		}
 		return "redirect:/user/myinfo";
 	}
 }

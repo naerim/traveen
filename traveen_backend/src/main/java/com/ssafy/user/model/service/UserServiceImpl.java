@@ -59,4 +59,14 @@ public class UserServiceImpl implements UserService {
 	public void updateUser(Map<String, String> map) throws Exception {
 		userMapper.updateUser(map);
 	}
+
+	@Override
+	public void updatePwd(Map<String, String> map) throws Exception {
+		userMapper.updatePwd(map);
+	}
+
+	@Override
+	public int pwdCheck(Map<String, String> map) throws Exception {
+		return userMapper.pwdCheck(map);
+	}
 }

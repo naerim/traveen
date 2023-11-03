@@ -53,6 +53,22 @@
 		</trim>
 		where user_id = #{userId}
 	</update>
+
+	<!-- 비밀번호 체크 -->
+	<select id="pwdCheck" parameterType="map" resultType="int">
+		select count(user_id)
+		from users
+		where user_id = #{userId} and user_pwd = #{userPwd}
+	</select>
+
+	<!-- 비밀번호 수정 -->
+	<update id="updatePwd" parameterType="map">
+		update users
+		<trim prefix="set" suffixOverrides=",">
+			<if test="newPwd != null">user_pwd = #{newPwd},</if>
+		</trim>
+		where user_id = #{userId}
+	</update>
 	
 	<!-- 회원탈퇴 -->
 	<delete id="deleteMember" parameterType="String">

@@ -83,13 +83,14 @@
           <button id='btn-modify-pwd'>변경하기</button>
         </div>
         <div class="pwd-container">
-          <form action="">
+          <form action="" id="form-modify-pwd" method="post">
+            <input type="hidden" id='p-userId' name='userId' value='${user.userId}'>
             <div class="input-title">현재 비밀번호</div>
-            <input type="password" id='cPwd' name='cPwd' value=''>
+            <input type="password" id='userPwd' name='userPwd' value=''>
             <div class="pwd-bottom-box">
               <div class="left">
                 <div class="input-title">바꿀 비밀번호</div>
-                <input type="password" id='userPwd' name='userPwd' value=''>
+                <input type="password" id='newPwd' name='newPwd' value=''>
               </div>
               <div class="right">
                 <div class="input-title">비밀번호 확인</div>
@@ -114,7 +115,7 @@
       }
     }
 
-    // 수정하기
+    // 회원정보 수정하기
     document.querySelector("#btn-modify-myinfo").addEventListener("click", function() {
       if (!document.querySelector("#userName").value) {
         alert("이름을 입력해주세요.");;
@@ -132,6 +133,25 @@
       else {
         let form = document.querySelector("#form-modify-myinfo");
         form.setAttribute("action", "${root}/user/myinfo");
+        form.submit();
+      }
+    })
+
+    // 비밀번호 수정하기
+    document.querySelector("#btn-modify-pwd").addEventListener("click", function() {
+      if (!document.querySelector("#userPwd").value) {
+        alert("비밀번호를 입력해주세요.");;
+        return;
+      } else if (!document.querySelector("#newPwd").value) {
+        alert("변경할 비밀번호를 입력해주세요.");
+        return;
+      } else if (!document.querySelector("#pwdChk").value) {
+        alert("비밀번호를 확인해주세요.");
+        return;
+      }
+      else {
+        let form = document.querySelector("#form-modify-pwd");
+        form.setAttribute("action", "${root}/user/myinfo/pwd");
         form.submit();
       }
     })
