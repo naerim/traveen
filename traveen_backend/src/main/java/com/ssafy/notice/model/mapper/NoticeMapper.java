@@ -16,6 +16,7 @@ public interface NoticeMapper {
 	void deleteNotice(int idx) throws SQLException;
 	Notice viewNotice(int idx) throws SQLException;
 
+	Notice getNotice(int idx) throws SQLException;
 	int getTotalNoticeCount(Map<String, String> map) throws SQLException;
 	void updateHit(int idx) throws SQLException;
 }

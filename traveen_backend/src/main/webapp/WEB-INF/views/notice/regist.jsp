@@ -32,7 +32,7 @@
             type="text"
             placeholder="제목을 입력해주세요."
             id="input-subject"
-            name="subject"
+            name="title"
           />
           <div class="input-title">내용</div>
           <textarea

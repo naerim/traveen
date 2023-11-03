@@ -84,4 +84,9 @@ public class NoticeServiceImpl implements NoticeService {
 	public void updateHit(int idx) throws Exception {
 		noticeMapper.updateHit(idx);
 	}
+
+	@Override
+	public Notice getNotice(int idx) throws Exception {
+		return noticeMapper.getNotice(idx);
+	}
 }

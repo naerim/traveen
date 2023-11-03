@@ -14,6 +14,7 @@ public interface NoticeService {
 	Notice viewNotice(int idx) throws Exception;
 
 	PageNavigation makePageNavigation(Map<String, String> map) throws Exception;
+	Notice getNotice(int idx) throws Exception;
 	int getTotalNoticeCount(Map<String, String> map) throws Exception;
 	void updateHit(int idx) throws Exception;
 }

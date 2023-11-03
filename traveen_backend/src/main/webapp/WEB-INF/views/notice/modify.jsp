@@ -32,8 +32,8 @@
             type="text"
             placeholder="제목을 입력해주세요."
             id="input-subject"
-            name="subject"
-            value="트래빈 전체 공지사항 입니다."
+            name="title"
+            value="${notice.title}"
           />
           <div class="input-title">내용</div>
           <textarea
@@ -43,7 +43,7 @@
             rows="10"
             placeholder="내용을 입력해주세요."
           >
-공지사항 내용</textarea
+${notice.content}</textarea
           >
           <div class="line-notice"></div>
           <div class="notice-two-btn-box">
@@ -56,6 +56,22 @@
         <button id="btn-notice-list">목록</button>
       </div>
     </section>
+    
+    <script>
+    document.querySelector("#btn-modify-notice").addEventListener("click", function() {
+        if (!document.querySelector("#input-subject").value) {
+          alert("제목을 입력해주세요.");
+          return;
+        } else if (!document.querySelector("#content").value) {
+          alert("내용을 입력해주세요.");
+          return;
+        } else {
+          let form = document.querySelector("#form-modify-notice");
+          form.setAttribute("action", "${root}/notice/modify");
+          form.submit();
+        }
+      })
+    </script>
 
     <!-- footer -->
     <%@ include file="../include/footer.jsp"%>

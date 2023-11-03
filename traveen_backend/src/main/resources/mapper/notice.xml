@@ -42,10 +42,17 @@
 	</update>
 	
 	<!-- 공지사항 등록 -->
-	<insert id="registNotice" parameterType="notice">
+	<insert id="registNotice" parameterType="map">
 		insert into notice(user_idx, title, content, create_date, view_count)
 		values(#{userIdx}, #{title}, #{content}, now(), 0)
 	</insert>
+	
+	<!-- 공지사항 수정 -->
+	<update id="modifyNotice" parameterType="map">
+		update notice
+		set title = #{title}, content = #{content}
+		where idx = #{idx}
+	</update>
 	
 	<!-- 공지사항 삭제 -->
 	<delete id="deleteNotice" parameterType="int">
@@ -53,4 +60,16 @@
 		where idx = #{idx}
 	</delete>
 	
+	<!-- idx로 공지사항 찾기 -->
+	<select id="getNotice" parameterType="int" resultMap="notice">
+		select n.idx, u.idx, n.title, n.content, n.create_date, n.view_count
+		from notice n, users u
+		where n.idx = #{idx} and n.user_idx = u.idx
+	</select>
+	
+	<!-- 총 공지사항 수 -->
+	<select id="getTotalNoticeCount" parameterType="int" resultType="int">
+		select count(*)
+		from notice
+	</select>
 </mapper>

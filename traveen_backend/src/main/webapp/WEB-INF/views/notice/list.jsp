@@ -28,7 +28,7 @@
 		<h4 class="subtitle">Traveen의 공지사항을 확인해보세요.</h4>
 		<!-- top-box -->
 		<div class="top-box">
-			<div class="left">총 4건</div>
+			<div class="left">총 ${totalCnt}건</div>
 			<form class="right" id="form-search" action="#" method="post">
 				<input type="hidden" name="pgno" value="1" /> <select
 					name="select-notice" id="select-notice">
@@ -115,6 +115,7 @@
 // 				});
 <!-- 	</script> -->
 	<!-- footer -->
+	
 	<%@ include file="../include/footer.jsp"%>
 </body>
 

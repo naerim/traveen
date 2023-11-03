@@ -38,8 +38,10 @@ public class NoticeController {
 		logger.debug("list parameter pgno : {}", map.get("pgno"));
 		ModelAndView mav = new ModelAndView();
 		List<Notice> list = noticeService.listNotice(map);
+		int totalCnt = noticeService.getTotalNoticeCount(map);
 //		PageNavigation pageNavigation = noticeService.makePageNavigation(map);
 		mav.addObject("notices", list);
+		mav.addObject("totalCnt", totalCnt);
 //		mav.addObject("navigation", pageNavigation);
 		
 //		mav.addObject("pgno", map.get("pgno"));
@@ -78,7 +80,7 @@ public class NoticeController {
 		logger.debug("write notice : {}", map);
 		User user = (User) session.getAttribute("userinfo");
 		System.out.println(user);
-//		map.put("userIdx", user.getIdx());
+		map.put("userIdx", user.getIdx() + "");
 
 		noticeService.registNotice(map);
 //		redirectAttributes.addAttribute("pgno", "1");
@@ -87,29 +89,30 @@ public class NoticeController {
 		return "redirect:/notice/list";
 	}
 	
-//	@GetMapping("/modify")
-//	public String modify(@RequestParam("idx") int idx, @RequestParam Map<String, String> map, Model model)
-//			throws Exception {
-//		logger.debug("modify idx : {}", idx);
-//		Notice notice = noticeService.get
-//		BoardDto boardDto = boardService.getArticle(articleNo);
-//		model.addAttribute("article", boardDto);
+	@GetMapping("/modify")
+	public String modify(@RequestParam("idx") int idx, @RequestParam Map<String, String> map, Model model)
+			throws Exception {
+		logger.debug("modify idx : {}", idx);
+		Notice notice = noticeService.getNotice(idx);
+		model.addAttribute("notice", notice);
 //		model.addAttribute("pgno", map.get("pgno"));
 //		model.addAttribute("key", map.get("key"));
 //		model.addAttribute("word", map.get("word"));
-//		return "board/modify";
-//	}
-//
-//	@PostMapping("/modify")
-//	public String modify(BoardDto boardDto, @RequestParam Map<String, String> map,
-//			RedirectAttributes redirectAttributes) throws Exception {
-//		logger.debug("modify boardDto : {}", boardDto);
-//		boardService.modifyArticle(boardDto);
+		return "notice/modify";
+	}
+
+	@PostMapping("/modify")
+	public String modify(@RequestParam Map<String, String> map,
+			RedirectAttributes redirectAttributes) throws Exception {
+		logger.debug("modify map : {}", map);
+		System.out.println("Dfdfsd");
+		noticeService.modifyNotice(map);
+		System.out.println(map);
 //		redirectAttributes.addAttribute("pgno", map.get("pgno"));
 //		redirectAttributes.addAttribute("key", map.get("key"));
 //		redirectAttributes.addAttribute("word", map.get("word"));
-//		return "redirect:/article/list";
-//	}
+		return "redirect:/notice/list";
+	}
 	
 	@GetMapping("/delete")
 	public String delete(@RequestParam("idx") int idx, Model model)
@@ -117,6 +120,7 @@ public class NoticeController {
 		logger.debug("delete notice idx : {}", idx);
 		noticeService.deleteNotice(idx);
 		model.addAttribute("msg", "게시글 삭제가 완료됐습니다.");
-		return "notice/list";
+		return "redirect:/"
+				+ "notice/list";
 	}
 }
