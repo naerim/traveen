@@ -48,7 +48,7 @@
           <div class="line"></div>
           <!-- link-box -->
           <div class="link-box">
-            <a href="#">로그아웃</a>
+            <a href="${root}/user/logout">로그아웃</a>
             <a href="#">회원탈퇴</a>
           </div>
         </div>

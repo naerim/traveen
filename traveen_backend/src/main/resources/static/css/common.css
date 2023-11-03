@@ -40,7 +40,7 @@ header .header-container {
   border-radius: 16px;
   color: #fff;
   border: none;
-  width: 90px;
+  padding: 0 16px;
   height: 34px;
   cursor: pointer;
   font-size: 1em;
@@ -92,4 +92,53 @@ footer #footer-right {
 
 footer #footer-right p {
   margin-bottom: 20px;
+}
+
+/* pagination */
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-container ul {
+  display: flex;
+}
+
+.pagination-container li {
+  cursor: pointer;
+  margin-right: 20px;
+  background-color: #51cd89;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 30px;
+  color: #fff;
+}
+.pagination-container li:last-child {
+  margin-right: 0;
+  color: #000;
+  background-color: #fff;
+}
+.pagination-container li:hover {
+  background-color: #51cd89;
+  color: #fff;
+}
+
+.pagination-container .btn-prev {
+  color: #d3d3d3;
+  cursor: pointer;
+}
+
+.pagination-container .btn-next {
+  cursor: pointer;
+}
+
+.pagination-container .divider {
+  height: 20px;
+  width: 1px;
+  background-color: #d3d3d3;
+  margin: 0 20px;
 }
