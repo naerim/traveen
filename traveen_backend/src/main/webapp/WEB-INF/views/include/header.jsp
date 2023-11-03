@@ -10,7 +10,7 @@
 				<a href="/">Traveen</a>
 			</div>
 			<div id="menulist">
-				<a href="#">여행지</a> <a href="#">애프터 트래빈</a> <a href="${root}/notice/list">공지사항</a>
+				<a href="${root}/tripinfo/list">여행지</a> <a href="#">애프터 트래빈</a> <a href="${root}/notice/list">공지사항</a>
 			</div>
 		</div>
 		<div class="header-right">
