@@ -37,7 +37,7 @@
 				</select> <input type="text" name="keyword" id="keyword"
 					placeholder="검색어를 입력해주세요." /> <input type="submit" id="btn-search"
 					value="검색" />
-				<button type="button" id="btn-regist" onclick="location.href='${root}/notice/regist'">글 등록</button>
+				<button type="button" id="btn-regist" onclick="location.href='${root}/notice/regist'" style="<c:if test="${userinfo.position ne M}">display: none</c:if>">글 등록</button>
 		</div>
 		<div class="table-container">
 			<!-- table -->
@@ -113,7 +113,7 @@
 // 				function() {
 // 					window.location.href = "${root}/notice/regist";
 // 				});
-<!-- 	</script> -->
+	</script>
 	<!-- footer -->
 	
 	<%@ include file="../include/footer.jsp"%>

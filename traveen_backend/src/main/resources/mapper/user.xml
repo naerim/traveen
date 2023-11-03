@@ -32,7 +32,7 @@
 	<!-- 회원가입 -->
 	<insert id="join" parameterType="map">
 		insert into users (user_id, user_pwd, user_name, email_id, email_domain, mobile, salt, join_date, position)
-		values (#{userId}, #{userPwd}, #{userName}, #{emailId}, #{emailDomain}, #{mobile}, #{salt}, now(), #{position})
+		values (#{userId}, #{userPwd}, #{userName}, #{emailId}, #{emailDomain}, #{mobile}, #{salt}, now(), 'G')
 	</insert>
 	
 	<!-- 아이디로 정보 가져오기 -->

@@ -102,21 +102,22 @@ public class NoticeController {
 
 	@PostMapping("/modify")
 	public String modify(@RequestParam Map<String, String> map,
-			RedirectAttributes redirectAttributes) throws Exception {
+			RedirectAttributes rttr) throws Exception {
 		logger.debug("modify map : {}", map);
 		noticeService.modifyNotice(map);
 //		redirectAttributes.addAttribute("pgno", map.get("pgno"));
 //		redirectAttributes.addAttribute("key", map.get("key"));
 //		redirectAttributes.addAttribute("word", map.get("word"));
+		rttr.addFlashAttribute("msg", "게시글이 수정되었습니다.");
 		return "redirect:/notice/list";
 	}
 	
 	@GetMapping("/delete")
-	public String delete(@RequestParam("idx") int idx, Model model)
+	public String delete(@RequestParam("idx") int idx, Model model, RedirectAttributes rttr)
 			throws Exception {
 		logger.debug("delete notice idx : {}", idx);
 		noticeService.deleteNotice(idx);
-		model.addAttribute("msg", "게시글 삭제가 완료됐습니다.");
+		rttr.addFlashAttribute("msg", "게시글이 삭제되었습니다.");
 		return "redirect:/"
 				+ "notice/list";
 	}

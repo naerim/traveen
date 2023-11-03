@@ -37,7 +37,7 @@
 				<div class="content">${notice.content}</div>
 			</div>
 			<div class="line"></div>
-			<div class="btn-notice-admin-box">
+			<div class="btn-notice-admin-box" style="<c:if test="${userinfo.position ne M}">display: none</c:if>">
 				<button id="btn-modify">수정</button>
 				<button id="btn-delete">삭제</button>
 			</div>

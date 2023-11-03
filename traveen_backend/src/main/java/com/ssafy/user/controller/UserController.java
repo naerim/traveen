@@ -105,12 +105,13 @@ public class UserController {
 		logger.debug("join map : {}", map);
 		try {
 			userService.join(map);
+			model.addAttribute("msg", "회원가입이 완료되었습니다!");
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("msg", "회원가입 중 문제가 발생했습니다.");
 			return "error/500";
 		}
-		return "user/join";
+		return "user/login";
 	}
 	
 	@GetMapping("/myinfo")

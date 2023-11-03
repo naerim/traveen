@@ -25,6 +25,7 @@
 		from notice n
 		<include refid="search" />
 <!-- 		order by b.article_no desc limit #{start}, #{listsize} -->
+		order by create_date desc;
 	</select>
 	
 	<!-- 공지사항 조회 -->
