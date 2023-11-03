@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.notice.model.mapper.NoticeMapper">
+	<resultMap type="notice" id="notice">
+		<result column="user_idx" property="userIdx" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="create_date" property="createDate" />
+		<result column="view_count" property="viewCount" />
+	</resultMap>
+
+	<select id="listNotice" parameterType="map" resultMap="notice">
+		select title, create_date, view_count
+		from notice n
+	</select>
+
+</mapper>
