@@ -10,12 +10,12 @@ import com.ssafy.notice.model.Notice;
 
 @Mapper
 public interface NoticeMapper {
-	List<Notice> listNotice(Map<String, Object> map) throws SQLException;
-	void registNotice(Notice notice) throws SQLException;
-	void modifyArticle(Notice notice) throws SQLException;
-	void deleteArticle(int articleNo) throws SQLException;
+	List<Notice> listNotice(Map<String, String> map) throws SQLException;
+	void registNotice(Map<String, String> map) throws SQLException;
+	void modifyNotice(Map<String, String> map) throws SQLException;
+	void deleteNotice(int idx) throws SQLException;
+	Notice viewNotice(int idx) throws SQLException;
 
-	int getTotalNoticeCount(Map<String, Object> map) throws SQLException;
-	Notice getNotice(int idx) throws SQLException;
+	int getTotalNoticeCount(Map<String, String> map) throws SQLException;
 	void updateHit(int idx) throws SQLException;
 }

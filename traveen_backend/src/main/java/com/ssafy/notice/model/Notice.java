@@ -2,9 +2,9 @@ package com.ssafy.notice.model;
 
 public class Notice {
 	/* 고유번호 */
-	private String idx;
+	private int idx;
 	/* user 고유번호 */
-	private String user_idx;
+	private String userIdx;
 	/* 제목 */
 	private String title;
 	/* 내용 */
@@ -13,17 +13,17 @@ public class Notice {
 	private String createDate;
 	/* 조회수 */
 	private String viewCount;
-	public String getIdx() {
+	public int getIdx() {
 		return idx;
 	}
-	public void setIdx(String idx) {
+	public void setIdx(int idx) {
 		this.idx = idx;
 	}
-	public String getUser_idx() {
-		return user_idx;
+	public String getUserIdx() {
+		return userIdx;
 	}
-	public void setUser_idx(String user_idx) {
-		this.user_idx = user_idx;
+	public void setUserIdx(String userIdx) {
+		this.userIdx = userIdx;
 	}
 	public String getTitle() {
 		return title;
@@ -51,7 +51,7 @@ public class Notice {
 	}
 	@Override
 	public String toString() {
-		return "Notice [idx=" + idx + ", user_idx=" + user_idx + ", title=" + title + ", content=" + content
+		return "Notice [idx=" + idx + ", user_idx=" + userIdx + ", title=" + title + ", content=" + content
 				+ ", createDate=" + createDate + ", viewCount=" + viewCount + "]";
 	}
 }

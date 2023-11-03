@@ -11,9 +11,46 @@
 		<result column="view_count" property="viewCount" />
 	</resultMap>
 
+	<!-- 검색 -->
+	<sql id="search">
+		<if test="word != null and word != ''">
+			<if test="key == 'title'">and title like concat('%', #{word}, '%') </if>
+			<if test="key != 'title'">and ${key} = #{word} </if>
+		</if>
+	</sql>
+
+	<!-- 공지사항 목록 -->
 	<select id="listNotice" parameterType="map" resultMap="notice">
-		select title, create_date, view_count
+		select idx, title, create_date, view_count
 		from notice n
+		<include refid="search" />
+<!-- 		order by b.article_no desc limit #{start}, #{listsize} -->
+	</select>
+	
+	<!-- 공지사항 조회 -->
+	<select id="viewNotice" parameterType="int" resultMap="notice">
+		select n.idx, u.idx, n.title, n.content, n.create_date, n.view_count
+		from notice n, users u
+		where n.idx = #{idx} and n.user_idx = u.idx
 	</select>
 
+	<!-- 조회수 카운트 -->
+	<update id="updateHit" parameterType="int">
+		update notice
+		set view_count = view_count + 1
+		where idx = #{idx}
+	</update>
+	
+	<!-- 공지사항 등록 -->
+	<insert id="registNotice" parameterType="notice">
+		insert into notice(user_idx, title, content, create_date, view_count)
+		values(#{userIdx}, #{title}, #{content}, now(), 0)
+	</insert>
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteNotice" parameterType="int">
+		delete from notice
+		where idx = #{idx}
+	</delete>
+	
 </mapper>
