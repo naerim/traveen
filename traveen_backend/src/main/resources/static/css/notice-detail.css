@@ -33,7 +33,8 @@
 }
 
 .content {
-  white-space: wrap;
+  display: flex;
+  white-space: pre-wrap;
 }
 
 .btn-notice-admin-box {

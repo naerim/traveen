@@ -79,7 +79,6 @@ public class NoticeController {
 			RedirectAttributes redirectAttributes) throws Exception {
 		logger.debug("write notice : {}", map);
 		User user = (User) session.getAttribute("userinfo");
-		System.out.println(user);
 		map.put("userIdx", user.getIdx() + "");
 
 		noticeService.registNotice(map);
@@ -105,9 +104,7 @@ public class NoticeController {
 	public String modify(@RequestParam Map<String, String> map,
 			RedirectAttributes redirectAttributes) throws Exception {
 		logger.debug("modify map : {}", map);
-		System.out.println("Dfdfsd");
 		noticeService.modifyNotice(map);
-		System.out.println(map);
 //		redirectAttributes.addAttribute("pgno", map.get("pgno"));
 //		redirectAttributes.addAttribute("key", map.get("key"));
 //		redirectAttributes.addAttribute("word", map.get("word"));

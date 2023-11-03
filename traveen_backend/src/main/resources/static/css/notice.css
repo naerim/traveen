@@ -69,7 +69,7 @@ textarea {
   border-radius: 6px;
   height: 440px;
   box-sizing: border-box;
-  white-space: pre-line;
+  white-space: pre-wrap;
 }
 
 .line-notice {

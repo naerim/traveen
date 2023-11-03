@@ -28,7 +28,7 @@
 			<div class="top-box">
 				<div class="left">${notice.title}</div>
 				<div class="right">
-					<div class="date">${fn:substring(notice.title, 0, 10)}</div>
+					<div class="date">${fn:substring(notice.createDate, 0, 10)}</div>
 					<div class="hit">조회수 ${notice.viewCount}</div>
 				</div>
 			</div>
@@ -52,13 +52,13 @@
 </body>
 <script>
 	document.querySelector("#btn-delete").addEventListener("click", function() {
-		window.location.href = "${root}/notice/delete?idx=${notice.idx}";
+		location.href = "${root}/notice/delete?idx=${notice.idx}";
 	});
 	document.querySelector("#btn-modify").addEventListener("click", function() {
-		window.location.href = "${root}/notice/modify?idx=${notice.idx}";
+		location.href = "${root}/notice/modify?idx=${notice.idx}";
 	});
 	document.querySelector("#btn-notice-list").addEventListener("click", function() {
-		window.location.href = "${root}/notice/list";
+		location.href = "${root}/notice/list";
 	});
 </script>
 </html>

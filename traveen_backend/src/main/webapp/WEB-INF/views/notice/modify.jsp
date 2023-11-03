@@ -27,6 +27,7 @@
       <h4 class="subtitle">Traveen의 공지사항을 수정해보세요.</h4>
       <div class="table-container">
         <form id="form-modify-notice" action="#" method="post">
+            <input type="hidden" name="idx" id="idx" value="${notice.idx}">
           <div class="input-title">제목</div>
           <input
             type="text"
