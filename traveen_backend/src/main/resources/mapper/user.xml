@@ -24,7 +24,7 @@
 
 	<!-- 로그인 -->
 	<select id="login" parameterType="map" resultMap="user">
-		select user_id, user_pwd, user_name
+		select user_id, user_pwd, user_name, idx
 		from users
 		where user_id = #{userId} and user_pwd = #{userPwd}
 	</select>
