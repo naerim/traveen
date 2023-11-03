@@ -105,4 +105,9 @@ public class UserController {
 		}
 		return "redirect:/";
 	}
+	
+	@GetMapping("/myinfo")
+	public String myinfo(HttpSession session) {
+		return "mypage/myinfo";
+	}
 }
