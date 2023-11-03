@@ -1,6 +1,6 @@
 .container {
   width: 80%;
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -16,9 +16,9 @@
 }
 
 aside {
-  height: 800px;
-  width: 28%;
-  min-width: 300px;
+  height: 780px;
+  width: 22%;
+  min-width: 220px;
   border-radius: 12px;
   background: #f9fbfc;
   box-shadow: 0px 16px 40px 0px rgba(112, 144, 176, 0.25);
@@ -41,9 +41,8 @@ aside {
   border-radius: 50%;
   background-color: #f2f4f6;
   border: 1px solid #fff;
-  width: 160px;
-  height: 160px;
-  margin-top: 20px;
+  width: 140px;
+  height: 140px;
 }
 
 .btn-select-profile {
@@ -51,17 +50,17 @@ aside {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  right: 65px;
-  top: 125px;
+  right: 20px;
+  top: 100px;
   background-color: #8b95a1;
 }
 
 .btn-select-profile img {
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
 }
 
 #user_name {
@@ -85,7 +84,8 @@ aside {
 }
 
 .menu li {
-  font-size: 1em;
+  font-size: 0.9em;
+  font-weight: 500;
   margin-bottom: 30px;
   cursor: pointer;
 }
@@ -93,11 +93,13 @@ aside {
 .menu li:hover {
   color: #51cd89;
   text-decoration: underline;
+  text-underline-offset: 10px;
 }
 
 .menu li:first-child {
   color: #51cd89;
   text-decoration: underline;
+  text-underline-offset: 10px;
 }
 
 .line {
