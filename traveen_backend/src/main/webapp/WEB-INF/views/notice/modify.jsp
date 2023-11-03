@@ -23,16 +23,17 @@
 
     <!-- section -->
     <section>
-      <h2 class="title">공지사항 등록</h2>
-      <h4 class="subtitle">Traveen의 공지사항을 등록해보세요.</h4>
+      <h2 class="title">공지사항 수정</h2>
+      <h4 class="subtitle">Traveen의 공지사항을 수정해보세요.</h4>
       <div class="table-container">
-        <form id="form-regist-notice" action="#" method="post">
+        <form id="form-modify-notice" action="#" method="post">
           <div class="input-title">제목</div>
           <input
             type="text"
             placeholder="제목을 입력해주세요."
             id="input-subject"
             name="subject"
+            value="트래빈 전체 공지사항 입니다."
           />
           <div class="input-title">내용</div>
           <textarea
@@ -41,11 +42,13 @@
             cols="30"
             rows="10"
             placeholder="내용을 입력해주세요."
-          ></textarea>
+          >
+공지사항 내용</textarea
+          >
           <div class="line-notice"></div>
           <div class="notice-two-btn-box">
             <input type="reset" value="초기화" id="btn-reset" />
-            <input type="submit" value="등록" id="btn-regist-notice" />
+            <input type="submit" value="수정" id="btn-modify-notice" />
           </div>
         </form>
       </div>
@@ -53,14 +56,6 @@
         <button id="btn-notice-list">목록</button>
       </div>
     </section>
-    
-    <script>
-    document.querySelector("#btn-regist-notice").addEventListener("click", function () {
-  	  let form = document.querySelector("#form-regist-notice");
-        form.setAttribute("action", "${root}/notice/regist");
-        form.submit();
-    });
-    </script>
 
     <!-- footer -->
     <%@ include file="../include/footer.jsp"%>

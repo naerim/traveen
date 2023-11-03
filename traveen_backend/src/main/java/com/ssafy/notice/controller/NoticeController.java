@@ -77,7 +77,8 @@ public class NoticeController {
 			RedirectAttributes redirectAttributes) throws Exception {
 		logger.debug("write notice : {}", map);
 		User user = (User) session.getAttribute("userinfo");
-		map.put("userIdx", user.getUserId());
+		System.out.println(user);
+//		map.put("userIdx", user.getIdx());
 
 		noticeService.registNotice(map);
 //		redirectAttributes.addAttribute("pgno", "1");
@@ -85,6 +86,30 @@ public class NoticeController {
 //		redirectAttributes.addAttribute("word", "");
 		return "redirect:/notice/list";
 	}
+	
+//	@GetMapping("/modify")
+//	public String modify(@RequestParam("idx") int idx, @RequestParam Map<String, String> map, Model model)
+//			throws Exception {
+//		logger.debug("modify idx : {}", idx);
+//		Notice notice = noticeService.get
+//		BoardDto boardDto = boardService.getArticle(articleNo);
+//		model.addAttribute("article", boardDto);
+//		model.addAttribute("pgno", map.get("pgno"));
+//		model.addAttribute("key", map.get("key"));
+//		model.addAttribute("word", map.get("word"));
+//		return "board/modify";
+//	}
+//
+//	@PostMapping("/modify")
+//	public String modify(BoardDto boardDto, @RequestParam Map<String, String> map,
+//			RedirectAttributes redirectAttributes) throws Exception {
+//		logger.debug("modify boardDto : {}", boardDto);
+//		boardService.modifyArticle(boardDto);
+//		redirectAttributes.addAttribute("pgno", map.get("pgno"));
+//		redirectAttributes.addAttribute("key", map.get("key"));
+//		redirectAttributes.addAttribute("word", map.get("word"));
+//		return "redirect:/article/list";
+//	}
 	
 	@GetMapping("/delete")
 	public String delete(@RequestParam("idx") int idx, Model model)
