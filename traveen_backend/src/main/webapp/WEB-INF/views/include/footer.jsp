@@ -4,7 +4,7 @@
 <footer>
 	<div class="footer-container">
 		<div>
-			<img src="./img/ssafy_logo.png" alt="" />
+			<img src="/img/ssafy_logo.png" alt="" />
 		</div>
 		<div id="footer-right">
 			<p>이용약관 | 개인정보방침</p>

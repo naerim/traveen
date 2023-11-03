@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ssafy.user.model.User;
 import com.ssafy.user.model.service.UserService;
@@ -32,18 +33,18 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@PostMapping("/{userId}")
-//	@ResponseBody
-	public String idCheck(@PathVariable("userId") String userId) throws Exception {
+	@GetMapping("/join/{userId}")
+	@ResponseBody
+	public void idCheck(@PathVariable("userId") String userId, Model model) throws Exception {
 		logger.debug("idCheck userid : {}", userId);
 		int cnt = userService.idCheck(userId);
-
+		System.out.println(cnt);
 		if (cnt != 0) {
-			System.out.println("존재하는 아이디입니다.");
-			return "/user/join";
+			model.addAttribute("checkId", 1);
+			System.out.println("우~실패");
 		} else {
+			model.addAttribute("checkId", 0);
 			System.out.println("우~성공");
-			return "/user/join";
 		}
 	}
 
@@ -61,10 +62,8 @@ public class UserController {
 			User user = userService.login(map);
 			if (user != null) {
 				session.setAttribute("userinfo", user);
-								
 				Cookie cookie = new Cookie("login_id", map.get("userId"));
 				cookie.setPath("/user");
-				System.out.println(idSave);
 				if("on".equals(idSave)) {
 					cookie.setMaxAge(60*60*24*365*40);
 				} else {
@@ -96,6 +95,7 @@ public class UserController {
 
 	@PostMapping("/join")
 	public String join(@RequestParam Map<String, String> map, Model model) throws Exception {
+		logger.debug("join map : {}", map);
 		try {
 			userService.join(map);
 		} catch (Exception e) {

@@ -29,6 +29,9 @@
             name="userId"
           />
           <button id="btn-check-id">중복 확인</button>
+<%--           <c:if test="${checkId} eq 1"> --%>
+<!--           	ㅎㅎ -->
+<%--           </c:if> --%>
         </div>
         <div class="input-title">이름</div>
         <input
@@ -102,7 +105,7 @@
 			alert("이메일을 입력해주세요.");
 			return;
 		} else if (!document.querySelector("#emailDomain").value) {
-			alert("이메일을 입력해주세요.");
+			alert("이메일을 선택해주세요.");
 			return;
 		} else if (!document.querySelector("#code").value) {
 			alert("인증번호를 입력해주세요.");
@@ -124,12 +127,14 @@
 	});
 	
 	document.querySelector("#btn-check-id").addEventListener("click", function() {
+		e.preventdefault();
 		if (!document.querySelector("#userId").value) {
 			alert("아이디를 입력해주세요.");
 			return;
 		} else {
+			alert(document.querySelector("#userId").value);
 			let form = document.querySelector("#form-join");
-			form.setAttribute("action", "${root}/user/${userId}");
+			form.setAttribute("action", "${root}/user/join/${userId}");
 			form.submit();
 		}
 	});

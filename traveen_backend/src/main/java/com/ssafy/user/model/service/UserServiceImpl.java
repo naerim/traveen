@@ -20,20 +20,19 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User login(Map<String, String> map) throws Exception {
-//		User user = userMapper.getUser(map.get("userId"));
-//		if (user == null) {
-//			return null;
-//		}
-//		
-//		String salt = user.getSalt();
-//		if (salt == null) {
-//			System.out.println("login 실패");
-//		}
-//		
-//		String userPwd = map.get("userPwd");
-//		userPwd = userUtil.getEncrypt(userPwd, salt);
-//		map.put("userPwd", userPwd);
-//		System.out.println(userPwd);
+		User user = userMapper.getUser(map.get("userId"));
+		if (user == null) {
+			return null;
+		}
+		
+		String salt = user.getSalt();
+		if (salt == null) {
+			return null;
+		}
+		
+		String userPwd = map.get("userPwd");
+		userPwd = userUtil.getEncrypt(userPwd, salt);
+		map.put("userPwd", userPwd);
 		return userMapper.login(map);
 	}
 
@@ -45,6 +44,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void join(Map<String, String> map) throws Exception {
 		String salt = userUtil.getSalt();
+		String userPwd = userUtil.getEncrypt(map.get("userPwd"), salt);
+		map.put("userPwd", userPwd);
+		map.put("salt", salt);
 		userMapper.join(map);
 	}
 
