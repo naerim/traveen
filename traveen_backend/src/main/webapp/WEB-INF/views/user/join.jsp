@@ -51,12 +51,12 @@
           <span>@</span>
           <select name="emailDomain" id="emailDomain">
           	<option value="" disabled selected>선택</option>
-            <option value="@naver.com">naver.com</option>
-            <option value="@google.com">google.com</option>
-            <option value="@daum.net">daum.net</option>
+            <option value="naver.com">naver.com</option>
+            <option value="google.com">google.com</option>
+            <option value="daum.net">daum.net</option>
             
           </select>
-          <button id="btn-send-code">인증번호 받기</button>
+          <button type="button" id="btn-send-code">인증번호 받기</button>
         </div>
         <div class="input-title">인증번호</div>
         <div class="input-confirm-box">

@@ -54,4 +54,9 @@ public class UserServiceImpl implements UserService {
 	public User getUser(String userId) throws Exception {
 		return userMapper.getUser(userId);
 	}
+
+	@Override
+	public void updateUser(Map<String, String> map) throws Exception {
+		userMapper.updateUser(map);
+	}
 }

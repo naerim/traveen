@@ -35,7 +35,7 @@
             </div>
           </div>
           <!-- name -->
-          <div id="user_name">김유냐냐</div>
+          <div id="user_name">${user.userName}</div>
           <!-- follower -->
           <div id="follower">팔로워 10</div>
           <ul class="menu">
@@ -62,20 +62,20 @@
           <button id='btn-modify-myinfo'>수정하기</button>
         </div>
         <div class="info-container">
-          <form action="">
+          <form action="" id="form-modify-myinfo" method="post">
             <div class="input-title">아이디</div>
-            <input type="text" id='userId' name='userId' value='ssafy' readonly>
+            <input type="text" id='userId' name='userId' value='${user.userId}' readonly>
             <div class="input-title">이름</div>
-            <input type="text" id='userName' name='userName' value='김싸피'>
+            <input type="text" id='userName' name='userName' value='${user.userName}'>
             <div class="input-title">이메일</div>
-            <input type="text" id='emailId' name='emailId' value='ssafy'>
+            <input type="text" id='emailId' name='emailId' value='${user.emailId}'>
             <span>@</span>
             <select name="emailDomain" id="emailDomain">
-              <option value="#naver.com">naver.com</option>
-              <option value="#google.com">google.com</option>
+              <option value="naver.com">naver.com</option>
+              <option value="google.com">google.com</option>
             </select>
             <div class="input-title">전화번호</div>
-            <input type="text" id='mobile' name='mobile' value='01028283737'>
+            <input type="text" id='mobile' name='mobile' value='${user.mobile}'>
           </form>
         </div>
         <div class="top-box">
@@ -103,5 +103,38 @@
     
     <!-- footer -->
 	<%@ include file="../include/footer.jsp"%>
+  <script>
+    // selectbox default 값 가져오기
+    let selectbox = document.querySelector("#emailDomain");
+    let len = selectbox.options.length;
+    for(let i = 0; i < len; i++) {
+      if(selectbox.options[i].value == "${user.emailDomain}") {
+        selectbox.options[i].selected = true;
+        break;
+      }
+    }
+
+    // 수정하기
+    document.querySelector("#btn-modify-myinfo").addEventListener("click", function() {
+      if (!document.querySelector("#userName").value) {
+        alert("이름을 입력해주세요.");;
+        return;
+      } else if (!document.querySelector("#emailId").value) {
+        alert("이메일을 입력해주세요.");
+        return;
+      } else if (!document.querySelector("#emailDomain").value) {
+        alert("이메일을 선택해주세요.");
+        return;
+      } else if (!document.querySelector("#mobile").value) {
+        alert("전화번호를 입력해주세요.");
+        return;
+      }
+      else {
+        let form = document.querySelector("#form-modify-myinfo");
+        form.setAttribute("action", "${root}/user/myinfo");
+        form.submit();
+      }
+    })
+  </script>
   </body>
 </html>

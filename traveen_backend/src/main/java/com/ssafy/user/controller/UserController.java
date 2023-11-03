@@ -114,7 +114,19 @@ public class UserController {
 	}
 	
 	@GetMapping("/myinfo")
-	public String myinfo(HttpSession session) {
+	public String myinfo(HttpSession session, Model model) throws Exception {
+		User userinfo = (User) session.getAttribute("userinfo");
+		User user = userService.getUser(userinfo.getUserId());
+		model.addAttribute("user", user);
 		return "mypage/myinfo";
+	}
+
+	@PostMapping("/myinfo")
+	public String myinfo(@RequestParam Map<String, String> map, RedirectAttributes rttr, HttpSession session) throws Exception {
+		logger.debug("myinfo map : {}");
+		userService.updateUser(map);
+		User user = userService.getUser(map.get("userId"));
+		session.setAttribute("userinfo", user);
+		return "redirect:/user/myinfo";
 	}
 }

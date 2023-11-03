@@ -10,4 +10,5 @@ public interface UserService {
 	User login(Map<String, String> map) throws Exception;
 	void join(Map<String, String> map) throws Exception;
 	User getUser(String userId) throws Exception;
+	void updateUser(Map<String, String> map) throws Exception;
 }

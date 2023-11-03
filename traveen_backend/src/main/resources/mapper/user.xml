@@ -44,11 +44,12 @@
 	
 	<!-- 회원정보수정 -->
 	<update id="updateUser" parameterType="user">
-		update members
+		update users
 		<trim prefix="set" suffixOverrides=",">
-			<if test="userPwd != null">user_password = #{userPwd},</if>
+			<if test="userName != null">user_name = #{userName},</if>
 			<if test="emailId != null">email_id = #{emailId},</if>
 			<if test="emailDomain != null">email_domain = #{emailDomain},</if>
+			<if test="mobile != null">mobile = #{mobile},</if>
 		</trim>
 		where user_id = #{userId}
 	</update>
