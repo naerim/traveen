@@ -85,9 +85,10 @@ section {
 }
 
 #content-box {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 60px 50px;
+  margin-bottom: 20px;
 }
 
 .empty-tripinfo-box {
@@ -102,24 +103,22 @@ section {
 .item {
   display: flex;
   flex-direction: column;
-  width: 21%;
-  height: 340px;
   border-radius: 12px;
   background: #fff;
   box-shadow: 0px 12px 40px 0px rgba(112, 144, 176, 0.2);
-  margin-bottom: 40px;
-  margin-right: 58px;
+  cursor: pointer;
+  transition: all 0.2s linear;
 }
 
-.item:nth-child(4n) {
-  margin-right: 0;
+.item:hover  {
+  transform: scale(1.03);
 }
 
 .imgDiv {
   width: 200px;
   height: 200px;
   margin: 0 auto;
-  transform: translateY(-20px);
+  transform: translateY(-15px);
 }
 
 .imgDiv img {
@@ -137,6 +136,10 @@ section {
 
 .tag-box .left {
   font-size: 0.8em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 80px;
 }
 
 .tag-box .right {
@@ -164,34 +167,52 @@ section {
   font-weight: bold;
   font-size: 1em;
   margin-bottom: 6px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
+
 .desc {
   width: 190px;
   margin: 0 auto;
   font-size: 0.8em;
-  height: 47px;
-  overflow: hidden;
   color: #6b7684;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .bottom-box {
   display: flex;
   justify-content: flex-end;
   width: 190px;
-  margin: 0 auto;
   align-items: center;
-  background-color: #51cd89;
+  box-sizing: border-box;
+  font-size: 0.8em;
+  margin: 10px auto;
+}
+
+.hit {
+  display: flex;
+  align-items: center;
+}
+
+.like {
+  display: flex;
+  align-items: center;
 }
 
 .hit img {
   width: 14px;
   height: 14px;
-  background-color: #6b7684;
+  margin-right: 2px;
 }
 
 .like img {
   width: 10px;
   height: 10px;
-  background-color: #6b7684;
-  margin-left: 10px;
+  margin-left: 6px;
+  margin-right: 2px;
 }
