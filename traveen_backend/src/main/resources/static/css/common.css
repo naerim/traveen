@@ -35,6 +35,16 @@ header .header-container {
   display: flex;
 }
 
+.header-right {
+	display: flex;
+	align-items: center;
+}
+
+#header-username {
+	color: #6B7684;
+	margin-right: 10px;
+}
+
 .header-container button {
   background-color: #51cd89;
   border-radius: 16px;

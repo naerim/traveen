@@ -28,10 +28,10 @@
             id="userId"
             name="userId"
           />
-          <button id="btn-check-id">중복 확인</button>
-<%--           <c:if test="${checkId} eq 1"> --%>
-<!--           	ㅎㅎ -->
-<%--           </c:if> --%>
+          <button id="btn-check-id" type="button">중복 확인</button>
+           <c:if test="${checkId} eq 1">
+          	alert("존재하는 아이디")
+           </c:if>
         </div>
         <div class="input-title">이름</div>
         <input
@@ -50,7 +50,7 @@
           />
           <span>@</span>
           <select name="emailDomain" id="emailDomain">
-          	<option value="">직접 입력</option>
+          	<option value="" disabled selected>선택</option>
             <option value="@naver.com">naver.com</option>
             <option value="@google.com">google.com</option>
             <option value="@daum.net">daum.net</option>
@@ -61,7 +61,7 @@
         <div class="input-title">인증번호</div>
         <div class="input-confirm-box">
           <input name="code" id="code" />
-          <button id="btn-check-code">인증번호 확인</button>
+          <button id="btn-check-code" type="button">인증번호 확인</button>
         </div>
         <div class="input-title">전화번호</div>
         <input
@@ -86,7 +86,7 @@
           id="pwdCheck"
           name="pwdCheck"
         />
-        <input type="submit" id="btn-join" value="가입하기" />
+        <input type="button" id="btn-join" value="가입하기" />
       </form>
     </section>
 
@@ -119,24 +119,51 @@
 		} else if (!document.querySelector("#pwdCheck").value) {
 			alert("비밀번호 확인을 입력해주세요.");
 			return;
-		} else {
+		} else if(!document.querySelector("#btn-check-id").disabled) {
+			alert("아이디 중복 확인을 해주세요.");
+			return;
+		} else if(document.querySelector("#pwdCheck").value != document.querySelector("#userPwd").value) {
+			alert("비밀번호가 일치하지 않습니다.");
+			document.querySelector("#pwdCheck").focus();
+			return;
+		} 
+		else {
 			let form = document.querySelector("#form-join");
 			form.setAttribute("action", "${root}/user/join");
 			form.submit();
 		}
 	});
 	
-	document.querySelector("#btn-check-id").addEventListener("click", function() {
-		e.preventdefault();
+	document.querySelector("#btn-check-id").addEventListener("click", function(e) {
+		e.preventDefault();
 		if (!document.querySelector("#userId").value) {
 			alert("아이디를 입력해주세요.");
 			return;
 		} else {
-			alert(document.querySelector("#userId").value);
-			let form = document.querySelector("#form-join");
-			form.setAttribute("action", "${root}/user/join/${userId}");
-			form.submit();
+			const userId = document.querySelector("#userId").value;
+			const url = "${root}/user/idCheck/"+userId;
+	          fetch(url)
+	          .then((res)=>{
+	        	return res.json();
+	          })
+	          .then((data) => {
+	        	  if(data.result == "중복됨") {
+	        		  alert("중복된 아이디입니다.");
+	        		  document.querySelector("#userId").focus();
+	        	  } else {
+	        		  document.querySelector("#btn-check-id").disabled = true;
+	        	  }
+	          })
 		}
+	});
+	
+	document.querySelector("#userId").addEventListener("input", function(e) {
+		document.querySelector("#btn-check-id").disabled = false;
+	});
+	
+	document.querySelector("#btn-check-code").addEventListener("click", function(e) {
+		e.preventDefault();
+		this.disabled = true;
 	});
 </script>
 </html>

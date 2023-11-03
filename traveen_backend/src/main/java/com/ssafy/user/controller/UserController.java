@@ -1,5 +1,6 @@
 package com.ssafy.user.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +20,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ssafy.user.model.User;
 import com.ssafy.user.model.service.UserService;
+
+import springfox.documentation.spring.web.json.Json;
 
 @Controller
 @RequestMapping("/user")
@@ -33,18 +39,19 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@GetMapping("/join/{userId}")
+	@GetMapping("/idCheck/{userId}")
 	@ResponseBody
-	public void idCheck(@PathVariable("userId") String userId, Model model) throws Exception {
+	public ResponseEntity<?> idCheck(@PathVariable("userId") String userId) throws Exception {
 		logger.debug("idCheck userid : {}", userId);
 		int cnt = userService.idCheck(userId);
 		System.out.println(cnt);
-		if (cnt != 0) {
-			model.addAttribute("checkId", 1);
-			System.out.println("우~실패");
+		Map<String, String> result = new HashMap<>();
+		if (cnt != 0) { // 중복
+			result.put("result", "중복됨");
+			return new ResponseEntity<Map<String, String>>(result, HttpStatus.OK);
 		} else {
-			model.addAttribute("checkId", 0);
-			System.out.println("우~성공");
+			result.put("result", "중복안됨");
+			return new ResponseEntity<Map<String, String>>(result, HttpStatus.OK);
 		}
 	}
 
@@ -103,7 +110,7 @@ public class UserController {
 			model.addAttribute("msg", "회원가입 중 문제가 발생했습니다.");
 			return "error/500";
 		}
-		return "redirect:/";
+		return "user/join";
 	}
 	
 	@GetMapping("/myinfo")
