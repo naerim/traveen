@@ -111,7 +111,7 @@ public class UserController {
 			model.addAttribute("msg", "회원가입 중 문제가 발생했습니다.");
 			return "error/500";
 		}
-		return "user/login";
+		return "redirect:/user/login";
 	}
 	
 	@GetMapping("/myinfo")
