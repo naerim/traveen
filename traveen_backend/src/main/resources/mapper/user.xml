@@ -65,7 +65,7 @@
 	<update id="updatePwd" parameterType="map">
 		update users
 		<trim prefix="set" suffixOverrides=",">
-			<if test="newPwd != null">user_pwd = #{newPwd},</if>
+			<if test="newPwd != null">user_pwd = #{userPwd}, salt = #{salt}</if>
 		</trim>
 		where user_id = #{userId}
 	</update>

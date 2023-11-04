@@ -85,6 +85,7 @@
         <div class="pwd-container">
           <form action="" id="form-modify-pwd" method="post">
             <input type="hidden" id='p-userId' name='userId' value='${user.userId}'>
+            <input type="hidden" id='p-salt' name='salt' value='${user.salt}'>
             <div class="input-title">현재 비밀번호</div>
             <input type="password" id='userPwd' name='userPwd' value=''>
             <div class="pwd-bottom-box">

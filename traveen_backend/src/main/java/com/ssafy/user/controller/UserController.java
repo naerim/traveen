@@ -136,6 +136,7 @@ public class UserController {
 		int cnt = userService.pwdCheck(map);
 		System.out.println(cnt);
 		if(cnt==1) { // 비밀번호가 일치할 때
+			userService.updatePwd(map);
 			rttr.addFlashAttribute("msg", "비밀번호가 변경되었습니다.");
 		} else { // 비밀번호가 일치하지 않을때
 			rttr.addFlashAttribute("msg", "비밀번호가 일치하지 않습니다.");
