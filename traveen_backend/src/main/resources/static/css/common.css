@@ -109,41 +109,43 @@ footer #footer-right p {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .pagination-container ul {
   display: flex;
+  align-items: center;
 }
 
-.pagination-container li {
-  cursor: pointer;
-  margin-right: 20px;
-  background-color: #51cd89;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 30px;
-  color: #fff;
+.page-item {
+    cursor: pointer;
+    margin-right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
 }
-.pagination-container li:last-child {
-  margin-right: 0;
+
+.page-item a{
   color: #000;
-  background-color: #fff;
 }
-.pagination-container li:hover {
+
+.page-item.active {
   background-color: #51cd89;
+}
+
+.page-item.active a{
   color: #fff;
 }
 
-.pagination-container .btn-prev {
-  color: #d3d3d3;
-  cursor: pointer;
+.page-item.btn-li .page-link{
+  width: 40px;
+  height: 30px;
 }
 
-.pagination-container .btn-next {
-  cursor: pointer;
+.page-item:last-child .page-link a{
+  padding-right: 10px; /* 오른쪽 여백을 늘립니다. */
 }
 
 .pagination-container .divider {

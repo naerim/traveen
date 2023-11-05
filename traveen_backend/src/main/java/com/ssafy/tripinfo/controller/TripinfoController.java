@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ssafy.tripinfo.model.Tripinfo;
+import com.ssafy.util.PageNavigation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -29,18 +30,15 @@ public class TripinfoController {
 	
 	@GetMapping("/list")
 	public ModelAndView list(@RequestParam Map<String, String> map) throws Exception {
-		// logger.debug("list parameter pgno : {}", map.get("pgno"));
+		logger.debug("list parameter pgno : {}", map.get("pgno"));
 		ModelAndView mav = new ModelAndView();
 		List<Tripinfo> list = tripinfoService.listTripinfo(map);
-		System.out.println(list);
+		PageNavigation pageNavigation = tripinfoService.makePageNavigation(map);
 		mav.addObject("tripinfo", list);
-//		List<Notice> list = noticeService.listNotice(map);
-//		PageNavigation pageNavigation = noticeService.makePageNavigation(map);
-//		mav.addObject("notices", list);
-//		mav.addObject("navigation", pageNavigation);
-//		mav.addObject("pgno", map.get("pgno"));
-//		mav.addObject("key", map.get("key"));
-//		mav.addObject("word", map.get("word"));
+		mav.addObject("navigation", pageNavigation);
+		mav.addObject("pgno", map.get("pgno"));
+		mav.addObject("key", map.get("key"));
+		mav.addObject("word", map.get("word"));
 		mav.setViewName("tripinfo/list");
 		return mav;
 	}

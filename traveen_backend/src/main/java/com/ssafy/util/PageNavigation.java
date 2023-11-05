@@ -88,20 +88,22 @@ public class PageNavigation {
 		
 		StringBuilder builder = new StringBuilder();
 		builder.append("		<ul class=\"pagination  justify-content-center\"> \n");
-		builder.append("			<li class=\"page-item\" data-pg=\"1\"> \n");
+		builder.append("			<li class=\"page-item btn-li\" data-pg=\"1\"> \n");
 		builder.append("				<a href=\"#\" class=\"page-link\">최신</a> \n");
 		builder.append("			</li> \n");
-		builder.append("			<li class=\"page-item\" data-pg=\"" + (this.startRange ? 1 : (startPage - 1)) + "\"> \n");
+		builder.append("			<li class=\"page-item btn-li\" data-pg=\"" + (this.startRange ? 1 : (startPage - 1)) + "\"> \n");
 		builder.append("				<a href=\"#\" class=\"page-link\">이전</a> \n");
 		builder.append("			</li> \n");
+		builder.append("			<span class=\"divider\"></span> \n");
 		for(int i=startPage;i<=endPage;i++) {
 			builder.append("			<li class=\"" + (currentPage == i ? "page-item active" : "page-item") + "\" data-pg=\"" + i + "\"><a href=\"#\" class=\"page-link\">" + i + "</a></li> \n");
 		}
-		builder.append("			<li class=\"page-item\" data-pg=\"" + (this.endRange ? endPage : (endPage + 1)) + "\"> \n");
+		builder.append("			<span class=\"divider\"></span> \n");
+		builder.append("			<li class=\"page-item btn-li\" data-pg=\"" + (this.endRange ? endPage : (endPage + 1)) + "\"> \n");
 		builder.append("				<a href=\"#\" class=\"page-link\">다음</a> \n");
 		builder.append("			</li> \n");
-		builder.append("			<li class=\"page-item\" data-pg=\"" + totalPageCount + "\"> \n");
-		builder.append("				<a href=\"#\" class=\"page-link\">마지막</a> \n");
+		builder.append("			<li class=\"page-item btn-li\" data-pg=\"" + totalPageCount + "\"> \n");
+		builder.append("				<a href=\"#\" class=\"page-link\">끝</a> \n");
 		builder.append("			</li> \n");
 		builder.append("		</ul> \n");
 		this.navigator = builder.toString();

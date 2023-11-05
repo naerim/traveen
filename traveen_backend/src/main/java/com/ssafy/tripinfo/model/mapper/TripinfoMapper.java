@@ -9,6 +9,6 @@ import java.util.Map;
 
 @Mapper
 public interface TripinfoMapper {
-    List<Tripinfo> listTripinfo(Map<String, String> map) throws SQLException;
+    List<Tripinfo> listTripinfo(Map<String, Object> map) throws SQLException;
     int getTotalTripinfoCount(Map<String, Object> map) throws SQLException;
 }
