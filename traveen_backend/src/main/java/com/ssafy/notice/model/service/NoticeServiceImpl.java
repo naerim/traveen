@@ -26,7 +26,11 @@ public class NoticeServiceImpl implements NoticeService {
 		String key = map.get("key");
 		param.put("key", key == null ? "" : key);
 		param.put("word", map.get("word") == null ? "" : map.get("word"));
-		return noticeMapper.listNotice(map);
+		int pgNo = Integer.parseInt(map.get("pgno") == null ? "1" : map.get("pgno"));
+		int start = pgNo * SizeConstant.TRIPINFO_LIST_SIZE - SizeConstant.TRIPINFO_LIST_SIZE;
+		param.put("start", start);
+		param.put("listsize", SizeConstant.TRIPINFO_LIST_SIZE);
+		return noticeMapper.listNotice(param);
 	}
 
 	@Override
@@ -38,25 +42,23 @@ public class NoticeServiceImpl implements NoticeService {
 	public PageNavigation makePageNavigation(Map<String, String> map) throws Exception {
 		PageNavigation pageNavigation = new PageNavigation();
 
-		int naviSize = SizeConstant.NAVIGATION_SIZE;
-		int sizePerPage = SizeConstant.LIST_SIZE;
-		int currentPage = Integer.parseInt(map.get("pgno"));
+		int navSize = SizeConstant.TRIPINFO_NAVIGATION_SIZE;
+		int sizePerPage = SizeConstant.TRIPINFO_LIST_SIZE;
+		int currentPage = Integer.parseInt(map.get("pgno") == null ? "1" : map.get("pgno"));
 
 		pageNavigation.setCurrentPage(currentPage);
-		pageNavigation.setNaviSize(naviSize);
+		pageNavigation.setNaviSize(navSize);
 		Map<String, Object> param = new HashMap<String, Object>();
 		String key = map.get("key");
-		if ("userId".equals(key))
-			key = "user_id";
 		param.put("key", key == null ? "" : key);
 		param.put("word", map.get("word") == null ? "" : map.get("word"));
-		int totalCount = noticeMapper.getTotalNoticeCount(map);
+		int totalCount = noticeMapper.getTotalNoticeCount(param);
 		pageNavigation.setTotalCount(totalCount);
 		int totalPageCount = (totalCount - 1) / sizePerPage + 1;
 		pageNavigation.setTotalPageCount(totalPageCount);
-		boolean startRange = currentPage <= naviSize;
+		boolean startRange = currentPage <= navSize;
 		pageNavigation.setStartRange(startRange);
-		boolean endRange = (totalPageCount - 1) / naviSize * naviSize < currentPage;
+		boolean endRange = (totalPageCount - 1) / navSize * navSize < currentPage;
 		pageNavigation.setEndRange(endRange);
 		pageNavigation.makeNavigator();
 
@@ -75,8 +77,13 @@ public class NoticeServiceImpl implements NoticeService {
 	
 
 	@Override
-	public int getTotalNoticeCount(Map<String, String> map) throws Exception {
+	public int getTotalNoticeCount(Map<String, Object> map) throws Exception {
 		return noticeMapper.getTotalNoticeCount(map);
+	}
+
+	@Override
+	public int getTotalNoticeCountString(Map<String, String> map) throws Exception {
+		return noticeMapper.getTotalNoticeCountString(map);
 	}
 
 	@Override

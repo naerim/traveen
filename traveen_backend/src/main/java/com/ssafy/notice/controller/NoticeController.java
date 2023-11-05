@@ -18,8 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ssafy.notice.model.Notice;
 import com.ssafy.notice.model.service.NoticeService;
-import com.ssafy.user.controller.UserController;
 import com.ssafy.user.model.User;
+import com.ssafy.util.PageNavigation;
 
 @Controller
 @RequestMapping("/notice")
@@ -38,14 +38,12 @@ public class NoticeController {
 		logger.debug("list parameter pgno : {}", map.get("pgno"));
 		ModelAndView mav = new ModelAndView();
 		List<Notice> list = noticeService.listNotice(map);
-		int totalCnt = noticeService.getTotalNoticeCount(map);
-//		PageNavigation pageNavigation = noticeService.makePageNavigation(map);
+		int totalCnt = noticeService.getTotalNoticeCountString(map);
+		PageNavigation pageNavigation = noticeService.makePageNavigation(map);
 		mav.addObject("notices", list);
 		mav.addObject("totalCnt", totalCnt);
-//		mav.addObject("navigation", pageNavigation);
-		
-//		mav.addObject("pgno", map.get("pgno"));
-//		System.out.println(map.get("pgno"));
+		mav.addObject("navigation", pageNavigation);
+		mav.addObject("pgno", map.get("pgno"));
 		mav.addObject("key", map.get("key"));
 		mav.addObject("word", map.get("word"));
 		mav.setViewName("notice/list");

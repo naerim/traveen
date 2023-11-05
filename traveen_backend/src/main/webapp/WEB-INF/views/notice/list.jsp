@@ -29,7 +29,7 @@
 		<!-- top-box -->
 		<div class="top-box">
 			<div class="left">총 ${totalCnt}건</div>
-			<form class="right" id="form-search" action="#">
+			<form class="right" id="form-search" method="get">
 				<input type="hidden" name="pgno" value="1" />
 				<select
 					name="key" id="key">
@@ -81,22 +81,16 @@
 		</div>
 		<!-- pagination -->
 		<div class="pagination-container">
-			<div class="btn-prev">&#60;이전</div>
-			<span class="divider"></span>
-			<ul>
-				<li>1</li>
-				<li>2</li>
-			</ul>
-			<span class="divider"></span>
-			<div class="btn-next">다음&#62;</div>
-		</div>
+        <!-- pagination -->
+        ${navigation.navigator}
+      </div>
 	</section>
 
 	
 	    <form id="form-param" method="get" action="">
       <input type="hidden" name="pgno" id="pgno" value="${pgno}">
-      <input type="hidden" name="key" value="${key}">
-      <input type="hidden" name="word" value="${word}">
+<%--       <input type="hidden" name="key" value="${key}"> --%>
+<%--       <input type="hidden" name="word" value="${word}"> --%>
     </form>
     <form id="form-no-param" method="get" action="${root}/notice/view">
       <input type="hidden" name="pgno" value="${pgno}">
@@ -136,15 +130,16 @@
         form.submit();
     });
     
-//     let pages = document.querySelectorAll(".page-link");
-//     pages.forEach(function (page) {
-//       page.addEventListener("click", function () {
-//      	  document.querySelector("#pgno").value = this.parentNode.getAttribute("data-pg");
-//         let form = document.querySelector("#form-param");
-//         form.setAttribute("action", "${root}/article/list");
-//         form.submit();
-//       });
-//     });
+    let pages = document.querySelectorAll(".page-link");
+    pages.forEach(function (page) {
+      page.addEventListener("click", function () {
+     	  document.querySelector("#pgno").value = this.parentNode.getAttribute("data-pg");
+        let form = document.querySelector("#form-param");
+        console.log(form);
+        form.setAttribute("action", "${root}/notice/list");
+        form.submit();
+      });
+    });
 	</script>
 	
 </body>

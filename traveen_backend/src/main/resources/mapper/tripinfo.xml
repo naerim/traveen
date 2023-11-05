@@ -38,7 +38,9 @@
 	<select id="listTripinfo" parameterType="map" resultMap="tripinfo">
 		select idx, category_name, title, place_name, type, `desc`, oper_time, rest_time, restdate_content, address, lat, loc,sido_code, tel, like_count, view_count
 		from tripinfo
-		<include refid="search"></include>
+		<where>
+			<include refid="search"></include>
+		</where>
 		order by view_count desc
 		limit #{start}, #{listsize}
 	</select>

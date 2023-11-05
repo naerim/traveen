@@ -27,7 +27,7 @@
       <h1 class="title">관심있는 촬영지를<br />검색해보세요.</h1>
       <!-- search box -->
       <div id="search-box">
-        <form method="get">
+        <form method="get" id="form-search">
           <input type="hidden" name="pgno" value="1"/>
         </form>
         <select name="select-type" id="select-type">
