@@ -3,6 +3,7 @@ package com.ssafy.tripinfo.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.tripinfo.model.Tripinfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -27,9 +28,12 @@ public class TripinfoController {
 	}
 	
 	@GetMapping("/list")
-	public ModelAndView list(@RequestParam Map<String, Object> map) throws Exception {
+	public ModelAndView list(@RequestParam Map<String, String> map) throws Exception {
 		// logger.debug("list parameter pgno : {}", map.get("pgno"));
 		ModelAndView mav = new ModelAndView();
+		List<Tripinfo> list = tripinfoService.listTripinfo(map);
+		System.out.println(list);
+		mav.addObject("tripinfo", list);
 //		List<Notice> list = noticeService.listNotice(map);
 //		PageNavigation pageNavigation = noticeService.makePageNavigation(map);
 //		mav.addObject("notices", list);

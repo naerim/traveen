@@ -110,7 +110,7 @@ section {
   transition: all 0.2s linear;
 }
 
-.item:hover  {
+.item:hover {
   transform: scale(1.03);
 }
 
@@ -182,6 +182,7 @@ section {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  min-height: 50px;
 }
 
 .bottom-box {

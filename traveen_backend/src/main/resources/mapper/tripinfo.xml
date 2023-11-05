@@ -3,5 +3,52 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssafy.tripinfo.model.mapper.TripinfoMapper">
+	<resultMap type="tripinfo" id="tripinfo">
+		<result column="idx" property="idx" />
+		<result column="category_name" property="categoryName" />
+		<result column="title" property="title" />
+		<result column="place_name" property="placeName" />
+		<result column="type" property="type" />
+		<result column="desc" property="desc" />
+		<result column="oper_time" property="operTime" />
+		<result column="rest_time" property="restTime" />
+		<result column="restdate_content" property="restdateContent" />
+		<result column="address" property="address" />
+		<result column="lat" property="lat" />
+		<result column="loc" property="loc" />
+		<result column="sido_code" property="sidoCode" />
+		<result column="tel" property="tel" />
+		<result column="like_count" property="likeCount" />
+		<result column="view_count" property="viewCount" />
+	</resultMap>
 
+	<!-- 검색 -->
+	<sql id="search">
+		<if test="word != null and word != ''">
+			<if test="key == 'subject'">
+				and subject like concat('%', #{word}, '%')
+			</if>
+			<if test="key != 'subject'">
+				and ${key} = #{word}
+			</if>
+		</if>
+	</sql>
+
+	<!-- 여행지 목록 -->
+	<select id="listTripinfo" parameterType="map" resultMap="tripinfo">
+		select idx, category_name, title, place_name, type, `desc`, oper_time, rest_time, restdate_content, address, lat, loc,sido_code, tel, like_count, view_count
+		from tripinfo
+		<include refid="search"></include>
+		order by view_count desc
+		limit #{start}, #{listsize}
+	</select>
+
+	<!-- 총 여행지 목록 -->
+	<select id="getTotalTripinfoCount" parameterType="map" resultType="int">
+		select count(idx)
+		from tripinfo
+		<where>
+			<include refid="search"></include>
+		</where>
+	</select>
 </mapper>

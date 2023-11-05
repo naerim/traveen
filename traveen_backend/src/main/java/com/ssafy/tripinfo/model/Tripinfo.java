@@ -4,7 +4,7 @@ public class Tripinfo {
 	/* 고유번호 */
 	private int idx;
 	/* 카테고리 */
-	private String categoryCode;
+	private String categoryName;
 	/* 작품이름 */
 	private String title;
 	/* 장소이름 */
@@ -25,10 +25,8 @@ public class Tripinfo {
 	private String lat;
 	/* 경도 */
 	private String loc;
-	/* 시도 고유번호 */
-	private String sidoIdx;
-	/* 구군 공유번호 */
-	private String gugunIdx;
+	/* 시도 코드 */
+	private int sidoCode;
 	/* 전화번호 */
 	private String tel;
 	/* 찜수 */
@@ -42,11 +40,11 @@ public class Tripinfo {
 	public void setIdx(int idx) {
 		this.idx = idx;
 	}
-	public String getCategoryCode() {
-		return categoryCode;
+	public String getCategoryName() {
+		return categoryName;
 	}
-	public void setCategoryCode(String categoryCode) {
-		this.categoryCode = categoryCode;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	public String getTitle() {
 		return title;
@@ -108,17 +106,11 @@ public class Tripinfo {
 	public void setLoc(String loc) {
 		this.loc = loc;
 	}
-	public String getSidoIdx() {
-		return sidoIdx;
+	public int getSidoCode() {
+		return sidoCode;
 	}
-	public void setSidoIdx(String sidoIdx) {
-		this.sidoIdx = sidoIdx;
-	}
-	public String getGugunIdx() {
-		return gugunIdx;
-	}
-	public void setGugunIdx(String gugunIdx) {
-		this.gugunIdx = gugunIdx;
+	public void setSidoCode(int sidoCode) {
+		this.sidoCode = sidoCode;
 	}
 	public String getTel() {
 		return tel;
@@ -141,10 +133,10 @@ public class Tripinfo {
 	
 	@Override
 	public String toString() {
-		return "Tripinfo [idx=" + idx + ", categoryCode=" + categoryCode + ", title=" + title + ", placeName="
+		return "Tripinfo [idx=" + idx + ", categoryName=" + categoryName + ", title=" + title + ", placeName="
 				+ placeName + ", type=" + type + ", desc=" + desc + ", operTime=" + operTime + ", restTime=" + restTime
 				+ ", restdateContent=" + restdateContent + ", address=" + address + ", lat=" + lat + ", loc=" + loc
-				+ ", sidoIdx=" + sidoIdx + ", gugunIdx=" + gugunIdx + ", tel=" + tel + ", likeCount=" + likeCount
+				+ ", sidoCode=" + sidoCode + ", tel=" + tel + ", likeCount=" + likeCount
 				+ ", viewCount=" + viewCount + "]";
 	}
 	
