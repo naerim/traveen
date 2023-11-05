@@ -27,9 +27,9 @@ public class NoticeServiceImpl implements NoticeService {
 		param.put("key", key == null ? "" : key);
 		param.put("word", map.get("word") == null ? "" : map.get("word"));
 		int pgNo = Integer.parseInt(map.get("pgno") == null ? "1" : map.get("pgno"));
-		int start = pgNo * SizeConstant.TRIPINFO_LIST_SIZE - SizeConstant.TRIPINFO_LIST_SIZE;
+		int start = pgNo * SizeConstant.NOTICE_LIST_SIZE - SizeConstant.NOTICE_LIST_SIZE;
 		param.put("start", start);
-		param.put("listsize", SizeConstant.TRIPINFO_LIST_SIZE);
+		param.put("listsize", SizeConstant.NOTICE_LIST_SIZE);
 		return noticeMapper.listNotice(param);
 	}
 
@@ -42,8 +42,8 @@ public class NoticeServiceImpl implements NoticeService {
 	public PageNavigation makePageNavigation(Map<String, String> map) throws Exception {
 		PageNavigation pageNavigation = new PageNavigation();
 
-		int navSize = SizeConstant.TRIPINFO_NAVIGATION_SIZE;
-		int sizePerPage = SizeConstant.TRIPINFO_LIST_SIZE;
+		int navSize = SizeConstant.NOTICE_NAVIGATION_SIZE;
+		int sizePerPage = SizeConstant.NOTICE_LIST_SIZE;
 		int currentPage = Integer.parseInt(map.get("pgno") == null ? "1" : map.get("pgno"));
 
 		pageNavigation.setCurrentPage(currentPage);

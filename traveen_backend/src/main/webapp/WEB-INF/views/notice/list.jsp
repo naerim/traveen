@@ -81,34 +81,24 @@
 		</div>
 		<!-- pagination -->
 		<div class="pagination-container">
-        <!-- pagination -->
-        ${navigation.navigator}
-      </div>
+        	${navigation.navigator}
+      	</div>
 	</section>
 
-	
-	    <form id="form-param" method="get" action="">
-      <input type="hidden" name="pgno" id="pgno" value="${pgno}">
-<%--       <input type="hidden" name="key" value="${key}"> --%>
-<%--       <input type="hidden" name="word" value="${word}"> --%>
-    </form>
-    <form id="form-no-param" method="get" action="${root}/notice/view">
-      <input type="hidden" name="pgno" value="${pgno}">
-      <input type="hidden" name="key" value="${key}">
-      <input type="hidden" name="word" value="${word}">
-      <input type="hidden" id="idx" name="idx" value="">
-    </form>
+	<form id="form-param" method="get" action="">
+		<input type="hidden" name="pgno" id="pgno" value="${pgno}">
+	</form>
+	<form id="form-no-param" method="get" action="${root}/notice/view">
+	  <input type="hidden" name="pgno" value="${pgno}">
+	  <input type="hidden" name="key" value="${key}">
+	  <input type="hidden" name="word" value="${word}">
+	  <input type="hidden" id="idx" name="idx" value="">
+	</form>
 
 	<!-- footer -->
 	<%@ include file="../include/footer.jsp"%>
 	
 	<script>
-	
-//     document.querySelector("#btn-search").addEventListener("click", function () {
-//   	  let form = document.querySelector("#form-search");
-//         form.setAttribute("action", "${root}/notice/list");
-//         form.submit();
-//     });
     
     let titles = document.querySelectorAll(".notice-title");
     titles.forEach(function (title) {
@@ -129,17 +119,18 @@
         form.setAttribute("action", "${root}/notice/list");
         form.submit();
     });
-    
-    let pages = document.querySelectorAll(".page-link");
-    pages.forEach(function (page) {
-      page.addEventListener("click", function () {
-     	  document.querySelector("#pgno").value = this.parentNode.getAttribute("data-pg");
-        let form = document.querySelector("#form-param");
-        console.log(form);
-        form.setAttribute("action", "${root}/notice/list");
-        form.submit();
-      });
-    });
+
+	let pages = document.querySelectorAll(".page-link");
+	pages.forEach(function (page) {
+		page.addEventListener("click", function () {
+			document.querySelector("#pgno").value = this.parentNode.getAttribute("data-pg");
+			let form = document.querySelector("#form-param");
+			console.log(form);
+			form.setAttribute("action", "${root}/notice/list");
+			form.submit();
+		});
+
+	});
 	</script>
 	
 </body>
