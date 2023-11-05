@@ -71,8 +71,8 @@
 	</update>
 	
 	<!-- 회원탈퇴 -->
-	<delete id="deleteMember" parameterType="String">
-		delete from members
+	<delete id="deleteUser" parameterType="String">
+		delete from users
 		where user_id = #{userId}
 	</delete>
 	

@@ -50,6 +50,12 @@ public class UserServiceImpl implements UserService {
 		userMapper.join(map);
 	}
 
+	
+	@Override
+	public void deleteUser(String userId) throws Exception {
+		userMapper.deleteUser(userId);
+	}
+
 	@Override
 	public User getUser(String userId) throws Exception {
 		return userMapper.getUser(userId);

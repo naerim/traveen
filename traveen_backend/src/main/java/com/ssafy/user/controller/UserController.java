@@ -25,8 +25,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ssafy.user.model.User;
 import com.ssafy.user.model.service.UserService;
 
-import springfox.documentation.spring.web.json.Json;
-
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -112,6 +110,29 @@ public class UserController {
 			return "error/500";
 		}
 		return "redirect:/user/login";
+	}
+	
+	@GetMapping("/delete")
+	public String delete(@RequestParam("userId") String userId, @RequestParam Map<String, String> map, HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr)
+			throws Exception {
+		logger.debug("delete user userId : {}", userId);
+		userService.deleteUser(userId);
+		session.invalidate();
+		
+		Cookie cookies[] = request.getCookies();
+		if(cookies != null && cookies.length != 0) {
+	         for(Cookie cookie : cookies) {
+	            String name = cookie.getName(); //'쿠키변수'값 구하기
+	            if("login_id".equals(name)) {//삭제할 쿠키 찾기
+	               cookie.setMaxAge(0);
+	               response.addCookie(cookie);//변경된 쿠키를 저장한다.
+	            }
+	         }
+	      }
+
+		
+		rttr.addFlashAttribute("msg", "회원 탈퇴가 완료 되었습니다.");
+		return "redirect:/";
 	}
 	
 	@GetMapping("/myinfo")

@@ -49,7 +49,7 @@
           <!-- link-box -->
           <div class="link-box">
             <a href="${root}/user/logout">로그아웃</a>
-            <a href="#">회원탈퇴</a>
+            <a href="${root}/user/delete?userId=${user.userId}">회원탈퇴</a>
           </div>
         </div>
         <div class="bottom-logo">Traveen</div>

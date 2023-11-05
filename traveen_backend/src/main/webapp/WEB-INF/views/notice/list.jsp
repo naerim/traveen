@@ -38,7 +38,6 @@
 				</select> <input type="text" name="word" id="word"
 					placeholder="검색어를 입력해주세요." />
 					<button id="btn-search" type="button">검색</button>
-<%-- 				<button type="button" id="btn-regist" onclick="location.href='${root}/notice/regist'" style="<c:if test="${userinfo.position ne M}">display: none</c:if>">글 등록</button> --%>
 				<button type="button" id="btn-regist" style="<c:if test="${userinfo.position ne M}">display: none</c:if>">글 등록</button>
 				
 		</div>
@@ -61,9 +60,6 @@
 						<c:forEach var="notice" items="${notices}" varStatus="status">
 							<tr>
 								<td>${fn:length(notices) - status.index}</td>
-<!-- 								<td class="subject"><a -->
-<%-- 									href="${root}/notice/view?idx=${notice.idx}" --%>
-<%-- 									class="notice-title link-dark">${notice.title}</a></td> --%>
 									<td class="subject"><a
 									href=# class="notice-title link-dark" data-no="${notice.idx}">${notice.title}</a></td>
 								<td><c:out
