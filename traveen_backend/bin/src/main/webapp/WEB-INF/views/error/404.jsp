@@ -8,8 +8,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Traveen</title>
-    <link rel="stylesheet" href="../css/common.css" />
-    <link rel="stylesheet" href="../css/error.css" />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/error.css" />
   </head>
   <body>
     <!-- header -->
@@ -22,7 +22,7 @@
       요청하신 페이지의 주소가 변경, 삭제되어 찾을 수 없습니다.
 
       주소를 다시 확인해주세요.</h3>
-      <button id='btn-go-main'>메인으로</button>
+      <button id='btn-go-main' onclick='location.href='${root}/''>메인으로</button>
     </section>
     <!-- footer -->
     <%@ include file="../include/footer.jsp"%>

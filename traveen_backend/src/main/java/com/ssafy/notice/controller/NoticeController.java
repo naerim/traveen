@@ -46,8 +46,8 @@ public class NoticeController {
 		
 //		mav.addObject("pgno", map.get("pgno"));
 //		System.out.println(map.get("pgno"));
-//		mav.addObject("key", map.get("key"));
-//		mav.addObject("word", map.get("word"));
+		mav.addObject("key", map.get("key"));
+		mav.addObject("word", map.get("word"));
 		mav.setViewName("notice/list");
 		return mav;
 	}
@@ -60,8 +60,8 @@ public class NoticeController {
 		noticeService.updateHit(idx);
 		model.addAttribute("notice", notice);
 //		model.addAttribute("pgno", map.get("pgno"));
-//		model.addAttribute("key", map.get("key"));
-//		model.addAttribute("word", map.get("word"));
+		model.addAttribute("key", map.get("key"));
+		model.addAttribute("word", map.get("word"));
 		return "notice/detail";
 	}
 	
@@ -69,8 +69,8 @@ public class NoticeController {
 	public String regist(@RequestParam Map<String, String> map, Model model) {
 		logger.debug("write call parameter {}", map);
 //		model.addAttribute("pgno", map.get("pgno"));
-//		model.addAttribute("key", map.get("key"));
-//		model.addAttribute("word", map.get("word"));
+		model.addAttribute("key", map.get("key"));
+		model.addAttribute("word", map.get("word"));
 		return "notice/regist";
 	}
 	
@@ -83,8 +83,8 @@ public class NoticeController {
 
 		noticeService.registNotice(map);
 //		redirectAttributes.addAttribute("pgno", "1");
-//		redirectAttributes.addAttribute("key", "");
-//		redirectAttributes.addAttribute("word", "");
+		redirectAttributes.addAttribute("key", "");
+		redirectAttributes.addAttribute("word", "");
 		return "redirect:/notice/list";
 	}
 	
@@ -95,8 +95,8 @@ public class NoticeController {
 		Notice notice = noticeService.getNotice(idx);
 		model.addAttribute("notice", notice);
 //		model.addAttribute("pgno", map.get("pgno"));
-//		model.addAttribute("key", map.get("key"));
-//		model.addAttribute("word", map.get("word"));
+		model.addAttribute("key", map.get("key"));
+		model.addAttribute("word", map.get("word"));
 		return "notice/modify";
 	}
 
@@ -106,17 +106,19 @@ public class NoticeController {
 		logger.debug("modify map : {}", map);
 		noticeService.modifyNotice(map);
 //		redirectAttributes.addAttribute("pgno", map.get("pgno"));
-//		redirectAttributes.addAttribute("key", map.get("key"));
-//		redirectAttributes.addAttribute("word", map.get("word"));
+		rttr.addAttribute("key", map.get("key"));
+		rttr.addAttribute("word", map.get("word"));
 		rttr.addFlashAttribute("msg", "게시글이 수정되었습니다.");
 		return "redirect:/notice/list";
 	}
 	
 	@GetMapping("/delete")
-	public String delete(@RequestParam("idx") int idx, Model model, RedirectAttributes rttr)
+	public String delete(@RequestParam("idx") int idx, @RequestParam Map<String, String> map, Model model, RedirectAttributes rttr)
 			throws Exception {
 		logger.debug("delete notice idx : {}", idx);
 		noticeService.deleteNotice(idx);
+		rttr.addAttribute("key", map.get("key"));
+		rttr.addAttribute("word", map.get("word"));
 		rttr.addFlashAttribute("msg", "게시글이 삭제되었습니다.");
 		return "redirect:/"
 				+ "notice/list";

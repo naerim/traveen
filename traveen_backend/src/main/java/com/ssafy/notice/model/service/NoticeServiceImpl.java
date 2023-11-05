@@ -22,6 +22,10 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public List<Notice> listNotice(Map<String, String> map) throws Exception {
+		Map<String, Object> param = new HashMap<String, Object>();
+		String key = map.get("key");
+		param.put("key", key == null ? "" : key);
+		param.put("word", map.get("word") == null ? "" : map.get("word"));
 		return noticeMapper.listNotice(map);
 	}
 

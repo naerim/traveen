@@ -29,15 +29,18 @@
 		<!-- top-box -->
 		<div class="top-box">
 			<div class="left">총 ${totalCnt}건</div>
-			<form class="right" id="form-search" action="#" method="post">
-				<input type="hidden" name="pgno" value="1" /> <select
-					name="select-notice" id="select-notice">
+			<form class="right" id="form-search" action="#">
+				<input type="hidden" name="pgno" value="1" />
+				<select
+					name="key" id="key">
 					<option value="">전체</option>
-					<option value="subject">제목</option>
-				</select> <input type="text" name="keyword" id="keyword"
-					placeholder="검색어를 입력해주세요." /> <input type="submit" id="btn-search"
-					value="검색" />
-				<button type="button" id="btn-regist" onclick="location.href='${root}/notice/regist'" style="<c:if test="${userinfo.position ne M}">display: none</c:if>">글 등록</button>
+					<option value="title">제목</option>
+				</select> <input type="text" name="word" id="word"
+					placeholder="검색어를 입력해주세요." />
+					<button id="btn-search" type="button">검색</button>
+<%-- 				<button type="button" id="btn-regist" onclick="location.href='${root}/notice/regist'" style="<c:if test="${userinfo.position ne M}">display: none</c:if>">글 등록</button> --%>
+				<button type="button" id="btn-regist" style="<c:if test="${userinfo.position ne M}">display: none</c:if>">글 등록</button>
+				
 		</div>
 		<div class="table-container">
 			<!-- table -->
@@ -58,9 +61,11 @@
 						<c:forEach var="notice" items="${notices}" varStatus="status">
 							<tr>
 								<td>${fn:length(notices) - status.index}</td>
-								<td class="subject"><a
-									href="${root}/notice/view?idx=${notice.idx}"
-									class="notice-title link-dark">${notice.title}</a></td>
+<!-- 								<td class="subject"><a -->
+<%-- 									href="${root}/notice/view?idx=${notice.idx}" --%>
+<%-- 									class="notice-title link-dark">${notice.title}</a></td> --%>
+									<td class="subject"><a
+									href=# class="notice-title link-dark" data-no="${notice.idx}">${notice.title}</a></td>
 								<td><c:out
 										value="${fn:substring(notice.createDate, 0, 10)}" /></td>
 								<td>${notice.viewCount}</td>
@@ -76,6 +81,7 @@
 
 				</tbody>
 			</table>
+			</form>
 		</div>
 		<!-- pagination -->
 		<div class="pagination-container">
@@ -89,34 +95,62 @@
 			<div class="btn-next">다음&#62;</div>
 		</div>
 	</section>
-	<form id="form-param" method="get" action="">
-		<input type="hidden" name="pgno" id="pgno" value="${pgno}"> <input
-			type="hidden" name="key" value="${select-notice}"> <input
-			type="hidden" name="word" value="${keyword}">
-	</form>
-	<form id="form-no-param" method="get" action="${root}/notice/view">
-		<%--             <input type="hidden" name="pgno" value="${pgno}"> --%>
-		<%--             <input type="hidden" name="key" value="${select-notice}"> --%>
-		<%--             <input type="hidden" name="word" value="${keyword}"> --%>
-		<input type="hidden" id="idx" name="idx" value="">
-	</form>
 
-	<script>
-	//           let titles = document.querySelectorAll(".notice-title");
-	//           titles.forEach(function (title) {
-	//             title.addEventListener("click", function () {
-	//               document.querySelector("#idx").value = this.getAttribute("data-no");
-	//               document.querySelector("#form-no-param").submit();
-	//             });
-	//           });
-// 		document.querySelector("#btn-regist").addEventListener("click",
-// 				function() {
-// 					window.location.href = "${root}/notice/regist";
-// 				});
-	</script>
-	<!-- footer -->
 	
+	    <form id="form-param" method="get" action="">
+      <input type="hidden" name="pgno" id="pgno" value="${pgno}">
+      <input type="hidden" name="key" value="${key}">
+      <input type="hidden" name="word" value="${word}">
+    </form>
+    <form id="form-no-param" method="get" action="${root}/notice/view">
+      <input type="hidden" name="pgno" value="${pgno}">
+      <input type="hidden" name="key" value="${key}">
+      <input type="hidden" name="word" value="${word}">
+      <input type="hidden" id="idx" name="idx" value="">
+    </form>
+
+	<!-- footer -->
 	<%@ include file="../include/footer.jsp"%>
+	
+	<script>
+	
+//     document.querySelector("#btn-search").addEventListener("click", function () {
+//   	  let form = document.querySelector("#form-search");
+//         form.setAttribute("action", "${root}/notice/list");
+//         form.submit();
+//     });
+    
+    let titles = document.querySelectorAll(".notice-title");
+    titles.forEach(function (title) {
+      title.addEventListener("click", function () {
+        document.querySelector("#idx").value = this.getAttribute("data-no");
+        document.querySelector("#form-no-param").submit();
+      });
+    });
+
+    document.querySelector("#btn-regist").addEventListener("click", function () {
+  	  let form = document.querySelector("#form-param");
+        form.setAttribute("action", "${root}/notice/regist");
+        form.submit();
+    });
+    
+    document.querySelector("#btn-search").addEventListener("click", function () {
+  	  let form = document.querySelector("#form-search");
+        form.setAttribute("action", "${root}/notice/list");
+        form.submit();
+    });
+    
+//     let pages = document.querySelectorAll(".page-link");
+//     pages.forEach(function (page) {
+//       page.addEventListener("click", function () {
+//      	  document.querySelector("#pgno").value = this.parentNode.getAttribute("data-pg");
+//         let form = document.querySelector("#form-param");
+//         form.setAttribute("action", "${root}/article/list");
+//         form.submit();
+//       });
+//     });
+	</script>
+	
 </body>
 
 </html>

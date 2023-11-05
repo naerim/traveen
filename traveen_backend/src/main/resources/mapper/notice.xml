@@ -14,8 +14,12 @@
 	<!-- 검색 -->
 	<sql id="search">
 		<if test="word != null and word != ''">
-			<if test="key == 'title'">and title like concat('%', #{word}, '%') </if>
-			<if test="key != 'title'">and ${key} = #{word} </if>
+			<if test="key == 'title'">
+				and title like concat('%', #{word}, '%')
+			</if>
+			<if test="key != 'title'">
+				and ${key} = #{word}
+			</if>
 		</if>
 	</sql>
 
@@ -23,8 +27,9 @@
 	<select id="listNotice" parameterType="map" resultMap="notice">
 		select idx, title, create_date, view_count
 		from notice n
-		<include refid="search" />
-<!-- 		order by b.article_no desc limit #{start}, #{listsize} -->
+		<where>
+			<include refid="search"></include>
+		</where>
 		order by create_date desc;
 	</select>
 	
@@ -68,9 +73,12 @@
 		where n.idx = #{idx} and n.user_idx = u.idx
 	</select>
 	
-	<!-- 총 공지사항 수 -->
+	<!-- 총 공지사항 개수 -->
 	<select id="getTotalNoticeCount" parameterType="int" resultType="int">
-		select count(*)
+		select count(idx)
 		from notice
+		<where>
+			<include refid="search"></include>
+		</where>
 	</select>
 </mapper>

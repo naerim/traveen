@@ -24,7 +24,7 @@
 
 	<!-- 로그인 -->
 	<select id="login" parameterType="map" resultMap="user">
-		select user_id, user_pwd
+		select user_id, user_pwd, user_name, idx
 		from users
 		where user_id = #{userId} and user_pwd = #{userPwd}
 	</select>
@@ -32,7 +32,7 @@
 	<!-- 회원가입 -->
 	<insert id="join" parameterType="map">
 		insert into users (user_id, user_pwd, user_name, email_id, email_domain, mobile, salt, join_date, position)
-		values (#{userId}, #{userPwd}, #{userName}, #{emailId}, #{emailDomain}, #{mobile}, #{salt}, now(), #{position})
+		values (#{userId}, #{userPwd}, #{userName}, #{emailId}, #{emailDomain}, #{mobile}, #{salt}, now(), 'G')
 	</insert>
 	
 	<!-- 아이디로 정보 가져오기 -->
@@ -44,11 +44,28 @@
 	
 	<!-- 회원정보수정 -->
 	<update id="updateUser" parameterType="user">
-		update members
+		update users
 		<trim prefix="set" suffixOverrides=",">
-			<if test="userPwd != null">user_password = #{userPwd},</if>
+			<if test="userName != null">user_name = #{userName},</if>
 			<if test="emailId != null">email_id = #{emailId},</if>
 			<if test="emailDomain != null">email_domain = #{emailDomain},</if>
+			<if test="mobile != null">mobile = #{mobile},</if>
+		</trim>
+		where user_id = #{userId}
+	</update>
+
+	<!-- 비밀번호 체크 -->
+	<select id="pwdCheck" parameterType="map" resultType="int">
+		select count(user_id)
+		from users
+		where user_id = #{userId} and user_pwd = #{userPwd}
+	</select>
+
+	<!-- 비밀번호 수정 -->
+	<update id="updatePwd" parameterType="map">
+		update users
+		<trim prefix="set" suffixOverrides=",">
+			<if test="newPwd != null">user_pwd = #{userPwd}, salt = #{salt}</if>
 		</trim>
 		where user_id = #{userId}
 	</update>

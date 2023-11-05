@@ -7,8 +7,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Traveen</title>
-    <link rel="stylesheet" href="../css/common.css" />
-    <link rel="stylesheet" href="../css/error.css" />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/error.css" />
   </head>
   <body>
     <!-- header -->
@@ -22,7 +22,7 @@
       문제를 해결하기 위해 열심히 노력하고 있습니다.
 
       잠시후 다시 확인해주세요.</h3>
-      <button id='btn-go-main'>메인으로</button>
+      <button id='btn-go-main' onclick="location.href='${root}/'">메인으로</button>
     </section>
     <!-- footer -->
     <%@ include file="../include/footer.jsp"%>
