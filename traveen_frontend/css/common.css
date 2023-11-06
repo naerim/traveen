@@ -7,8 +7,8 @@
 }
 
 a {
-    text-decoration: none;
-    color: #000;
+  text-decoration: none;
+  color: #000;
 }
 
 header {
@@ -36,13 +36,13 @@ header .header-container {
 }
 
 .header-right {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 #header-username {
-	color: #6B7684;
-	margin-right: 10px;
+  color: #6b7684;
+  margin-right: 10px;
 }
 
 .header-container button {
@@ -157,14 +157,13 @@ footer #footer-right p {
 .modalContainer {
   position: fixed; /* Stay in place */
   z-index: 1000; /* Sit on top */
-  padding-top: 200px; /* Location of the box */
+  padding-top: 180px; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
 .modalContent {
@@ -174,8 +173,8 @@ footer #footer-right p {
 .modalBody {
   position: relative;
   display: flex;
-  width: 500px;
-  height: 300px;
+  width: 1000px;
+  height: 500px;
   padding: 30px 30px;
   margin: 0 auto;
   background-color: #fff;
@@ -183,10 +182,10 @@ footer #footer-right p {
 }
 
 .modalBody .btn-close-modal {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    width: 36px;
-    height: 36px;
-  }
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+}

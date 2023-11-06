@@ -128,10 +128,13 @@
 
     <!-- modal -->
     <div class="modalContainer">
-        <div class="modalBody">
-            <img src="./img/icon_close.png" alt=""  class="btn-close-modal">
-            <div class="modalContent">ddd</div>
+      <div class="modalBody">
+        <img src="./img/icon_close.png" alt="" class="btn-close-modal" />
+        <div class="tripinfo-modal-container">
+          <div class="left">왼쪽</div>
+          <div class="right">오른쪽</div>
         </div>
+      </div>
     </div>
 
     <!-- footer -->
@@ -162,10 +165,12 @@
         });
       });
 
-      document.querySelector(".btn-close-modal").addEventListener('click', function() {
-        const modal = document.querySelector(".modalContainer");
-        modal.style.display = "none";
-      })
+      document
+        .querySelector(".btn-close-modal")
+        .addEventListener("click", function () {
+          const modal = document.querySelector(".modalContainer");
+          modal.style.display = "none";
+        });
     </script>
   </body>
 </html>

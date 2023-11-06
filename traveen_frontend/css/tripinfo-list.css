@@ -217,3 +217,19 @@ section {
   margin-left: 6px;
   margin-right: 2px;
 }
+
+.tripinfo-modal-container {
+  display: flex;
+  padding-top: 20px;
+  width: 100%;
+}
+
+.tripinfo-modal-container .left {
+  background-color: #51cd89;
+  width: 50%;
+}
+
+.tripinfo-modal-container .right {
+  background-color: #6b7684;
+  width: 50%;
+}
