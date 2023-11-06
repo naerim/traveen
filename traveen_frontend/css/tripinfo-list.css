@@ -220,16 +220,50 @@ section {
 
 .tripinfo-modal-container {
   display: flex;
+  justify-content: space-around;
   padding-top: 20px;
   width: 100%;
 }
 
 .tripinfo-modal-container .left {
-  background-color: #51cd89;
-  width: 50%;
+  width: 48%;
+  box-sizing: border-box;
+}
+
+.title-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail-title {
+  color: #6b7684;
+  font-size: 1.1em;
+}
+
+.detail-type {
+  background-color: #eb635b;
+  color: #fff;
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 0.8em;
+}
+
+.detail-place-name {
+  font-weight: bold;
+  font-size: 1.4em;
+}
+
+.detail-place-category {
+  margin-top: 20px;
+}
+
+.detail-desc {
+  margin-top: 6px;
+  color: #8b95a1;
 }
 
 .tripinfo-modal-container .right {
   background-color: #6b7684;
-  width: 50%;
+  width: 48%;
 }
