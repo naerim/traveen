@@ -126,6 +126,14 @@
       </div>
     </section>
 
+    <!-- modal -->
+    <div class="modalContainer">
+        <div class="modalBody">
+            <img src="./img/icon_close.png" alt=""  class="btn-close-modal">
+            <div class="modalContent">ddd</div>
+        </div>
+    </div>
+
     <!-- footer -->
     <footer>
       <div class="footer-container">
@@ -153,6 +161,11 @@
           this.classList.add("active");
         });
       });
+
+      document.querySelector(".btn-close-modal").addEventListener('click', function() {
+        const modal = document.querySelector(".modalContainer");
+        modal.style.display = "none";
+      })
     </script>
   </body>
 </html>
