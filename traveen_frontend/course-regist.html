@@ -27,11 +27,52 @@
         id="hamburger"
       ></i>
     </header>
-    
+
     <!-- section -->
     <section>
-        <!-- title -->
-        <h1 class="title">나만의 여행코스를<br />만들어보세요.</h1>
+      <!-- title -->
+      <h1 class="title">나만의 여행코스를<br />만들어보세요.</h1>
+      <div class="course-regist-container">
+        <div class="left">
+          <!-- kakao map -->
+          <div id="mapBox">
+            <div id="map"></div>
+          </div>
+        </div>
+        <div class="right">
+          <div class="course-top">나의 여행 코스</div>
+          <ul class="course-list">
+            <li draggable="true">
+              <div class="num">1</div>
+              <div class="imgDiv">
+                <img src="./img/img_tripinfo.png" alt="" />
+              </div>
+              <div>안녕1</div>
+            </li>
+            <li draggable="true">
+              <div class="num">2</div>
+              <div class="imgDiv">
+                <img src="./img/img_tripinfo.png" alt="" />
+              </div>
+              <div>안녕2</div>
+            </li>
+            <li draggable="true">
+              <div class="num">3</div>
+              <div class="imgDiv">
+                <img src="./img/img_tripinfo.png" alt="" />
+              </div>
+              <div>안녕3</div>
+            </li>
+            <li draggable="true">
+              <div class="num">4</div>
+              <div class="imgDiv">
+                <img src="./img/img_tripinfo.png" alt="" />
+              </div>
+              <div>안녕4</div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <!-- footer -->
@@ -50,5 +91,69 @@
         </div>
       </div>
     </footer>
+    <!-- 지도 api -->
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f969680d19602de1fea5ade9c6d7e784"></script>
+    <script>
+      //=============drag & drop==================
+      const list = document.querySelector(".course-list");
+      let draggedItem = null;
+
+      list.addEventListener("dragstart", (e) => {
+        e.dataTransfer.setData("text/plain", e.target.outerHTML);
+        draggedItem = e.target;
+      });
+
+      list.addEventListener("dragover", (e) => {
+        e.preventDefault();
+      });
+
+      list.addEventListener("drop", (e) => {
+        e.preventDefault();
+        if (draggedItem !== null) {
+          const sourceData = e.dataTransfer.getData("text/plain");
+          const target = e.target;
+
+          // 확인하고 이벤트 대상이 li 요소인지 확인
+          if (target.tagName === "LI") {
+            // 드래그 아이템을 드롭한 위치에 삽입
+            list.insertBefore(draggedItem, target);
+
+            // 모든 "num" 엘리먼트를 찾아 순서대로 업데이트
+            const numElements = document.querySelectorAll(".course-list .num");
+            numElements.forEach((numElement, index) => {
+              numElement.innerHTML = index + 1;
+            });
+          }
+          draggedItem = null;
+        }
+      });
+
+      //=============kakaomap==================
+      var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+        mapOption = {
+          center: new kakao.maps.LatLng(37.54699, 127.09598), // 지도의 중심좌표
+          level: 4, // 지도의 확대 레벨
+        };
+
+      var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+        mapOption = {
+          center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+          level: 3, // 지도의 확대 레벨
+        };
+
+      var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+      var iwContent = '<div style="padding:5px;">라라무리</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        iwPosition = new kakao.maps.LatLng(33.450701, 126.570667), //인포윈도우 표시 위치입니다
+        iwRemoveable = false; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+      // 인포윈도우를 생성하고 지도에 표시합니다
+      var infowindow = new kakao.maps.InfoWindow({
+        map: map, // 인포윈도우가 표시될 지도
+        position: iwPosition,
+        content: iwContent,
+        removable: iwRemoveable,
+      });
+    </script>
   </body>
 </html>
