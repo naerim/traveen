@@ -137,14 +137,73 @@
               <div class="detail-type">드라마</div>
             </div>
             <div class="place-name-box">
-              <div class="detail-place-name">라라무리</div>
+              <div class="detail-place-name">리라무리무리</div>
+              <div class="detail-place-like-hit">
+                <div class="hit"><img src="./img/icon_view.png" alt="" /> 10</div>
+                <div class="like"><img src="./img/icon_heart.png" alt="" /> 20</div>
+              </div>
             </div>
             <div class="detail-place-category">레스토랑</div>
-            <div class="detail-desc">
-              설명설명설설명설명설명설명설명설명설명설명설명설명설명설명명설설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설설명설명설명설명설명설명명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명
+            <div class="detail-desc">1회에서 이곳은 지은탁(김고은)이 도깨비에서 어린 소녀였을 때 사는
+              곳이기도 하다.
             </div>
+            <div class="detail-info-box">
+              <div>              
+                <span>운영시간</span>
+                <span>매일 00시 - 24시</span>
+              </div>
+              <div>              
+                <span>휴식시간</span>
+                <span>정보 없음</span>
+              </div>
+              <div>              
+                <span>휴식시간</span>
+                <span>연중무휴</span>
+              </div>
+              <div>              
+                <span>전화번호</span>
+                <span>25424073</span>
+              </div>
+              <div>              
+                <span>주소</span>
+                <span>경기도 파주시 회동길 445-1</span>
+              </div>
+
+            </div>
+            <dib class="button-wrap">
+              <button>여행코스 만들기</button>
+              <button>
+                찜하기
+                <img src="./img/icon_heart.png" alt="">
+              </button>
+            </dib>
           </div>
-          <div class="right">오른쪽</div>
+          <div class="right">
+            <!-- kakao map -->
+            <div id="mapBox">
+              <div id="map"></div>
+            </div>
+            <div class="comment-title">Comments</div>
+            <div class="comment-box">
+              <div class="comments">
+                <div class="userName">예핑고</div>
+                <div class="comment-content">드라마 정주행 다시 하고 싶어졌어요 ㅎㅎ</div>
+              </div>
+              <div class="comments">
+                <div class="userName">박핑가핑가</div>
+                <div class="comment-content">드라마 정주행 다시 하고 싶어졌어요 ㅎㅎ드라마 정주행 다시 하고 싶어졌어요 ㅎㅎ드라마 정주행 다시 하고 싶어졌어요 ㅎㅎ드라마 정주행 다시 하고 싶어졌어요 ㅎㅎ</div>
+              </div>
+              <div class="comments">
+                <div class="userName">박핑가핑가</div>
+                <div class="comment-content">드라마 정주행 다시 하고 싶어졌어요 ㅎㅎ드라마 정주행 다시 하고 싶어졌어요 ㅎㅎ드라마 정주행 다시 하고 싶어졌어요 ㅎㅎ드라마 정주행 다시 하고 싶어졌어요 ㅎㅎ</div>
+              </div>
+              
+            </div>
+            <form action="" id='form-detail-comment'>
+              <input type="text" placeholder='댓글 달기..' id='input-detail-comment'>
+              <button type='button'>등록</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -165,6 +224,8 @@
         </div>
       </div>
     </footer>
+    <!-- 지도 api -->
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f969680d19602de1fea5ade9c6d7e784"></script>
     <script>
       // tab 이벤트
       const tabnavItems = document.querySelectorAll(".tabnav li");
@@ -184,7 +245,32 @@
           modal.style.display = "none";
         });
 
-      // 지도
+      //=============kakaomap==================
+      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+      mapOption = { 
+          center: new kakao.maps.LatLng(37.54699, 127.09598), // 지도의 중심좌표
+          level: 4 // 지도의 확대 레벨
+      };
+
+      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+      mapOption = { 
+          center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+          level: 3 // 지도의 확대 레벨
+      };
+
+      var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+      var iwContent = '<div style="padding:5px;">라라무리</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+          iwPosition = new kakao.maps.LatLng(33.450701, 126.570667), //인포윈도우 표시 위치입니다
+          iwRemoveable = false; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+      // 인포윈도우를 생성하고 지도에 표시합니다
+      var infowindow = new kakao.maps.InfoWindow({
+          map: map, // 인포윈도우가 표시될 지도
+          position : iwPosition, 
+          content : iwContent,
+          removable : iwRemoveable
+      });
     </script>
   </body>
 </html>

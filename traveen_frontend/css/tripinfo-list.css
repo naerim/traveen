@@ -221,12 +221,14 @@ section {
 .tripinfo-modal-container {
   display: flex;
   justify-content: space-around;
-  padding-top: 20px;
   width: 100%;
+  padding: 40px;
 }
 
 .tripinfo-modal-container .left {
-  width: 48%;
+  display: flex;
+  flex-direction: column;
+  width: 46%;
   box-sizing: border-box;
 }
 
@@ -238,7 +240,7 @@ section {
 
 .detail-title {
   color: #6b7684;
-  font-size: 1.1em;
+  font-size: 1em;
 }
 
 .detail-type {
@@ -246,7 +248,13 @@ section {
   color: #fff;
   border-radius: 4px;
   padding: 3px 6px;
-  font-size: 0.8em;
+  font-size: 0.6em;
+}
+
+.place-name-box {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
 .detail-place-name {
@@ -254,7 +262,13 @@ section {
   font-size: 1.4em;
 }
 
+.detail-place-like-hit {
+  display: flex;
+  align-items: flex-end;
+}
+
 .detail-place-category {
+  font-size: 0.9em;
   margin-top: 20px;
 }
 
@@ -263,7 +277,126 @@ section {
   color: #8b95a1;
 }
 
+.detail-info-box {
+  margin-top: 20px;
+}
+
+.detail-info-box div {
+  font-size: 0.9em;
+}
+
+.detail-info-box div span:first-child {
+  display: inline-block;
+  color: #61676F;
+  width: 80px;
+}
+
+.button-wrap {
+  display: flex;
+  margin-top: auto; 
+}
+
+.button-wrap button {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 4px 20px;
+}
+
+.button-wrap button:first-child {
+  background-color: #51cd89;
+  color: #fff;
+  padding: 4px 20px;
+}
+
+.button-wrap button:last-child {
+  background-color: #F7F8FA;
+  color: #6B7684;
+  margin-left: 20px;
+  border: 1px solid #ddd;
+}
+
+.button-wrap button img {
+  width: 10px;
+  height: 10px;
+  margin-left: 10px;
+}
+
 .tripinfo-modal-container .right {
-  background-color: #6b7684;
-  width: 48%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 40%;
+  height: 100%;
+}
+
+#mapBox {
+  margin-inline: auto;
+  width: 100%;
+  height: 50%;
+}
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+.comment-title {
+  font-weight: bold;
+  margin: 20px 0 10px 0;
+}
+
+.comment-box {
+  display: flex;
+  flex-direction: column;
+  height: 110px;
+  overflow-y: scroll;
+
+}
+
+.comments {
+  display: flex;
+  font-size: 0.8em;
+  margin-bottom: 4px;
+}
+
+.comments .userName {
+  color: #61676F;
+  font-weight: bold;
+  margin-right: 1%;
+  width: 20%;
+}
+
+.comments .comment-content {
+  width: 79%;
+}
+
+#form-detail-comment {
+  margin-top: auto;
+}
+
+#form-detail-comment input {
+  background-color: #F2F4F6;
+  border: 1px solid #ddd;
+  height: 40px;
+  padding: 4px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  width: 60%;
+}
+
+#form-detail-comment input::placeholder {
+  color: #6B7684;
+}
+
+#form-detail-comment button {
+  height: 40px;
+  width: 60px;
+  border-radius: 6px;
+  border: none;
+  background-color: #51cd89;
+  color: #fff;
+  cursor: pointer;
 }
