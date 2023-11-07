@@ -46,11 +46,11 @@ public class UserController {
 		Map<String, String> result = new HashMap<>();
 		if (cnt != 0) { // 중복
 			result.put("result", "중복됨");
-			return new ResponseEntity<Map<String, String>>(result, HttpStatus.OK);
 		} else {
 			result.put("result", "중복안됨");
-			return new ResponseEntity<Map<String, String>>(result, HttpStatus.OK);
 		}
+		
+		return new ResponseEntity<Map<String, String>>(result, HttpStatus.OK);
 	}
 
 	@GetMapping("/login")
