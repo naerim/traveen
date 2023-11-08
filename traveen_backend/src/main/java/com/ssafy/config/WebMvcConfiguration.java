@@ -28,8 +28,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
 	private final List<String> patterns = Arrays.asList("/notice/*", "/admin", "/user/myinfo");
 
-	@Autowired
-	private ConfirmInterceptor confirmInterceptor;
+//	@Autowired
+//	private ConfirmInterceptor confirmInterceptor;
 
 //	private final String uploadFilePath;
 
@@ -50,9 +50,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	}
 
 //	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(confirmInterceptor).addPathPatterns(patterns);
-	}
+//	public void addInterceptors(InterceptorRegistry registry) {
+//		registry.addInterceptor(confirmInterceptor).addPathPatterns(patterns);
+//	}
 
 //	@Override
 //	public void addResourceHandlers(ResourceHandlerRegistry registry) {

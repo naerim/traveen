@@ -42,7 +42,6 @@ public class UserController {
 	public ResponseEntity<?> idCheck(@PathVariable("userId") String userId) throws Exception {
 		logger.debug("idCheck userid : {}", userId);
 		int cnt = userService.idCheck(userId);
-		System.out.println(cnt);
 		Map<String, String> result = new HashMap<>();
 		if (cnt != 0) { // 중복
 			result.put("result", "중복됨");
@@ -136,11 +135,11 @@ public class UserController {
 	}
 	
 	@GetMapping("/myinfo")
-	public String myinfo(HttpSession session, Model model) throws Exception {
+	public ResponseEntity<User> myinfo(HttpSession session, Model model) throws Exception {
 		User userinfo = (User) session.getAttribute("userinfo");
 		User user = userService.getUser(userinfo.getUserId());
-		model.addAttribute("user", user);
-		return "mypage/myinfo";
+//		User user = userService.getUser("admin");
+		return ResponseEntity.ok(user);
 	}
 
 	@PostMapping("/myinfo")
