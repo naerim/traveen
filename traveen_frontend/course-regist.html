@@ -38,6 +38,144 @@
           <div id="mapBox">
             <div id="map"></div>
           </div>
+          <form class="form-search-course-regist">
+            <select name="type" id="type">
+              <option value="drama">드라마</option>
+            </select>
+            <select name="category" id="category">
+              <option value="restaurant">레스토랑</option>
+            </select>
+            <select name="sido" id="sido">
+              <option value="경기도">경기도</option>
+            </select>
+            <input type="text" placeholder='검색어를 입력해주세요.' id='input-course-regist'>
+            <button type='button'>검색</button>
+          </form>
+          <div>총 4개의 검색 결과가 있습니다.</div>
+          <div id="content-box">
+            <!-- empty-tripinfo-box -->
+            <!-- <div class="empty-tripinfo-box">검색 결과가 없습니다.</div> -->
+            <!-- tripinfo-list-box -->
+            <div class="item">
+              <div class="imgDiv">
+                <img src="./img/img_tripinfo.png" alt="" />
+              </div>
+              <div class="tag-box">
+                <div class="tag-left">도깨비</div>
+                <div class="tag-right">
+                  <div class="type">레스토랑</div>
+                  <div class="category">드라마</div>
+                </div>
+              </div>
+              <div class="place_name">라라무리</div>
+              <div class="desc">
+                1회에서 이곳은 지은탁(김고은)이 도깨비에서 어린 소녀였을 때 사는
+                곳이기도 하다.
+              </div>
+              <div class="bottom-box">
+                <div class="hit"><img src="./img/icon_view.png" alt="" /> 10</div>
+                <div class="like"><img src="./img/icon_heart.png" alt="" /> 20</div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="imgDiv">
+                <img src="./img/img_tripinfo.png" alt="" />
+              </div>
+              <div class="tag-box">
+                <div class="tag-left">도깨비</div>
+                <div class="tag-right">
+                  <div class="type">레스토랑</div>
+                  <div class="category">드라마</div>
+                </div>
+              </div>
+              <div class="place_name">라라무리</div>
+              <div class="desc">
+                1회에서 이곳은 지은탁(김고은)이 도깨비에서 어린 소녀였을 때 사는
+                곳이기도 하다.
+              </div>
+              <div class="bottom-box">
+                <div class="hit"><img src="./img/icon_view.png" alt="" /> 10</div>
+                <div class="like"><img src="./img/icon_heart.png" alt="" /> 20</div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="imgDiv">
+                <img src="./img/img_tripinfo.png" alt="" />
+              </div>
+              <div class="tag-box">
+                <div class="tag-left">도깨비</div>
+                <div class="tag-right">
+                  <div class="type">레스토랑</div>
+                  <div class="category">드라마</div>
+                </div>
+              </div>
+              <div class="place_name">라라무리</div>
+              <div class="desc">
+                1회에서 이곳은 지은탁(김고은)이 도깨비에서 어린 소녀였을 때 사는
+                곳이기도 하다.
+              </div>
+              <div class="bottom-box">
+                <div class="hit"><img src="./img/icon_view.png" alt="" /> 10</div>
+                <div class="like"><img src="./img/icon_heart.png" alt="" /> 20</div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="imgDiv">
+                <img src="./img/img_tripinfo.png" alt="" />
+              </div>
+              <div class="tag-box">
+                <div class="tag-left">도깨비</div>
+                <div class="tag-right">
+                  <div class="type">레스토랑</div>
+                  <div class="category">드라마</div>
+                </div>
+              </div>
+              <div class="place_name">라라무리</div>
+              <div class="desc">
+                1회에서 이곳은 지은탁(김고은)이 도깨비에서 어린 소녀였을 때 사는
+                곳이기도 하다.
+              </div>
+              <div class="bottom-box">
+                <div class="hit"><img src="./img/icon_view.png" alt="" /> 10</div>
+                <div class="like"><img src="./img/icon_heart.png" alt="" /> 20</div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="imgDiv">
+                <img src="./img/img_tripinfo.png" alt="" />
+              </div>
+              <div class="tag-box">
+                <div class="tag-left">도깨비</div>
+                <div class="tag-right">
+                  <div class="type">레스토랑</div>
+                  <div class="category">드라마</div>
+                </div>
+              </div>
+              <div class="place_name">라라무리</div>
+              <div class="desc">
+                1회에서 이곳은 지은탁(김고은)이 도깨비에서 어린 소녀였을 때 사는
+                곳이기도 하다.
+              </div>
+              <div class="bottom-box">
+                <div class="hit"><img src="./img/icon_view.png" alt="" /> 10</div>
+                <div class="like"><img src="./img/icon_heart.png" alt="" /> 20</div>
+              </div>
+            </div>
+
+
+
+          </div>
+          <!-- pagination -->
+          <div class="pagination-container">
+            <div class="btn-prev">&#60;이전</div>
+            <span class="divider"></span>
+            <ul>
+              <li>1</li>
+              <li>2</li>
+            </ul>
+            <span class="divider"></span>
+            <div class="btn-next">다음&#62;</div>
+          </div>
         </div>
         <div class="right">
           <div class="course-top">나의 여행 코스</div>
@@ -69,8 +207,10 @@
                 <img src="./img/img_tripinfo.png" alt="" />
               </div>
               <div>안녕4</div>
-            </li>
+            </li> 
           </ul>
+          <button id='btn-sort-path'>최단경로로 정렬</button>
+          <button id='btn-regist-course'>등록하기</button>
         </div>
       </div>
     </section>
