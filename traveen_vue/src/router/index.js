@@ -38,6 +38,14 @@ const router = createRouter({
       path: "/notice",
       name: "notice",
       component: () => import("@/views/NoticeView.vue"),
+      redirect: "/notice",
+      children: [
+        {
+          path: "list",
+          name: "notice-list",
+          component: () => import("@/components/notice/NoticeList.vue"),
+        },
+      ],
     },
   ],
 });
