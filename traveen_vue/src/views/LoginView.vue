@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <footer>푸터영역</footer>
+  <div>로그인 페이지</div>
 </template>
 
 <style scoped></style>

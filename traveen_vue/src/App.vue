@@ -1,11 +1,19 @@
 <script setup>
 import { RouterView } from "vue-router";
-import TheHeadingNavbar from "./components/common/TheHeadingNavbar.vue";
+import TheHeadingNavbar from "@/components/layout/TheHeadingNavbar.vue";
+import TheFooter from "@/components/layout/TheFooter.vue";
 </script>
 
 <template>
   <TheHeadingNavbar />
-  <RouterView />
+  <section>
+    <RouterView />
+  </section>
+  <TheFooter />
 </template>
 
-<style scoped></style>
+<style scoped>
+section {
+  padding-top: 70px;
+}
+</style>

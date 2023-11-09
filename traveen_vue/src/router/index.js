@@ -9,6 +9,36 @@ const router = createRouter({
       name: "home",
       component: HomeView,
     },
+    {
+      path: "/login",
+      name: "login",
+      component: () => import("@/views/LoginView.vue"),
+    },
+    {
+      path: "/join",
+      name: "join",
+      component: () => import("@/views/JoinView.vue"),
+    },
+    {
+      path: "/mypage",
+      name: "mypage",
+      component: () => import("@/views/MyPageView.vue"),
+    },
+    {
+      path: "/trip",
+      name: "trip",
+      component: () => import("@/views/TripView.vue"),
+    },
+    {
+      path: "/aftertraveen",
+      name: "aftertraveen",
+      component: () => import("@/views/AfterTraveenView.vue"),
+    },
+    {
+      path: "/notice",
+      name: "notice",
+      component: () => import("@/views/NoticeView.vue"),
+    },
   ],
 });
 

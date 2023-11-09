@@ -1,0 +1,107 @@
+<script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { RouterLink } from "vue-router";
+
+const router = useRouter();
+
+// 임시 - 로그인한 유저가 있을 때
+const loginUser = ref(false);
+
+const goLoginPage = () => router.push({ name: "login" });
+const goMyPage = () => router.push({ name: "mypage" });
+</script>
+
+<template>
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <div id="logo">
+          <RouterLink to="/">Traveen</RouterLink>
+        </div>
+        <div id="menulist">
+          <RouterLink to="/trip">여행지</RouterLink>
+          <RouterLink to="/aftertraveen">애프터 트래빈</RouterLink>
+          <RouterLink to="/notice">공지사항</RouterLink>
+        </div>
+      </div>
+      <button v-if="loginUser" @click="goMyPage">마이페이지</button>
+      <button v-else @click="goLoginPage">로그인</button>
+    </div>
+    <i class="fa-solid fa-bars fa-2x" style="color: #454545" id="hamburger"></i>
+  </header>
+</template>
+
+<style scoped>
+header {
+  z-index: 100;
+  position: fixed;
+  width: 100%;
+  box-shadow: 0 10px 10px -10px gray;
+  background-color: #fff;
+}
+
+header .header-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 70px;
+  line-height: 70px;
+}
+
+.header-left {
+  display: flex;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+#header-username {
+  color: #6b7684;
+  margin-right: 10px;
+}
+
+.header-container button {
+  background-color: var(--tv-c-green);
+  border-radius: 16px;
+  color: #fff;
+  border: none;
+  padding: 0 16px;
+  height: 34px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+#hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+header a {
+  color: #6b7684;
+  margin-left: 34px;
+  font-size: 1em;
+}
+
+header a:hover {
+  color: var(--tv-c-green);
+}
+
+header #logo a {
+  font-size: 1.6em;
+  box-sizing: border-box;
+  color: var(--tv-c-green);
+  font-weight: bold;
+  margin-left: 0;
+}
+
+.router-link-active {
+  color: var(--tv-c-green);
+}
+</style>

@@ -1,9 +1,14 @@
 @import "./base.css";
 
 #app {
-  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: "Inter", sans-serif;
+  scroll-behavior: smooth;
 }
 
 a {
   text-decoration: none;
+  cursor: pointer;
 }
