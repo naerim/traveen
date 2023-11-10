@@ -1,8 +1,6 @@
 package com.ssafy.notice.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,8 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ssafy.notice.model.Notice;
 import com.ssafy.notice.model.service.NoticeService;
 import com.ssafy.user.model.User;
-import com.ssafy.util.PageNavigation;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
