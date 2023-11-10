@@ -31,7 +31,7 @@ public class SwaggerConfiguration {
 	@Bean
 	public Docket api1() {
 		return new Docket(DocumentationType.SWAGGER_2).consumes(getConsumeContentTypes()).produces(getProduceContentTypes())
-					.apiInfo(apiInfo()).groupName(version).select()
+					.apiInfo(apiInfo()).groupName("notice " + version).select()
 					.apis(RequestHandlerSelectors.basePackage("com.ssafy.notice.controller"))
 					.paths(regex("/notice/.*")).build()
 					.useDefaultResponseMessages(false);
@@ -41,7 +41,7 @@ public class SwaggerConfiguration {
 	@Bean
 	public Docket api2() {
 		return new Docket(DocumentationType.SWAGGER_2).consumes(getConsumeContentTypes()).produces(getProduceContentTypes())
-					.apiInfo(apiInfo()).groupName(version).select()
+					.apiInfo(apiInfo()).groupName("user " + version).select()
 					.apis(RequestHandlerSelectors.basePackage("com.ssafy.user.controller"))
 					.paths(regex("/user/.*")).build()
 					.useDefaultResponseMessages(false);
@@ -51,7 +51,7 @@ public class SwaggerConfiguration {
 	@Bean
 	public Docket api3() {
 		return new Docket(DocumentationType.SWAGGER_2).consumes(getConsumeContentTypes()).produces(getProduceContentTypes())
-					.apiInfo(apiInfo()).groupName(version).select()
+					.apiInfo(apiInfo()).groupName("tripinfo " + version).select()
 					.apis(RequestHandlerSelectors.basePackage("com.ssafy.tripinfo.controller"))
 					.paths(regex("/tripinfo/.*")).build()
 					.useDefaultResponseMessages(false);

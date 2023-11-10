@@ -1,25 +1,39 @@
 package com.ssafy.user.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "UserDto : 회원 정보", description = "회원의 상세 정보를 나타낸다.")
 public class User {
 	/* 고유번호 */
+	@ApiModelProperty(value = "고유 번호")
 	private int idx;
 	/* 아이디 */
+	@ApiModelProperty(value = "아이디")
 	private String userId;
 	/* 비밀번호 */
+	@ApiModelProperty(value = "비밀번호")
 	private String userPwd;
 	/* 이름 */
+	@ApiModelProperty(value = "이름")
 	private String userName;
 	/* 이메일 아이디 */
+	@ApiModelProperty(value = "이메일 아이디")
 	private String emailId;
 	/* 이메일 도메인 */
+	@ApiModelProperty(value = "이메일 도메인")
 	private String emailDomain;
 	/* 휴대전화 번호 */
+	@ApiModelProperty(value = "휴대전화 번호")
 	private String mobile;
 	/* 해당 아이디의 고유한 salt */
+	@ApiModelProperty(value = "salt")
 	private String salt;
 	/* 가입일 */
+	@ApiModelProperty(value = "가입일")
 	private String joinDate;
 	/* 등급 */
+	@ApiModelProperty(value = "등급")
 	private String position;
 	
 	public int getIdx() {
