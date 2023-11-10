@@ -25,8 +25,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ssafy.user.model.User;
 import com.ssafy.user.model.service.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @Controller
 @RequestMapping("/user")
+@Api(tags = "회원 API", value="Traveen")
 public class UserController {
 	private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -39,6 +43,7 @@ public class UserController {
 
 	@GetMapping("/idCheck/{userId}")
 	@ResponseBody
+	@ApiOperation(value = "아이디 체크 API", notes = "userId를 PathVariable로 받아 존재하는 아이디인지 체크하는 역할을 합니다. /user/idCheck/{userId}")
 	public ResponseEntity<?> idCheck(@PathVariable("userId") String userId) throws Exception {
 		logger.debug("idCheck userid : {}", userId);
 		int cnt = userService.idCheck(userId);
@@ -58,6 +63,7 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
+	@ApiOperation(value = "로그인 API", notes = "userId와 userPwd를 받아 아이디와 비밀번호가 일치하면 로그인해주는 역할을 합니다. /user/login")
 	public String login(@RequestParam Map<String, String> map,
 			@RequestParam(name = "idSave", required = false) String idSave, Model model, HttpSession session,
 			HttpServletResponse response) {
@@ -98,6 +104,7 @@ public class UserController {
 	}
 
 	@PostMapping("/join")
+	@ApiOperation(value = "회원가입 API", notes = "가입할 회원 정보를 입력 받아 회원가입하는 역할을 합니다. /user/join")
 	public String join(@RequestParam Map<String, String> map, Model model) throws Exception {
 		logger.debug("join map : {}", map);
 		try {
@@ -112,6 +119,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/delete")
+	@ApiOperation(value = "회원 탈퇴 API", notes = "userId를 RequestParam으로 받아 회원 탈퇴를 하는 역할을 합니다. /user/delete")
 	public String delete(@RequestParam("userId") String userId, @RequestParam Map<String, String> map, HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr)
 			throws Exception {
 		logger.debug("delete user userId : {}", userId);
@@ -128,7 +136,6 @@ public class UserController {
 	            }
 	         }
 	      }
-
 		
 		rttr.addFlashAttribute("msg", "회원 탈퇴가 완료 되었습니다.");
 		return "redirect:/";
@@ -143,6 +150,7 @@ public class UserController {
 	}
 
 	@PostMapping("/myinfo")
+	@ApiOperation(value = "마이페이지 API", notes = "userId를 PathVariable로 받아 존재하는 아이디인지 체크하는 역할을 합니다. /user/myinfo")
 	public String myinfo(@RequestParam Map<String, String> map, HttpSession session) throws Exception {
 		logger.debug("myinfo map : {}");
 		userService.updateUser(map);
@@ -152,6 +160,7 @@ public class UserController {
 	}
 
 	@PostMapping("/myinfo/pwd")
+	@ApiOperation(value = "비밀번호 변경 API", notes = "회원의 userPwd와 변경할 비밀번호를 받아 userPwd가 같다면 비밀번호를 변경하는 역할을 합니다. /user/myinfo/pwd")
 	public String mypwd(@RequestParam Map<String, String> map, HttpSession session, RedirectAttributes rttr) throws Exception {
 		int cnt = userService.pwdCheck(map);
 		System.out.println(cnt);

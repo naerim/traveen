@@ -16,8 +16,12 @@ import com.ssafy.tripinfo.model.Tripinfo;
 import com.ssafy.tripinfo.model.service.TripinfoService;
 import com.ssafy.util.PageNavigation;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/tripinfo")
+@Api(tags = "여행지 API", value="Traveen")
 public class TripinfoController {
 	private final Logger logger = LoggerFactory.getLogger(TripinfoController.class);
 	
@@ -29,6 +33,7 @@ public class TripinfoController {
 	}
 	
 	@GetMapping("/list")
+	@ApiOperation(value = "여행지 목록 조회 API", notes = "여행지 목록을 조회하는 역할을 합니다. /tripinfo/list")
 	public ResponseEntity<Map<String, Object>> list(@RequestParam Map<String, String> map) throws Exception {
 		logger.debug("list parameter pgno : {}", map.get("pgno"));
 
