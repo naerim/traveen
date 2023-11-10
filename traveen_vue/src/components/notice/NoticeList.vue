@@ -78,17 +78,6 @@ section {
   padding-bottom: 100px;
 }
 
-.title {
-  font-size: 2em;
-  font-weight: 700;
-}
-
-.subtitle {
-  margin-top: 10px;
-  color: #8b95a1;
-  margin-bottom: 40px;
-}
-
 .table-container {
   display: flex;
   flex-direction: column;
