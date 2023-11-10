@@ -47,7 +47,7 @@ public class SwaggerConfiguration {
 					.useDefaultResponseMessages(false);
 	}
 	
-	// Trininfo Swagger
+	// Tripinfo Swagger
 	@Bean
 	public Docket api3() {
 		return new Docket(DocumentationType.SWAGGER_2).consumes(getConsumeContentTypes()).produces(getProduceContentTypes())

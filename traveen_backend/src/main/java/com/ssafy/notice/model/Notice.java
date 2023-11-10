@@ -6,11 +6,11 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "NoticeDto : 공지사항 정보", description = "공지사항의 상세 정보를 나타낸다.")
 public class Notice {
 	/* 고유번호 */
-	@ApiModelProperty(value = "고유 번호")
+	@ApiModelProperty(value = "고유번호")
 	private int idx;
 	/* user 고유번호 */
-	@ApiModelProperty(value = "user 고유 번호")
-	private String userIdx;
+	@ApiModelProperty(value = "user 고유번호")
+	private int userIdx;
 	/* 제목 */
 	@ApiModelProperty(value = "제목")
 	private String title;
@@ -29,10 +29,10 @@ public class Notice {
 	public void setIdx(int idx) {
 		this.idx = idx;
 	}
-	public String getUserIdx() {
+	public int getUserIdx() {
 		return userIdx;
 	}
-	public void setUserIdx(String userIdx) {
+	public void setUserIdx(int userIdx) {
 		this.userIdx = userIdx;
 	}
 	public String getTitle() {

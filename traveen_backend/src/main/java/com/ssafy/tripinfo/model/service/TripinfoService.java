@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface TripinfoService {
-    List<Tripinfo> listTripinfo(Map<String, String> map) throws Exception;
-    int getTotalTripinfoCount(Map<String, Object> map) throws Exception;
-    PageNavigation makePageNavigation(Map<String, String> map) throws Exception;
+    List<Tripinfo> listTripinfo(Tripinfo tripinfo) throws Exception;
+    int getTotalTripinfoCount(Tripinfo tripinfo) throws Exception;
+//    PageNavigation makePageNavigation(Map<String, String> map) throws Exception;
 }

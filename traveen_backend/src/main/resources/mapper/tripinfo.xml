@@ -23,34 +23,34 @@
 	</resultMap>
 
 	<!-- 검색 -->
-	<sql id="search">
-		<if test="word != null and word != ''">
-			<if test="key == 'subject'">
-				and subject like concat('%', #{word}, '%')
-			</if>
-			<if test="key != 'subject'">
-				and ${key} = #{word}
-			</if>
-		</if>
-	</sql>
+<!-- 	<sql id="search"> -->
+<!-- 		<if test="word != null and word != ''"> -->
+<!-- 			<if test="key == 'subject'"> -->
+<!-- 				and subject like concat('%', #{word}, '%') -->
+<!-- 			</if> -->
+<!-- 			<if test="key != 'subject'"> -->
+<!-- 				and ${key} = #{word} -->
+<!-- 			</if> -->
+<!-- 		</if> -->
+<!-- 	</sql> -->
 
 	<!-- 여행지 목록 -->
-	<select id="listTripinfo" parameterType="map" resultMap="tripinfo">
+	<select id="listTripinfo" parameterType="tripinfo" resultMap="tripinfo">
 		select idx, category_name, title, place_name, type, `desc`, oper_time, rest_time, restdate_content, address, lat, loc,sido_code, tel, like_count, view_count
 		from tripinfo
-		<where>
-			<include refid="search"></include>
-		</where>
+<!-- 		<where> -->
+<!-- 			<include refid="search"></include> -->
+<!-- 		</where> -->
 		order by view_count desc
-		limit #{start}, #{listsize}
+<!-- 		limit #{start}, #{listsize} -->
 	</select>
 
 	<!-- 총 여행지 목록 -->
-	<select id="getTotalTripinfoCount" parameterType="map" resultType="int">
+	<select id="getTotalTripinfoCount" parameterType="tripinfo" resultType="int">
 		select count(idx)
 		from tripinfo
-		<where>
-			<include refid="search"></include>
-		</where>
+<!-- 		<where> -->
+<!-- 			<include refid="search"></include> -->
+<!-- 		</where> -->
 	</select>
 </mapper>

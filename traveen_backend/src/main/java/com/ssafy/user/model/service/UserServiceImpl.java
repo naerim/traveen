@@ -19,8 +19,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User login(Map<String, String> map) throws Exception {
-		User user = userMapper.getUser(map.get("userId"));
+	public User login(String userId, String userPwd) throws Exception {
+		User user = userMapper.getUser(userId);
 		if (user == null) {
 			return null;
 		}
@@ -30,10 +30,8 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 		
-		String userPwd = map.get("userPwd");
 		userPwd = userUtil.getEncrypt(userPwd, salt);
-		map.put("userPwd", userPwd);
-		return userMapper.login(map);
+		return userMapper.login(userId, userPwd);
 	}
 
 	@Override
@@ -42,15 +40,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void join(Map<String, String> map) throws Exception {
+	public void join(User user) throws Exception {
 		String salt = userUtil.getSalt();
-		String userPwd = userUtil.getEncrypt(map.get("userPwd"), salt);
-		map.put("userPwd", userPwd);
-		map.put("salt", salt);
-		userMapper.join(map);
+		user.setUserPwd(userUtil.getEncrypt(user.getUserPwd(), salt));
+		userMapper.join(user);
 	}
 
-	
 	@Override
 	public void deleteUser(String userId) throws Exception {
 		userMapper.deleteUser(userId);
@@ -62,28 +57,24 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUser(Map<String, String> map) throws Exception {
-		userMapper.updateUser(map);
+	public void updateUser(User user) throws Exception {
+		userMapper.updateUser(user);
 	}
 
 	@Override
-	public void updatePwd(Map<String, String> map) throws Exception {
+	public void updatePwd(User user, String newPwd) throws Exception {
 		String salt = userUtil.getSalt();
-		System.out.println("salt : " + salt);
-		System.out.println("map newPwd : " + map.get("newPwd"));
-		String newPwd = userUtil.getEncrypt(map.get("newPwd"), salt);
-		System.out.println("newPwd: " + newPwd);
-		map.put("userPwd", newPwd);
-		map.put("salt", salt);
-		userMapper.updatePwd(map);
+		newPwd = userUtil.getEncrypt(newPwd, salt);
+		user.setUserPwd(newPwd);
+		user.setSalt(salt);
+		userMapper.updatePwd(user, newPwd);
 	}
 
 	@Override
-	public int pwdCheck(Map<String, String> map) throws Exception {
-		String userPwd = map.get("userPwd");
-		String salt = map.get("salt");
+	public int pwdCheck(String userId, String userPwd) throws Exception {
+		User user = userMapper.getUser(userId);
+		String salt = user.getSalt();
 		userPwd = userUtil.getEncrypt(userPwd, salt);
-		map.put("userPwd", userPwd);
-		return userMapper.pwdCheck(map);
+		return userMapper.pwdCheck(userId, userPwd);
 	}
 }

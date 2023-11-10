@@ -1,8 +1,6 @@
 package com.ssafy.tripinfo.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.tripinfo.model.Tripinfo;
 import com.ssafy.tripinfo.model.service.TripinfoService;
-import com.ssafy.util.PageNavigation;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,20 +31,20 @@ public class TripinfoController {
 	
 	@GetMapping("/list")
 	@ApiOperation(value = "여행지 목록 조회 API", notes = "여행지 목록을 조회하는 역할을 합니다. /tripinfo/list")
-	public ResponseEntity<Map<String, Object>> list(@RequestParam Map<String, String> map) throws Exception {
-		logger.debug("list parameter pgno : {}", map.get("pgno"));
+	public ResponseEntity<Tripinfo> list(@RequestParam Tripinfo tripinfo) throws Exception {
+		logger.debug("list parameter tripinfo : {}", tripinfo);
 
-		List<Tripinfo> list = tripinfoService.listTripinfo(map);
-		PageNavigation pageNavigation = tripinfoService.makePageNavigation(map);
+		List<Tripinfo> list = tripinfoService.listTripinfo(tripinfo);
 		
-		Map<String, Object> result = new HashMap<>();
-		result.put("tripinfo", list);
-		result.put("navigation", pageNavigation);
-		result.put("pgno", map.get("pgno"));
-		result.put("key", map.get("key"));
-		result.put("word", map.get("word"));
+//		PageNavigation pageNavigation = tripinfoService.makePageNavigation(map);
+//		Map<String, Object> result = new HashMap<>();
+//		result.put("tripinfo", tripinfo);
+//		result.put("navigation", pageNavigation);
+//		result.put("pgno", map.get("pgno"));
+//		result.put("key", map.get("key"));
+//		result.put("word", map.get("word"));
 //		param.put("tripinfo/list");
 		
-		return ResponseEntity.ok(result);
+		return ResponseEntity.ok(tripinfo);
 	}
 }

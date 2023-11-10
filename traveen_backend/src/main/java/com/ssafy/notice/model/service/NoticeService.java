@@ -7,15 +7,14 @@ import com.ssafy.notice.model.Notice;
 import com.ssafy.util.PageNavigation;
 
 public interface NoticeService {
-	List<Notice> listNotice(Map<String, String> map) throws Exception;
-	void registNotice(Map<String, String> map) throws Exception;
-	void modifyNotice(Map<String, String> map) throws Exception;
+	List<Notice> listNotice(Notice notice) throws Exception;
+	void registNotice(Notice notice) throws Exception;
+	void modifyNotice(Notice notice) throws Exception;
 	void deleteNotice(int idx) throws Exception;
 	Notice viewNotice(int idx) throws Exception;
 
-	PageNavigation makePageNavigation(Map<String, String> map) throws Exception;
+//	PageNavigation makePageNavigation(Map<String, String> map) throws Exception;
 	Notice getNotice(int idx) throws Exception;
-	int getTotalNoticeCount(Map<String, Object> map) throws Exception;
-	int getTotalNoticeCountString(Map<String, String> map) throws Exception;
+	int getTotalNoticeCount(Notice notice) throws Exception;
 	void updateHit(int idx) throws Exception;
 }

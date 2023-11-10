@@ -12,27 +12,27 @@
 	</resultMap>
 
 	<!-- 검색 -->
-	<sql id="search">
-		<if test="word != null and word != ''">
-		and title like concat('%', #{word}, '%')
+<!-- 	<sql id="search"> -->
+<!-- 		<if test="word != null and word != ''"> -->
+<!-- 		and title like concat('%', #{word}, '%') -->
 <!-- 			<if test="key == 'title'"> -->
 <!-- 				and title like concat('%', #{word}, '%') -->
 <!-- 			</if> -->
 <!-- 			<if test="key != 'title'"> -->
 <!-- 				and title like concat('%', #{word}, '%') -->
 <!-- 			</if> -->
-		</if>
-	</sql>
+<!-- 		</if> -->
+<!-- 	</sql> -->
 
 	<!-- 공지사항 목록 -->
-	<select id="listNotice" parameterType="map" resultMap="notice">
+	<select id="listNotice" parameterType="notice" resultMap="notice">
 		select idx, title, create_date, view_count
 		from notice
-		<where>
-			<include refid="search"></include>
-		</where>
+<!-- 		<where> -->
+<!-- 			<include refid="search"></include> -->
+<!-- 		</where> -->
 		order by create_date desc
-		limit #{start}, #{listsize}
+<!-- 		limit #{start}, #{listsize} -->
 	</select>
 	
 	<!-- 공지사항 조회 -->
@@ -50,13 +50,13 @@
 	</update>
 	
 	<!-- 공지사항 등록 -->
-	<insert id="registNotice" parameterType="map">
+	<insert id="registNotice" parameterType="notice">
 		insert into notice(user_idx, title, content, create_date, view_count)
 		values(#{userIdx}, #{title}, #{content}, now(), 0)
 	</insert>
 	
 	<!-- 공지사항 수정 -->
-	<update id="modifyNotice" parameterType="map">
+	<update id="modifyNotice" parameterType="notice">
 		update notice
 		set title = #{title}, content = #{content}
 		where idx = #{idx}
@@ -79,17 +79,17 @@
 	<select id="getTotalNoticeCount" parameterType="int" resultType="int">
 		select count(idx)
 		from notice
-		<where>
-			<include refid="search"></include>
-		</where>
+<!-- 		<where> -->
+<!-- 			<include refid="search"></include> -->
+<!-- 		</where> -->
 	</select>
 	
 	<!-- 총 공지사항 개수 Map<String, String> 버전 -->
 		<select id="getTotalNoticeCountString" parameterType="int" resultType="int">
 		select count(idx)
 		from notice
-		<where>
-			<include refid="search"></include>
-		</where>
+<!-- 		<where> -->
+<!-- 			<include refid="search"></include> -->
+<!-- 		</where> -->
 	</select>
 </mapper>
