@@ -14,6 +14,7 @@ const detailNotice = (idx, success, fail) => {
 
 // 공지사항 등록
 const registNotice = (notice, success, fail) => {
+  console.log(JSON.stringify(notice));
   local.post(`/notice/regist`, JSON.stringify(notice)).then(success).catch(fail);
 };
 

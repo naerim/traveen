@@ -1,8 +1,8 @@
 <script setup>
 import { ref, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { registNotice, modifyNotice } from "@/api/notice";
+import { useRoute } from "vue-router";
 
-const router = useRouter();
 const route = useRoute();
 
 const props = defineProps({ type: String });
@@ -11,11 +11,11 @@ const isUseId = ref(false);
 
 const notice = ref({
   idx: 0,
-  user_idx: 0,
+  userIdx: 1,
   title: "",
   content: "",
-  create_date: "",
-  view_count: 0,
+  createDate: "",
+  viewCount: 0,
 });
 
 if (props.type === "modify") {
@@ -64,12 +64,31 @@ function onSubmit(e) {
 function writeArticle() {
   console.log("글등록하자!!", notice.value);
   // API 호출
+  registNotice(
+    notice.value,
+    ({ data }) => {
+      console.log(data);
+      // currentPage.value = data.currentPage;
+      // totalPage.value = data.totalPageCount;
+    },
+    (error) => console.log(error)
+  );
 }
 
 // 글 수정
 function updateArticle() {
   console.log(notice.value.idx + "번글 수정하자!!", notice.value);
   // API 호출
+  // API 호출
+  modifyNotice(
+    notice.value,
+    ({ data }) => {
+      console.log(data);
+      // currentPage.value = data.currentPage;
+      // totalPage.value = data.totalPageCount;
+    },
+    (error) => console.log(error)
+  );
 }
 </script>
 

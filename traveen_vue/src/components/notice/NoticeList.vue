@@ -6,25 +6,6 @@ import NoticeListItem from "@/components/notice/item/NoticeListItem.vue";
 
 const router = useRouter();
 
-const noticeData = [
-  {
-    idx: 1,
-    user_idx: 1,
-    title: "첫번째 공지사항입니다.",
-    content: "공지사항 첫번째 내용입니다.",
-    create_date: "2023-11-10",
-    view_count: 1,
-  },
-  {
-    idx: 2,
-    user_idx: 1,
-    title: "두번째 공지사항입니다.",
-    content: "공지사항 두번째 내용입니다.",
-    create_date: "2023-11-10",
-    view_count: 2,
-  },
-];
-
 const notices = ref([]);
 
 const goNoticeWrite = (e) => {

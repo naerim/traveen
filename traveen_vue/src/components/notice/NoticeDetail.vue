@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { detailNotice } from "@/api/notice";
 import NoticeGoListButton from "@/components/notice/item/NoticeGoListButton.vue";
 
 const route = useRoute();
@@ -15,7 +16,13 @@ onMounted(() => {
 });
 
 const getNotice = () => {
-  console.log(idx + "번째 글");
+  detailNotice(
+    idx,
+    ({ data }) => {
+      notice.value = data;
+    },
+    (error) => console.log(error)
+  );
 };
 
 // 공지사항 수정 페이지로 이동
