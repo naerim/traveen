@@ -35,15 +35,55 @@ const router = createRouter({
       component: () => import("@/views/AfterTraveenView.vue"),
     },
     {
-      path: "/notice",
-      name: "notice",
-      component: () => import("@/views/NoticeView.vue"),
-      redirect: "/notice",
+      path: "/center",
+      name: "center",
+      component: () => import("@/views/CenterView.vue"),
+      redirect: { name: "notice-list" },
       children: [
         {
-          path: "list",
-          name: "notice-list",
-          component: () => import("@/components/notice/NoticeList.vue"),
+          path: "notice",
+          name: "notice",
+          component: () => import("@/views/NoticeView.vue"),
+          redirect: { name: "notice-list" },
+          children: [
+            {
+              path: "list",
+              name: "notice-list",
+              component: () => import("@/components/notice/NoticeList.vue"),
+            },
+            {
+              path: "detail/:idx",
+              name: "notice-detail",
+              component: () => import("@/components/notice/NoticeDetail.vue"),
+            },
+            {
+              path: "modify/:idx",
+              name: "notice-modify",
+              component: () => import("@/components/notice/NoticeModify.vue"),
+            },
+            {
+              path: "write",
+              name: "notice-write",
+              component: () => import("@/components/notice/NoticeWrite.vue"),
+            },
+          ],
+        },
+        {
+          path: "qna",
+          name: "qna",
+          component: () => import("@/views/QnaView.vue"),
+          children: [
+            {
+              path: "list",
+              name: "qna-list",
+              component: () => import("@/components/qna/QnaList.vue"),
+            },
+            {
+              path: "qna/:idx",
+              name: "qna-detail",
+              component: () => import("@/components/notice/NoticeDetail.vue"),
+            },
+          ],
         },
       ],
     },

@@ -2,7 +2,7 @@
 
 <template>
   <footer>
-    <div class="footer-container">
+    <div class="container">
       <div>
         <img src="@/assets/ssafy_logo.png" alt="" />
       </div>
@@ -27,7 +27,7 @@ footer {
   font-size: 0.8em;
 }
 
-footer .footer-container {
+.container {
   display: flex;
   width: 80%;
   max-width: 1200px;

@@ -1,12 +1,40 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import NoticeListItem from "@/components/notice/item/NoticeListItem.vue";
+
+const router = useRouter();
+
+const noticeData = [
+  {
+    idx: 1,
+    user_idx: 1,
+    title: "첫번째 공지사항입니다.",
+    content: "공지사항 첫번째 내용입니다.",
+    create_date: "2023-11-10",
+    view_count: 1,
+  },
+  {
+    idx: 2,
+    user_idx: 1,
+    title: "두번째 공지사항입니다.",
+    content: "공지사항 두번째 내용입니다.",
+    create_date: "2023-11-10",
+    view_count: 2,
+  },
+];
+
+const notices = ref(noticeData);
+
+const goNoticeWrite = (e) => {
+  e.preventDefault();
+  router.push({ name: "notice-write" });
+};
+</script>
 
 <template>
-  <div>공지사항 페이지</div>
-
   <!-- section -->
   <section>
-    <h2 class="title">공지사항</h2>
-    <h4 class="subtitle">Traveen의 공지사항을 확인해보세요.</h4>
     <!-- top-box -->
     <div class="top-box">
       <div class="left">총 4건</div>
@@ -17,7 +45,7 @@
         </select>
         <input type="text" name="keyword" id="keyword" placeholder="검색어를 입력해주세요." />
         <input type="submit" id="btn-search" value="검색" />
-        <button id="btn-insert">글 등록</button>
+        <button id="btn-insert" @click="goNoticeWrite">글쓰기</button>
       </form>
     </div>
     <div class="table-container">
@@ -34,49 +62,116 @@
         </thead>
         <!-- tbody -->
         <tbody>
-          <tr>
-            <td>1</td>
-            <td class="subject">
-              <a href="./notice-detail.html">트래빈 전체 공지사항 입니다.</a>
-            </td>
-            <td>2023.11.01</td>
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td class="subject">
-              <a href="#">트래빈 전체 공지사항 입니다.</a>
-            </td>
-            <td>2023.11.01</td>
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td class="subject">트래빈 전체 공지사항 입니다.</td>
-            <td>2023.11.01</td>
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td class="subject">트래빈 전체 공지사항 입니다.</td>
-            <td>2023.11.01</td>
-            <td>2</td>
-          </tr>
+          <NoticeListItem v-for="notice in notices" :key="notice.idx" :notice="notice" />
         </tbody>
       </table>
     </div>
     <!-- pagination -->
-    <div class="pagination-container">
-      <div class="btn-prev">&#60;이전</div>
-      <span class="divider"></span>
-      <ul>
-        <li>1</li>
-        <li>2</li>
-      </ul>
-      <span class="divider"></span>
-      <div class="btn-next">다음&#62;</div>
-    </div>
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+section {
+  width: 80%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-bottom: 100px;
+}
+
+.title {
+  font-size: 2em;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin-top: 10px;
+  color: #8b95a1;
+  margin-bottom: 40px;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e3e3e3;
+  box-sizing: border-box;
+  width: 100%;
+  height: 720px;
+  padding: 34px;
+  min-width: 1000px;
+  border-radius: 6px;
+}
+
+table {
+  width: 100%;
+  border-spacing: 0;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: #f9fbfc;
+}
+
+tr {
+  height: 58px;
+  border-radius: 6px;
+  align-items: center;
+  text-align: center;
+}
+
+thead th:first-child,
+th:last-child {
+  border-radius: 6px 0 0 6px;
+}
+
+thead th:last-child {
+  border-radius: 0 6px 6px 0;
+}
+
+tbody tr {
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.top-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-width: 1000px;
+  margin-bottom: 10px;
+}
+
+.right select {
+  height: 34px;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  width: 80px;
+  box-sizing: border-box;
+  padding: 4px;
+}
+
+.right input {
+  box-sizing: border-box;
+  height: 34px;
+  border: none;
+  border-bottom: 1px solid #e3e3e3;
+  padding: 4px;
+  padding-right: 10px;
+  margin: 0 10px;
+}
+
+.right button,
+input[type="submit"] {
+  height: 34px;
+  background-color: #51cd89;
+  border-radius: 6px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 0 16px;
+}
+
+.right button:last-child {
+  margin-left: 10px;
+}
+</style>
