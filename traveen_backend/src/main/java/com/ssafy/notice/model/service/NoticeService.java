@@ -7,7 +7,7 @@ import com.ssafy.notice.model.Notice;
 import com.ssafy.util.PageNavigation;
 
 public interface NoticeService {
-	List<Notice> listNotice(Notice notice) throws Exception;
+	List<Notice> listNotice() throws Exception;
 	void registNotice(Notice notice) throws Exception;
 	void modifyNotice(Notice notice) throws Exception;
 	void deleteNotice(int idx) throws Exception;

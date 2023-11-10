@@ -21,7 +21,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<Notice> listNotice(Notice notice) throws Exception {
+	public List<Notice> listNotice() throws Exception {
 //		String key = map.get("key");
 //		param.put("key", key == null ? "" : key);
 //		param.put("word", map.get("word") == null ? "" : map.get("word"));
@@ -29,7 +29,7 @@ public class NoticeServiceImpl implements NoticeService {
 //		int start = pgNo * SizeConstant.NOTICE_LIST_SIZE - SizeConstant.NOTICE_LIST_SIZE;
 //		param.put("start", start);
 //		param.put("listsize", SizeConstant.NOTICE_LIST_SIZE);
-		return noticeMapper.listNotice(notice);
+		return noticeMapper.listNotice();
 	}
 
 	@Override

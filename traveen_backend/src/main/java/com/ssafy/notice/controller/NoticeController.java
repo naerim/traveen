@@ -38,10 +38,9 @@ public class NoticeController {
 	@GetMapping("/list")
 	@ResponseBody
 	@ApiOperation(value = "공지사항 목록 조회 API", notes = "공지사항 목록을 조회하는 역할을 합니다. /notice/list")
-	public ResponseEntity<Notice> list(@RequestParam Notice notice) throws Exception {
-		logger.debug("list parameter notice : {}", notice);
-		List<Notice> list = noticeService.listNotice(notice);
-		int totalCnt = noticeService.getTotalNoticeCount(notice);
+	public ResponseEntity<List<Notice>> list() throws Exception {
+		List<Notice> list = noticeService.listNotice();
+//		int totalCnt = noticeService.getTotalNoticeCount(notice);
 //		PageNavigation pageNavigation = noticeService.makePageNavigation(map);
 //		Map<String, Object> result = new HashMap<>();
 //		result.put("notices", list);
@@ -51,7 +50,7 @@ public class NoticeController {
 //		result.put("key", map.get("key"));
 //		result.put("word", map.get("word"));
 //		mav.setViewName("notice/list");
-		return ResponseEntity.ok(notice);
+		return ResponseEntity.ok(list);
 //		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
 	}
 	

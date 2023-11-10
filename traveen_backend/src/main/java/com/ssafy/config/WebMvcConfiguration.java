@@ -26,7 +26,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	
 	private final Logger logger = LoggerFactory.getLogger(WebMvcConfiguration.class);
 
-	private final List<String> patterns = Arrays.asList("/notice/*", "/admin", "/user/myinfo");
+//	private final List<String> patterns = Arrays.asList("/notice/*", "/admin", "/user/myinfo");
 
 //	@Autowired
 //	private ConfirmInterceptor confirmInterceptor;
