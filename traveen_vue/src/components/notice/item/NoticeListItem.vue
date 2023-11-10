@@ -12,8 +12,8 @@ defineProps({
         notice.title
       }}</router-link>
     </td>
-    <td>{{ notice.create_date }}</td>
-    <td>{{ notice.view_count }}</td>
+    <td>{{ notice.createDate }}</td>
+    <td>{{ notice.viewCount }}</td>
   </tr>
 </template>
 

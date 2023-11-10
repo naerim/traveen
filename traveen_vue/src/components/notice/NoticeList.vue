@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { listNotice } from "@/api/notice";
 import NoticeListItem from "@/components/notice/item/NoticeListItem.vue";
 
 const router = useRouter();
@@ -24,11 +25,46 @@ const noticeData = [
   },
 ];
 
-const notices = ref(noticeData);
+const notices = ref([]);
 
 const goNoticeWrite = (e) => {
   e.preventDefault();
   router.push({ name: "notice-write" });
+};
+
+const param = ref({
+  pgno: 1,
+  spp: 5,
+  key: "",
+  word: "",
+});
+
+onMounted(() => {
+  getNoticeList();
+});
+
+const getNoticeList = () => {
+  console.log("서버에서 공지사항 목록 얻어오자");
+  // API 호출
+  // getNoticeList(
+  //   param.value,
+  //   ({ data }) => {
+  //     notices.value = data;
+  //     // currentPage.value = data.currentPage;
+  //     // totalPage.value = data.totalPageCount;
+  //   },
+  //   (error) => console.log(error)
+  // );
+  listNotice(
+    {},
+    ({ data }) => {
+      console.log(data);
+      notices.value = data;
+      // currentPage.value = data.currentPage;
+      // totalPage.value = data.totalPageCount;
+    },
+    (error) => console.log(error)
+  );
 };
 </script>
 
