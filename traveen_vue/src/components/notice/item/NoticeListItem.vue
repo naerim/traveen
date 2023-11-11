@@ -1,12 +1,13 @@
 <script setup>
 defineProps({
   notice: Object,
+  index: Number,
 });
 </script>
 
 <template>
   <tr>
-    <td>{{ notice.idx }}</td>
+    <td>{{ index }}</td>
     <td class="subject">
       <router-link :to="{ name: 'notice-detail', params: { idx: notice.idx } }">{{
         notice.title

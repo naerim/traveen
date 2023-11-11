@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { detailNotice } from "@/api/notice";
+import { detailNotice, deleteNotice } from "@/api/notice";
 import NoticeGoListButton from "@/components/notice/item/NoticeGoListButton.vue";
 
 const route = useRoute();
@@ -32,7 +32,14 @@ const goNoticeModify = () => {
 
 // 공지사항 삭제
 const onNoticeDelete = () => {
-  console.log(idx + "번째 글 삭제하자");
+  deleteNotice(
+    idx,
+    () => {
+      alert("공지사항이 삭제되었습니다.");
+      router.push({ name: "notice-list" });
+    },
+    (error) => console.log(error)
+  );
 };
 </script>
 
@@ -40,15 +47,15 @@ const onNoticeDelete = () => {
   <section>
     <div class="table-container">
       <div class="top-box">
-        <div class="left">공지사항 제목</div>
+        <div class="left">{{ notice.title }}</div>
         <div class="right">
-          <div class="date">2023.11.10</div>
-          <div class="hit">조회수 1</div>
+          <div class="date">{{ notice.createDate }}</div>
+          <div class="hit">조회수 {{ notice.viewCount }}</div>
         </div>
       </div>
       <div class="content-box">
-        <div class="content-title">공지사항 제목</div>
-        <div class="content">공지사항 내용</div>
+        <div class="content-title">{{ notice.title }}</div>
+        <div class="content">{{ notice.content }}</div>
       </div>
       <div class="line"></div>
       <div class="btn-notice-admin-box">

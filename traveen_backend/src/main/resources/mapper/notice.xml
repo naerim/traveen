@@ -26,7 +26,7 @@
 
 	<!-- 공지사항 목록 -->
 	<select id="listNotice" resultMap="notice">
-		select idx, title, create_date, view_count
+		select idx, title, date_format(create_date, '%Y-%m-%d') create_date, view_count
 		from notice
 <!-- 		<where> -->
 <!-- 			<include refid="search"></include> -->
@@ -37,7 +37,7 @@
 	
 	<!-- 공지사항 조회 -->
 	<select id="viewNotice" parameterType="int" resultMap="notice">
-		select n.idx, u.idx, n.title, n.content, n.create_date, n.view_count
+		select n.idx, u.idx, n.title, n.content, date_format(n.create_date, '%Y-%m-%d') as create_date, n.view_count
 		from notice n, users u
 		where n.idx = #{idx} and n.user_idx = u.idx
 	</select>
