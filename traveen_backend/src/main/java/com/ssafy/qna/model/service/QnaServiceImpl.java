@@ -24,12 +24,6 @@ public class QnaServiceImpl implements QnaService {
 	@Override
 	public void registQna(Qna qna) throws Exception {
 		qnaMapper.registQna(qna);
-		
-	}
-
-	@Override
-	public void modifyQna(Qna qna) throws Exception {
-		qnaMapper.modifyQna(qna);
 	}
 
 	@Override

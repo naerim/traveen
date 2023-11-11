@@ -29,13 +29,6 @@
 		values(#{userIdx}, #{title}, #{content})
 	</insert>
 	
-	<!-- QnA 수정 -->
-	<update id="modifyQna" parameterType="qna">
-		update qna
-		set title = #{title}, content = #{content}
-		where idx = #{idx}
-	</update>
-	
 	<!-- QnA 삭제 -->
 	<delete id="deleteQna" parameterType="int">
 		delete from qna

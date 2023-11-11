@@ -62,25 +62,6 @@ public class QnaController {
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/modify/{idx}")
-	@ApiOperation(value = "QnA 수정 API", notes = "QnA의 idx를 PathVariable으로 받아서 해당 QnA를 수정하는 역할을 합니다. /qna/modify")
-	public ResponseEntity<?> modify(@PathVariable(value="idx") int idx, Model model)
-			throws Exception {
-		logger.debug("modify idx : {}", idx);
-		Qna qna = qnaService.getQna(idx);
-		return ResponseEntity.ok(qna);
-	}
-
-	@PutMapping
-	@ApiOperation(value = "Qna 목록 조회 API", notes = "Qna 목록을 조회하는 역할을 합니다. /qna/list")
-	public ResponseEntity<?> modify(@RequestBody Qna qna,
-			RedirectAttributes rttr) throws Exception {
-		logger.debug("modify qna : {}", qna);
-		qnaService.modifyQna(qna);
-		rttr.addFlashAttribute("msg", "QnA가 수정되었습니다.");
-		return ResponseEntity.ok().build();
-	}
-	
 	@DeleteMapping("/{idx}")
 	@ApiOperation(value = "QnA 삭제 API", notes = "QnA의 idx를 PathVariable으로 받아서 QnA를 삭제하는 역할을 합니다. /qna/delete")
 	public ResponseEntity<?> delete(@PathVariable("idx") int idx, Model model, RedirectAttributes rttr)
