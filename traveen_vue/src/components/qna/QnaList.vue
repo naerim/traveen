@@ -1,11 +1,23 @@
 <script setup>
 import { ref } from "vue";
+import QnaAccordionItem from "@/components/qna/item/QnaAccordionItem.vue";
 
-const isOpen = ref(false);
+const QnaData = [
+  {
+    idx: 0,
+    userIdx: 1,
+    title: "트래빈 사용방법",
+    content: "트래빈은 어떻게 사용하나요?",
+  },
+  {
+    idx: 1,
+    userIdx: 1,
+    title: "글을 수정하고 싶습니다.",
+    content: "글 수정하는 버튼이 어딨을까요?",
+  },
+];
 
-const toggleAccordion = () => {
-  isOpen.value = !isOpen.value;
-};
+const QnaList = ref(QnaData);
 </script>
 
 <template>
@@ -26,16 +38,7 @@ const toggleAccordion = () => {
     </div>
     <div class="line"></div>
     <div>
-      <div class="accordion-header" @click="toggleAccordion">
-        <div class="left">Q</div>
-        <div class="right">
-          <div class="title">사용방법?</div>
-          <div class="content">트래빈 사용방법이 궁금합니다.</div>
-        </div>
-      </div>
-      <div v-show="isOpen" class="accordion-content">
-        <div class="left">A</div>
-      </div>
+      <QnaAccordionItem v-for="qna in QnaList" :key="qna.idx" :qna="qna" />
     </div>
   </section>
 </template>
@@ -108,60 +111,5 @@ input[type="submit"] {
   margin-top: 20px;
   height: 1px;
   background-color: #e3e3e3;
-}
-.accordion-header {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 10px;
-  background-color: #fff;
-  border-top: 1px solid #e3e3e3;
-  border-bottom: 1px solid #e3e3e3;
-  box-sizing: border-box;
-  padding: 30px;
-}
-
-.accordion-header .left {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--tv-c-green);
-  color: #fff;
-  width: 40px;
-  height: 40px;
-  border-radius: 6px;
-}
-
-.accordion-header .right {
-  /* display: flex;
-  flex-direction: column; */
-  width: 100%;
-  margin-left: 40px;
-}
-
-.accordion-header .right .title {
-  font-size: 0.9em;
-  color: #6b7684;
-}
-
-.accordion-content {
-  display: flex;
-  padding: 10px;
-  background-color: #f9fbfc;
-  border-bottom: 1px solid #e3e3e3;
-  box-sizing: border-box;
-  padding: 30px;
-  height: 140px;
-}
-
-.accordion-content .left {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #000;
-  color: #fff;
-  width: 40px;
-  height: 40px;
-  border-radius: 6px;
 }
 </style>

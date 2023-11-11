@@ -140,7 +140,7 @@ function updateArticle() {
   border: 1px solid #e3e3e3;
   box-sizing: border-box;
   width: 100%;
-  height: 720px;
+  height: 620px;
   padding: 34px;
   min-width: 1000px;
   border-radius: 6px;
@@ -166,7 +166,7 @@ textarea {
   border: 1px solid #dadee2;
   padding: 4px;
   border-radius: 6px;
-  height: 440px;
+  height: 340px;
   box-sizing: border-box;
   white-space: pre-wrap;
 }
