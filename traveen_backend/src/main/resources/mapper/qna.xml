@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.qna.model.mapper.QnaMapper">
+	<resultMap type="qna" id="qna">
+		<result column="idx" property="idx" />
+		<result column="user_idx" property="userIdx" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+	</resultMap>
+
+	<!-- QnA 목록 -->
+	<select id="listQna" resultMap="qna">
+		select idx, user_idx, title, content
+		from qna
+	</select>
+	
+	<!-- QnA 조회 -->
+	<select id="viewQna" parameterType="int" resultMap="qna">
+		select q.idx, u.idx, q.title, q.content
+		from qna q, users u
+		where q.idx = #{idx} and q.user_idx = u.idx
+	</select>
+	
+	<!-- QnA 등록 -->
+	<insert id="registQna" parameterType="qna">
+		insert into qna(user_idx, title, content)
+		values(#{userIdx}, #{title}, #{content})
+	</insert>
+	
+	<!-- QnA 수정 -->
+	<update id="modifyQna" parameterType="qna">
+		update qna
+		set title = #{title}, content = #{content}
+		where idx = #{idx}
+	</update>
+	
+	<!-- QnA 삭제 -->
+	<delete id="deleteQna" parameterType="int">
+		delete from qna
+		where idx = #{idx}
+	</delete>
+	
+	<!-- idx로 QnA 찾기 -->
+	<select id="getQna" parameterType="int" resultMap="qna">
+		select q.idx, u.idx, q.title, q.content
+		from qna q, users u
+		where q.idx = #{idx} and q.user_idx = u.idx
+	</select>
+</mapper>

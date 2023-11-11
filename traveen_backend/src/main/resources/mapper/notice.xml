@@ -83,13 +83,4 @@
 <!-- 			<include refid="search"></include> -->
 <!-- 		</where> -->
 	</select>
-	
-	<!-- 총 공지사항 개수 Map<String, String> 버전 -->
-		<select id="getTotalNoticeCountString" parameterType="int" resultType="int">
-		select count(idx)
-		from notice
-<!-- 		<where> -->
-<!-- 			<include refid="search"></include> -->
-<!-- 		</where> -->
-	</select>
 </mapper>
