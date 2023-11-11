@@ -1,4 +1,15 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+
+const sections = [
+  { header: "Section 1", content: "Content for Section 1", open: false },
+  { header: "Section 2", content: "Content for Section 2", open: false },
+];
+
+const toggleAccordion = (index) => {
+  this.sections[index].open = !this.sections[index].open;
+};
+</script>
 
 <template>
   <section>
@@ -15,6 +26,14 @@
         <input type="submit" id="btn-search" value="검색" />
         <button id="btn-insert" @click="goNoticeWrite">글쓰기</button>
       </form>
+    </div>
+    <div>
+      <div v-for="(section, index) in sections" :key="index" class="accordion-section">
+        <div class="accordion-header" @click="toggleAccordion(index)">{{ section.header }}</div>
+        <div v-show="section.open" class="accordion-content">
+          <p>{{ section.content }}</p>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -77,5 +96,22 @@ input[type="submit"] {
 
 .right button:last-child {
   margin-left: 10px;
+}
+
+.accordion-section {
+  border: 1px solid #ccc;
+  margin-bottom: 5px;
+}
+
+.accordion-header {
+  cursor: pointer;
+  padding: 10px;
+  background-color: #f1f1f1;
+  text-align: left;
+}
+
+.accordion-content {
+  display: none;
+  padding: 10px;
 }
 </style>
