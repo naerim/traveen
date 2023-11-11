@@ -96,6 +96,7 @@ function updateArticle() {
     notice.value,
     () => {
       alert("수정되었습니다.");
+      router.push({ name: "notice-detail", params: { idx: idx } });
       // currentPage.value = data.currentPage;
       // totalPage.value = data.totalPageCount;
     },

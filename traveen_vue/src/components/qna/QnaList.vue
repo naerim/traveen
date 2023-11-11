@@ -1,13 +1,10 @@
 <script setup>
 import { ref } from "vue";
 
-const sections = [
-  { header: "Section 1", content: "Content for Section 1", open: false },
-  { header: "Section 2", content: "Content for Section 2", open: false },
-];
+const isOpen = ref(false);
 
-const toggleAccordion = (index) => {
-  this.sections[index].open = !this.sections[index].open;
+const toggleAccordion = () => {
+  isOpen.value = !isOpen.value;
 };
 </script>
 
@@ -27,12 +24,17 @@ const toggleAccordion = (index) => {
         <button id="btn-insert" @click="goNoticeWrite">글쓰기</button>
       </form>
     </div>
+    <div class="line"></div>
     <div>
-      <div v-for="(section, index) in sections" :key="index" class="accordion-section">
-        <div class="accordion-header" @click="toggleAccordion(index)">{{ section.header }}</div>
-        <div v-show="section.open" class="accordion-content">
-          <p>{{ section.content }}</p>
+      <div class="accordion-header" @click="toggleAccordion">
+        <div class="left">Q</div>
+        <div class="right">
+          <div class="title">사용방법?</div>
+          <div class="content">트래빈 사용방법이 궁금합니다.</div>
         </div>
+      </div>
+      <div v-show="isOpen" class="accordion-content">
+        <div class="left">A</div>
       </div>
     </div>
   </section>
@@ -44,6 +46,7 @@ section {
   max-width: 1000px;
   margin: 0 auto;
   padding-bottom: 100px;
+  min-height: 40vh;
 }
 
 label {
@@ -53,6 +56,7 @@ label {
 input[type="checkbox"] {
   box-sizing: border-box;
   accent-color: var(--tv-c-green);
+  margin-right: 8px;
 }
 
 .top-box {
@@ -98,20 +102,66 @@ input[type="submit"] {
   margin-left: 10px;
 }
 
-.accordion-section {
-  border: 1px solid #ccc;
-  margin-bottom: 5px;
+.line {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 20px;
+  height: 1px;
+  background-color: #e3e3e3;
 }
-
 .accordion-header {
+  display: flex;
+  align-items: center;
   cursor: pointer;
   padding: 10px;
-  background-color: #f1f1f1;
-  text-align: left;
+  background-color: #fff;
+  border-top: 1px solid #e3e3e3;
+  border-bottom: 1px solid #e3e3e3;
+  box-sizing: border-box;
+  padding: 30px;
+}
+
+.accordion-header .left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--tv-c-green);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+}
+
+.accordion-header .right {
+  /* display: flex;
+  flex-direction: column; */
+  width: 100%;
+  margin-left: 40px;
+}
+
+.accordion-header .right .title {
+  font-size: 0.9em;
+  color: #6b7684;
 }
 
 .accordion-content {
-  display: none;
+  display: flex;
   padding: 10px;
+  background-color: #f9fbfc;
+  border-bottom: 1px solid #e3e3e3;
+  box-sizing: border-box;
+  padding: 30px;
+  height: 140px;
+}
+
+.accordion-content .left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
 }
 </style>
