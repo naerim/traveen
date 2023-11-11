@@ -1,9 +1,11 @@
 <script setup>
 import { ref, watch, onMounted } from "vue";
 import { registNotice, modifyNotice, detailNotice } from "@/api/notice";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
+const router = useRouter();
+
 const { idx } = route.params;
 const props = defineProps({ type: String });
 
@@ -73,12 +75,13 @@ function onSubmit(e) {
 
 // 글 등록
 function writeArticle() {
-  console.log("글등록하자!!", notice.value);
   // API 호출
   registNotice(
     notice.value,
     ({ data }) => {
       console.log(data);
+      alert("공지사항이 등록되었습니다.");
+      router.push({ name: "notice-list" });
       // currentPage.value = data.currentPage;
       // totalPage.value = data.totalPageCount;
     },
@@ -88,13 +91,11 @@ function writeArticle() {
 
 // 글 수정
 function updateArticle() {
-  console.log(notice.value.idx + "번글 수정하자!!", notice.value);
-  // API 호출
   // API 호출
   modifyNotice(
     notice.value,
-    ({ data }) => {
-      console.log(data);
+    () => {
+      alert("수정되었습니다.");
       // currentPage.value = data.currentPage;
       // totalPage.value = data.totalPageCount;
     },

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 import { listNotice } from "@/api/notice";
 import NoticeListItem from "@/components/notice/item/NoticeListItem.vue";
@@ -7,6 +7,7 @@ import NoticeListItem from "@/components/notice/item/NoticeListItem.vue";
 const router = useRouter();
 
 const notices = ref([]);
+const len = ref(0);
 
 const goNoticeWrite = (e) => {
   e.preventDefault();
@@ -22,20 +23,12 @@ const param = ref({
 
 onMounted(() => {
   getNoticeList();
+  len.value = notices.value.length;
 });
 
 const getNoticeList = () => {
   console.log("서버에서 공지사항 목록 얻어오자");
   // API 호출
-  // getNoticeList(
-  //   param.value,
-  //   ({ data }) => {
-  //     notices.value = data;
-  //     // currentPage.value = data.currentPage;
-  //     // totalPage.value = data.totalPageCount;
-  //   },
-  //   (error) => console.log(error)
-  // );
   listNotice(
     {},
     ({ data }) => {
@@ -47,6 +40,11 @@ const getNoticeList = () => {
     (error) => console.log(error)
   );
 };
+
+// 공지사항 글 갯수 세기
+watch(notices, (newValue) => {
+  len.value = newValue.length;
+});
 </script>
 
 <template>
@@ -54,7 +52,7 @@ const getNoticeList = () => {
   <section>
     <!-- top-box -->
     <div class="top-box">
-      <div class="left">총 4건</div>
+      <div class="left">총 {{ len }}건</div>
       <form class="right" id="form-search" action="#" method="post">
         <select name="select-notice" id="select-notice">
           <option value="">전체</option>
@@ -79,7 +77,12 @@ const getNoticeList = () => {
         </thead>
         <!-- tbody -->
         <tbody>
-          <NoticeListItem v-for="notice in notices" :key="notice.idx" :notice="notice" />
+          <NoticeListItem
+            v-for="(notice, index) in notices"
+            :key="notice.idx"
+            :notice="notice"
+            :index="len - index"
+          />
         </tbody>
       </table>
     </div>

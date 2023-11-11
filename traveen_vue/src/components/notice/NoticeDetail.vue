@@ -35,6 +35,7 @@ const onNoticeDelete = () => {
   deleteNotice(
     idx,
     () => {
+      alert("공지사항이 삭제되었습니다.");
       router.push({ name: "notice-list" });
     },
     (error) => console.log(error)
