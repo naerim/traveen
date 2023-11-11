@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ssafy.notice.model.Notice;
 import com.ssafy.qna.model.Qna;
 import com.ssafy.qna.model.service.QnaService;
 
