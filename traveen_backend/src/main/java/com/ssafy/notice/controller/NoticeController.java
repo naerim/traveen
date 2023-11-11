@@ -89,8 +89,8 @@ public class NoticeController {
 	public ResponseEntity<?> regist(@RequestBody Notice notice, HttpSession session,
 			RedirectAttributes redirectAttributes) throws Exception {
 		logger.debug("write notice : {}", notice);
-		User user = (User) session.getAttribute("userinfo");
-		notice.setUserIdx(user.getIdx());
+//		User user = (User) session.getAttribute("userinfo");
+//		notice.setUserIdx(user.getIdx());
 		noticeService.registNotice(notice);
 
 //		map.put("userIdx", user.getIdx() + "");
