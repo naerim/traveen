@@ -33,7 +33,7 @@ const goMyPage = () => router.push({ name: "mypage" });
 
 <style scoped>
 header {
-  z-index: 100;
+  z-index: 2;
   position: fixed;
   width: 100%;
   box-shadow: 0 10px 10px -10px gray;
