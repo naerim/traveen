@@ -9,7 +9,7 @@ const listNotice = (param, success, fail) => {
 
 // 공지사항 상세 조회
 const detailNotice = (idx, success, fail) => {
-  local.get(`/notice/${idx}`).then(success).catch(fail);
+  local.get(`/notice/view/${idx}`).then(success).catch(fail);
 };
 
 // 공지사항 등록

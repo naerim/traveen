@@ -1,21 +1,32 @@
 <script setup>
-import { ref, watch } from "vue";
-import { registNotice, modifyNotice } from "@/api/notice";
+import { ref, watch, onMounted } from "vue";
+import { registNotice, modifyNotice, detailNotice } from "@/api/notice";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-
+const { idx } = route.params;
 const props = defineProps({ type: String });
 
 const isUseId = ref(false);
 
 const notice = ref({
-  idx: 0,
+  idx: idx,
   userIdx: 1,
   title: "",
   content: "",
   createDate: "",
   viewCount: 0,
+});
+
+onMounted(() => {
+  props.type === "modify" &&
+    detailNotice(
+      idx,
+      ({ data }) => {
+        notice.value = data;
+      },
+      (error) => console.log(error)
+    );
 });
 
 if (props.type === "modify") {
