@@ -14,7 +14,6 @@ const qna = ref({
 const QnaList = ref([]);
 const QnaCommentList = ref([]);
 const isModalOpen = ref(false);
-const newQna = ref({});
 
 onMounted(() => {
   getQnaList();
@@ -35,7 +34,6 @@ const getQnaList = () => {
 
 const getQnaCommentList = () => {
   console.log("서버에서 Qna 댓글 목록 얻어오자");
-  console.log("");
   // API 호출
   listQnaComment(
     {},
@@ -62,22 +60,20 @@ const writeQna = () => {
   registQna(
     qna.value,
     () => {
-      newQna.value = qna.value;
+      QnaList.value.push(qna);
       qna.value.title = "";
       qna.value.content = "";
-      alert("QnA가 등록되었습니다.");
+      alert("질문이 등록되었습니다.");
       closeModal();
     },
     (error) => console.log(error)
   );
 };
 
-watch(
-  () => newQna,
-  (qna) => QnaList.value.push(qna)
-);
-
-
+// qna가 추가될때마다 qna 리스트 갱신
+watch(qna.value, () => {
+  getQnaList();
+});
 </script>
 
 <template>
