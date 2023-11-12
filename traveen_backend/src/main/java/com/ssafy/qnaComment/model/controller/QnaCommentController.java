@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ssafy.qna.model.Qna;
+import com.ssafy.notice.model.Notice;
 import com.ssafy.qnaComment.model.QnaComment;
 import com.ssafy.qnaComment.model.service.QnaCommentService;
 
@@ -51,6 +52,24 @@ public class QnaCommentController {
 		logger.debug("write qnaComment : {}", qnaComment);
 		qnaCommentService.registQnaComment(qnaComment);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/modify/{idx}")
+	@ApiOperation(value = "QnA 댓글 수정 API", notes = "QnaComment의 idx를 PathVariable으로 받아서 해당 QnA 댓글을 수정하는 역할을 합니다. /qnaComment/modify")
+	public ResponseEntity<?> modify(@PathVariable(value="idx") int idx, Model model)
+			throws Exception {
+		logger.debug("modify idx : {}", idx);
+		QnaComment qnaComment = qnaCommentService.getQnaComment(idx);
+		return ResponseEntity.ok(qnaComment);
+	}
+
+	@PutMapping("/modify")
+	@ApiOperation(value = "QnA 댓글 수정 조회 API", notes = "QnA 댓글을 수정하는 역할을 합니다. /qnaComment/modify")
+	public ResponseEntity<?> modify(@RequestBody QnaComment qnaComment,
+			RedirectAttributes rttr) throws Exception {
+		logger.debug("modify qnaComment : {}", qnaComment);
+		rttr.addFlashAttribute("msg", "QnA 댓글이 수정되었습니다.");
+		return ResponseEntity.ok().build();
 	}
 	
 	@DeleteMapping("/{idx}")
