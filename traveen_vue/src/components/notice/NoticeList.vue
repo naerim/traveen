@@ -34,10 +34,10 @@ const getNoticeList = () => {
   console.log("서버에서 공지사항 목록 얻어오자");
   // API 호출
   listNotice(
-    {},
+    param.value,
     ({ data }) => {
       console.log(data);
-      notices.value = data;
+      notices.value = data.notices;
       currentPage.value = data.currentPage;
       totalPage.value = data.totalPageCount;
     },

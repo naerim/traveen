@@ -1,12 +1,18 @@
 package com.ssafy.notice.controller;
 
+import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.ssafy.notice.model.NoticeList;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,20 +47,12 @@ public class NoticeController {
 	
 	@GetMapping("/list")
 	@ApiOperation(value = "공지사항 목록 조회 API", notes = "공지사항 목록을 조회하는 역할을 합니다. /notice/list")
-	public ResponseEntity<?> list() throws Exception {
-		List<Notice> list = noticeService.listNotice();
-//		int totalCnt = noticeService.getTotalNoticeCount(notice);
-//		PageNavigation pageNavigation = noticeService.makePageNavigation(map);
-//		Map<String, Object> result = new HashMap<>();
-//		result.put("notices", list);
-//		result.put("totalCnt", totalCnt);
-//		result.put("navigation", pageNavigation);
-//		result.put("pgno", map.get("pgno"));
-//		result.put("key", map.get("key"));
-//		result.put("word", map.get("word"));
-//		mav.setViewName("notice/list");
-		return ResponseEntity.ok(list);
-//		return new ResponseEntity<Map<String, Object>>(result, HttpStatus.OK);
+	public ResponseEntity<?> list(@RequestParam @ApiParam(value = "공지사항 목록을 얻기위한 부가정보.", required = true) Map<String, String> map) throws Exception {
+		logger.info("listNotice map = {}", map);
+		NoticeList noticeList = noticeService.listNotice(map);
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+		return ResponseEntity.ok().headers(header).body(noticeList);
 	}
 	
 	@GetMapping("/view/{idx}")
@@ -64,24 +62,8 @@ public class NoticeController {
 		logger.debug("view notice idx : {}", idx);
 		Notice notice = noticeService.viewNotice(idx);
 		noticeService.updateHit(idx);
-		
-//		Map<String, Object> result = new HashMap<>();Notice
-//		result.put("notice", notice);
-//		result.put("pgno", map.get("pgno"));
-//		result.put("key", map.get("key"));
-//		result.put("word", map.get("word"));
 		return ResponseEntity.ok(notice);
 	}
-	
-//	@GetMapping("/regist")
-//	@ApiOperation(value = "공지사항 목록 조회 API", notes = "공지사항 목록을 조회하는 역할을 합니다. /notice/list")
-//	public String regist() {
-////		logger.debug("write call parameter {}", map);
-////		model.addAttribute("pgno", map.get("pgno"));
-////		model.addAttribute("key", map.get("key"));
-////		model.addAttribute("word", map.get("word"));
-//		return "notice/regist";
-//	}
 	
 	@PostMapping("/regist")
 	@ApiOperation(value = "공지사항 등록 API", notes = "공지사항을 등록하는 역할을 합니다. /notice/regist")

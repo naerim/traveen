@@ -12,27 +12,27 @@
 	</resultMap>
 
 	<!-- 검색 -->
-<!-- 	<sql id="search"> -->
-<!-- 		<if test="word != null and word != ''"> -->
-<!-- 		and title like concat('%', #{word}, '%') -->
-<!-- 			<if test="key == 'title'"> -->
-<!-- 				and title like concat('%', #{word}, '%') -->
-<!-- 			</if> -->
-<!-- 			<if test="key != 'title'"> -->
-<!-- 				and title like concat('%', #{word}, '%') -->
-<!-- 			</if> -->
-<!-- 		</if> -->
-<!-- 	</sql> -->
+ 	<sql id="search">
+ 		<if test="word != null and word != ''">
+ 		and title like concat('%', #{word}, '%')
+ 			<if test="key == 'title'">
+ 				and title like concat('%', #{word}, '%')
+ 			</if>
+ 			<if test="key != 'title'">
+ 				and title like concat('%', #{word}, '%')
+ 			</if>
+ 		</if>
+ 	</sql>
 
 	<!-- 공지사항 목록 -->
 	<select id="listNotice" resultMap="notice">
-		select idx, title, date_format(create_date, '%Y-%m-%d') create_date, view_count
+		select idx, title, date_format(create_date, '%Y-%m-%d') create_date, view_count, create_date as c_date
 		from notice
-<!-- 		<where> -->
-<!-- 			<include refid="search"></include> -->
-<!-- 		</where> -->
-		order by create_date desc
-<!-- 		limit #{start}, #{listsize} -->
+ 		<where>
+ 			<include refid="search"></include>
+ 		</where>
+		order by c_date desc
+ 		limit #{start}, #{listsize}
 	</select>
 	
 	<!-- 공지사항 조회 -->
@@ -76,11 +76,11 @@
 	</select>
 	
 	<!-- 총 공지사항 개수 -->
-	<select id="getTotalNoticeCount" parameterType="int" resultType="int">
+	<select id="getTotalNoticeCount" parameterType="map" resultType="int">
 		select count(idx)
 		from notice
-<!-- 		<where> -->
-<!-- 			<include refid="search"></include> -->
-<!-- 		</where> -->
+ 		<where>
+ 			<include refid="search"></include>
+ 		</where>
 	</select>
 </mapper>

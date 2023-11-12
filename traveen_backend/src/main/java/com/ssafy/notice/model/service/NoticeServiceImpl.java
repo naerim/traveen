@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.notice.model.NoticeList;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.notice.model.Notice;
@@ -21,48 +22,37 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<Notice> listNotice() throws Exception {
-//		String key = map.get("key");
-//		param.put("key", key == null ? "" : key);
-//		param.put("word", map.get("word") == null ? "" : map.get("word"));
-//		int pgNo = Integer.parseInt(map.get("pgno") == null ? "1" : map.get("pgno"));
-//		int start = pgNo * SizeConstant.NOTICE_LIST_SIZE - SizeConstant.NOTICE_LIST_SIZE;
-//		param.put("start", start);
-//		param.put("listsize", SizeConstant.NOTICE_LIST_SIZE);
-		return noticeMapper.listNotice();
+	public NoticeList listNotice(Map<String, String> map) throws Exception {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("word", map.get("word") == null ? "" : map.get("word"));
+		int currentPage = Integer.parseInt(map.get("pgno") == null ? "1" : map.get("pgno"));
+		int sizePerPage = Integer.parseInt(map.get("spp") == null ? "10" : map.get("spp"));
+		int start = currentPage * sizePerPage - sizePerPage;
+		param.put("start", start);
+		param.put("listsize", sizePerPage);
+
+		String key = map.get("key");
+		param.put("key", key == null ? "" : key);
+		if ("user_id".equals(key))
+			param.put("key", key == null ? "" : "b.user_id");
+		List<Notice> list = noticeMapper.listNotice(param);
+
+		if ("user_id".equals(key))
+			param.put("key", key == null ? "" : "user_id");
+		int totalNoticeCount = noticeMapper.getTotalNoticeCount(param);
+		int totalPageCount = (totalNoticeCount - 1) / sizePerPage + 1;
+
+		NoticeList noticeList = new NoticeList();
+		noticeList.setNotices(list);
+		noticeList.setCurrentPage(currentPage);
+		noticeList.setTotalPageCount(totalPageCount);
+		return noticeList;
 	}
 
 	@Override
 	public void registNotice(Notice notice) throws Exception {
 		noticeMapper.registNotice(notice);
 	}
-	
-//	@Override
-//	public PageNavigation makePageNavigation(Map<String, String> map) throws Exception {
-//		PageNavigation pageNavigation = new PageNavigation();
-//
-//		int navSize = SizeConstant.NOTICE_NAVIGATION_SIZE;
-//		int sizePerPage = SizeConstant.NOTICE_LIST_SIZE;
-//		int currentPage = Integer.parseInt(map.get("pgno") == null ? "1" : map.get("pgno"));
-//
-//		pageNavigation.setCurrentPage(currentPage);
-//		pageNavigation.setNaviSize(navSize);
-//		Map<String, Object> param = new HashMap<String, Object>();
-//		String key = map.get("key");
-//		param.put("key", key == null ? "" : key);
-//		param.put("word", map.get("word") == null ? "" : map.get("word"));
-//		int totalCount = noticeMapper.getTotalNoticeCount(param);
-//		pageNavigation.setTotalCount(totalCount);
-//		int totalPageCount = (totalCount - 1) / sizePerPage + 1;
-//		pageNavigation.setTotalPageCount(totalPageCount);
-//		boolean startRange = currentPage <= navSize;
-//		pageNavigation.setStartRange(startRange);
-//		boolean endRange = (totalPageCount - 1) / navSize * navSize < currentPage;
-//		pageNavigation.setEndRange(endRange);
-//		pageNavigation.makeNavigator();
-//
-//		return pageNavigation;
-//	}
 
 	@Override
 	public void modifyNotice(Notice notice) throws Exception {
@@ -72,12 +62,6 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public void deleteNotice(int idx) throws Exception {
 		noticeMapper.deleteNotice(idx);
-	}
-	
-
-	@Override
-	public int getTotalNoticeCount(Notice notice) throws Exception {
-		return noticeMapper.getTotalNoticeCount(notice);
 	}
 
 	@Override
