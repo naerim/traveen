@@ -1,8 +1,8 @@
 <script setup>
-import { ref } from "vue";
-import { registQnaComment } from "@/api/qna";
+import { ref, onMounted } from "vue";
+import { registQnaComment, viewQnaComment } from "@/api/qna";
 
-defineProps({
+const props = defineProps({
   qna: Object,
 });
 
@@ -12,10 +12,13 @@ const userGrade = ref("G"); // 관리자: M, 회원: G
 const qnaComment = ref({
   idx: 0,
   userIdx: 1,
-  qnaIdx: 3,
+  qnaIdx: props.qna.idx,
   content: "",
 });
 
+onMounted(() => {
+  getQnaComment();
+});
 
 const toggleAccordion = () => {
   isOpen.value = !isOpen.value;
@@ -33,16 +36,25 @@ const writeQnaComment = () => {
     (error) => console.log(error)
   );
 }
-
-
+const getQnaComment = () => {
+  viewQnaComment(
+    props.qna.idx,
+    ({ data }) => {
+      console.log(qnaComment.value.qnaIdx);
+      console.log(data);
+      qnaComment.value = data;
+    },
+    (error) => console.log(error)
+  );
+}
 </script>
 
 <template>
   <div class="accordion-header" @click="toggleAccordion">
     <div class="left">Q</div>
     <div class="right">
-      <div class="title">{{ qna.title }}</div>
-      <div class="content">{{ qna.content }}</div>
+      <div class="title">{{ props.qna.title }}</div>
+      <div class="content">{{ props.qna.content }}</div>
     </div>
     <div class="closeBtn-wrap">
       <img src="@/assets/img/icon_close.png" alt="" />
@@ -60,8 +72,9 @@ const writeQnaComment = () => {
     </div>
     <!-- 사용자가 회원일 때 -->
     <div v-else class="right">
-      <div>일반 내용</div>
-      <div class="content">{{ qnaComment.content }}</div>
+      <div v-if="qnaComment.content != null" class="title">답변 내용</div>
+      <div v-if="qnaComment.content != null" class="content">{{ qnaComment.content }}</div>
+      <div v-else class="title">답변이 아직 등록되지 않은 질문입니다.</div>
     </div>
   </div>
 </template>

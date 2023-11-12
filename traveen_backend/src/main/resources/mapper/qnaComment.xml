@@ -20,7 +20,7 @@
 	<select id="viewQnaComment" parameterType="int" resultMap="qnaComment">
 		select qc.idx, u.idx, q.idx, qc.content
 		from qna_comments qc, users u, qna q
-		where qc.idx = #{idx} and qc.user_idx = u.idx and qc.qna_idx = q.idx
+		where q.idx = #{idx} and q.user_idx = u.idx and qc.qna_idx = q.idx
 	</select>
 	
 	<!-- QnaComment 등록 -->

@@ -44,6 +44,8 @@ const getQnaCommentList = () => {
   );
 };
 
+
+
 // 모달창 열기
 const openModal = (e) => {
   e.preventDefault();

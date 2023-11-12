@@ -45,12 +45,14 @@ public class QnaCommentController {
 		return ResponseEntity.ok(list);
 	}
 	
-	@GetMapping("/view")
+	@GetMapping("/view/{idx}")
 	@ApiOperation(value = "QnA 댓글 상세 조회 API", notes = "QnA 댓글의 idx를 RequestParam으로 받아서 해당 QnA 댓글을 상세 조회하는 역할을 합니다. /qna/qnaComment/view")
-	public ResponseEntity<?> view(@RequestParam(value="idx") int idx, Model model)
+	public ResponseEntity<?> view(@PathVariable(value="idx") int idx, Model model)
 			throws Exception {
 		logger.debug("view qnaComment idx : {}", idx);
+		System.out.println(idx);
 		QnaComment qnaComment = qnaCommentService.viewQnaComment(idx);
+		System.out.println(qnaComment);
 		return ResponseEntity.ok(qnaComment);
 	}
 	
@@ -81,7 +83,7 @@ public class QnaCommentController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@DeleteMapping("/{idx}")
+	@DeleteMapping("/delete/{idx}")
 	@ApiOperation(value = "QnA 댓글 삭제 API", notes = "QnA 댓글의 idx를 PathVariable으로 받아서 QnA 댓글 삭제하는 역할을 합니다. /qna/qnaComment/delete")
 	public ResponseEntity<?> delete(@PathVariable("idx") int idx, Model model, RedirectAttributes rttr)
 			throws Exception {
