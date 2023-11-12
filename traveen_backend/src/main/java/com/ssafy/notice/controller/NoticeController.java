@@ -115,7 +115,7 @@ public class NoticeController {
 	}
 
 	@PutMapping("/modify")
-	@ApiOperation(value = "공지사항 수정 조회 API", notes = "공지사항 수정을 조회하는 역할을 합니다. /notice/modify")
+	@ApiOperation(value = "공지사항 수정 API", notes = "공지사항 수정하는 역할을 합니다. /notice/modify")
 	public ResponseEntity<?> modify(@RequestBody Notice notice,
 			RedirectAttributes rttr) throws Exception {
 		logger.debug("modify notice : {}", notice);

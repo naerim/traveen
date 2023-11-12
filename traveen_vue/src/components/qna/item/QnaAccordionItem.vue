@@ -1,16 +1,40 @@
 <script setup>
 import { ref } from "vue";
+import { registQnaComment } from "@/api/qna";
 
 defineProps({
   qna: Object,
 });
 
 const isOpen = ref(false);
-const userGrade = ref("M"); // 관리자: M, 회원: G
+const userGrade = ref("G"); // 관리자: M, 회원: G
+
+const qnaComment = ref({
+  idx: 0,
+  userIdx: 1,
+  qnaIdx: 3,
+  content: "",
+});
+
 
 const toggleAccordion = () => {
   isOpen.value = !isOpen.value;
 };
+
+// Qna Comment 등록하기
+const writeQnaComment = () => {
+  registQnaComment(
+    qnaComment.value,
+    () => {
+      console.log(qnaComment.value.content);
+      qnaComment.value.content = "";
+      alert("QnA 답변이 등록되었습니다.");
+    },
+    (error) => console.log(error)
+  );
+}
+
+
 </script>
 
 <template>
@@ -28,15 +52,16 @@ const toggleAccordion = () => {
     <div class="left">A</div>
     <!-- 사용자가 관리자일 때 -->
     <div v-if="userGrade === 'M'" class="right">
-      <textarea cols="30" rows="8" placeholder="답변을 입력해주세요."></textarea>
+      <textarea cols="30" rows="8" placeholder="답변을 입력해주세요." v-model="qnaComment.content"></textarea>
       <div class="btn-wrap">
-        <button>등록</button>
+        <button @click="writeQnaComment">등록</button>
         <button>삭제</button>
       </div>
     </div>
     <!-- 사용자가 회원일 때 -->
     <div v-else class="right">
       <div>일반 내용</div>
+      <div class="content">{{ qnaComment.content }}</div>
     </div>
   </div>
 </template>

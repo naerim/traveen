@@ -12,4 +12,17 @@ const registQna = (qna, success, fail) => {
   local.post(`/qna/regist`, JSON.stringify(qna)).then(success).catch(fail);
 };
 
-export { listQna, registQna };
+// qna 목록
+const listQnaComment = (param, success, fail) => {
+  local.get(`/qna/qnaComment/list`).then(success).catch(fail);
+};
+
+// qnaComment 등록
+const registQnaComment = (qnaComment, success, fail) => {
+  local
+    .post(`/qna/qnaComment/regist`, JSON.stringify(qnaComment))
+    .then(success)
+    .catch(fail);
+};
+
+export { listQna, registQna, listQnaComment, registQnaComment };

@@ -1,8 +1,8 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import QnaAccordionItem from "@/components/qna/item/QnaAccordionItem.vue";
 import QnaModal from "./item/QnaModal.vue";
-import { registQna, listQna } from "@/api/qna";
+import { registQna, listQna, listQnaComment } from "@/api/qna";
 
 const qna = ref({
   idx: 0,
@@ -12,10 +12,13 @@ const qna = ref({
 });
 
 const QnaList = ref([]);
+const QnaCommentList = ref([]);
 const isModalOpen = ref(false);
+const newQna = ref({});
 
 onMounted(() => {
   getQnaList();
+  getQnaCommentList();
 });
 
 const getQnaList = () => {
@@ -25,6 +28,19 @@ const getQnaList = () => {
     {},
     ({ data }) => {
       QnaList.value = data;
+    },
+    (error) => console.log(error)
+  );
+};
+
+const getQnaCommentList = () => {
+  console.log("서버에서 Qna 댓글 목록 얻어오자");
+  console.log("");
+  // API 호출
+  listQnaComment(
+    {},
+    ({ data }) => {
+      QnaCommentList.value = data;
     },
     (error) => console.log(error)
   );
@@ -46,6 +62,7 @@ const writeQna = () => {
   registQna(
     qna.value,
     () => {
+      newQna.value = qna.value;
       qna.value.title = "";
       qna.value.content = "";
       alert("QnA가 등록되었습니다.");
@@ -54,6 +71,13 @@ const writeQna = () => {
     (error) => console.log(error)
   );
 };
+
+watch(
+  () => newQna,
+  (qna) => QnaList.value.push(qna)
+);
+
+
 </script>
 
 <template>

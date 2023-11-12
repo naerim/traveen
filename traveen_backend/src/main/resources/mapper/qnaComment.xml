@@ -9,6 +9,12 @@
 		<result column="qna_idx" property="qnaIdx" />
 		<result column="content" property="content" />
 	</resultMap>
+	
+	<!-- QnaComment 목록 -->
+	<select id="listQnaComment" resultMap="qnaComment">
+		select idx, user_idx, qna_idx, content
+		from qna_comments
+	</select>
 
 	<!-- QnaComment 조회 -->
 	<select id="viewQnaComment" parameterType="int" resultMap="qnaComment">
