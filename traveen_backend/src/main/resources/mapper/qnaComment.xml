@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.qnaComment.model.mapper.QnaCommentMapper">
+	<resultMap type="qnaComment" id="qnaComment">
+		<result column="idx" property="idx" />
+		<result column="user_idx" property="userIdx" />
+		<result column="qna_idx" property="qnaIdx" />
+		<result column="content" property="content" />
+	</resultMap>
+
+	<!-- QnaComment 조회 -->
+	<select id="viewQnaComment" parameterType="int" resultMap="qnaComment">
+		select qc.idx, u.idx, q.idx, qc.content
+		from qna_comments qc, users u, qna q
+		where qc.idx = #{idx} and qc.user_idx = u.idx and qc.qna_idx = q.idx
+	</select>
+	
+	<!-- QnaComment 등록 -->
+	<insert id="registQnaComment" parameterType="qnaComment">
+		insert into qna_comments(user_idx, qna_idx, content)
+		values(#{userIdx}, #{qnaIdx}, #{content})
+	</insert>
+	
+	<!-- QnaComment 수정 -->
+	<update id="modifyQnaComment" parameterType="qnaComment">
+		update qna_comments
+		set content = #{content}
+		where idx = #{idx}
+	</update>
+	
+	<!-- QnaComment 삭제 -->
+	<delete id="deleteQnaComment" parameterType="int">
+		delete from qna_comments
+		where idx = #{idx}
+	</delete>
+	
+	<!-- idx로 QnaComment 찾기 -->
+	<select id="getQnaComment" parameterType="int" resultMap="qnaComment">
+		select qc.idx, u.idx, q.idx, qc.content
+		from qna_comments qc, users u, qna q
+		where qc.idx = #{idx} and qc.user_idx = u.idx and qc.qna_idx = q.idx
+	</select>
+</mapper>
