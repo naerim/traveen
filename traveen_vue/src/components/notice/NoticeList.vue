@@ -3,11 +3,15 @@ import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 import { listNotice } from "@/api/notice";
 import NoticeListItem from "@/components/notice/item/NoticeListItem.vue";
+import PageNavigation from "@/components/common/PageNavigation.vue";
 
 const router = useRouter();
 
 const notices = ref([]);
 const len = ref(0);
+const currentPage = ref(1);
+const totalPage = ref(0);
+const { VITE_NOTICE_LIST_SIZE } = import.meta.env;
 
 const goNoticeWrite = (e) => {
   e.preventDefault();
@@ -15,8 +19,8 @@ const goNoticeWrite = (e) => {
 };
 
 const param = ref({
-  pgno: 1,
-  spp: 5,
+  pgno: currentPage.value,
+  spp: VITE_NOTICE_LIST_SIZE,
   key: "",
   word: "",
 });
@@ -34,11 +38,18 @@ const getNoticeList = () => {
     ({ data }) => {
       console.log(data);
       notices.value = data;
-      // currentPage.value = data.currentPage;
-      // totalPage.value = data.totalPageCount;
+      currentPage.value = data.currentPage;
+      totalPage.value = data.totalPageCount;
     },
     (error) => console.log(error)
   );
+};
+
+const onPageChange = (val) => {
+  console.log(val + "번 페이지로 이동 준비 끝!!!");
+  currentPage.value = val;
+  param.value.pgno = val;
+  getNoticeList();
 };
 
 // 공지사항 글 갯수 세기
@@ -87,6 +98,11 @@ watch(notices, (newValue) => {
       </table>
     </div>
     <!-- pagination -->
+    <PageNavigation
+      :current-page="currentPage"
+      :total-page="totalPage"
+      @pageChange="onPageChange"
+    ></PageNavigation>
   </section>
 </template>
 
