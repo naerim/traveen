@@ -78,11 +78,6 @@ const router = createRouter({
               name: "qna-list",
               component: () => import("@/components/qna/QnaList.vue"),
             },
-            {
-              path: "qna/:idx",
-              name: "qna-detail",
-              component: () => import("@/components/notice/NoticeDetail.vue"),
-            },
           ],
         },
       ],
