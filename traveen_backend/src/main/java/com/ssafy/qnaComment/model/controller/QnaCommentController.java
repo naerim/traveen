@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ssafy.notice.model.Notice;
 import com.ssafy.qnaComment.model.QnaComment;
 import com.ssafy.qnaComment.model.service.QnaCommentService;
 
@@ -42,6 +41,7 @@ public class QnaCommentController {
 	@ApiOperation(value = "QnA 댓글 목록 조회 API", notes = "QnA 댓글 목록을 조회하는 역할을 합니다. /qna/qnaComment/list")
 	public ResponseEntity<?> list() throws Exception {
 		List<QnaComment> list = qnaCommentService.listQnaComment();
+		System.out.println(list);
 		return ResponseEntity.ok(list);
 	}
 	
