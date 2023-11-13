@@ -38,6 +38,14 @@ const router = createRouter({
       path: "/aftertraveen",
       name: "aftertraveen",
       component: () => import("@/views/AfterTraveenView.vue"),
+      redirect: { name: "aftertraveen-list" },
+      children: [
+        {
+          path: "list",
+          name: "aftertraveen-list",
+          component: () => import("@/components/aftertraveen/AftertraveenList.vue"),
+        },
+      ],
     },
     {
       path: "/center",
