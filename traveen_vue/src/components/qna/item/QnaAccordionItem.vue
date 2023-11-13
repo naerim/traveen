@@ -29,24 +29,20 @@ const writeQnaComment = () => {
   registQnaComment(
     qnaComment.value,
     () => {
-      console.log(qnaComment.value.content);
-      qnaComment.value.content = "";
       alert("QnA 답변이 등록되었습니다.");
     },
     (error) => console.log(error)
   );
-}
+};
 const getQnaComment = () => {
   viewQnaComment(
     props.qna.idx,
     ({ data }) => {
-      console.log(qnaComment.value.qnaIdx);
-      console.log(data);
-      qnaComment.value = data;
+      qnaComment.value.content = data.content;
     },
     (error) => console.log(error)
   );
-}
+};
 </script>
 
 <template>
@@ -64,7 +60,12 @@ const getQnaComment = () => {
     <div class="left">A</div>
     <!-- 사용자가 관리자일 때 -->
     <div v-if="userGrade === 'M'" class="right">
-      <textarea cols="30" rows="8" placeholder="답변을 입력해주세요." v-model="qnaComment.content"></textarea>
+      <textarea
+        cols="30"
+        rows="8"
+        placeholder="답변을 입력해주세요."
+        v-model="qnaComment.content"
+      ></textarea>
       <div class="btn-wrap">
         <button @click="writeQnaComment">등록</button>
         <button>삭제</button>
@@ -72,7 +73,6 @@ const getQnaComment = () => {
     </div>
     <!-- 사용자가 회원일 때 -->
     <div v-else class="right">
-      <div v-if="qnaComment.content != null" class="title">답변 내용</div>
       <div v-if="qnaComment.content != null" class="content">{{ qnaComment.content }}</div>
       <div v-else class="title">답변이 아직 등록되지 않은 질문입니다.</div>
     </div>
@@ -179,6 +179,7 @@ textarea::placeholder {
   height: 30px;
   color: #000;
   width: 80px;
+  cursor: pointer;
 }
 
 .btn-wrap button:first-child {
