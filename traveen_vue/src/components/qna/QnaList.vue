@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
 import QnaAccordionItem from "@/components/qna/item/QnaAccordionItem.vue";
-import QnaModal from "./item/QnaModal.vue";
+import QnaWriteModal from "@/components/qna/QnaWriteModal.vue";
 import VEmptyItem from "@/components/common/VEmptyItem.vue";
 import { registQna, listQna, listQnaComment } from "@/api/qna";
 
@@ -107,7 +107,7 @@ watch(QnaList, (newValue) => {
       <VEmptyItem text="데이터가 존재하지 않습니다." />
     </div>
     <!-- qna 생성 modal창 -->
-    <QnaModal :show="isModalOpen" @close="closeModal">
+    <QnaWriteModal :show="isModalOpen" @close="closeModal">
       <div class="modal-container">
         <div class="modal-top">
           <div>QnA 등록</div>
@@ -133,7 +133,7 @@ watch(QnaList, (newValue) => {
         </div>
         <button @click="writeQna">글쓰기</button>
       </div>
-    </QnaModal>
+    </QnaWriteModal>
   </section>
 </template>
 

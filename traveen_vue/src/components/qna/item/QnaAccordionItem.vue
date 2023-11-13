@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted } from "vue";
 import { registQnaComment, viewQnaComment, deleteQnaComment } from "@/api/qna";
 
 const props = defineProps({
