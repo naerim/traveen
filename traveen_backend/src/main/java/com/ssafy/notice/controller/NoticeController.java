@@ -1,13 +1,10 @@
 package com.ssafy.notice.controller;
 
 import java.nio.charset.Charset;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import com.ssafy.notice.model.NoticeList;
-import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -27,10 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ssafy.notice.model.Notice;
+import com.ssafy.notice.model.NoticeList;
 import com.ssafy.notice.model.service.NoticeService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("/notice")

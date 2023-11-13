@@ -1,4 +1,4 @@
-package com.ssafy.qna;
+package com.ssafy.qna.controller;
 
 import java.util.List;
 

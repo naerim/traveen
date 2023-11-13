@@ -8,25 +8,26 @@
 		<result column="user_idx" property="userIdx" />
 		<result column="title" property="title" />
 		<result column="content" property="content" />
+		<result column="create_date" property="createDate" />
 	</resultMap>
 
 	<!-- QnA 목록 -->
 	<select id="listQna" resultMap="qna">
-		select idx, user_idx, title, content
+		select idx, user_idx, title, content, create_date
 		from qna
 	</select>
 	
 	<!-- QnA 조회 -->
 	<select id="viewQna" parameterType="int" resultMap="qna">
-		select q.idx, u.idx, q.title, q.content
+		select q.idx, u.idx, q.title, q.content, q.create_date
 		from qna q, users u
 		where q.idx = #{idx} and q.user_idx = u.idx
 	</select>
 	
 	<!-- QnA 등록 -->
 	<insert id="registQna" parameterType="qna">
-		insert into qna(user_idx, title, content)
-		values(#{userIdx}, #{title}, #{content})
+		insert into qna(user_idx, title, content, create_date)
+		values(#{userIdx}, #{title}, #{content}, now())
 	</insert>
 	
 	<!-- QnA 삭제 -->
@@ -37,7 +38,7 @@
 	
 	<!-- idx로 QnA 찾기 -->
 	<select id="getQna" parameterType="int" resultMap="qna">
-		select q.idx, u.idx, q.title, q.content
+		select q.idx, u.idx, q.title, q.content, q.create_date
 		from qna q, users u
 		where q.idx = #{idx} and q.user_idx = u.idx
 	</select>

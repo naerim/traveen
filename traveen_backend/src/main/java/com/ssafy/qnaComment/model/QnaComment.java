@@ -20,6 +20,10 @@ public class QnaComment {
 	/* 내용 */
 	@ApiModelProperty(value = "내용")
 	private String content;
+	
+	/* 작성일시 */
+	@ApiModelProperty(value = "작성일시")
+	private String createDate;
 
 	public int getIdx() {
 		return idx;
@@ -53,8 +57,18 @@ public class QnaComment {
 		this.content = content;
 	}
 
+	
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+
 	@Override
 	public String toString() {
-		return "QnaComment [idx=" + idx + ", userIdx=" + userIdx + ", qnaIdx=" + qnaIdx + ", content=" + content + "]";
+		return "QnaComment [idx=" + idx + ", userIdx=" + userIdx + ", qnaIdx=" + qnaIdx + ", content=" + content
+				+ ", createDate=" + createDate + "]";
 	}
 }
