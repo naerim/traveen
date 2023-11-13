@@ -1,7 +1,13 @@
-<script setup></script>
+<script setup>
+const emit = defineEmits(["clickItem"]);
+
+const onClickItem = () => {
+  emit("clickItem");
+};
+</script>
 
 <template>
-  <div class="item">
+  <div class="item" @click="onClickItem">
     <div class="imgDiv">
       <img src="@/assets/img/img_tripinfo.png" alt="" />
     </div>
