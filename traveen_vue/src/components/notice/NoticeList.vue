@@ -4,6 +4,7 @@ import { useRouter } from "vue-router";
 import { listNotice } from "@/api/notice";
 import NoticeListItem from "@/components/notice/item/NoticeListItem.vue";
 import PageNavigation from "@/components/common/PageNavigation.vue";
+import VEmptyItem from "@/components/common/VEmptyItem.vue";
 
 const router = useRouter();
 
@@ -46,7 +47,6 @@ const getNoticeList = () => {
 };
 
 const onPageChange = (val) => {
-  console.log(val + "번 페이지로 이동 준비 끝!!!");
   currentPage.value = val;
   param.value.pgno = val;
   getNoticeList();
@@ -87,13 +87,18 @@ watch(notices, (newValue) => {
           </tr>
         </thead>
         <!-- tbody -->
-        <tbody>
+        <tbody v-if="len !== 0">
           <NoticeListItem
             v-for="(notice, index) in notices"
             :key="notice.idx"
             :notice="notice"
             :index="len - index"
           />
+        </tbody>
+        <tbody v-else>
+          <td colspan="4">
+            <VEmptyItem text="데이터가 존재하지 않습니다." />
+          </td>
         </tbody>
       </table>
     </div>

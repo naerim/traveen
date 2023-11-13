@@ -2,6 +2,7 @@
 import { ref, onMounted, watch } from "vue";
 import QnaAccordionItem from "@/components/qna/item/QnaAccordionItem.vue";
 import QnaModal from "./item/QnaModal.vue";
+import VEmptyItem from "@/components/common/VEmptyItem.vue";
 import { registQna, listQna, listQnaComment } from "@/api/qna";
 
 const qna = ref({
@@ -14,14 +15,15 @@ const qna = ref({
 const QnaList = ref([]);
 const QnaCommentList = ref([]);
 const isModalOpen = ref(false);
+const len = ref(0);
 
 onMounted(() => {
   getQnaList();
   getQnaCommentList();
+  len.value = QnaList.value.length;
 });
 
 const getQnaList = () => {
-  console.log("서버에서 Qna 목록 얻어오자");
   // API 호출
   listQna(
     {},
@@ -33,7 +35,6 @@ const getQnaList = () => {
 };
 
 const getQnaCommentList = () => {
-  console.log("서버에서 Qna 댓글 목록 얻어오자");
   // API 호출
   listQnaComment(
     {},
@@ -43,8 +44,6 @@ const getQnaCommentList = () => {
     (error) => console.log(error)
   );
 };
-
-
 
 // 모달창 열기
 const openModal = (e) => {
@@ -76,6 +75,11 @@ const writeQna = () => {
 watch(qna.value, () => {
   getQnaList();
 });
+
+// qna 갯수 세기
+watch(QnaList, (newValue) => {
+  len.value = newValue.length;
+});
 </script>
 
 <template>
@@ -96,8 +100,11 @@ watch(qna.value, () => {
     </div>
     <div class="line"></div>
     <!-- qna list -->
-    <div>
+    <div v-if="len !== 0">
       <QnaAccordionItem v-for="qna in QnaList" :key="qna.idx" :qna="qna" />
+    </div>
+    <div v-else>
+      <VEmptyItem text="데이터가 존재하지 않습니다." />
     </div>
     <!-- qna 생성 modal창 -->
     <QnaModal :show="isModalOpen" @close="closeModal">
