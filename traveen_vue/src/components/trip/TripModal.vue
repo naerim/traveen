@@ -1,11 +1,74 @@
 <script setup>
-defineProps({
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+
+const { VITE_KAKAO_KAP_API } = import.meta.env;
+const router = useRouter();
+const map = ref();
+const position = ref([
+  {
+    lat: 33.450701,
+    lng: 126.570667,
+  },
+]);
+
+const props = defineProps({
   show: Boolean,
+  type: String,
 });
+
+// onMounted(() => {
+//   if (window.kakao && window.kakao.maps) {
+//     loadMap();
+//   } else {
+//     loadScript();
+//   }
+// });
+
+// // kakaomap 생성
+// const loadMap = () => {
+//   const container = document.querySelector("#map");
+//   const options = {
+//     //좌표값 설정
+//     center: new window.kakao.maps.LatLng(position.value.lat, position.value.lng),
+//     level: 4,
+//   };
+//   map.value = new window.kakao.maps.Map(container, options);
+//   loadMaker();
+// };
+
+// const loadScript = () => {
+//   const script = document.createElement("script");
+//   // 해당 앱키의 값은 추후 변경해야할것(현재 테스트용으로 개인키 입력)
+//   script.src = VITE_KAKAO_KAP_API;
+//   script.onload = () => window.kakao.maps.load(loadMap);
+
+//   document.head.appendChild(script);
+// };
+
+// const loadMaker = () => {
+//   const markerPosition = new window.kakao.maps.LatLng(this.latitude, this.longitude);
+
+//   const marker = new window.kakao.maps.Marker({
+//     position: markerPosition,
+//   });
+
+//   marker.setMap(map.value);
+// };
 
 const emit = defineEmits(["closeModal"]);
 const onClickCloseModal = () => {
   emit("closeModal");
+};
+
+// 코스짜는 페이지로 이동
+const goWriteCourse = () => {
+  router.replace({ name: "course" });
+};
+
+// 코스에 추가하기
+const addCourse = () => {
+  console.log("코스에 추가합니다.");
 };
 </script>
 
@@ -57,13 +120,14 @@ const onClickCloseModal = () => {
               <span>경기도 파주시 회동길 445-1</span>
             </div>
           </div>
-          <dib class="button-wrap">
-            <button>여행코스 만들기</button>
+          <div class="button-wrap">
+            <button v-if="props.type === 'trip'" @click="goWriteCourse">여행코스 만들기</button>
+            <button v-else @click="addCourse">추가하기</button>
             <button>
               찜하기
               <img src="@/assets/img/icon_heart.png" alt="" />
             </button>
-          </dib>
+          </div>
         </div>
         <div class="right">
           <!-- kakao map -->
@@ -93,7 +157,7 @@ const onClickCloseModal = () => {
           </div>
           <form action="" id="form-detail-comment">
             <input type="text" placeholder="댓글 달기.." id="input-detail-comment" />
-            <button type="button">등록</button>
+            <button type="button" id="btn-comment-trip">등록</button>
           </form>
         </div>
       </div>
@@ -341,5 +405,9 @@ const onClickCloseModal = () => {
   background-color: #51cd89;
   color: #fff;
   cursor: pointer;
+}
+
+#btn-comment-trip {
+  margin-left: 10px;
 }
 </style>

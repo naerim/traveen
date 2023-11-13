@@ -26,7 +26,7 @@ const closeModal = () => {
   <div v-else id="content-box">
     <TripListItem @click-item="clickItem" />
   </div>
-  <TripModal :show="show" @close-modal="closeModal" />
+  <TripModal :show="show" @close-modal="closeModal" type="trip" />
 </template>
 
 <style scoped>
