@@ -1,4 +1,4 @@
-package com.ssafy.qnaComment.model.controller;
+package com.ssafy.qnaComment.controller;
 
 import java.util.List;
 
