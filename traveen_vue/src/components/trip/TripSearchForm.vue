@@ -1,0 +1,98 @@
+<script setup></script>
+
+<template>
+  <!-- search box -->
+  <div id="search-box">
+    <select name="select-type" id="select-type">
+      <option value="">전체</option>
+      <option value="레스토랑">레스토랑</option>
+      <option value="카페">카페</option>
+    </select>
+    <select name="select-order" id="select-order">
+      <option value="view">조회수</option>
+      <option value="hit">찜</option>
+    </select>
+    <input type="text" placeholder="작품이름을 입력해보세요." id="input-search" />
+    <button id="btn-search-tripinfo">검색</button>
+  </div>
+  <!-- tab box -->
+  <div id="tab-box">
+    <ul class="tabnav">
+      <li class="active">전체</li>
+      <li>드라마</li>
+      <li>영화</li>
+      <li>예능</li>
+      <li>뮤직비디오</li>
+    </ul>
+  </div>
+</template>
+
+<style scoped>
+#search-box {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#search-box input {
+  border: none;
+  border-bottom: 1px solid #b0b8c1;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 55%;
+  font-size: 1em;
+}
+
+#search-box input::placeholder {
+  color: #d3d3d3;
+}
+
+#select-type,
+#select-order {
+  width: 14%;
+  border: 1px solid #dadee2;
+  border-radius: 6px;
+  box-sizing: border-box;
+  padding: 4px;
+}
+
+#btn-search-tripinfo {
+  width: 10%;
+  border: none;
+  border-radius: 6px;
+  background-color: #51cd89;
+  color: #fff;
+  cursor: pointer;
+}
+
+#tab-box {
+  display: flex;
+  width: 55%;
+  margin: 60px auto 50px auto;
+}
+
+.tabnav {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  font-size: 1.1em;
+}
+
+.tabnav li {
+  cursor: pointer;
+  padding: 0 4px 6px 4px;
+}
+
+.tabnav li.active {
+  color: #51cd89;
+  border-bottom: 2px solid #51cd89;
+}
+
+.tabnav li:hover {
+  color: #51cd89;
+  border-bottom: 2px solid #51cd89;
+}
+</style>

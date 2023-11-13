@@ -28,6 +28,14 @@ const router = createRouter({
       path: "/trip",
       name: "trip",
       component: () => import("@/views/TripView.vue"),
+      redirect: { name: "trip-list" },
+      children: [
+        {
+          path: "list",
+          name: "trip-list",
+          component: () => import("@/components/trip/TripList.vue"),
+        },
+      ],
     },
     {
       path: "/aftertraveen",
