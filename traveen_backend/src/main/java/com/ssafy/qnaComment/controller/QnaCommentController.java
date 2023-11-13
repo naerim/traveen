@@ -41,7 +41,7 @@ public class QnaCommentController {
 	@ApiOperation(value = "QnA 댓글 목록 조회 API", notes = "QnA 댓글 목록을 조회하는 역할을 합니다. /qna/qnaComment/list")
 	public ResponseEntity<?> list() throws Exception {
 		List<QnaComment> list = qnaCommentService.listQnaComment();
-		System.out.println(list);
+		System.out.println("list:" + list);
 		return ResponseEntity.ok(list);
 	}
 	
@@ -50,7 +50,7 @@ public class QnaCommentController {
 	public ResponseEntity<?> view(@PathVariable(value="idx") int idx, Model model)
 			throws Exception {
 		logger.debug("view qnaComment idx : {}", idx);
-		System.out.println(idx);
+		System.out.println("view: " + idx);
 		QnaComment qnaComment = qnaCommentService.viewQnaComment(idx);
 		System.out.println(qnaComment);
 		return ResponseEntity.ok(qnaComment);

@@ -1,13 +1,13 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { registQnaComment, viewQnaComment } from "@/api/qna";
+import { ref, onMounted, watch } from "vue";
+import { registQnaComment, viewQnaComment, deleteQnaComment } from "@/api/qna";
 
 const props = defineProps({
   qna: Object,
 });
 
 const isOpen = ref(false);
-const userGrade = ref("G"); // 관리자: M, 회원: G
+const userGrade = ref("M"); // 관리자: M, 회원: G
 
 const qnaComment = ref({
   idx: 0,
@@ -24,7 +24,7 @@ const toggleAccordion = () => {
   isOpen.value = !isOpen.value;
 };
 
-// Qna Comment 등록하기
+// QnA Comment 등록하기
 const writeQnaComment = () => {
   registQnaComment(
     qnaComment.value,
@@ -43,6 +43,21 @@ const getQnaComment = () => {
     (error) => console.log(error)
   );
 };
+// QnA Comment 삭제하기
+const onDeleteQnaComment = () => {
+  deleteQnaComment(
+    props.qna.idx,
+    () => {
+      console.log("qna.idx : " + props.qna.idx);
+      alert("QnA 답변이 삭제되었습니다.");
+    },
+    (error) => console.log(error)
+  );
+};
+
+// watch(qnaComment.value, () => {
+//   getQnaComment();
+// });
 </script>
 
 <template>
@@ -68,7 +83,7 @@ const getQnaComment = () => {
       ></textarea>
       <div class="btn-wrap">
         <button @click="writeQnaComment">등록</button>
-        <button>삭제</button>
+        <button @click="onDeleteQnaComment">삭제</button>
       </div>
     </div>
     <!-- 사용자가 회원일 때 -->
