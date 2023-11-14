@@ -1,6 +1,6 @@
 <script setup>
-import CourseSearchForm from "../components/course/CourseSearchForm.vue";
-import CourseList from "../components/course/CourseList.vue";
+import CourseSearchForm from "@/components/course/CourseSearchForm.vue";
+import CourseList from "@/components/course/CourseList.vue";
 </script>
 
 <template>

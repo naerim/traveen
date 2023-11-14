@@ -1,7 +1,16 @@
-<script setup></script>
+<script setup>
+import LoginForm from "@/components/login/LoginForm.vue";
+</script>
 
 <template>
-  <div>로그인 페이지</div>
+  <section>
+    <div class="auth-top">
+      <h2>로그인</h2>
+    </div>
+    <LoginForm />
+  </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+@import "@/assets/scss/views/LoginView.scss";
+</style>
