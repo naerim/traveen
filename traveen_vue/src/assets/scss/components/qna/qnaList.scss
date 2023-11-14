@@ -1,0 +1,128 @@
+section {
+  width: 80%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-bottom: 100px;
+  min-height: 40vh;
+}
+
+label {
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  box-sizing: border-box;
+  accent-color: var(--tv-c-green);
+  margin-right: 8px;
+}
+
+.top-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-width: 1000px;
+  margin-bottom: 10px;
+}
+
+.right select {
+  height: 34px;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  width: 80px;
+  box-sizing: border-box;
+  padding: 4px;
+}
+
+.right input {
+  box-sizing: border-box;
+  height: 34px;
+  border: none;
+  border-bottom: 1px solid #e3e3e3;
+  padding: 4px;
+  padding-right: 10px;
+  margin: 0 10px;
+}
+
+.right button,
+input[type="submit"] {
+  height: 34px;
+  background-color: #51cd89;
+  border-radius: 6px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 0 16px;
+}
+
+.right button:last-child {
+  margin-left: 10px;
+}
+
+.line {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 10px;
+  height: 1px;
+  background-color: #e3e3e3;
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.modal-top img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.qna-modal-title {
+  margin-top: 10px;
+}
+
+.input-qna {
+  width: 100%;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  box-sizing: border-box;
+  height: 40px;
+  padding: 6px;
+}
+
+.input-qna::placeholder {
+  color: #d3d3d3;
+}
+
+#qna-content {
+  resize: none;
+  height: 60px;
+  width: 100%;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  box-sizing: border-box;
+  padding: 6px;
+}
+#qna-content::placeholder {
+  color: #d3d3d3;
+}
+
+.modal-container button {
+  background-color: var(--tv-c-green);
+  border: none;
+  color: #fff;
+  width: 80px;
+  border-radius: 6px;
+  height: 30px;
+  margin-top: 20px;
+  margin-left: auto;
+  cursor: pointer;
+}

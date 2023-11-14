@@ -1,0 +1,26 @@
+footer {
+  display: flex;
+  width: 100%;
+  padding: 80px 0;
+  background-color: #f9fbfc;
+  color: #000000;
+  font-size: 0.8em;
+}
+
+.container {
+  display: flex;
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+footer #footer-right {
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
+}
+
+footer #footer-right p {
+  margin-bottom: 20px;
+}

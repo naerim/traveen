@@ -96,13 +96,5 @@ const deleteMarkers = () => {
 </template>
 
 <style scoped>
-#mapBox {
-  margin-inline: auto;
-  width: 100%;
-  height: 50%;
-}
-#map {
-  width: 100%;
-  height: 100%;
-}
+@import "@/assets/scss/components/common/vKakaoMap.scss";
 </style>

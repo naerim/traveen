@@ -9,12 +9,5 @@ defineProps({
 </template>
 
 <style scoped>
-.empty-box {
-  display: flex;
-  width: 100%;
-  background-color: #f9fbfc;
-  height: 200px;
-  align-items: center;
-  justify-content: center;
-}
+@import "@/assets/scss/components/common/vEmptyItem.scss";
 </style>

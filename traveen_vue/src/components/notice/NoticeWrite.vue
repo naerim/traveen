@@ -12,10 +12,5 @@ import NoticeFormItem from "@/components/notice/item/NoticeFormItem.vue";
 </template>
 
 <style scoped>
-section {
-  width: 80%;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding-bottom: 100px;
-}
+@import "@/assets/scss/components/notice/noticeWrite.scss";
 </style>

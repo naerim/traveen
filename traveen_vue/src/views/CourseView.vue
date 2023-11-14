@@ -14,24 +14,5 @@ import CourseList from "../components/course/CourseList.vue";
 </template>
 
 <style scoped>
-article {
-  width: 90%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding-bottom: 100px;
-  padding-top: 40px;
-}
-
-.title {
-  font-size: 2em;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 40px;
-  white-space: pre-line;
-}
-
-.course-regist-container {
-  display: flex;
-  justify-content: space-between;
-}
+@import "@/assets/scss/views/courseView.scss";
 </style>

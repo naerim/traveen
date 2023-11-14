@@ -16,19 +16,5 @@ const goNoticeList = () => {
 </template>
 
 <style scoped>
-.btn-notice-box {
-  display: flex;
-  justify-content: center;
-}
-
-#btn-notice-list {
-  background-color: #51cd89;
-  border: none;
-  border-radius: 6px;
-  width: 140px;
-  height: 40px;
-  color: #fff;
-  cursor: pointer;
-  margin-top: 40px;
-}
+@import "@/assets/scss/components/notice/item/noticeGoListButton.scss";
 </style>

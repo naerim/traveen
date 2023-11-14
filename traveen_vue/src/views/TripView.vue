@@ -12,20 +12,5 @@ import TripSearchForm from "../components/trip/TripSearchForm.vue";
 </template>
 
 <style scoped>
-article {
-  width: 80%;
-  max-width: 1100px;
-  min-width: 1100px;
-  margin: 0 auto;
-  padding-bottom: 100px;
-  padding-top: 40px;
-}
-
-.title {
-  font-size: 2em;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 60px;
-  white-space: pre-line;
-}
+@import "@/assets/scss/views/tripView.scss";
 </style>

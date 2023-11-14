@@ -19,24 +19,5 @@ defineProps({
 </template>
 
 <style scoped>
-tr {
-  height: 58px;
-  border-radius: 6px;
-  align-items: center;
-  text-align: center;
-}
-
-.subject {
-  text-align: left;
-  padding-left: 80px;
-  cursor: pointer;
-}
-
-a {
-  color: #000;
-}
-
-.subject:hover {
-  text-decoration: underline;
-}
+@import "@/assets/scss/components/notice/item/noticeListItem.scss";
 </style>
