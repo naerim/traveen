@@ -1,7 +1,18 @@
-<script setup></script>
+<script setup>
+import TheMypageNavbar from "@/components/mypage/TheMypageNavbar.vue";
+import { RouterView } from "vue-router";
+</script>
 
 <template>
-  <div>마이페이지</div>
+  <h1 class="title">마이페이지</h1>
+  <section>
+    <TheMypageNavbar />
+    <article>
+      <RouterView />
+    </article>
+  </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+@import "@/assets/scss/views/mypageView.scss";
+</style>

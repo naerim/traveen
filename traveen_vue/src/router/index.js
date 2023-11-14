@@ -23,6 +23,29 @@ const router = createRouter({
       path: "/mypage",
       name: "mypage",
       component: () => import("@/views/MyPageView.vue"),
+      redirect: { name: "myinfo" },
+      children: [
+        {
+          path: "myinfo",
+          name: "myinfo",
+          component: () => import("@/views/MyInfoView.vue"),
+        },
+        {
+          path: "mytrip",
+          name: "mytrip",
+          component: () => import("@/views/MyTripView.vue"),
+        },
+        {
+          path: "myactive",
+          name: "myactive",
+          component: () => import("@/views/MyActiveView.vue"),
+        },
+        {
+          path: "myfriend",
+          name: "myfriend",
+          component: () => import("@/views/MyFriendView.vue"),
+        },
+      ],
     },
     {
       path: "/trip",
