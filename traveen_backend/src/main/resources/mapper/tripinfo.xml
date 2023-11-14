@@ -48,8 +48,22 @@
  		</trim>
  		limit #{start}, #{listsize} 
 	</select>
+	
+	<!-- 여행지 조회 -->
+	<select id="viewTripinfo" parameterType="int" resultMap="tripinfo">
+		select idx, category_name, title, place_name, type, `desc`, oper_time, rest_time, restdate_content, address, lat, loc, sido_code, tel, like_count, view_count
+		from tripinfo
+		where idx = #{idx}
+	</select>
+	
+	<!-- 조회수 카운트 -->
+	<update id="updateHit" parameterType="int">
+		update tripinfo
+		set view_count = view_count + 1
+		where idx = #{idx}
+	</update>
 
-	<!-- 총 여행지 목록 -->
+	<!-- 총 여행지 목록 개수 -->
 	<select id="getTotalTripinfoCount" parameterType="tripinfo" resultType="int">
 		select count(idx)
 		from tripinfo

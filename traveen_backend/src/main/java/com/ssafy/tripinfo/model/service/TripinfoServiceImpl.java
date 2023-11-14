@@ -33,12 +33,8 @@ public class TripinfoServiceImpl implements TripinfoService {
 		param.put("start", start);
 		param.put("listsize", sizePerPage);
 
-//		if ("user_id".equals(key))
-//			param.put("key", key == null ? "" : "b.user_id");
 		List<Tripinfo> list = tripinfoMapper.listTripinfo(param);
 
-//		if ("user_id".equals(key))
-//			param.put("key", key == null ? "" : "user_id");
 		int totalTripinfoCount = tripinfoMapper.getTotalTripinfoCount(param);
 		int totalPageCount = (totalTripinfoCount - 1) / sizePerPage + 1;
 
@@ -48,4 +44,16 @@ public class TripinfoServiceImpl implements TripinfoService {
 		tripinfoList.setTotalPageCount(totalPageCount);
 		return tripinfoList;
 	}
+
+	@Override
+	public Tripinfo viewTripinfo(int idx) throws Exception {
+		return tripinfoMapper.viewTripinfo(idx);
+	}
+
+	@Override
+	public void updateHit(int idx) throws Exception {
+		tripinfoMapper.updateHit(idx);
+	}
+	
+	
 }
