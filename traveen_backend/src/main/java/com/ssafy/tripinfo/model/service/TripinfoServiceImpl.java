@@ -24,14 +24,15 @@ public class TripinfoServiceImpl implements TripinfoService {
 	public TripinfoList listTripinfo(Map<String, String> map) throws Exception {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("word", map.get("word") == null ? "" : map.get("word"));
+		param.put("type", map.get("type") == null ? "" : map.get("type"));
+		param.put("order", map.get("order") == null ? "" : map.get("order"));
+		param.put("category", map.get("category") == null ? "" : map.get("category"));
 		int currentPage = Integer.parseInt(map.get("pgno") == null ? "1" : map.get("pgno"));
 		int sizePerPage = Integer.parseInt(map.get("spp") == null ? "10" : map.get("spp"));
 		int start = currentPage * sizePerPage - sizePerPage;
 		param.put("start", start);
 		param.put("listsize", sizePerPage);
 
-		String key = map.get("key");
-		param.put("key", key == null ? "" : key);
 //		if ("user_id".equals(key))
 //			param.put("key", key == null ? "" : "b.user_id");
 		List<Tripinfo> list = tripinfoMapper.listTripinfo(param);

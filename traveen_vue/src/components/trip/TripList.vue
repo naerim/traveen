@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { listTrip } from "../../api/trip";
-import TripListItem from "./item/TripListItem.vue";
+import { listTrip } from "@/api/trip";
+import TripListItem from "@/components/trip/item/TripListItem.vue";
 import PageNavigation from "@/components/common/PageNavigation.vue";
 import VEmptyItem from "@/components/common/VEmptyItem.vue";
 import TripModal from "@/components/trip/TripModal.vue";
@@ -23,8 +23,10 @@ const clickItem = () => {
 const param = ref({
   pgno: currentPage.value,
   spp: VITE_TRIP_LIST_SIZE,
-  key: "",
   word: "",
+  type: "",
+  order: "",
+  category: "",
 });
 
 // 모달창 닫기
@@ -38,15 +40,14 @@ onMounted(() => {
 
 const getTripList = () => {
   console.log("서버에서 여행지 목록 얻어오자");
+
   listTrip(
     param.value,
     ({ data }) => {
+      console.log(data);
       trips.value = data.tripinfos;
-      console.log(data.tripinfos);
       currentPage.value = data.currentPage;
       totalPage.value = data.totalPageCount;
-
-      console.log("page cur : " + currentPage.value + " total : " + totalPage.value);
     },
     (error) => console.log(error)
   );
@@ -57,9 +58,54 @@ const onPageChange = (val) => {
   param.value.pgno = val;
   getTripList();
 };
+
+const searchTrip = () => {
+  param.value.pgno = 1;
+  getTripList();
+};
+
+const selectCategory = (val) => {
+  param.value.pgno = 1;
+  param.value.category = val;
+  getTripList();
+};
 </script>
 
 <template>
+  <div id="search-box">
+    <select name="select-type" id="select-type" v-model="param.type">
+      <option value="">전체</option>
+      <option value="restaurant">식당</option>
+      <option value="cafe">카페</option>
+      <option value="stay">숙소</option>
+      <option value="playground">장소</option>
+    </select>
+    <select name="select-order" id="select-order" v-model="param.order">
+      <option value="">조회수</option>
+      <option value="likeCount">찜</option>
+    </select>
+    <input
+      type="text"
+      placeholder="무엇이든 검색해보세요."
+      id="input-search"
+      v-model="param.word"
+    />
+    <button id="btn-search-tripinfo" @click="searchTrip">검색</button>
+  </div>
+  <!-- tab box -->
+  <div id="tab-box">
+    <ul class="tabnav">
+      <li :class="{ active: param.category === '' }" @click="selectCategory('')">전체</li>
+      <li :class="{ active: param.category === 'drama' }" @click="selectCategory('drama')">
+        드라마
+      </li>
+      <li :class="{ active: param.category === 'movie' }" @click="selectCategory('movie')">영화</li>
+      <li :class="{ active: param.category === 'show' }" @click="selectCategory('show')">예능</li>
+      <li :class="{ active: param.category === 'artist' }" @click="selectCategory('artist')">
+        아티스트
+      </li>
+    </ul>
+  </div>
   <div v-if="trip === 0">
     <VEmptyItem text="검색 결과가 없습니다." />
   </div>
@@ -76,10 +122,5 @@ const onPageChange = (val) => {
 </template>
 
 <style scoped>
-#content-box {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 60px 50px;
-  margin-bottom: 20px;
-}
+@import "@/assets/scss/components/trip/tripList.scss";
 </style>

@@ -21,36 +21,40 @@
 		<result column="like_count" property="likeCount" />
 		<result column="view_count" property="viewCount" />
 	</resultMap>
-
+			
 	<!-- 검색 -->
-<!-- 	<sql id="search"> -->
-<!-- 		<if test="word != null and word != ''"> -->
-<!-- 			<if test="key == 'subject'"> -->
-<!-- 				and subject like concat('%', #{word}, '%') -->
-<!-- 			</if> -->
-<!-- 			<if test="key != 'subject'"> -->
-<!-- 				and ${key} = #{word} -->
-<!-- 			</if> -->
-<!-- 		</if> -->
-<!-- 	</sql> -->
+ 	<sql id="search">
+	    <if test="word != null and word != ''">
+	        and (title like concat('%', #{word}, '%') or place_name like concat('%', #{word}, '%')) 
+	    </if>
+	    <if test="type != null and type != ''">
+	    	and type=#{type}
+	    </if>
+	   	<if test="category != null and category != ''">
+	    	and category_name=#{category}
+	    </if>
+	</sql> 
 
 	<!-- 여행지 목록 -->
 	<select id="listTripinfo" parameterType="tripinfo" resultMap="tripinfo">
 		select idx, category_name, title, place_name, type, `desc`, oper_time, rest_time, restdate_content, address, lat, loc, sido_code, tel, like_count, view_count
 		from tripinfo
-<!-- 		<where> -->
-<!-- 			<include refid="search"></include> -->
-<!-- 		</where> -->
-		order by view_count desc
-<!-- 		limit #{start}, #{listsize} -->
+ 		<where>
+ 			<include refid="search"></include>
+ 		</where>
+ 		<trim prefix='ORDER BY'>
+ 			<if test="order==''">view_count desc</if>
+ 			<if test="order=='likeCount'">like_count desc</if>
+ 		</trim>
+ 		limit #{start}, #{listsize} 
 	</select>
 
 	<!-- 총 여행지 목록 -->
 	<select id="getTotalTripinfoCount" parameterType="tripinfo" resultType="int">
 		select count(idx)
 		from tripinfo
-<!-- 		<where> -->
-<!-- 			<include refid="search"></include> -->
-<!-- 		</where> -->
+ 		<where>
+			<include refid="search"></include>
+		</where>
 	</select>
 </mapper>

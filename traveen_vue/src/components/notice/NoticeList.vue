@@ -37,7 +37,6 @@ const getNoticeList = () => {
   listNotice(
     param.value,
     ({ data }) => {
-      console.log(data);
       notices.value = data.notices;
       currentPage.value = data.currentPage;
       totalPage.value = data.totalPageCount;
