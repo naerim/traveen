@@ -36,7 +36,7 @@
 
 	<!-- 여행지 목록 -->
 	<select id="listTripinfo" parameterType="tripinfo" resultMap="tripinfo">
-		select idx, category_name, title, place_name, type, `desc`, oper_time, rest_time, restdate_content, address, lat, loc,sido_code, tel, like_count, view_count
+		select idx, category_name, title, place_name, type, `desc`, oper_time, rest_time, restdate_content, address, lat, loc, sido_code, tel, like_count, view_count
 		from tripinfo
 <!-- 		<where> -->
 <!-- 			<include refid="search"></include> -->

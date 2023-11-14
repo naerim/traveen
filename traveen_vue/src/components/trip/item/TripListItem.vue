@@ -4,6 +4,10 @@ const emit = defineEmits(["clickItem"]);
 const onClickItem = () => {
   emit("clickItem");
 };
+
+defineProps({
+  trip: Object,
+});
 </script>
 
 <template>
@@ -12,15 +16,15 @@ const onClickItem = () => {
       <img src="@/assets/img/img_tripinfo.png" alt="" />
     </div>
     <div class="tag-box">
-      <div class="left">도깨비</div>
+      <div class="left">{{ trip.title }}</div>
       <div class="right">
-        <div class="type">레스토랑</div>
-        <div class="category">드라마</div>
+        <div class="type">{{ trip.type }}</div>
+        <div class="category">{{ trip.categoryName }}</div>
       </div>
     </div>
-    <div class="place_name">라라무리</div>
+    <div class="place_name">{{ trip.placeName }}</div>
     <div class="desc">
-      1회에서 이곳은 지은탁(김고은)이 도깨비에서 어린 소녀였을 때 사는 곳이기도 하다.
+      {{ trip.desc }}
     </div>
     <div class="bottom-box">
       <div class="hit"><img src="@/assets/img/icon_view.png" alt="" /> 10</div>

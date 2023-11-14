@@ -2,6 +2,7 @@ package com.ssafy.tripinfo.model.mapper;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,6 +10,6 @@ import com.ssafy.tripinfo.model.Tripinfo;
 
 @Mapper
 public interface TripinfoMapper {
-    List<Tripinfo> listTripinfo(Tripinfo tripinfo) throws SQLException;
-    int getTotalTripinfoCount(Tripinfo tripinfo) throws SQLException;
+    List<Tripinfo> listTripinfo(Map<String, Object> map) throws SQLException;
+    int getTotalTripinfoCount(Map<String, Object> param) throws SQLException;
 }

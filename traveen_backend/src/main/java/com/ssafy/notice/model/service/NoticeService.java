@@ -1,11 +1,9 @@
 package com.ssafy.notice.model.service;
 
-import java.util.List;
 import java.util.Map;
 
 import com.ssafy.notice.model.Notice;
 import com.ssafy.notice.model.NoticeList;
-import com.ssafy.util.PageNavigation;
 
 public interface NoticeService {
 	NoticeList listNotice(Map<String, String> map) throws Exception;
