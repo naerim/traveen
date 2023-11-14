@@ -3,6 +3,10 @@ import { ref } from "vue";
 import TripListItem from "@/components/trip/item/TripListItem.vue";
 import TripModal from "@/components/trip/TripModal.vue";
 import VEmptyItem from "@/components/common/VEmptyItem.vue";
+import VKakaoMap from "@/components/common/VKakaoMap.vue";
+
+const destinations = ref([]);
+const selectDestination = ref([{ lat: 33.450701, lng: 126.570667, title: "라라무리" }]);
 
 // trip list 길이
 const trip = ref(1);
@@ -21,9 +25,11 @@ const closeModal = () => {
 
 <template>
   <div class="container">
-    <div id="mapBox">
-      <div id="map"></div>
-    </div>
+    <VKakaoMap
+      :destinations="destinations"
+      :selectDestination="selectDestination"
+      :height="`${600}px`"
+    />
     <form class="form-search-course-regist">
       <select name="type" id="type">
         <option value="drama">드라마</option>
@@ -59,7 +65,7 @@ const closeModal = () => {
   width: 70%;
 }
 
-#mapBox {
+/* #mapBox {
   margin-inline: auto;
   width: 100%;
   height: 600px;
@@ -67,7 +73,7 @@ const closeModal = () => {
 #map {
   width: 100%;
   height: 100%;
-}
+} */
 
 .form-search-course-regist {
   display: flex;

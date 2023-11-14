@@ -5,7 +5,7 @@ var map;
 const positions = ref([]);
 const markers = ref([]);
 
-const props = defineProps({ height: String, selectDestination: Object });
+const props = defineProps({ height: String, destinations: Array, selectDestination: Object });
 
 watch(
   () => props.selectDestination.value,
@@ -35,13 +35,13 @@ onMounted(() => {
 });
 
 watch(
-  () => props.stations.value,
+  () => props.destinations.value,
   () => {
     positions.value = [];
-    props.stations.forEach((station) => {
+    props.destinations.forEach((des) => {
       let obj = {};
-      obj.latlng = new kakao.maps.LatLng(station.lat, station.lng);
-      obj.title = station.statNm;
+      obj.latlng = new kakao.maps.LatLng(des.lat, des.lng);
+      obj.title = des.title;
 
       positions.value.push(obj);
     });
@@ -90,15 +90,13 @@ const deleteMarkers = () => {
 </script>
 
 <template>
-  <div id="mapBox">
+  <div id="mapBox" :style="{ height: height }">
     <div id="map"></div>
   </div>
 </template>
 
-<style scoped></style>
-
-<!-- tripModal -->
-<!-- #mapBox {
+<style scoped>
+#mapBox {
   margin-inline: auto;
   width: 100%;
   height: 50%;
@@ -106,4 +104,5 @@ const deleteMarkers = () => {
 #map {
   width: 100%;
   height: 100%;
-} -->
+}
+</style>

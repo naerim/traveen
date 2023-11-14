@@ -1,60 +1,16 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
+import VKakaoMap from "@/components/common/VKakaoMap.vue";
 
-const { VITE_KAKAO_MAP_SERVICE_KEY } = import.meta.env;
 const router = useRouter();
-const map = ref();
-const position = ref([
-  {
-    lat: 33.450701,
-    lng: 126.570667,
-  },
-]);
+const destinations = ref([]);
+const selectDestination = ref([{ lat: 33.450701, lng: 126.570667, title: "라라무리" }]);
 
 const props = defineProps({
   show: Boolean,
   type: String,
 });
-
-// onMounted(() => {
-//   if (window.kakao && window.kakao.maps) {
-//     loadMap();
-//   } else {
-//     loadScript();
-//   }
-// });
-
-// // kakaomap 생성
-// const loadMap = () => {
-//   const container = document.querySelector("#map");
-//   const options = {
-//     //좌표값 설정
-//     center: new window.kakao.maps.LatLng(position.value.lat, position.value.lng),
-//     level: 4,
-//   };
-//   map.value = new window.kakao.maps.Map(container, options);
-//   loadMaker();
-// };
-
-// const loadScript = () => {
-//   const script = document.createElement("script");
-//   // 해당 앱키의 값은 추후 변경해야할것(현재 테스트용으로 개인키 입력)
-//   script.src = VITE_KAKAO_KAP_API;
-//   script.onload = () => window.kakao.maps.load(loadMap);
-
-//   document.head.appendChild(script);
-// };
-
-// const loadMaker = () => {
-//   const markerPosition = new window.kakao.maps.LatLng(this.latitude, this.longitude);
-
-//   const marker = new window.kakao.maps.Marker({
-//     position: markerPosition,
-//   });
-
-//   marker.setMap(map.value);
-// };
 
 const emit = defineEmits(["closeModal"]);
 const onClickCloseModal = () => {
@@ -130,10 +86,7 @@ const addCourse = () => {
           </div>
         </div>
         <div class="right">
-          <!-- kakao map -->
-          <div id="mapBox">
-            <div id="map"></div>
-          </div>
+          <VKakaoMap :destinations="destinations" :selectDestination="selectDestination" />
           <div class="comment-title">Comments</div>
           <div class="comment-box">
             <div class="comments">
@@ -337,16 +290,6 @@ const addCourse = () => {
   flex-direction: column;
   box-sizing: border-box;
   width: 40%;
-  height: 100%;
-}
-
-#mapBox {
-  margin-inline: auto;
-  width: 100%;
-  height: 50%;
-}
-#map {
-  width: 100%;
   height: 100%;
 }
 
