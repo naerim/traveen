@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
-const { VITE_KAKAO_KAP_API } = import.meta.env;
+const { VITE_KAKAO_MAP_SERVICE_KEY } = import.meta.env;
 const router = useRouter();
 const map = ref();
 const position = ref([
