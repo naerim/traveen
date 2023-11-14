@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { listTrip } from "@/api/trip";
 import TripListItem from "@/components/trip/item/TripListItem.vue";
 import PageNavigation from "@/components/common/PageNavigation.vue";
@@ -7,7 +7,7 @@ import VEmptyItem from "@/components/common/VEmptyItem.vue";
 import TripModal from "@/components/trip/TripModal.vue";
 
 // trip list 길이
-const trip = ref(1);
+const len = ref(0);
 const show = ref(false);
 
 const trips = ref([]);
@@ -36,6 +36,7 @@ const closeModal = () => {
 
 onMounted(() => {
   getTripList();
+  len.value = trips.value.length;
 });
 
 const getTripList = () => {
@@ -69,6 +70,11 @@ const selectCategory = (val) => {
   param.value.category = val;
   getTripList();
 };
+
+// 공지사항 글 갯수 세기
+watch(trips, (newValue) => {
+  len.value = newValue.length;
+});
 </script>
 
 <template>
@@ -106,7 +112,7 @@ const selectCategory = (val) => {
       </li>
     </ul>
   </div>
-  <div v-if="trip === 0">
+  <div v-if="len === 0">
     <VEmptyItem text="검색 결과가 없습니다." />
   </div>
   <div v-else id="content-box">
