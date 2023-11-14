@@ -27,6 +27,9 @@
       <h1 class="title">관심있는 촬영지를<br />검색해보세요.</h1>
       <!-- search box -->
       <div id="search-box">
+        <form method="get" id="form-search">
+          <input type="hidden" name="pgno" value="1"/>
+        </form>
         <select name="select-type" id="select-type">
           <option value="">전체</option>
           <option value="레스토랑">레스토랑</option>
@@ -57,49 +60,48 @@
       <div id="content-box">
         <!-- empty-tripinfo-box -->
         <!-- <div class="empty-tripinfo-box">검색 결과가 없습니다.</div> -->
+        <c:if test="${empty tripinfo}">
+          <div class="empty-tripinfo-box">검색 결과가 없습니다.</div>
+        </c:if>
         <!-- tripinfo-list-box -->
-        <div class="item">
-          <div class="imgDiv">
-            <img src="../img/img_tripinfo.png" alt="" />
-          </div>
-          <div class="tag-box">
-            <div class="left">도깨비</div>
-            <div class="right">
-              <div class="type">레스토랑</div>
-              <div class="category">드라마</div>
+        <c:if test="${not empty tripinfo}">
+          <c:forEach var="tripinfo" items="${tripinfo}">
+            <div class="item">
+              <div class="imgDiv">
+                <img src="../img/img_tripinfo.png" alt="" />
+              </div>
+              <div class="tag-box">
+                <div class="left">${tripinfo.title}</div>
+                <div class="right">
+                  <div class="type">${tripinfo.type}</div>
+                  <div class="category">${tripinfo.categoryName}</div>
+                </div>
+              </div>
+              <div class="place_name">${tripinfo.placeName}</div>
+              <div class="desc">${tripinfo.desc}</div>
+              <div class="bottom-box">
+                <div class="hit">
+                  <img src="../img/icon_view.png" alt="" /> ${tripinfo.viewCount}
+                </div>
+                <div class="like">
+                  <img src="../img/icon_heart.png" alt="" /> ${tripinfo.likeCount}
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="place_name">라라무리</div>
-          <div class="desc">
-            1회에서 이곳은 지은탁(김고은)이 도깨비에서 어린 소녀였을 때 사는
-            곳이기도 하다.
-          </div>
-          <div class="bottom-box">
-            <div class="hit">
-              <img src="../img/icon_view.png" alt="" /> 10
-            </div>
-            <div class="like">
-              <img src="../img/icon_heart.png" alt="" /> 20
-            </div>
-          </div>
-        </div>
+          </c:forEach>
+        </c:if>
       </div>
-            <!-- pagination -->
-            <div class="pagination-container">
-              <div class="btn-prev">&#60;이전</div>
-              <span class="divider"></span>
-              <ul>
-                <li>1</li>
-                <li>2</li>
-              </ul>
-              <span class="divider"></span>
-              <div class="btn-next">다음&#62;</div>
-            </div>
+      <div class="pagination-container">
+        <!-- pagination -->
+        ${navigation.navigator}
+      </div>
     </section>
-
+    <form id="form-param" method="get" action="">
+      <input type="hidden" name="pgno" id="pgno" value="${pgno}">
+    </form>
 	<!-- footer -->
 	<%@ include file="../include/footer.jsp"%>
-	
+
     <script>
       // tab 이벤트
       const tabnavItems = document.querySelectorAll(".tabnav li");
@@ -109,6 +111,17 @@
             item.classList.remove("active");
           });
           this.classList.add("active");
+        });
+      });
+
+      let pages = document.querySelectorAll(".page-link");
+      pages.forEach(function (page) {
+        page.addEventListener("click", function () {
+          document.querySelector("#pgno").value = this.parentNode.getAttribute("data-pg");
+          let form = document.querySelector("#form-param");
+          console.log(form);
+          form.setAttribute("action", "${root}/tripinfo/list");
+          form.submit();
         });
       });
     </script>

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { registQnaComment, viewQnaComment, deleteQnaComment } from "@/api/qna";
+import { registQnaComment, viewQnaComment, deleteQnaComment, modifyQnaComment } from "@/api/qna";
 
 const props = defineProps({
   qna: Object,
@@ -15,6 +15,8 @@ const qnaComment = ref({
   qnaIdx: props.qna.idx,
   content: "",
 });
+
+let content = "";
 
 onMounted(() => {
   getQnaComment();
@@ -38,7 +40,10 @@ const getQnaComment = () => {
   viewQnaComment(
     props.qna.idx,
     ({ data }) => {
+      console.log(data);
       qnaComment.value.content = data.content;
+      content = data.content;
+      console.log(data.content);
     },
     (error) => console.log(error)
   );
@@ -50,14 +55,22 @@ const onDeleteQnaComment = () => {
     () => {
       console.log("qna.idx : " + props.qna.idx);
       alert("QnA 답변이 삭제되었습니다.");
+      content = '';
     },
     (error) => console.log(error)
   );
 };
 
-// watch(qnaComment.value, () => {
-//   getQnaComment();
-// });
+// QnA Comment 수정하기
+const onModifyQnaComment = () => {
+  modifyQnaComment(
+    qnaComment.value,
+    () => {
+      alert("QnA 답변이 수정되었습니다.");
+    },
+    (error) => console.log(error)
+  );
+};
 </script>
 
 <template>
@@ -81,8 +94,11 @@ const onDeleteQnaComment = () => {
         placeholder="답변을 입력해주세요."
         v-model="qnaComment.content"
       ></textarea>
-      <div class="btn-wrap">
+      <div v-if="content == null" class="btn-wrap">
         <button @click="writeQnaComment">등록</button>
+      </div>
+      <div v-else class="btn-wrap">
+        <button @click="onModifyQnaComment">수정</button>
         <button @click="onDeleteQnaComment">삭제</button>
       </div>
     </div>

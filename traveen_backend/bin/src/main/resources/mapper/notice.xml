@@ -12,25 +12,32 @@
 	</resultMap>
 
 	<!-- 검색 -->
-	<sql id="search">
-		<if test="word != null and word != ''">
-			<if test="key == 'title'">and title like concat('%', #{word}, '%') </if>
-			<if test="key != 'title'">and ${key} = #{word} </if>
-		</if>
-	</sql>
+ 	<sql id="search">
+ 		<if test="word != null and word != ''">
+ 		and title like concat('%', #{word}, '%')
+ 			<if test="key == 'title'">
+ 				and title like concat('%', #{word}, '%')
+ 			</if>
+ 			<if test="key != 'title'">
+ 				and title like concat('%', #{word}, '%')
+ 			</if>
+ 		</if>
+ 	</sql>
 
 	<!-- 공지사항 목록 -->
-	<select id="listNotice" parameterType="map" resultMap="notice">
-		select idx, title, create_date, view_count
-		from notice n
-		<include refid="search" />
-<!-- 		order by b.article_no desc limit #{start}, #{listsize} -->
-		order by create_date desc;
+	<select id="listNotice" resultMap="notice">
+		select idx, title, date_format(create_date, '%Y-%m-%d') create_date, view_count, create_date as c_date
+		from notice
+ 		<where>
+ 			<include refid="search"></include>
+ 		</where>
+		order by c_date desc
+ 		limit #{start}, #{listsize}
 	</select>
 	
 	<!-- 공지사항 조회 -->
 	<select id="viewNotice" parameterType="int" resultMap="notice">
-		select n.idx, u.idx, n.title, n.content, n.create_date, n.view_count
+		select n.idx, u.idx, n.title, n.content, date_format(n.create_date, '%Y-%m-%d') as create_date, n.view_count
 		from notice n, users u
 		where n.idx = #{idx} and n.user_idx = u.idx
 	</select>
@@ -43,13 +50,13 @@
 	</update>
 	
 	<!-- 공지사항 등록 -->
-	<insert id="registNotice" parameterType="map">
+	<insert id="registNotice" parameterType="notice">
 		insert into notice(user_idx, title, content, create_date, view_count)
 		values(#{userIdx}, #{title}, #{content}, now(), 0)
 	</insert>
 	
 	<!-- 공지사항 수정 -->
-	<update id="modifyNotice" parameterType="map">
+	<update id="modifyNotice" parameterType="notice">
 		update notice
 		set title = #{title}, content = #{content}
 		where idx = #{idx}
@@ -68,9 +75,12 @@
 		where n.idx = #{idx} and n.user_idx = u.idx
 	</select>
 	
-	<!-- 총 공지사항 수 -->
-	<select id="getTotalNoticeCount" parameterType="int" resultType="int">
-		select count(*)
+	<!-- 총 공지사항 개수 -->
+	<select id="getTotalNoticeCount" parameterType="map" resultType="int">
+		select count(idx)
 		from notice
+ 		<where>
+ 			<include refid="search"></include>
+ 		</where>
 	</select>
 </mapper>

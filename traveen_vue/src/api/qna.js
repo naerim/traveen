@@ -19,7 +19,18 @@ const listQnaComment = (param, success, fail) => {
 
 // qnaComment 등록
 const registQnaComment = (qnaComment, success, fail) => {
-  local.post(`/qna/qnaComment/regist`, JSON.stringify(qnaComment)).then(success).catch(fail);
+  local
+    .post(`/qna/qnaComment/regist`, JSON.stringify(qnaComment))
+    .then(success)
+    .catch(fail);
+};
+
+// qnaComment 수정
+const modifyQnaComment = (qnaComment, success, fail) => {
+  local
+    .put(`/qna/qnaComment/modify`, JSON.stringify(qnaComment))
+    .then(success)
+    .catch(fail);
 };
 
 // qnaComment 삭제
@@ -32,4 +43,12 @@ const viewQnaComment = (qna_idx, success, fail) => {
   local.get(`/qna/qnaComment/view/${qna_idx}`).then(success).catch(fail);
 };
 
-export { listQna, registQna, listQnaComment, registQnaComment, deleteQnaComment, viewQnaComment };
+export {
+  listQna,
+  registQna,
+  listQnaComment,
+  registQnaComment,
+  deleteQnaComment,
+  viewQnaComment,
+  modifyQnaComment,
+};

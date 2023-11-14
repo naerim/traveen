@@ -79,6 +79,7 @@ public class QnaCommentController {
 	public ResponseEntity<?> modify(@RequestBody QnaComment qnaComment,
 			RedirectAttributes rttr) throws Exception {
 		logger.debug("modify qnaComment : {}", qnaComment);
+		System.out.println("댓글 수정");
 		rttr.addFlashAttribute("msg", "QnA 댓글이 수정되었습니다.");
 		return ResponseEntity.ok().build();
 	}
