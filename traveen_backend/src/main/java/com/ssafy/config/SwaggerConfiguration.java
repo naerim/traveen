@@ -29,7 +29,7 @@ public class SwaggerConfiguration {
 	
 	// Notice Swagger
 	@Bean
-	public Docket api1() {
+	public Docket noticeApi() {
 		return new Docket(DocumentationType.SWAGGER_2).consumes(getConsumeContentTypes()).produces(getProduceContentTypes())
 					.apiInfo(apiInfo()).groupName("notice " + version).select()
 					.apis(RequestHandlerSelectors.basePackage("com.ssafy.notice.controller"))
@@ -39,7 +39,7 @@ public class SwaggerConfiguration {
 	
 	// User Swagger
 	@Bean
-	public Docket api2() {
+	public Docket userApi() {
 		return new Docket(DocumentationType.SWAGGER_2).consumes(getConsumeContentTypes()).produces(getProduceContentTypes())
 					.apiInfo(apiInfo()).groupName("user " + version).select()
 					.apis(RequestHandlerSelectors.basePackage("com.ssafy.user.controller"))
@@ -49,7 +49,7 @@ public class SwaggerConfiguration {
 	
 	// Tripinfo Swagger
 	@Bean
-	public Docket api3() {
+	public Docket mapApi() {
 		return new Docket(DocumentationType.SWAGGER_2).consumes(getConsumeContentTypes()).produces(getProduceContentTypes())
 					.apiInfo(apiInfo()).groupName("tripinfo " + version).select()
 					.apis(RequestHandlerSelectors.basePackage("com.ssafy.tripinfo.controller"))
