@@ -19,7 +19,8 @@ defineProps({
       <div class="left">{{ trip.title }}</div>
       <div class="right">
         <div class="type">{{ trip.type }}</div>
-        <div class="category">{{ trip.categoryName }}</div>
+        <div :class="[category, trip.categoryName]">{{ trip.categoryName }}</div>
+        <!-- <div class="category drama">{{ trip.categoryName }}</div> -->
       </div>
     </div>
     <div class="place_name">{{ trip.placeName }}</div>
