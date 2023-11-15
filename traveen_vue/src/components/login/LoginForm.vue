@@ -1,16 +1,39 @@
 <script setup>
-import { RouterLink } from "vue-router";
+import { ref } from "vue";
+import { RouterLink, useRouter } from "vue-router";
+
+const router = useRouter();
+
+const loginUser = ref({
+  userId: "",
+  userPwd: "",
+});
+
+const login = async () => {
+  console.log("login");
+};
 </script>
 
 <template>
   <form class="input-box" id="form-login" method="post" action="#">
     <div class="input-box-one">
       <label for="userId">아이디</label>
-      <input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요." autofocus />
+      <input
+        type="text"
+        id="userId"
+        v-model="loginUser.userId"
+        placeholder="아이디를 입력해주세요."
+        autofocus
+      />
     </div>
     <div class="input-box-one">
       <label for="userPwd">비밀번호</label>
-      <input type="password" id="userPwd" name="userPwd" placeholder="비밀번호를 입력해주세요." />
+      <input
+        type="password"
+        id="userPwd"
+        v-model="loginUser.userPwd"
+        placeholder="비밀번호를 입력해주세요."
+      />
     </div>
     <div class="input-mid-box">
       <div class="checkbox-box">
@@ -18,7 +41,7 @@ import { RouterLink } from "vue-router";
       </div>
       <RouterLink :to="{ name: 'join' }">회원가입</RouterLink>
     </div>
-    <input type="submit" id="btn-login" value="로그인" />
+    <button type="button" id="btn-login" @click="login">로그인</button>
   </form>
   <div class="line"></div>
   <button id="kakao-login"><img src="@/assets/img/icon_kakao.png" alt="" />카카오 로그인</button>

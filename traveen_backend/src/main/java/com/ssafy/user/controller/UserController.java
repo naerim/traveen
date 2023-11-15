@@ -17,9 +17,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ssafy.user.model.User;
@@ -28,7 +30,7 @@ import com.ssafy.user.model.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 @Api(tags = "회원 API", value="Traveen")
 public class UserController {
@@ -50,7 +52,7 @@ public class UserController {
 		if (cnt != 0) { // 중복
 			return new ResponseEntity<String>("중복됨", HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>("중복됨", HttpStatus.OK);
+			return new ResponseEntity<String>("사용가능", HttpStatus.OK);
 		}
 	}
 
@@ -102,17 +104,10 @@ public class UserController {
 
 	@PostMapping("/join")
 	@ApiOperation(value = "회원가입 API", notes = "가입할 회원 정보를 입력 받아 회원가입하는 역할을 합니다. /user/join")
-	public String join(@RequestParam User user, Model model) throws Exception {
+	public ResponseEntity<?> join(@RequestBody User user) throws Exception {
 		logger.debug("join user : {}", user);
-		try {
-			userService.join(user);
-			model.addAttribute("msg", "회원가입이 완료되었습니다!");
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("msg", "회원가입 중 문제가 발생했습니다.");
-			return "error/500";
-		}
-		return "redirect:/user/login";
+		userService.join(user);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/delete")

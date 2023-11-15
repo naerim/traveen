@@ -13,6 +13,8 @@
 		<result column="salt" property="salt"/>
 		<result column="join_date" property="joinDate"/>
 		<result column="position" property="position"/>
+		<result column="email_code" property="emailCode"/>
+		<result column="token" property="token"/>
 	</resultMap>
 
 	<!-- 아이디 중복 체크 -->

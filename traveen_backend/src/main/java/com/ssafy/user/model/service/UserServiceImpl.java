@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void join(User user) throws Exception {
 		String salt = userUtil.getSalt();
+		user.setSalt(salt);
 		user.setUserPwd(userUtil.getEncrypt(user.getUserPwd(), salt));
 		userMapper.join(user);
 	}

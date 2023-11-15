@@ -32,9 +32,15 @@ public class User {
 	/* 가입일 */
 	@ApiModelProperty(value = "가입일")
 	private String joinDate;
+	/* 토큰 */
+	@ApiModelProperty(value = "토큰")
+	private String token;
 	/* 등급 */
 	@ApiModelProperty(value = "등급")
 	private String position;
+	/* 이메일 인증번호 */
+	@ApiModelProperty(value = "이메일 인증번호")
+	private String emailCode;
 	
 	public int getIdx() {
 		return idx;
@@ -96,10 +102,25 @@ public class User {
 	public void setPosition(String position) {
 		this.position = position;
 	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	public String getEmailCode() {
+		return emailCode;
+	}
+	public void setEmailCode(String emailCode) {
+		this.emailCode = emailCode;
+	}
 	@Override
 	public String toString() {
 		return "User [idx=" + idx + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
 				+ ", emailId=" + emailId + ", emailDomain=" + emailDomain + ", mobile=" + mobile + ", salt=" + salt
-				+ ", joinDate=" + joinDate + ", position=" + position + "]";
+				+ ", joinDate=" + joinDate + ", token=" + token + ", position=" + position + ", emailCode=" + emailCode
+				+ "]";
 	}
+	
+	
 }
