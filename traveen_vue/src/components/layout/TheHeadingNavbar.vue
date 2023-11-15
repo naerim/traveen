@@ -19,7 +19,7 @@ const goMyPage = () => router.push({ name: "mypage" });
           <RouterLink to="/">Traveen</RouterLink>
         </div>
         <div id="menulist">
-          <router-link :to="{ name: 'trip' }">여행지</router-link>
+          <router-link :to="{ name: 'trip-list' }">여행지</router-link>
           <router-link :to="{ name: 'aftertraveen-list' }">애프터 트래빈</router-link>
           <router-link to="/center">고객센터</router-link>
         </div>

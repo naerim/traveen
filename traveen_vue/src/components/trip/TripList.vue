@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
-import { listTrip } from "@/api/trip";
+import { listTrip, detailTrip } from "@/api/trip";
 import TripListItem from "@/components/trip/item/TripListItem.vue";
 import PageNavigation from "@/components/common/PageNavigation.vue";
 import VEmptyItem from "@/components/common/VEmptyItem.vue";
@@ -11,13 +11,20 @@ const len = ref(0);
 const show = ref(false);
 
 const trips = ref([]);
+const trip = ref([]);
+
 const currentPage = ref(1);
 const totalPage = ref(0);
 const { VITE_TRIP_LIST_SIZE } = import.meta.env;
 
+const destinations = ref([]);
+// 선택한 위치
+const selectDestination = ref({});
+
 // 아이템 클릭했을 때
-const clickItem = () => {
+const clickItem = (idx) => {
   show.value = true;
+  getTrip(idx);
 };
 
 const param = ref({
@@ -54,6 +61,23 @@ const getTripList = () => {
   );
 };
 
+const getTrip = (idx) => {
+  detailTrip(
+    idx,
+    ({ data }) => {
+      trip.value = data;
+      console.log(data);
+      viewDestination(data);
+    },
+    (error) => console.log(error)
+  );
+};
+
+const viewDestination = (destination) => {
+  selectDestination.value = destination;
+  destinations.value[0] = destination;
+};
+
 const onPageChange = (val) => {
   currentPage.value = val;
   param.value.pgno = val;
@@ -71,7 +95,7 @@ const selectCategory = (val) => {
   getTripList();
 };
 
-// 공지사항 글 갯수 세기
+// 여행지 글 갯수 세기
 watch(trips, (newValue) => {
   len.value = newValue.length;
 });
@@ -116,9 +140,21 @@ watch(trips, (newValue) => {
     <VEmptyItem text="검색 결과가 없습니다." />
   </div>
   <div v-else id="content-box">
-    <TripListItem v-for="trip in trips" :key="trip.idx" :trip="trip" @click-item="clickItem" />
+    <TripListItem
+      v-for="trip in trips"
+      :key="trip.idx"
+      :trip="trip"
+      @click-item="clickItem(trip.idx)"
+    />
   </div>
-  <TripModal :show="show" @close-modal="closeModal" type="trip" />
+  <TripModal
+    :show="show"
+    @close-modal="closeModal"
+    type="trip"
+    :trip="trip"
+    :selectDestination="selectDestination"
+    :destinations="destinations"
+  />
   <!-- pagination -->
   <PageNavigation
     :current-page="currentPage"

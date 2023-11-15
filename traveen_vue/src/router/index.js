@@ -51,6 +51,18 @@ const router = createRouter({
       path: "/trip",
       name: "trip",
       component: () => import("@/views/TripView.vue"),
+      children: [
+        {
+          path: "list",
+          name: "trip-list",
+          component: () => import("@/components/trip/TripList.vue"),
+        },
+        {
+          path: "detail/:idx",
+          name: "trip-detail",
+          component: () => import("@/components/trip/TripModal.vue"),
+        },
+      ],
     },
     {
       path: "/course",
