@@ -6,6 +6,10 @@ import VEmptyItem from "@/components/common/VEmptyItem.vue";
 import VKakaoMapLine from "@/components/common/VKakaoMapLine.vue";
 import { listTrip, detailTrip, listSido } from "@/api/trip";
 import VSelect from "@/components/common/VSelect.vue";
+import { useTripStore } from "@/stores/trip";
+
+const tripStore = useTripStore();
+const { setTrip } = tripStore;
 
 const destinations1 = ref([
   { lat: 33.450701, loc: 126.570667, title: "카카오" },
@@ -13,7 +17,7 @@ const destinations1 = ref([
   { lat: 33.2906595, loc: 126.322529, title: "테마파크" },
   { lat: 33.4696849, loc: 126.483305, title: "수목원" },
 ]);
-const selectDestination1 = ref({ lat: 33.450701, loc: 126.570667, title: "라라무리" });
+const selectDestination1 = ref(tripStore.searchTrip);
 
 // trip list 길이
 const len = ref(0);
@@ -28,9 +32,6 @@ const param = ref({
 // 검색했을 때 나온 여행지들 저장할 배열
 const trips = ref([]);
 const trip = ref({});
-const destinations = ref([]);
-// 선택한 위치
-const selectDestination = ref({});
 
 onMounted(() => {
   loadSido();
@@ -52,24 +53,25 @@ const loadSido = () => {
 
 // 아이템 클릭했을 때
 const clickItem = (idx) => {
-  show.value = true;
   getTrip(idx);
 };
+
+watch(
+  () => trip.value,
+  () => {
+    setTrip(trip.value);
+    show.value = true;
+  }
+);
 
 const getTrip = (idx) => {
   detailTrip(
     idx,
     ({ data }) => {
       trip.value = data;
-      viewDestination(data);
     },
     (error) => console.log(error)
   );
-};
-
-const viewDestination = (destination) => {
-  selectDestination.value = destination;
-  destinations.value.push(destination);
 };
 
 // 모달창 닫기
@@ -140,14 +142,7 @@ watch(trips, (newValue) => {
       />
     </div>
   </div>
-  <TripModal
-    :show="show"
-    @close-modal="closeModal"
-    type="course"
-    :trip="trip"
-    :selectDestination="selectDestination"
-    :destinations="destinations"
-  />
+  <TripModal :show="show" @close-modal="closeModal" type="course" :trip="trip" />
 </template>
 
 <style scoped>

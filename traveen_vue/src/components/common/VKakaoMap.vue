@@ -1,19 +1,16 @@
 <script setup>
-import { ref, watch, onMounted, watchEffect } from "vue";
+import { ref, onMounted } from "vue";
+import { useTripStore } from "@/stores/trip";
 
 var map;
 const positions = ref([]);
 const markers = ref([]);
 
-const props = defineProps({ height: String, destinations: Array, selectdestination: Object });
-
-import { useTripStore } from "@/stores/trip";
+const props = defineProps({ height: String });
 
 const tripStore = useTripStore();
 
 onMounted(() => {
-  console.log("Mounted, selectdestination:", props.selectdestination);
-
   if (window.kakao && window.kakao.maps) {
     initMap();
   } else {
@@ -53,31 +50,19 @@ onMounted(() => {
 //   { deep: true }
 // );
 
-watchEffect(
-  () => props.selectDestination,
-  () => {
-    positions.value = [];
-    let obj = {};
-    obj.latlng = new kakao.maps.LatLng(props.selectDestination.lat, props.selectDestination.loc);
-    obj.title = props.selectDestination.title;
-    positions.value.push(obj);
-  }
-);
-
 const initMap = () => {
-  // console.log(props.selectdestination.placeName);
   console.log("tripStore : " + tripStore.selectTrip.placeName);
   const container = document.getElementById("map");
   const options = {
-    center: new kakao.maps.LatLng(props.selectdestination.lat, props.selectdestination.loc),
+    center: new kakao.maps.LatLng(tripStore.selectTrip.lat, tripStore.selectTrip.loc),
     level: 3,
   };
   map = new kakao.maps.Map(container, options);
 
   positions.value = [];
   let obj = {};
-  obj.latlng = new kakao.maps.LatLng(props.selectdestination.lat, props.selectdestination.loc);
-  obj.title = props.selectdestination.title;
+  obj.latlng = new kakao.maps.LatLng(tripStore.selectTrip.lat, tripStore.selectTrip.loc);
+  obj.title = tripStore.selectTrip.title;
   positions.value.push(obj);
 
   loadMarkers();
@@ -116,7 +101,6 @@ const deleteMarkers = () => {
 
 <template>
   <div id="mapBox" :style="{ height: height }">
-    <div>{{ props.selectdestination.placeName }}</div>
     <div id="map"></div>
   </div>
 </template>

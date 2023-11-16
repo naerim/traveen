@@ -1,7 +1,10 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import VKakaoMap from "@/components/common/VKakaoMap.vue";
+import { useTripStore } from "@/stores/trip";
+
+const tripStore = useTripStore();
 
 const router = useRouter();
 
@@ -11,14 +14,11 @@ const props = defineProps({
   trip: Object,
 });
 
-const select = ref({});
+const select = ref(tripStore.selectTrip);
 
 watch(
-  () => props.trip,
-  () => {
-    console.log("select" + props.trip.placeName);
-    select.value = props.trip;
-  }
+  () => props.show,
+  () => console.log("select : " + tripStore.selectTrip.placeName)
 );
 
 const emit = defineEmits(["closeModal"]);
@@ -49,44 +49,44 @@ const addCourse = () => {
       <div class="tripinfo-modal-container">
         <div class="left">
           <div class="title-box">
-            <div class="detail-title">{{ props.trip.title }}</div>
-            <div class="detail-type">{{ props.trip.categoryName }}</div>
+            <div class="detail-title">{{ tripStore.selectTrip.title }}</div>
+            <div class="detail-type">{{ tripStore.selectTrip.categoryName }}</div>
           </div>
           <div class="place-name-box">
-            <div class="detail-place-name">{{ props.trip.placeName }}</div>
+            <div class="detail-place-name">{{ tripStore.selectTrip.placeName }}</div>
             <div class="detail-place-like-hit">
               <div class="hit">
-                <img src="@/assets/img/icon_view.png" alt="" />{{ props.trip.viewCount }}
+                <img src="@/assets/img/icon_view.png" alt="" />{{ tripStore.selectTrip.viewCount }}
               </div>
               <div class="like">
-                <img src="@/assets/img/icon_heart.png" alt="" />{{ props.trip.likeCount }}
+                <img src="@/assets/img/icon_heart.png" alt="" />{{ tripStore.selectTrip.likeCount }}
               </div>
             </div>
           </div>
-          <div class="detail-place-category">{{ props.trip.type }}</div>
+          <div class="detail-place-category">{{ tripStore.selectTrip.type }}</div>
           <div class="detail-desc">
-            {{ props.trip.desc }}
+            {{ tripStore.selectTrip.desc }}
           </div>
           <div class="detail-info-box">
             <div class="detail-info">
               <span>운영시간</span>
-              <span class="detail-info-right">{{ props.trip.operTime }}</span>
+              <span class="detail-info-right">{{ tripStore.selectTrip.operTime }}</span>
             </div>
             <div class="detail-info">
               <span>휴식시간</span>
-              <span class="detail-info-right">{{ props.trip.restTime }}</span>
+              <span class="detail-info-right">{{ tripStore.selectTrip.restTime }}</span>
             </div>
             <div class="detail-info">
               <span>휴무일 안내</span>
-              <span class="detail-info-right">{{ props.trip.restdateContent }}</span>
+              <span class="detail-info-right">{{ tripStore.selectTrip.restdateContent }}</span>
             </div>
             <div class="detail-info">
               <span>전화번호</span>
-              <span class="detail-info-right">{{ props.trip.tel }}</span>
+              <span class="detail-info-right">{{ tripStore.selectTrip.tel }}</span>
             </div>
             <div class="detail-info">
               <span>주소</span>
-              <span class="detail-info-right">{{ props.trip.address }}</span>
+              <span class="detail-info-right">{{ tripStore.selectTrip.address }}</span>
             </div>
           </div>
           <div class="button-wrap">
@@ -99,7 +99,7 @@ const addCourse = () => {
           </div>
         </div>
         <div v-if="select" class="right">
-          <VKakaoMap :selectdestination="select" :destinations="props.destinations" />
+          <VKakaoMap />
           <div class="comment-title">Comments</div>
           <div class="comment-box">
             <div class="comments">

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 
 var map;
 const positions = ref([]);
@@ -36,25 +36,25 @@ onMounted(() => {
 //   { deep: true }
 // );
 
-watch(
-  () => props.destinations.value,
-  () => {
-    positions.value = [];
-    props.destinations.forEach((des) => {
-      let obj = {};
-      obj.latlng = new kakao.maps.LatLng(des.lat, des.loc);
-      obj.title = des.title;
+// watch(
+//   () => props.destinations.value,
+//   () => {
+//     positions.value = [];
+//     props.destinations.forEach((des) => {
+//       let obj = {};
+//       obj.latlng = new kakao.maps.LatLng(des.lat, des.loc);
+//       obj.title = des.title;
 
-      positions.value.push(obj);
-    });
-  },
-  { deep: true }
-);
+//       positions.value.push(obj);
+//     });
+//   },
+//   { deep: true }
+// );
 
 const initMap = () => {
   const container = document.getElementById("map1");
   const options = {
-    center: new kakao.maps.LatLng(props.selectDestination.lat, props.selectDestination.loc),
+    center: new kakao.maps.LatLng(33.450701, 126.570667),
     level: 3,
   };
   map = new kakao.maps.Map(container, options);

@@ -22,14 +22,9 @@ const currentPage = ref(1);
 const totalPage = ref(0);
 const { VITE_TRIP_LIST_SIZE } = import.meta.env;
 
-const destinations = ref([]);
-// 선택한 위치
-const selectdestination = ref({});
-
 // 아이템 클릭했을 때
 const clickItem = (idx) => {
   getTrip(idx);
-  show.value = true;
 };
 
 const param = ref({
@@ -43,7 +38,6 @@ const param = ref({
 
 // 모달창 닫기
 const closeModal = () => {
-  window.location.reload();
   show.value = false;
 };
 
@@ -64,13 +58,20 @@ const getTripList = () => {
   );
 };
 
+watch(
+  () => trip.value,
+  () => {
+    setTrip(trip.value);
+    show.value = true;
+  }
+);
+
 const getTrip = (idx) => {
   detailTrip(
     idx,
     ({ data }) => {
       trip.value = data;
       setTrip(data);
-      console.log("tripdata : " + data.placeName);
     },
     (error) => console.log(error)
   );
