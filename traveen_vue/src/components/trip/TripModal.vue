@@ -59,25 +59,25 @@ const addCourse = () => {
             {{ props.trip.desc }}
           </div>
           <div class="detail-info-box">
-            <div>
+            <div class="detail-info">
               <span>운영시간</span>
-              <span>{{ props.trip.operTime }}</span>
+              <span class="detail-info-right">{{ props.trip.operTime }}</span>
             </div>
-            <div>
+            <div class="detail-info">
               <span>휴식시간</span>
-              <span>{{ props.trip.restTime }}</span>
+              <span class="detail-info-right">{{ props.trip.restTime }}</span>
             </div>
-            <div>
+            <div class="detail-info">
               <span>휴무일 안내</span>
-              <span>{{ props.trip.restdateContent }}</span>
+              <span class="detail-info-right">{{ props.trip.restdateContent }}</span>
             </div>
-            <div>
+            <div class="detail-info">
               <span>전화번호</span>
-              <span>{{ props.trip.tel }}</span>
+              <span class="detail-info-right">{{ props.trip.tel }}</span>
             </div>
-            <div>
+            <div class="detail-info">
               <span>주소</span>
-              <span>{{ props.trip.address }}</span>
+              <span class="detail-info-right">{{ props.trip.address }}</span>
             </div>
           </div>
           <div class="button-wrap">
@@ -90,7 +90,10 @@ const addCourse = () => {
           </div>
         </div>
         <div v-if="selectDestination" class="right">
-          <VKakaoMap :destinations="destinations" :selectDestination="selectDestination" />
+          <VKakaoMap
+            :destinations="props.destinations"
+            :selectDestination="props.selectDestination"
+          />
           <div class="comment-title">Comments</div>
           <div class="comment-box">
             <div class="comments">

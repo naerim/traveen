@@ -47,12 +47,9 @@ onMounted(() => {
 });
 
 const getTripList = () => {
-  console.log("서버에서 여행지 목록 얻어오자");
-
   listTrip(
     param.value,
     ({ data }) => {
-      console.log(data);
       trips.value = data.tripinfos;
       currentPage.value = data.currentPage;
       totalPage.value = data.totalPageCount;
@@ -66,7 +63,6 @@ const getTrip = (idx) => {
     idx,
     ({ data }) => {
       trip.value = data;
-      console.log(data);
       viewDestination(data);
     },
     (error) => console.log(error)
@@ -75,7 +71,7 @@ const getTrip = (idx) => {
 
 const viewDestination = (destination) => {
   selectDestination.value = destination;
-  destinations.value[0] = destination;
+  destinations.value.push(destination);
 };
 
 const onPageChange = (val) => {

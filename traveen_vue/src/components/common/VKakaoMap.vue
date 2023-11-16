@@ -9,11 +9,8 @@ const props = defineProps({ height: String, destinations: Array, selectDestinati
 
 onMounted(() => {
   if (window.kakao && window.kakao.maps) {
-    console.log("init");
-    console.log(props.destinations);
     initMap();
   } else {
-    console.log("start");
     const script = document.createElement("script");
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${
       import.meta.env.VITE_KAKAO_MAP_SERVICE_KEY
@@ -38,21 +35,20 @@ onMounted(() => {
 //   { deep: true }
 // );
 
-watch(
-  () => props.destinations.value,
-  () => {
-    console.log("destinations " + props.destinations.value);
-    positions.value = [];
-    props.destinations.forEach((des) => {
-      let obj = {};
-      obj.latlng = new kakao.maps.LatLng(des.lat, des.lng);
-      obj.title = des.title;
+// watch(
+//   () => props.destinations.value,
+//   () => {
+//     positions.value = [];
+//     props.destinations.forEach((des) => {
+//       let obj = {};
+//       obj.latlng = new kakao.maps.LatLng(des.lat, des.loc);
+//       obj.title = des.title;
 
-      positions.value.push(obj);
-    });
-  },
-  { deep: true }
-);
+//       positions.value.push(obj);
+//     });
+//   },
+//   { deep: true }
+// );
 
 const initMap = () => {
   const container = document.getElementById("map");
@@ -61,7 +57,17 @@ const initMap = () => {
     level: 3,
   };
   map = new kakao.maps.Map(container, options);
-  // loadMarkers();
+
+  positions.value = [];
+  props.destinations.forEach((des) => {
+    let obj = {};
+    obj.latlng = new kakao.maps.LatLng(des.lat, des.loc);
+    obj.title = des.title;
+
+    positions.value.push(obj);
+  });
+
+  loadMarkers();
 };
 
 const loadMarkers = () => {
@@ -69,7 +75,6 @@ const loadMarkers = () => {
   deleteMarkers();
   // 마커 생성
   markers.value = [];
-  console.log(positions.value);
 
   positions.value.forEach((pos) => {
     const marker = new kakao.maps.Marker({
@@ -79,7 +84,6 @@ const loadMarkers = () => {
       clickable: true,
     });
     markers.value.push(marker);
-    console.log(markers.value);
   });
   // 지도 이동시키기
   const bounds = positions.value.reduce(
