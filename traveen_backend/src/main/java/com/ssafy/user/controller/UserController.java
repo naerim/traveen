@@ -1,8 +1,5 @@
 package com.ssafy.user.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,11 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,7 +41,6 @@ public class UserController {
 	}
 
 	@GetMapping("/idCheck/{userId}")
-	@ResponseBody
 	@ApiOperation(value = "아이디 체크 API", notes = "userId를 PathVariable로 받아 존재하는 아이디인지 체크하는 역할을 합니다. /user/idCheck/{userId}")
 	public ResponseEntity<String> idCheck(@PathVariable("userId") String userId) throws Exception {
 		logger.debug("idCheck userid : {}", userId);
@@ -97,11 +93,6 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	@GetMapping("/join")
-	public String join() {
-		return "user/join";
-	}
-
 	@PostMapping("/join")
 	@ApiOperation(value = "회원가입 API", notes = "가입할 회원 정보를 입력 받아 회원가입하는 역할을 합니다. /user/join")
 	public ResponseEntity<?> join(@RequestBody User user) throws Exception {
@@ -133,20 +124,20 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/myinfo")
-	public ResponseEntity<User> myinfo(HttpSession session, Model model) throws Exception {
-		User userinfo = (User) session.getAttribute("userinfo");
-		User user = userService.getUser(userinfo.getUserId());
+	@GetMapping("/myinfo/{userId}")
+	@ApiOperation(value = "회원 정보 조회 API", notes = "User의 userId를 PathVariable으로 받아서 해당 회원을 상세 조회하는 역할을 합니다. /user/myinfo")
+	public ResponseEntity<?> myinfo(@PathVariable(value="userId") String userId) throws Exception {
+		User user = userService.getUser(userId);
 		return ResponseEntity.ok(user);
 	}
 
-	@PostMapping("/myinfo")
-	@ApiOperation(value = "마이페이지 API", notes = "User를 받아 회원정보를 업데이트 해주는 역할을 합니다. /user/myinfo")
-	public String myinfo(@RequestParam User user, HttpSession session) throws Exception {
-		logger.debug("myinfo map : {}");
+	@PutMapping("/myinfo/modify")
+	@ApiOperation(value = "회원 정보 수정 API", notes = "User를 받아 회원정보를 업데이트 해주는 역할을 합니다. /user/myinfo/modify")
+	public ResponseEntity<?> myinfo(@RequestBody User user, RedirectAttributes rttr) throws Exception {
+		logger.debug("myinfo user : {}", user);
 		userService.updateUser(user);
-		session.setAttribute("userinfo", user);
-		return "redirect:/user/myinfo";
+		System.out.println(user);
+		return ResponseEntity.ok().build();
 	}
 
 	@PostMapping("/myinfo/pwd")

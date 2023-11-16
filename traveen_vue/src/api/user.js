@@ -16,4 +16,14 @@ async function userConfirm(param, success, fail) {
   await local.post(`/user/login`, param).then(success).catch(fail);
 }
 
-export { join, idCheck, userConfirm };
+// 회원 정보 조회
+const detailUser = (userId, success, fail) => {
+  local.get(`/user/myinfo/${userId}`).then(success).catch(fail);
+};
+
+// 회원 정보 수정
+const modifyUser = (user, success, fail) => {
+  local.put(`/user/myinfo/modify`, JSON.stringify(user)).then(success).catch(fail);
+};
+
+export { join, idCheck, userConfirm, detailUser, modifyUser };

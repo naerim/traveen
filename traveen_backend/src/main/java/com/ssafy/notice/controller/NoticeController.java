@@ -69,14 +69,8 @@ public class NoticeController {
 	public ResponseEntity<?> regist(@RequestBody Notice notice, HttpSession session,
 			RedirectAttributes redirectAttributes) throws Exception {
 		logger.debug("write notice : {}", notice);
-//		User user = (User) session.getAttribute("userinfo");
-//		notice.setUserIdx(user.getIdx());
 		noticeService.registNotice(notice);
 
-//		map.put("userIdx", user.getIdx() + "");
-//		redirectAttributes.addAttribute("pgno", "1");
-//		redirectAttributes.addAttribute("key", "");
-//		redirectAttributes.addAttribute("word", "");
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	
@@ -87,11 +81,6 @@ public class NoticeController {
 		logger.debug("modify idx : {}", idx);
 		Notice notice = noticeService.getNotice(idx);
 		
-//		Map<String, Object> result = new HashMap<>();
-//		result.put("notice", notice);
-//		result.put("pgno", map.get("pgno"));
-//		result.put("key", map.get("key"));
-//		result.put("word", map.get("word"));
 		return ResponseEntity.ok(notice);
 	}
 
@@ -101,10 +90,6 @@ public class NoticeController {
 			RedirectAttributes rttr) throws Exception {
 		logger.debug("modify notice : {}", notice);
 		noticeService.modifyNotice(notice);
-//		rttr.addAttribute("pgno", map.get("pgno"));
-//		rttr.addAttribute("key", map.get("key"));
-//		rttr.addAttribute("word", map.get("word"));
-		rttr.addFlashAttribute("msg", "게시글이 수정되었습니다.");
 		return ResponseEntity.ok().build();
 	}
 	
@@ -114,9 +99,6 @@ public class NoticeController {
 			throws Exception {
 		logger.debug("delete notice idx : {}", idx);
 		noticeService.deleteNotice(idx);
-//		rttr.addAttribute("key", map.get("key"));
-//		rttr.addAttribute("word", map.get("word"));
-		rttr.addFlashAttribute("msg", "게시글이 삭제되었습니다.");
 		return ResponseEntity.ok().build();
 	}
 }
