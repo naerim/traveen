@@ -1,12 +1,15 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
+import { useCourseStore } from "@/stores/course";
+
+const courseStore = useCourseStore();
 
 var map;
 const positions = ref([]);
 const markers = ref([]);
 const lines = ref([]);
 
-const props = defineProps({ height: String, destinations: Array, selectDestination: Object });
+const props = defineProps({ height: String });
 
 onMounted(() => {
   if (window.kakao && window.kakao.maps) {
@@ -36,20 +39,23 @@ onMounted(() => {
 //   { deep: true }
 // );
 
-// watch(
-//   () => props.destinations.value,
-//   () => {
-//     positions.value = [];
-//     props.destinations.forEach((des) => {
-//       let obj = {};
-//       obj.latlng = new kakao.maps.LatLng(des.lat, des.loc);
-//       obj.title = des.title;
+watch(
+  () => courseStore.courseList,
+  () => {
+    console.log("바뀜");
+    positions.value = [];
+    courseStore.courseList.forEach((des) => {
+      let obj = {};
+      obj.latlng = new kakao.maps.LatLng(des.lat, des.loc);
+      obj.title = des.title;
 
-//       positions.value.push(obj);
-//     });
-//   },
-//   { deep: true }
-// );
+      positions.value.push(obj);
+    });
+    loadMarkers();
+    addLines();
+  },
+  { deep: true }
+);
 
 const initMap = () => {
   const container = document.getElementById("map1");
@@ -60,7 +66,7 @@ const initMap = () => {
   map = new kakao.maps.Map(container, options);
 
   positions.value = [];
-  props.destinations.forEach((des) => {
+  courseStore.courseList.forEach((des) => {
     let obj = {};
     obj.latlng = new kakao.maps.LatLng(des.lat, des.loc);
     obj.title = des.title;
@@ -110,6 +116,7 @@ const deleteMarkers = () => {
 
 // 라인 생성
 const addLines = () => {
+  deleteLines();
   let linePath = [];
   markers.value.forEach((marker) => {
     linePath.push(marker.getPosition());
@@ -126,10 +133,17 @@ const addLines = () => {
   lines.value.push(polyline);
   polyline.setMap(map);
 };
+
+// 라인 삭제
+const deleteLines = () => {
+  if (lines.value.length > 0) {
+    lines.value.forEach((line) => line.setMap(null));
+  }
+};
 </script>
 
 <template>
-  <div id="mapBox" :style="{ height: height }">
+  <div id="mapBox" :style="{ height: props.height }">
     <div id="map1"></div>
   </div>
 </template>

@@ -3,8 +3,10 @@ import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import VKakaoMap from "@/components/common/VKakaoMap.vue";
 import { useTripStore } from "@/stores/trip";
+import { useCourseStore } from "@/stores/course";
 
 const tripStore = useTripStore();
+const courseStore = useCourseStore();
 
 const router = useRouter();
 
@@ -29,11 +31,13 @@ const onClickCloseModal = () => {
 // 코스짜는 페이지로 이동
 const goWriteCourse = () => {
   router.replace({ name: "course" });
+  courseStore.addCourse(tripStore.selectTrip);
 };
 
 // 코스에 추가하기
 const addCourse = () => {
-  console.log("코스에 추가합니다.");
+  courseStore.addCourse(tripStore.selectTrip);
+  onClickCloseModal();
 };
 </script>
 

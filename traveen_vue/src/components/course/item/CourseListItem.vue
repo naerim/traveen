@@ -1,16 +1,30 @@
-<script setup></script>
+<script setup>
+import { useCourseStore } from "@/stores/course";
+
+const courseStore = useCourseStore();
+const { deleteCourse } = courseStore;
+
+defineProps({
+  course: Object,
+  index: Number,
+});
+
+const deleteItem = (val) => {
+  deleteCourse(val);
+};
+</script>
 
 <template>
   <li draggable="true">
-    <div class="num">1</div>
+    <div class="num">{{ index }}</div>
     <div class="right">
       <div class="top">
-        <span>레스토랑</span>
-        <span>드라마</span>
-        <img src="@/assets/img/icon_close.png" alt="" />
+        <span>{{ course.type }}</span>
+        <span :id="course.categoryName">{{ course.categoryName }}</span>
+        <img src="@/assets/img/icon_close.png" alt="" @click="deleteItem(course.idx)" />
       </div>
-      <div class="title">라라무리</div>
-      <div class="addr">경기도 파주시 회동길 445-1</div>
+      <div class="title">{{ course.placeName }}</div>
+      <div class="addr">{{ course.address }}</div>
     </div>
   </li>
 </template>

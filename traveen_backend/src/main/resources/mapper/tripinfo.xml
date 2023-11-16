@@ -31,7 +31,7 @@
 	<!-- 검색 -->
  	<sql id="search">
 	    <if test="word != null and word != ''">
-	        and (title like concat('%', #{word}, '%') or place_name like concat('%', #{word}, '%')) 
+	        and (title like concat('%', #{word}, '%') or place_name like concat('%', #{word}, '%') or address like concat('%', #{word}, '%'))
 	    </if>
 	    <if test="type != null and type != ''">
 	    	and type=#{type}

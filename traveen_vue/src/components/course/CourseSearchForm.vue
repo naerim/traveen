@@ -11,14 +11,6 @@ import { useTripStore } from "@/stores/trip";
 const tripStore = useTripStore();
 const { setTrip } = tripStore;
 
-const destinations1 = ref([
-  { lat: 33.450701, loc: 126.570667, title: "카카오" },
-  { lat: 33.5066211, loc: 126.49281, title: "제주공항" },
-  { lat: 33.2906595, loc: 126.322529, title: "테마파크" },
-  { lat: 33.4696849, loc: 126.483305, title: "수목원" },
-]);
-const selectDestination1 = ref(tripStore.searchTrip);
-
 // trip list 길이
 const len = ref(0);
 const show = ref(false);
@@ -100,12 +92,8 @@ watch(trips, (newValue) => {
 
 <template>
   <div class="container">
-    <VKakaoMapLine
-      :destinations="destinations1"
-      :selectdestination="selectDestination1"
-      :height="`${600}px`"
-    />
-    <form class="form-search-course-regist">
+    <VKakaoMapLine :height="`${600}px`" />
+    <form class="form-search-course-regist" @submit.prevent="">
       <select name="type" v-model="param.type">
         <option value="">전체</option>
         <option value="restaurant">식당</option>
@@ -127,7 +115,7 @@ watch(trips, (newValue) => {
         id="input-course-regist"
         v-model="param.word"
       />
-      <button type="button" @click="searchTrip">검색</button>
+      <button type="button" @click.prevent="searchTrip">검색</button>
     </form>
     <div>총 {{ len }}개의 검색 결과가 있습니다.</div>
     <div v-if="len === 0">
