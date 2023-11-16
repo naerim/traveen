@@ -18,5 +18,10 @@ export const useCourseStore = defineStore("course", () => {
     } else courseList.value = courseList.value.filter((item) => item.idx !== idx);
   };
 
-  return { courseList, courseListCount, addCourse, deleteCourse };
+  const updateCourseListOrder = (oldIndex, newIndex) => {
+    const [movedItem] = courseList.value.splice(oldIndex, 1);
+    courseList.value.splice(newIndex, 0, movedItem);
+  };
+
+  return { courseList, courseListCount, addCourse, deleteCourse, updateCourseListOrder };
 });

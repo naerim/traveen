@@ -25,24 +25,9 @@ onMounted(() => {
   }
 });
 
-// watch(
-//   () => props.selectDestination.value,
-//   () => {
-//     console.log();
-//     var moveLatLon = new kakao.maps.LatLng(
-//       props.selectDestination.lat,
-//       props.selectDestination.loc
-//     );
-//     // 지도 중심을 부드럽게 이동시킴
-//     map.panTo(moveLatLon);
-//   },
-//   { deep: true }
-// );
-
 watch(
   () => courseStore.courseList,
   () => {
-    console.log("바뀜");
     positions.value = [];
     courseStore.courseList.forEach((des) => {
       let obj = {};
