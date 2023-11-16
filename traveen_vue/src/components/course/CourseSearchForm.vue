@@ -4,12 +4,18 @@ import TripListItem from "@/components/trip/item/TripListItem.vue";
 import TripModal from "@/components/trip/TripModal.vue";
 import VEmptyItem from "@/components/common/VEmptyItem.vue";
 import VKakaoMap from "@/components/common/VKakaoMap.vue";
+import VKakaoMapLine from "@/components/common/VKakaoMapLine.vue";
 
-const destinations = ref([]);
-const selectDestination = ref([{ lat: 33.450701, lng: 126.570667, title: "라라무리" }]);
+const destinations = ref([
+  { lat: 33.450701, loc: 126.570667, title: "카카오" },
+  { lat: 33.5066211, loc: 126.49281, title: "제주공항" },
+  { lat: 33.2906595, loc: 126.322529, title: "테마파크" },
+  { lat: 33.4696849, loc: 126.483305, title: "수목원" },
+]);
+const selectDestination = ref({ lat: 33.450701, loc: 126.570667, title: "라라무리" });
 
 // trip list 길이
-const trip = ref(1);
+const len = ref(0);
 const show = ref(false);
 
 // 아이템 클릭했을 때
@@ -25,7 +31,7 @@ const closeModal = () => {
 
 <template>
   <div class="container">
-    <VKakaoMap
+    <VKakaoMapLine
       :destinations="destinations"
       :selectDestination="selectDestination"
       :height="`${600}px`"
@@ -43,16 +49,16 @@ const closeModal = () => {
       <input type="text" placeholder="검색어를 입력해주세요." id="input-course-regist" />
       <button type="button">검색</button>
     </form>
-    <div>총 4개의 검색 결과가 있습니다.</div>
-    <div v-if="trip === 0">
+    <div>총 {{ len }}개의 검색 결과가 있습니다.</div>
+    <div v-if="len === 0">
       <VEmptyItem text="검색 결과가 없습니다." />
     </div>
     <div v-else id="content-box">
+      <!-- <TripListItem @click-item="clickItem" />
       <TripListItem @click-item="clickItem" />
       <TripListItem @click-item="clickItem" />
       <TripListItem @click-item="clickItem" />
-      <TripListItem @click-item="clickItem" />
-      <TripListItem @click-item="clickItem" />
+      <TripListItem @click-item="clickItem" /> -->
     </div>
   </div>
   <TripModal :show="show" @close-modal="closeModal" type="course" />

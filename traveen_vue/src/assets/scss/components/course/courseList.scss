@@ -29,50 +29,6 @@ ul {
   overflow-y: scroll;
 }
 
-li {
-  display: flex;
-  background-color: #fff;
-  margin-bottom: 20px;
-  border: 1px solid #e3e3e3;
-  border-radius: 6px;
-  box-sizing: border-box;
-  padding: 10px;
-}
-
-li .num {
-  display: flex;
-  background-color: #51cd89;
-  width: 26px;
-  height: 26px;
-  line-height: 26px;
-  color: #fff;
-  border-radius: 6px;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
-  font-size: 0.9em;
-}
-
-.course-list li {
-  cursor: pointer;
-  user-select: none;
-}
-
-.course-list img {
-  pointer-events: none;
-}
-
-.imgDiv {
-  width: 70px;
-  height: 70px;
-  margin-right: 10px;
-}
-
-.imgDiv img {
-  width: 100%;
-  height: 100%;
-}
-
 #btn-sort-path {
   background-color: #f7f8fa;
   margin: auto 20px 0 20px;
