@@ -1,13 +1,19 @@
 <script setup>
-import { ref, watch, onMounted } from "vue";
+import { ref, watch, onMounted, watchEffect } from "vue";
 
 var map;
 const positions = ref([]);
 const markers = ref([]);
 
-const props = defineProps({ height: String, destinations: Array, selectDestination: Object });
+const props = defineProps({ height: String, destinations: Array, selectdestination: Object });
+
+import { useTripStore } from "@/stores/trip";
+
+const tripStore = useTripStore();
 
 onMounted(() => {
+  console.log("Mounted, selectdestination:", props.selectdestination);
+
   if (window.kakao && window.kakao.maps) {
     initMap();
   } else {
@@ -22,7 +28,7 @@ onMounted(() => {
 });
 
 // watch(
-//   () => props.selectDestination.value,
+//   () => props.selectDestination,
 //   () => {
 //     console.log();
 //     var moveLatLon = new kakao.maps.LatLng(
@@ -36,36 +42,43 @@ onMounted(() => {
 // );
 
 // watch(
-//   () => props.destinations.value,
+//   () => props.selectDestination,
 //   () => {
 //     positions.value = [];
-//     props.destinations.forEach((des) => {
-//       let obj = {};
-//       obj.latlng = new kakao.maps.LatLng(des.lat, des.loc);
-//       obj.title = des.title;
-
-//       positions.value.push(obj);
-//     });
+//     let obj = {};
+//     obj.latlng = new kakao.maps.LatLng(props.selectDestination.lat, props.selectDestination.loc);
+//     obj.title = props.selectDestination.title;
+//     positions.value.push(obj);
 //   },
 //   { deep: true }
 // );
 
+watchEffect(
+  () => props.selectDestination,
+  () => {
+    positions.value = [];
+    let obj = {};
+    obj.latlng = new kakao.maps.LatLng(props.selectDestination.lat, props.selectDestination.loc);
+    obj.title = props.selectDestination.title;
+    positions.value.push(obj);
+  }
+);
+
 const initMap = () => {
+  // console.log(props.selectdestination.placeName);
+  console.log("tripStore : " + tripStore.selectTrip.placeName);
   const container = document.getElementById("map");
   const options = {
-    center: new kakao.maps.LatLng(props.selectDestination.lat, props.selectDestination.loc),
+    center: new kakao.maps.LatLng(props.selectdestination.lat, props.selectdestination.loc),
     level: 3,
   };
   map = new kakao.maps.Map(container, options);
 
   positions.value = [];
-  props.destinations.forEach((des) => {
-    let obj = {};
-    obj.latlng = new kakao.maps.LatLng(des.lat, des.loc);
-    obj.title = des.title;
-
-    positions.value.push(obj);
-  });
+  let obj = {};
+  obj.latlng = new kakao.maps.LatLng(props.selectdestination.lat, props.selectdestination.loc);
+  obj.title = props.selectdestination.title;
+  positions.value.push(obj);
 
   loadMarkers();
 };
@@ -103,6 +116,7 @@ const deleteMarkers = () => {
 
 <template>
   <div id="mapBox" :style="{ height: height }">
+    <div>{{ props.selectdestination.placeName }}</div>
     <div id="map"></div>
   </div>
 </template>

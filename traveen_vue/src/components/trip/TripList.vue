@@ -6,12 +6,17 @@ import PageNavigation from "@/components/common/PageNavigation.vue";
 import VEmptyItem from "@/components/common/VEmptyItem.vue";
 import TripModal from "@/components/trip/TripModal.vue";
 
+import { useTripStore } from "@/stores/trip";
+
+const tripStore = useTripStore();
+const { setTrip } = tripStore;
+
 // trip list 길이
 const len = ref(0);
 const show = ref(false);
 
 const trips = ref([]);
-const trip = ref([]);
+const trip = ref({});
 
 const currentPage = ref(1);
 const totalPage = ref(0);
@@ -19,12 +24,12 @@ const { VITE_TRIP_LIST_SIZE } = import.meta.env;
 
 const destinations = ref([]);
 // 선택한 위치
-const selectDestination = ref({});
+const selectdestination = ref({});
 
 // 아이템 클릭했을 때
 const clickItem = (idx) => {
-  show.value = true;
   getTrip(idx);
+  show.value = true;
 };
 
 const param = ref({
@@ -38,6 +43,7 @@ const param = ref({
 
 // 모달창 닫기
 const closeModal = () => {
+  window.location.reload();
   show.value = false;
 };
 
@@ -63,15 +69,11 @@ const getTrip = (idx) => {
     idx,
     ({ data }) => {
       trip.value = data;
-      viewDestination(data);
+      setTrip(data);
+      console.log("tripdata : " + data.placeName);
     },
     (error) => console.log(error)
   );
-};
-
-const viewDestination = (destination) => {
-  selectDestination.value = destination;
-  destinations.value.push(destination);
 };
 
 const onPageChange = (val) => {
@@ -143,14 +145,7 @@ watch(trips, (newValue) => {
       @click-item="clickItem(trip.idx)"
     />
   </div>
-  <TripModal
-    :show="show"
-    @close-modal="closeModal"
-    type="trip"
-    :trip="trip"
-    :selectDestination="selectDestination"
-    :destinations="destinations"
-  />
+  <TripModal :show="show" @close-modal="closeModal" type="trip" :trip="trip" />
   <!-- pagination -->
   <PageNavigation
     :current-page="currentPage"

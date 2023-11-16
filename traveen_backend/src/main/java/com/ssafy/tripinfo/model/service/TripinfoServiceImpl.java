@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.notice.model.NoticeList;
+import com.ssafy.tripinfo.model.Sido;
 import com.ssafy.tripinfo.model.Tripinfo;
 import com.ssafy.tripinfo.model.TripinfoList;
 import com.ssafy.tripinfo.model.mapper.TripinfoMapper;
@@ -27,8 +28,9 @@ public class TripinfoServiceImpl implements TripinfoService {
 		param.put("type", map.get("type") == null ? "" : map.get("type"));
 		param.put("order", map.get("order") == null ? "" : map.get("order"));
 		param.put("category", map.get("category") == null ? "" : map.get("category"));
+		param.put("sido", map.get("sido") == null ? "" : map.get("sido"));
 		int currentPage = Integer.parseInt(map.get("pgno") == null ? "1" : map.get("pgno"));
-		int sizePerPage = Integer.parseInt(map.get("spp") == null ? "10" : map.get("spp"));
+		int sizePerPage = Integer.parseInt(map.get("spp") == null ? "50" : map.get("spp"));
 		int start = currentPage * sizePerPage - sizePerPage;
 		param.put("start", start);
 		param.put("listsize", sizePerPage);
@@ -53,6 +55,11 @@ public class TripinfoServiceImpl implements TripinfoService {
 	@Override
 	public void updateHit(int idx) throws Exception {
 		tripinfoMapper.updateHit(idx);
+	}
+
+	@Override
+	public List<Sido> listSido() throws Exception {
+		return tripinfoMapper.listSido();
 	}
 	
 	

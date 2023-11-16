@@ -1,4 +1,5 @@
 <script setup>
+import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 import VKakaoMap from "@/components/common/VKakaoMap.vue";
 
@@ -8,9 +9,17 @@ const props = defineProps({
   show: Boolean,
   type: String,
   trip: Object,
-  selectDestination: Object,
-  destinations: Array,
 });
+
+const select = ref({});
+
+watch(
+  () => props.trip,
+  () => {
+    console.log("select" + props.trip.placeName);
+    select.value = props.trip;
+  }
+);
 
 const emit = defineEmits(["closeModal"]);
 const onClickCloseModal = () => {
@@ -89,11 +98,8 @@ const addCourse = () => {
             </button>
           </div>
         </div>
-        <div v-if="selectDestination" class="right">
-          <VKakaoMap
-            :destinations="props.destinations"
-            :selectDestination="props.selectDestination"
-          />
+        <div v-if="select" class="right">
+          <VKakaoMap :selectdestination="select" :destinations="props.destinations" />
           <div class="comment-title">Comments</div>
           <div class="comment-box">
             <div class="comments">

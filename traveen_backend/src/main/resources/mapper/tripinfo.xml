@@ -21,6 +21,12 @@
 		<result column="like_count" property="likeCount" />
 		<result column="view_count" property="viewCount" />
 	</resultMap>
+	
+	<resultMap type="sido" id="sido">
+		<result column="idx" property="idx" />
+		<result column="code" property="code" />
+		<result column="name" property="name" />
+	</resultMap>
 			
 	<!-- 검색 -->
  	<sql id="search">
@@ -32,6 +38,9 @@
 	    </if>
 	   	<if test="category != null and category != ''">
 	    	and category_name=#{category}
+	    </if>
+	   	<if test="sido != null and sido != ''">
+	    	and sido_code=#{sido}
 	    </if>
 	</sql> 
 
@@ -70,5 +79,11 @@
  		<where>
 			<include refid="search"></include>
 		</where>
+	</select>
+	
+	<!-- 시도 목록 -->
+	<select id="listSido" resultMap="sido">
+		select idx, code, name 
+		from sido
 	</select>
 </mapper>

@@ -36,23 +36,23 @@ onMounted(() => {
 //   { deep: true }
 // );
 
-// watch(
-//   () => props.destinations.value,
-//   () => {
-//     positions.value = [];
-//     props.destinations.forEach((des) => {
-//       let obj = {};
-//       obj.latlng = new kakao.maps.LatLng(des.lat, des.loc);
-//       obj.title = des.title;
+watch(
+  () => props.destinations.value,
+  () => {
+    positions.value = [];
+    props.destinations.forEach((des) => {
+      let obj = {};
+      obj.latlng = new kakao.maps.LatLng(des.lat, des.loc);
+      obj.title = des.title;
 
-//       positions.value.push(obj);
-//     });
-//   },
-//   { deep: true }
-// );
+      positions.value.push(obj);
+    });
+  },
+  { deep: true }
+);
 
 const initMap = () => {
-  const container = document.getElementById("map");
+  const container = document.getElementById("map1");
   const options = {
     center: new kakao.maps.LatLng(props.selectDestination.lat, props.selectDestination.loc),
     level: 3,
@@ -130,7 +130,7 @@ const addLines = () => {
 
 <template>
   <div id="mapBox" :style="{ height: height }">
-    <div id="map"></div>
+    <div id="map1"></div>
   </div>
 </template>
 

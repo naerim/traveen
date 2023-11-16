@@ -12,4 +12,9 @@ const detailTrip = (idx, success, fail) => {
   local.get(`/tripinfo/view/${idx}`).then(success).catch(fail);
 };
 
-export { listTrip, detailTrip };
+// sido 목록
+const listSido = (success, fail) => {
+  local.get(`/tripinfo/sidoList`).then(success).catch(fail);
+};
+
+export { listTrip, detailTrip, listSido };

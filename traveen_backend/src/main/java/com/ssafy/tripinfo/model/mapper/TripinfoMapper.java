@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ssafy.tripinfo.model.Sido;
 import com.ssafy.tripinfo.model.Tripinfo;
 
 @Mapper
@@ -14,4 +15,6 @@ public interface TripinfoMapper {
     Tripinfo viewTripinfo(int idx) throws SQLException;
     int getTotalTripinfoCount(Map<String, Object> param) throws SQLException;
     void updateHit(int idx) throws SQLException;
+    
+    List<Sido> listSido() throws SQLException;
 }

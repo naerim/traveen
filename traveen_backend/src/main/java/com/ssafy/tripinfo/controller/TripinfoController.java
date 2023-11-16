@@ -1,6 +1,7 @@
 package com.ssafy.tripinfo.controller;
 
 import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.tripinfo.model.Sido;
 import com.ssafy.tripinfo.model.Tripinfo;
 import com.ssafy.tripinfo.model.TripinfoList;
 import com.ssafy.tripinfo.model.service.TripinfoService;
@@ -54,5 +56,14 @@ public class TripinfoController {
 		Tripinfo tripinfo = tripinfoService.viewTripinfo(idx);
 		tripinfoService.updateHit(idx);
 		return ResponseEntity.ok(tripinfo);
+	}
+	
+	@GetMapping("/sidoList")
+	@ApiOperation(value = "시도 목록 조회 API", notes = "시도 목록을 조회하는 역할을 합니다. /tripinfo/sidoList")
+	public ResponseEntity<?> sidoList() throws Exception {
+		List<Sido> list = tripinfoService.listSido();
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+		return ResponseEntity.ok().headers(header).body(list);
 	}
 }
