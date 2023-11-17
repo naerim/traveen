@@ -41,20 +41,21 @@ const makeParamCourseList = (list) => {
 };
 
 const onRegistCourse = (list) => {
-  // console.log(param.value.course.title);
-  param.value.course.endDate = param.value.course.startDate;
-  param.value.courseList = makeParamCourseList(list);
-  // console.log("courseList : " + param.value.courseList);
-  // param.value.courseList.map((item) => {
-  //   console.log(item);
-  // });
-  registCourse(
-    param.value,
-    (res) => {
-      console.log(res);
-    },
-    (error) => console.log(error)
-  );
+  if (param.value.course.title === "") {
+    alert("제목을 입력해주세요.");
+  } else if (param.value.course.startDate === "") {
+    alert("여행 시작일을 선택해주세요.");
+  } else {
+    param.value.course.endDate = param.value.course.startDate;
+    param.value.courseList = makeParamCourseList(list);
+    registCourse(
+      param.value,
+      (res) => {
+        console.log(res);
+      },
+      (error) => console.log(error)
+    );
+  }
 };
 </script>
 
