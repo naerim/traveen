@@ -41,6 +41,9 @@ public class User {
 	/* 이메일 인증번호 */
 	@ApiModelProperty(value = "이메일 인증번호")
 	private String emailCode;
+	/* refresh token */
+	@ApiModelProperty(value = "refresh token")
+	private String refreshToken;
 	
 	public int getIdx() {
 		return idx;
@@ -96,17 +99,17 @@ public class User {
 	public void setJoinDate(String joinDate) {
 		this.joinDate = joinDate;
 	}
-	public String getPosition() {
-		return position;
-	}
-	public void setPosition(String position) {
-		this.position = position;
-	}
 	public String getToken() {
 		return token;
 	}
 	public void setToken(String token) {
 		this.token = token;
+	}
+	public String getPosition() {
+		return position;
+	}
+	public void setPosition(String position) {
+		this.position = position;
 	}
 	public String getEmailCode() {
 		return emailCode;
@@ -114,13 +117,17 @@ public class User {
 	public void setEmailCode(String emailCode) {
 		this.emailCode = emailCode;
 	}
+	public String getRefreshToken() {
+		return refreshToken;
+	}
+	public void setRefreshToken(String refreshToken) {
+		this.refreshToken = refreshToken;
+	}
 	@Override
 	public String toString() {
 		return "User [idx=" + idx + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
 				+ ", emailId=" + emailId + ", emailDomain=" + emailDomain + ", mobile=" + mobile + ", salt=" + salt
 				+ ", joinDate=" + joinDate + ", token=" + token + ", position=" + position + ", emailCode=" + emailCode
-				+ "]";
+				+ ", refreshToken=" + refreshToken + "]";
 	}
-	
-	
 }

@@ -1,20 +1,16 @@
 package com.ssafy.config;
 
-import java.util.Arrays;
-import java.util.List;
-
-import com.ssafy.interceptor.ConfirmInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.ssafy.interceptor.JWTInterceptor;
 
 //import com.ssafy.interceptor.ConfirmInterceptor;
 
@@ -25,6 +21,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfiguration implements WebMvcConfigurer {
 	
 	private final Logger logger = LoggerFactory.getLogger(WebMvcConfiguration.class);
+	
+	private JWTInterceptor jwtInterceptor;
+
+	public WebMvcConfiguration(JWTInterceptor jwtInterceptor) {
+		super();
+		this.jwtInterceptor = jwtInterceptor;
+	}
 
 //	private final List<String> patterns = Arrays.asList("/notice/*", "/admin", "/user/myinfo");
 
@@ -40,7 +43,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**").allowedOrigins("*")
-//			.allowedOrigins("http://localhost:8080", "http://localhost:8081")
+//			.allowedOrigins("http://localhost:5173", "http://localhost:5174")
 				.allowedMethods(HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(),
 						HttpMethod.DELETE.name(), HttpMethod.HEAD.name(), HttpMethod.OPTIONS.name(),
 						HttpMethod.PATCH.name())

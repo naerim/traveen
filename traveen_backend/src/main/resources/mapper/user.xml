@@ -14,7 +14,7 @@
 		<result column="join_date" property="joinDate"/>
 		<result column="position" property="position"/>
 		<result column="email_code" property="emailCode"/>
-		<result column="token" property="token"/>
+		<result column="refresh_token" property="refreshToken"/>
 	</resultMap>
 
 	<!-- 아이디 중복 체크 -->
@@ -25,8 +25,8 @@
 	</select>
 
 	<!-- 로그인 -->
-	<select id="login" parameterType="String" resultMap="user">
-		select user_id, user_pwd, user_name, idx
+	<select id="login" parameterType="user" resultMap="user">
+		select user_id, user_pwd, refresh_token
 		from users
 		where user_id = #{userId} and user_pwd = #{userPwd}
 	</select>
@@ -39,7 +39,7 @@
 	
 	<!-- 아이디로 정보 가져오기 -->
 	<select id="getUser" parameterType="String" resultMap="user">
-		select user_id, user_pwd, user_name, email_id, email_domain, mobile, salt, join_date, position
+		select user_id, user_pwd, user_name, email_id, email_domain, mobile, salt, join_date, position, refresh_token
 		from users
 		where user_id = #{userId}
 	</select>
@@ -77,5 +77,23 @@
 		delete from users
 		where user_id = #{userId}
 	</delete>
+	
+	<update id="saveRefreshToken" parameterType="map">
+		update users
+		set refresh_token = #{refreshToken}
+		where user_id = #{userId}
+	</update>
+	
+	<select id="getRefreshToken" parameterType="string" resultType="string">
+		select refresh_token
+		from users
+		where user_id = #{userId}
+	</select>
+	
+	<update id="deleteRefreshToken" parameterType="map">
+		update users
+		set token = #{token, jdbcType=VARCHAR}
+		where user_id = #{userId}
+	</update>
 	
 </mapper>

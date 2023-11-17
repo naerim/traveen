@@ -9,9 +9,6 @@ const { isLogin } = storeToRefs(memberStore);
 
 const router = useRouter();
 
-// 임시 - 로그인한 유저가 있을 때
-const loginUser = ref(false);
-
 const goLoginPage = () => router.push({ name: "login" });
 const goMyPage = () => router.push({ name: "mypage" });
 </script>

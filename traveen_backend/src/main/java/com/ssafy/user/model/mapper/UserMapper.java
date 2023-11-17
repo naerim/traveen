@@ -10,7 +10,7 @@ import com.ssafy.user.model.User;
 @Mapper
 public interface UserMapper {
 	int idCheck(String userId) throws SQLException;
-	User login(String userId, String userPwd) throws SQLException;
+	User login(User user) throws SQLException;
 	void join(User user) throws SQLException;
 	void deleteUser(String userId) throws SQLException;
 
@@ -18,4 +18,8 @@ public interface UserMapper {
 	void updateUser(User user) throws SQLException;
 	void updatePwd(User user, String newPwd) throws SQLException;
 	int pwdCheck(String userId, String userPwd) throws SQLException;
+	
+	void saveRefreshToken(Map<String, String> map) throws SQLException;
+	Object getRefreshToken(String userid) throws SQLException;
+	void deleteRefreshToken(Map<String, String> map) throws SQLException;
 }

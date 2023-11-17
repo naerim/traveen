@@ -55,7 +55,7 @@ public class NoticeController {
 	}
 	
 	@GetMapping("/view/{idx}")
-	@ApiOperation(value = "공지사항 상세 조회 API", notes = "Notice의 idx를 RequestParam으로 받아서 해당 공지사항을 상세 조회하는 역할을 합니다. /notice/view")
+	@ApiOperation(value = "공지사항 상세 조회 API", notes = "Notice의 idx를 RequestParam으로 받아 해당 공지사항을 상세 조회하는 역할을 합니다. /notice/view")
 	public ResponseEntity<?> view(@PathVariable(value="idx") int idx, Model model)
 			throws Exception {
 		logger.debug("view notice idx : {}", idx);
@@ -75,7 +75,7 @@ public class NoticeController {
 	}
 	
 	@GetMapping("/modify/{idx}")
-	@ApiOperation(value = "공지사항 수정 API", notes = "Notice의 idx를 PathVariable으로 받아서 해당 공지사항을 수정하는 역할을 합니다. /notice/modify")
+	@ApiOperation(value = "공지사항 수정 API", notes = "Notice의 idx를 PathVariable으로 받아 해당 공지사항을 수정하는 역할을 합니다. /notice/modify")
 	public ResponseEntity<?> modify(@PathVariable(value="idx") int idx, Model model)
 			throws Exception {
 		logger.debug("modify idx : {}", idx);
@@ -94,7 +94,7 @@ public class NoticeController {
 	}
 	
 	@DeleteMapping("/delete/{idx}")
-	@ApiOperation(value = "공지사항 삭제 API", notes = "Notice의 idx를 PathVariable으로 받아서 공지사항을 삭제하는 역할을 합니다. /notice/delete")
+	@ApiOperation(value = "공지사항 삭제 API", notes = "Notice의 idx를 PathVariable으로 받아 공지사항을 삭제하는 역할을 합니다. /notice/delete")
 	public ResponseEntity<?> delete(@PathVariable("idx") int idx, Model model, RedirectAttributes rttr)
 			throws Exception {
 		logger.debug("delete notice idx : {}", idx);
