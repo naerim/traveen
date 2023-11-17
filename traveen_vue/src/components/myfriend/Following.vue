@@ -1,7 +1,16 @@
-<script setup></script>
+<script setup>
+import FriendListItem from "@/components/myfriend/item/FriendListItem.vue";
+</script>
 
 <template>
-  <div class="tab">following</div>
+  <section>
+    <FriendListItem />
+    <FriendListItem />
+    <FriendListItem />
+    <FriendListItem />
+  </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+@import "@/assets/scss/components/myfriend/following.scss";
+</style>

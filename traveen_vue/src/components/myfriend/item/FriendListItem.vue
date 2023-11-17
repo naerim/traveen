@@ -1,0 +1,24 @@
+<script setup>
+import { ref } from "vue";
+
+const show = ref(false);
+</script>
+
+<template>
+  <div class="item-container">
+    <img src="@/assets/img/icon_vertical_menu.png" alt="" id="img-menu" />
+    <img src="@/assets/img/img_profile.png" alt="" id="img-profile" />
+    <div class="userName">이름임니당</div>
+    <div class="userId">ssafy1</div>
+    <div v-show="show" id="menu">
+      <ul>
+        <li>친구 정보</li>
+        <li>삭제</li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+@import "@/assets/scss/components/myfriend/item/friendListItem.scss";
+</style>
