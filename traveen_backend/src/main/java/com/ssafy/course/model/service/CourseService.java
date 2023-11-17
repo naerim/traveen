@@ -1,5 +1,7 @@
 package com.ssafy.course.model.service;
 
-public interface CourseService {
+import java.util.Map;
 
+public interface CourseService {
+	void registCourse(Map<String, Object> map) throws Exception;
 }
