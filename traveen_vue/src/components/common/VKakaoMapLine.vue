@@ -32,7 +32,7 @@ watch(
     courseStore.courseList.forEach((des) => {
       let obj = {};
       obj.latlng = new kakao.maps.LatLng(des.lat, des.loc);
-      obj.title = des.title;
+      obj.title = des.placeName;
 
       positions.value.push(obj);
     });
@@ -54,7 +54,7 @@ const initMap = () => {
   courseStore.courseList.forEach((des) => {
     let obj = {};
     obj.latlng = new kakao.maps.LatLng(des.lat, des.loc);
-    obj.title = des.title;
+    obj.title = des.placName;
 
     positions.value.push(obj);
   });

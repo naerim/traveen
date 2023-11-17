@@ -1,7 +1,11 @@
 <script setup>
+import { ref } from "vue";
 import CourseListItem from "@/components/course/item/CourseListItem.vue";
 import draggable from "vuedraggable";
 import { useCourseStore } from "@/stores/course";
+import CourseModal from "./CourseModal.vue";
+
+const show = ref(false);
 
 const courseStore = useCourseStore();
 const { updateCourseListOrder } = courseStore;
@@ -15,6 +19,12 @@ const registCourse = () => {
   courseStore.courseList.map((item) => {
     console.log(item.placeName);
   });
+  show.value = true;
+};
+
+// 모달창 닫기
+const closeModal = () => {
+  show.value = false;
 };
 </script>
 
@@ -35,6 +45,7 @@ const registCourse = () => {
     <button id="btn-sort-path">최단경로로 정렬</button>
     <button id="btn-regist-course" @click="registCourse">등록하기</button>
   </div>
+  <CourseModal :show="show" @close-modal="closeModal" type="write" />
 </template>
 
 <style scoped>
