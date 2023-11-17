@@ -70,7 +70,6 @@ public class UserController {
 		try {
 			User loginUser = userService.login(user);
 			if (loginUser != null) {
-				System.out.println("null 아니지?");
 				String accessToken = jwtUtil.createAccessToken(loginUser.getUserId());
 				String refreshToken = jwtUtil.createRefreshToken(loginUser.getUserId());
 				logger.debug("access token : {}", accessToken);
@@ -85,7 +84,7 @@ public class UserController {
 
 				status = HttpStatus.CREATED;
 
-			} else {System.out.println("null..?");
+			} else {
 				resultMap.put("message", "아이디 또는 패스워드를 확인해주세요.");
 				status = HttpStatus.UNAUTHORIZED;
 			}
