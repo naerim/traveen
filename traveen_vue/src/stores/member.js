@@ -18,23 +18,16 @@ export const useMemberStore = defineStore("memberStore", () => {
     await userConfirm(
       loginUser,
       (response) => {
-        // console.log("login ok!!!!", response.status);
-        // console.log("login ok!!!!", httpStatusCode.CREATE);
         if (response.status === httpStatusCode.CREATE) {
           let { data } = response;
-          // console.log("data", data);
           let accessToken = data["access-token"];
           let refreshToken = data["refresh-token"];
-          console.log("accessToken", accessToken);
-          console.log("refreshToken", refreshToken);
           isLogin.value = true;
           isLoginError.value = false;
           isValidToken.value = true;
           sessionStorage.setItem("accessToken", accessToken);
           sessionStorage.setItem("refreshToken", refreshToken);
-          console.log("sessiontStorage에 담았다", isLogin.value);
         } else {
-          console.log("로그인 실패했다");
           isLogin.value = false;
           isLoginError.value = true;
           isValidToken.value = false;
@@ -48,13 +41,11 @@ export const useMemberStore = defineStore("memberStore", () => {
 
   const getUserInfo = (token) => {
     let decodeToken = jwtDecode(token);
-    console.log("2. decodeToken", decodeToken);
     findById(
       decodeToken.userId,
       (response) => {
         if (response.status === httpStatusCode.OK) {
           userInfo.value = response.data.userInfo;
-          console.log("3. getUserInfo data >> ", response.data);
         } else {
           console.log("유저 정보 없음!!!!");
         }
@@ -72,13 +63,11 @@ export const useMemberStore = defineStore("memberStore", () => {
   };
 
   const tokenRegenerate = async () => {
-    console.log("토큰 재발급 >> 기존 토큰 정보 : {}", sessionStorage.getItem("accessToken"));
     await tokenRegeneration(
       JSON.stringify(userInfo.value),
       (response) => {
         if (response.status === httpStatusCode.CREATE) {
           let accessToken = response.data["access-token"];
-          console.log("재발급 완료 >> 새로운 토큰 : {}", accessToken);
           sessionStorage.setItem("accessToken", accessToken);
           isValidToken.value = true;
         }
@@ -86,7 +75,6 @@ export const useMemberStore = defineStore("memberStore", () => {
       async (error) => {
         // HttpStatus.UNAUTHORIZE(401) : RefreshToken 기간 만료 >> 다시 로그인!!!!
         if (error.response.status === httpStatusCode.UNAUTHORIZED) {
-          console.log("갱신 실패");
           // 다시 로그인 전 DB에 저장된 RefreshToken 제거.
           await logout(
             userInfo.value.userid,
@@ -100,7 +88,7 @@ export const useMemberStore = defineStore("memberStore", () => {
               isLogin.value = false;
               userInfo.value = null;
               isValidToken.value = false;
-              router.push({ name: "user-login" });
+              router.push({ name: "login" });
             },
             (error) => {
               console.error(error);

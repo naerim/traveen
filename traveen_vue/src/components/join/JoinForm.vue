@@ -56,7 +56,7 @@ const onSubmit = () => {
     alert("전화번호를 입력해주세요.");
   } else if (blank_pattern.test(joinUser.value.userPwd)) {
     alert("비밀번호를 입력해주세요.");
-  } else if (joinUser.value.valueuserPwd !== joinUser.value.pwdCheck) {
+  } else if (joinUser.value.userPwd !== joinUser.value.pwdCheck) {
     alert("비밀번호가 일치하지 않습니다.");
   } else {
     join(
@@ -111,7 +111,7 @@ const onSubmit = () => {
         <option value="naver.com">naver.com</option>
         <option value="google.com">google.com</option>
       </select>
-      <button id="btn-send-code">인증번호 받기</button>
+      <button id="btn-send-code" @click.prevent="">인증번호 받기</button>
     </div>
     <div class="input-title">인증번호</div>
     <div class="input-confirm-box">

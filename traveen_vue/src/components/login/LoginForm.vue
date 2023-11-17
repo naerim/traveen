@@ -19,12 +19,14 @@ const loginUser = ref({
 const login = async () => {
   console.log("login");
   await userLogin(loginUser.value);
+  console.log("loingUser : ", loginUser.value);
   let token = sessionStorage.getItem("accessToken");
-  console.log("111. ", token);
+  console.log("access token : ", token);
   console.log("isLogin: ", isLogin);
   if (isLogin) {
-    console.log("로그인 성공아닌가???");
+    console.log("로그인 성공");
     getUserInfo(token);
+    console.log("token " + token);
     // changeMenuState();
   }
   router.push("/");

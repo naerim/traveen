@@ -28,7 +28,7 @@ const modifyUser = (user, success, fail) => {
 
 async function findById(userid, success, fail) {
   local.defaults.headers["Authorization"] = sessionStorage.getItem("accessToken");
-  await local.get(`/user/info/${userid}`).then(success).catch(fail);
+  await local.get(`/user/myinfo/${userid}`).then(success).catch(fail);
 }
 
 async function tokenRegeneration(user, success, fail) {
