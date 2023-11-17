@@ -48,15 +48,15 @@ const onSubmit = () => {
   const blank_pattern = /[\s]/g;
   if (!idCheckState.value) {
     alert("아이디 중복 확인이 필요합니다.");
-  } else if (blank_pattern.test(userName.value)) {
+  } else if (blank_pattern.test(joinUser.value.userName)) {
     alert("이름을 입력해주세요.");
-  } else if (blank_pattern.test(emailId.value)) {
+  } else if (blank_pattern.test(joinUser.value.emailId)) {
     alert("이메일을 입력해주세요.");
-  } else if (blank_pattern.test(mobile.value)) {
+  } else if (blank_pattern.test(joinUser.value.mobile)) {
     alert("전화번호를 입력해주세요.");
-  } else if (blank_pattern.test(userPwd.value)) {
+  } else if (blank_pattern.test(joinUser.value.userPwd)) {
     alert("비밀번호를 입력해주세요.");
-  } else if (userPwd.value !== pwdCheck.value) {
+  } else if (joinUser.value.valueuserPwd !== joinUser.value.pwdCheck) {
     alert("비밀번호가 일치하지 않습니다.");
   } else {
     join(
@@ -116,7 +116,7 @@ const onSubmit = () => {
     <div class="input-title">인증번호</div>
     <div class="input-confirm-box">
       <input id="code" v-model="joinUser.code" />
-      <button id="btn-check-code">인증번호 확인</button>
+      <button id="btn-check-code" @click.prevent="">인증번호 확인</button>
     </div>
     <div class="input-title">전화번호</div>
     <input

@@ -1,8 +1,15 @@
 <script setup>
 import { ref } from "vue";
+import { storeToRefs } from "pinia";
 import { RouterLink, useRouter } from "vue-router";
+import { useMemberStore } from "@/stores/member";
 
 const router = useRouter();
+
+const memberStore = useMemberStore();
+
+const { isLogin } = storeToRefs(memberStore);
+const { userLogin, getUserInfo } = memberStore;
 
 const loginUser = ref({
   userId: "",
@@ -11,6 +18,16 @@ const loginUser = ref({
 
 const login = async () => {
   console.log("login");
+  await userLogin(loginUser.value);
+  let token = sessionStorage.getItem("accessToken");
+  console.log("111. ", token);
+  console.log("isLogin: ", isLogin);
+  if (isLogin) {
+    console.log("로그인 성공아닌가???");
+    getUserInfo(token);
+    // changeMenuState();
+  }
+  router.push("/");
 };
 </script>
 
