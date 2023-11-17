@@ -66,8 +66,6 @@ public class UserController {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 		
-		String userPwd = user.getUserPwd();
-		System.out.println(user.getUserPwd());
 		
 		try {
 			User loginUser = userService.login(user);

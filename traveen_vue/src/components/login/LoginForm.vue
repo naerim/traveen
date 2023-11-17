@@ -17,17 +17,11 @@ const loginUser = ref({
 });
 
 const login = async () => {
-  console.log("login");
   await userLogin(loginUser.value);
-  console.log("loingUser : ", loginUser.value);
   let token = sessionStorage.getItem("accessToken");
-  console.log("access token : ", token);
-  console.log("isLogin: ", isLogin);
   if (isLogin) {
-    console.log("로그인 성공");
+    console.log("getUserinfo");
     getUserInfo(token);
-    console.log("token " + token);
-    // changeMenuState();
   }
   router.push("/");
 };

@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";

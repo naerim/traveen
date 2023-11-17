@@ -1,49 +1,28 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { storeToRefs } from "pinia";
 import { useRoute, useRouter } from "vue-router";
-import { detailUser, modifyUser } from "@/api/user";
+import { modifyUser } from "@/api/user";
+import { useMemberStore } from "@/stores/member";
 
-// 임시 아이디
-const loginId = "admin";
-const user = ref({
-  userName: "",
-  emailId: "",
-  emailDomain: "",
-  mobile: "",
-});
+const memberStore = useMemberStore();
+const { userInfo } = storeToRefs(memberStore);
 
 const route = useRoute();
 const router = useRouter();
 
 const { userId } = route.params;
 
-onMounted(() => {
-  getUser();
-});
-
-const getUser = () => {
-  detailUser(
-    loginId,
-
-    ({ data }) => {
-      user.value = data;
-      console.log(user.value);
-    },
-    (error) => console.log(error)
-  );
-};
-
-const onUserModify = () => {
-  modifyUser(
-    user.value,
-    () => {
-      console.log(user.value);
-      alert("수정되었습니다.");
-      router.push({ name: "myinfo", params: { userId: userId } });
-    },
-    (error) => console.log(error)
-  );
-};
+// const onUserModify = () => {
+//   modifyUser(
+//     user.value,
+//     () => {
+//       console.log(user.value);
+//       alert("수정되었습니다.");
+//       router.push({ name: "myinfo", params: { userId: userId } });
+//     },
+//     (error) => console.log(error)
+//   );
+// };
 </script>
 
 <template>
@@ -54,18 +33,18 @@ const onUserModify = () => {
   <div class="info-container">
     <form action="">
       <div class="input-title">아이디</div>
-      <input type="text" id="userId" name="userId" v-model="user.userId" readonly />
+      <input type="text" id="userId" name="userId" v-model="userInfo.userId" readonly />
       <div class="input-title">이름</div>
-      <input type="text" id="userName" name="userName" v-model="user.userName" />
+      <input type="text" id="userName" name="userName" v-model="userInfo.userName" />
       <div class="input-title">이메일</div>
-      <input type="text" id="emailId" name="emailId" v-model="user.emailId" />
+      <input type="text" id="emailId" name="emailId" v-model="userInfo.emailId" />
       <span>@</span>
-      <select name="emailDomain" id="emailDomain" v-model="user.emailDomain">
+      <select name="emailDomain" id="emailDomain" v-model="userInfo.emailDomain">
         <option value="naver.com">naver.com</option>
         <option value="google.com">google.com</option>
       </select>
       <div class="input-title">전화번호</div>
-      <input type="text" id="mobile" name="mobile" v-model="user.mobile" />
+      <input type="text" id="mobile" name="mobile" v-model="userInfo.mobile" />
     </form>
   </div>
 </template>

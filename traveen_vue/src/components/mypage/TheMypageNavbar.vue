@@ -1,4 +1,10 @@
-<script setup></script>
+<script setup>
+import { storeToRefs } from "pinia";
+import { useMemberStore } from "@/stores/member";
+
+const memberStore = useMemberStore();
+const { userInfo } = storeToRefs(memberStore);
+</script>
 
 <template>
   <aside>
