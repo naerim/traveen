@@ -1,7 +1,19 @@
-<script setup></script>
+<script setup>
+import CourseSearchForm from "@/components/course/CourseSearchForm.vue";
+import CourseList from "@/components/course/CourseList.vue";
+</script>
 
 <template>
-  <div>코스 수정 페이지</div>
+  <h1 class="title">
+    "코스 이름"<br />
+    코스를 수정해보세요.
+  </h1>
+  <div class="course-modify-container">
+    <CourseSearchForm />
+    <CourseList />
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+@import "@/assets/scss/components/course/courseModify.scss";
+</style>

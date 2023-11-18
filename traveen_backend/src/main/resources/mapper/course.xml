@@ -46,4 +46,12 @@
 		where user_idx = #{userIdx}
 		order by create_date desc
 	</select>
+
+	<!-- 코스 아이템 목록 -->
+	<select id="listCourseinfo" parameterType="String" resultMap="courseinfo">
+		select ci.idx, ci.course_idx, ci.tripinfo_idx, ci.order, c.title
+		from courses c, courseinfo ci, tripinfo t
+		where ci.course_idx=#{courseIdx} and ci.tripinfo_idx=t.idx
+		order by ci.order
+	</select>
 </mapper>

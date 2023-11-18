@@ -41,6 +41,9 @@ public class Courseinfo {
 	/* 시도 코드 */
 	@ApiModelProperty(value = "시도 코드")
 	private int sidoCode;
+	/* 코스 제목 */
+	@ApiModelProperty(value = "코스 제목")
+	private String courseTitle;
 	
 	
 	public int getIdx() {
@@ -114,6 +117,12 @@ public class Courseinfo {
 	}
 	public void setSidoCode(int sidoCode) {
 		this.sidoCode = sidoCode;
+	}
+	public String getCourseTitle() {
+		return courseTitle;
+	}
+	public void setCourseTitle(String courseTitle) {
+		this.courseTitle = courseTitle;
 	}
 	
 	

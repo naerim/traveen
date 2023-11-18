@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ssafy.course.model.Course;
+import com.ssafy.course.model.Courseinfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -41,13 +42,23 @@ public class CourseController {
 	}
 
 	@GetMapping("/{userIdx}/list")
-	@ApiOperation(value = "코스 목록 API", notes = "코스 목록을 조회하는 역할을 합니다. /course/{userId}list")
+	@ApiOperation(value = "코스 목록 API", notes = "코스 목록을 조회하는 역할을 합니다. /course/{userId}/list")
 	public ResponseEntity<?> list(@PathVariable("userIdx") String userIdx) throws Exception {
 		logger.debug("course list user Idx : {}", userIdx);
 		List<Course> courseList = courseService.listCourse(userIdx);
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 		return ResponseEntity.ok().headers(header).body(courseList);
+	}
+
+	@GetMapping("/list/{courseIdx}")
+	@ApiOperation(value = "코스 여행지 목록 API", notes = "코스에 속하는 여행지 목록을 조회하는 역할을 합니다. /course/list/{courseIdx}")
+	public ResponseEntity<?> infoList(@PathVariable("courseIdx") String courseIdx) throws Exception {
+		logger.debug("course item list user Idx : {}", courseIdx);
+		List<Courseinfo> courseinfoList = courseService.listCourseInfo(courseIdx);
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+		return ResponseEntity.ok().headers(header).body(courseinfoList);
 	}
 
 }
