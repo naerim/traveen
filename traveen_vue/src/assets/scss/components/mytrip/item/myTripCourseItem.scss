@@ -25,7 +25,7 @@
   margin-top: auto;
 }
 
-#menu {
+#menu-icon {
   position: absolute;
   width: 20px;
   right: 10px;
@@ -38,4 +38,40 @@
   height: 30px;
   right: 10px;
   bottom: 10px;
+}
+
+#menu {
+  position: absolute;
+  font-size: 0.9em;
+  top: 40px;
+  right: -24px;
+  display: flex;
+  background-color: #fff;
+  width: 110px;
+  border: 1px solid #e3e3e3;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    padding: 4px 8px;
+    box-sizing: border-box;
+  }
+  li {
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    padding: 1px 4px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    &:hover:not(.done) {
+      background-color: #edf6f1;
+      color: #51cd89;
+    }
+  }
+}
+
+.done {
+  color: #6b7684;
 }

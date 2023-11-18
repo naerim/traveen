@@ -1,15 +1,19 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useCourseStore } from "@/stores/course";
+import { useMemberStore } from "@/stores/member";
 import CourseListModalItem from "@/components/course/item/CourseListModalItem.vue";
 import { registCourse } from "@/api/course";
 
 const courseStore = useCourseStore();
+const memberStore = useMemberStore();
+
+const userInfo = computed(() => memberStore.userInfo);
 
 const param = ref({
   course: {
     title: "",
-    userIdx: 1,
+    userIdx: userInfo.value.idx,
     startDate: "",
     endDate: "",
     flag: 0,
