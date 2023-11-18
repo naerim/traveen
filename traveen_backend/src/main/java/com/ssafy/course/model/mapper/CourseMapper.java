@@ -7,10 +7,10 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.course.model.Course;
-import com.ssafy.course.model.Courseinfo;
 
 @Mapper
 public interface CourseMapper {
 	int registCourse(Course course) throws SQLException;
 	void registCourseinfo(Map<String, Object> map) throws SQLException;
+	List<Course> listCourse(String userIdx) throws SQLException;
 }

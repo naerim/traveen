@@ -7,4 +7,9 @@ const registCourse = (param, success, fail) => {
   local.post(`/course/regist`, JSON.stringify(param)).then(success).catch(fail);
 };
 
-export { registCourse };
+// 코스 목록
+const listCourse = (userId, success, fail) => {
+  local.get(`/course/${userId}/list`).then(success).catch(fail);
+};
+
+export { registCourse, listCourse };

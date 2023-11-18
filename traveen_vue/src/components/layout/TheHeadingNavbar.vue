@@ -1,10 +1,12 @@
 <script setup>
+import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
 
 const memberStore = useMemberStore();
-const { userInfo, isLogin } = storeToRefs(memberStore);
+const { isLogin } = storeToRefs(memberStore);
+const userInfo = computed(() => memberStore.userInfo);
 
 const router = useRouter();
 
@@ -25,8 +27,11 @@ const goMyPage = () => router.push({ name: "mypage" });
           <router-link to="/center">고객센터</router-link>
         </div>
       </div>
-      <div v-if="isLogin">
-        <span id="userName">{{ userInfo.userName }}님, 반갑습니다.</span>
+      <div v-if="isLogin && userInfo">
+        <span id="userName"
+          ><b>{{ userInfo.userName }}</b
+          >님, 반갑습니다.</span
+        >
         <button @click="goMyPage">마이페이지</button>
       </div>
       <button v-else @click="goLoginPage">로그인</button>

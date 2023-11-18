@@ -38,4 +38,12 @@
 		)
 		</foreach>
 	</insert>
+
+	<!-- 코스 목록 -->
+	<select id="listCourse" parameterType="String" resultMap="course">
+		select idx, title, user_idx, create_date, date_format(start_date, '%Y-%m-%d') start_date, date_format(end_date, '%Y-%m-%d') end_date, flag
+		from courses
+		where user_idx = #{userIdx}
+		order by create_date desc
+	</select>
 </mapper>
