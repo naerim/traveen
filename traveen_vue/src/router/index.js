@@ -68,6 +68,19 @@ const router = createRouter({
       path: "/course",
       name: "course",
       component: () => import("@/views/CourseView.vue"),
+      redirect: { name: "course-write" },
+      children: [
+        {
+          path: "write",
+          name: "course-write",
+          component: () => import("@/components/course/CourseWrite.vue"),
+        },
+        {
+          path: "modify/:idx",
+          name: "course-modify",
+          component: () => import("@/components/course/CourseModify.vue"),
+        },
+      ],
     },
     {
       path: "/aftertraveen",
