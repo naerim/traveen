@@ -2,6 +2,11 @@
 import { ref, watch, onMounted } from "vue";
 import { registNotice, modifyNotice, detailNotice } from "@/api/notice";
 import { useRoute, useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
+import { useMemberStore } from "@/stores/member";
+
+const memberStore = useMemberStore();
+const { userInfo } = storeToRefs(memberStore);
 
 const route = useRoute();
 const router = useRouter();
@@ -13,7 +18,7 @@ const isUseId = ref(false);
 
 const notice = ref({
   idx: idx,
-  userIdx: 1,
+  userIdx: "",
   title: "",
   content: "",
   createDate: "",
@@ -29,6 +34,7 @@ onMounted(() => {
       },
       (error) => console.log(error)
     );
+
 });
 
 if (props.type === "modify") {

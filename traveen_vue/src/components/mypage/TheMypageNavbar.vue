@@ -12,7 +12,7 @@ const { userInfo, isLogin } = storeToRefs(memberStore);
 const logout = async () => {
   router.push("/");
   await userLogout(userInfo.value.userId);
-  if (!isLogin) {
+  if (isLogin) {
     sessionStorage.clear();
     alert("로그아웃 되었습니다.");
   }

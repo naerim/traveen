@@ -1,17 +1,17 @@
 <script setup>
 import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
-import { useMemberStore } from "@/stores/member";
 import { useRouter } from "vue-router";
+import { useMemberStore } from "@/stores/member";
 import VKakaoMap from "@/components/common/VKakaoMap.vue";
 import { useTripStore } from "@/stores/trip";
 import { useCourseStore } from "@/stores/course";
 import { likeTrip } from "@/api/trip";
 
-const tripStore = useTripStore();
-const courseStore = useCourseStore();
 const memberStore = useMemberStore();
 const { userInfo } = storeToRefs(memberStore);
+const tripStore = useTripStore();
+const courseStore = useCourseStore();
 
 const router = useRouter();
 
@@ -55,7 +55,7 @@ const addCourse = () => {
 
 // 여행지 찜하기
 const clickLike = () => {
-        tripLike.value.userId = userInfo.value.userId;
+        tripLike.value.userIdx = userInfo.value.idx;
         tripLike.value.tripinfoIdx = tripStore.selectTrip.idx;
   likeTrip(
     tripLike.value,
