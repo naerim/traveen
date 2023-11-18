@@ -108,6 +108,7 @@ export const useMemberStore = defineStore("memberStore", () => {
       (response) => {
         if (response.status === httpStatusCode.OK) {
           isLogin.value = false;
+          console.log(isLogin.value);
           userInfo.value = null;
           isValidToken.value = false;
         } else {

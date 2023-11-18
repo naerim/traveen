@@ -92,7 +92,7 @@
 	
 	<update id="deleteRefreshToken" parameterType="map">
 		update users
-		set token = #{token, jdbcType=VARCHAR}
+		set refresh_token = #{refreshToken, jdbcType=VARCHAR}
 		where user_id = #{userId}
 	</update>
 	

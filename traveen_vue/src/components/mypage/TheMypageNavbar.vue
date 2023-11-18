@@ -2,17 +2,32 @@
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { useMemberStore } from "@/stores/member";
-import { userLogout } from "@/api/member";
+import { deleteUser } from "@/api/user";
 
 const router = useRouter();
 const memberStore = useMemberStore();
-const { userInfo } = storeToRefs(memberStore);
+const { userLogout } = memberStore;
+const { userInfo, isLogin } = storeToRefs(memberStore);
 
 const logout = async () => {
-  await userLogout(userInfo.value.userId);
-  sessionStorage.clear();
-  console.log("로그아웃");
   router.push("/");
+  await userLogout(userInfo.value.userId);
+  if (isLogin) {
+    sessionStorage.clear();
+    alert("로그아웃 되었습니다.");
+  }
+};
+
+const removeUser = () => {
+  deleteUser(
+    userInfo.value.userId,
+    () => {
+      sessionStorage.clear();
+      alert("회원탈퇴가 완료되었습니다.");
+      router.push("/");
+    },
+    (error) => console.log(error)
+  );
 };
 
 </script>
@@ -42,7 +57,7 @@ const logout = async () => {
       <!-- link-box -->
       <div class="link-box">
         <a href="#" @click="logout">로그아웃</a>
-        <a href="#">회원탈퇴</a>
+        <a href="#" @click="removeUser">회원탈퇴</a>
       </div>
     </div>
     <div class="bottom-logo">Traveen</div>

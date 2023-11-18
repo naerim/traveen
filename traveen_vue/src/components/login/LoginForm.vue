@@ -20,7 +20,6 @@ const login = async () => {
   await userLogin(loginUser.value);
   let token = sessionStorage.getItem("accessToken");
   if (isLogin) {
-    console.log("getUserinfo");
     getUserInfo(token);
   }
   router.push("/");
@@ -50,7 +49,7 @@ const login = async () => {
     </div>
     <div class="input-mid-box">
       <div class="checkbox-box">
-        <label> <input type="checkbox" /> 아이디 기억하기 </label>
+        <label> <input type="checkbox" name="idSave"/> 아이디 기억하기 </label>
       </div>
       <RouterLink :to="{ name: 'join' }">회원가입</RouterLink>
     </div>
