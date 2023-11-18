@@ -1,7 +1,11 @@
-<script setup></script>
+<script setup>
+import HomeFirstSection from "@/components/home/HomeFirstSection.vue";
+</script>
 
 <template>
-  <div>홈</div>
+  <article>
+    <HomeFirstSection />
+  </article>
 </template>
 
 <style scoped></style>

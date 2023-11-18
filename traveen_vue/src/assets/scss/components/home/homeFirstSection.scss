@@ -1,0 +1,64 @@
+.bg {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 95vh;
+  background-image: url("@/assets/img/gif_main.gif");
+  background-color: rgba(0, 0, 0, 0.2);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.bg::before {
+  content: "";
+  opacity: 0.4;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: #000;
+}
+
+h1 {
+  padding-top: 240px;
+  color: #fff;
+  text-align: center;
+  font-size: 3.4em;
+  font-weight: 400;
+  position: relative;
+}
+
+.bg-wrap {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  position: relative;
+}
+
+.bg-wrap img {
+  margin-left: 10px;
+  width: 14px;
+}
+
+.line {
+  width: 100px;
+  background-color: #fff;
+  height: 4px;
+  position: relative;
+}
+
+.bb {
+  color: var(--tv-c-green);
+}
+
+span {
+  margin-left: 20px;
+  color: #fff;
+  font-weight: bold;
+  position: relative;
+}
