@@ -38,6 +38,7 @@ h1 {
   align-items: center;
   margin: 0 auto;
   position: relative;
+  cursor: pointer;
 }
 
 .bg-wrap img {
@@ -52,7 +53,7 @@ h1 {
   position: relative;
 }
 
-.bb {
+.g {
   color: var(--tv-c-green);
 }
 

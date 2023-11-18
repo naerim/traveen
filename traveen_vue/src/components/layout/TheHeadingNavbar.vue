@@ -4,7 +4,7 @@ import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
 
 const memberStore = useMemberStore();
-const { isLogin } = storeToRefs(memberStore);
+const { userInfo, isLogin } = storeToRefs(memberStore);
 
 const router = useRouter();
 
@@ -25,7 +25,10 @@ const goMyPage = () => router.push({ name: "mypage" });
           <router-link to="/center">고객센터</router-link>
         </div>
       </div>
-      <button v-if="isLogin" @click="goMyPage">마이페이지</button>
+      <div v-if="isLogin">
+        <span id="userName">{{ userInfo.userName }}님, 반갑습니다.</span>
+        <button @click="goMyPage">마이페이지</button>
+      </div>
       <button v-else @click="goLoginPage">로그인</button>
     </div>
     <i class="fa-solid fa-bars fa-2x" style="color: #454545" id="hamburger"></i>
