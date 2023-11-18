@@ -17,4 +17,11 @@ const listSido = (success, fail) => {
   local.get(`/tripinfo/sidoList`).then(success).catch(fail);
 };
 
-export { listTrip, detailTrip, listSido };
+const likeTrip = (tripLike, success, fail) => {
+  local
+    .post(`/tripinfo/like`, JSON.stringify(tripLike))
+    .then(success)
+    .catch(fail);
+};
+
+export { listTrip, detailTrip, listSido, likeTrip };

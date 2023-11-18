@@ -14,6 +14,7 @@ const { userLogin, getUserInfo } = memberStore;
 const loginUser = ref({
   userId: "",
   userPwd: "",
+  refreshToken: "",
 });
 
 const login = async () => {

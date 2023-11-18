@@ -7,6 +7,11 @@ const join = (user, success, fail) => {
   local.post(`/user/join`, JSON.stringify(user)).then(success).catch(fail);
 };
 
+// refresh token 넣기
+const addToken = (user, success, fail) => {
+  local.post(`/user/login`, JSON.stringify(user)).then(success).catch(fail);
+};
+
 // 아이디 중복 체크
 const idCheck = (userId, success, fail) => {
   local.get(`/user/idCheck/${userId}`).then(success).catch(fail);
@@ -60,4 +65,5 @@ export {
   findById,
   tokenRegeneration,
   logout,
+  addToken,
 };

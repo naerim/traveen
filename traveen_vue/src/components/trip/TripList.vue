@@ -5,7 +5,6 @@ import TripListItem from "@/components/trip/item/TripListItem.vue";
 import PageNavigation from "@/components/common/PageNavigation.vue";
 import VEmptyItem from "@/components/common/VEmptyItem.vue";
 import TripModal from "@/components/trip/TripModal.vue";
-
 import { useTripStore } from "@/stores/trip";
 
 const tripStore = useTripStore();

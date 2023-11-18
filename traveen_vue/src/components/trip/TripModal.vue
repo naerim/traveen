@@ -1,12 +1,17 @@
 <script setup>
 import { ref, watch } from "vue";
+import { storeToRefs } from "pinia";
+import { useMemberStore } from "@/stores/member";
 import { useRouter } from "vue-router";
 import VKakaoMap from "@/components/common/VKakaoMap.vue";
 import { useTripStore } from "@/stores/trip";
 import { useCourseStore } from "@/stores/course";
+import { likeTrip } from "@/api/trip";
 
 const tripStore = useTripStore();
 const courseStore = useCourseStore();
+const memberStore = useMemberStore();
+const { userInfo } = storeToRefs(memberStore);
 
 const router = useRouter();
 
@@ -15,6 +20,14 @@ const props = defineProps({
   type: String,
   trip: Object,
 });
+
+
+const tripLike = ref({
+  idx: "",
+  tripinfoIdx: "",
+  userId: "",
+  createDate: "",
+})
 
 const select = ref(tripStore.selectTrip);
 
@@ -38,6 +51,20 @@ const goWriteCourse = () => {
 const addCourse = () => {
   courseStore.addCourse(tripStore.selectTrip);
   onClickCloseModal();
+};
+
+// 여행지 찜하기
+const clickLike = () => {
+        tripLike.value.userId = userInfo.value.userId;
+        tripLike.value.tripinfoIdx = tripStore.selectTrip.idx;
+  likeTrip(
+    tripLike.value,
+    () => {
+        
+      console.log("여행지 찜하기 완료");
+    },
+    (error) => console.log(error)
+  );
 };
 </script>
 
@@ -96,7 +123,7 @@ const addCourse = () => {
           <div class="button-wrap">
             <button v-if="props.type === 'trip'" @click="goWriteCourse">여행코스 만들기</button>
             <button v-else @click="addCourse">추가하기</button>
-            <button>
+            <button @click="clickLike">
               찜하기
               <img src="@/assets/img/icon_heart.png" alt="" />
             </button>
