@@ -9,8 +9,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.ssafy.exception.UnAuthorizedException;
 import com.ssafy.util.JWTUtil;
 
-import lombok.extern.slf4j.Slf4j;
 
+import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class JWTInterceptor implements HandlerInterceptor {
@@ -30,10 +30,10 @@ public class JWTInterceptor implements HandlerInterceptor {
 		final String token = request.getHeader(HEADER_AUTH);
 
 		if (token != null && jwtUtil.checkToken(token)) {
-			log.info("토큰 사용 가능 : {}", token);
+//			log.info("토큰 사용 가능 : {}", token);
 			return true;
 		} else {
-			log.info("토큰 사용 불가능 : {}", token);
+//			log.info("토큰 사용 불가능 : {}", token);
 			throw new UnAuthorizedException();
 		}
 

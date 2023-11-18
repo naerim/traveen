@@ -1,9 +1,20 @@
 <script setup>
 import { storeToRefs } from "pinia";
+import { useRouter } from "vue-router";
 import { useMemberStore } from "@/stores/member";
+import { userLogout } from "@/api/member";
 
+const router = useRouter();
 const memberStore = useMemberStore();
 const { userInfo } = storeToRefs(memberStore);
+
+const logout = async () => {
+  await userLogout(userInfo.value.userId);
+  sessionStorage.clear();
+  console.log("로그아웃");
+  router.push("/");
+};
+
 </script>
 
 <template>
@@ -17,7 +28,7 @@ const { userInfo } = storeToRefs(memberStore);
         </div>
       </div>
       <!-- name -->
-      <div id="user_name">김유냐냐</div>
+      <div id="user_name">{{ userInfo.userName }}</div>
       <!-- follower -->
       <div id="follower">팔로워 10</div>
       <ul class="menu">
@@ -30,7 +41,7 @@ const { userInfo } = storeToRefs(memberStore);
       <div class="line"></div>
       <!-- link-box -->
       <div class="link-box">
-        <a href="#">로그아웃</a>
+        <a href="#" @click="logout">로그아웃</a>
         <a href="#">회원탈퇴</a>
       </div>
     </div>

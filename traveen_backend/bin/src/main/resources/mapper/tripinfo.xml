@@ -21,36 +21,69 @@
 		<result column="like_count" property="likeCount" />
 		<result column="view_count" property="viewCount" />
 	</resultMap>
-
+	
+	<resultMap type="sido" id="sido">
+		<result column="idx" property="idx" />
+		<result column="code" property="code" />
+		<result column="name" property="name" />
+	</resultMap>
+			
 	<!-- 검색 -->
-<!-- 	<sql id="search"> -->
-<!-- 		<if test="word != null and word != ''"> -->
-<!-- 			<if test="key == 'subject'"> -->
-<!-- 				and subject like concat('%', #{word}, '%') -->
-<!-- 			</if> -->
-<!-- 			<if test="key != 'subject'"> -->
-<!-- 				and ${key} = #{word} -->
-<!-- 			</if> -->
-<!-- 		</if> -->
-<!-- 	</sql> -->
+ 	<sql id="search">
+	    <if test="word != null and word != ''">
+	        and (title like concat('%', #{word}, '%') or place_name like concat('%', #{word}, '%') or address like concat('%', #{word}, '%'))
+	    </if>
+	    <if test="type != null and type != ''">
+	    	and type=#{type}
+	    </if>
+	   	<if test="category != null and category != ''">
+	    	and category_name=#{category}
+	    </if>
+	   	<if test="sido != null and sido != ''">
+	    	and sido_code=#{sido}
+	    </if>
+	</sql> 
 
 	<!-- 여행지 목록 -->
 	<select id="listTripinfo" parameterType="tripinfo" resultMap="tripinfo">
-		select idx, category_name, title, place_name, type, `desc`, oper_time, rest_time, restdate_content, address, lat, loc,sido_code, tel, like_count, view_count
+		select idx, category_name, title, place_name, type, `desc`, oper_time, rest_time, restdate_content, address, lat, loc, sido_code, tel, like_count, view_count
 		from tripinfo
-<!-- 		<where> -->
-<!-- 			<include refid="search"></include> -->
-<!-- 		</where> -->
-		order by view_count desc
-<!-- 		limit #{start}, #{listsize} -->
+ 		<where>
+ 			<include refid="search"></include>
+ 		</where>
+ 		<trim prefix='ORDER BY'>
+ 			<if test="order==''">view_count desc</if>
+ 			<if test="order=='likeCount'">like_count desc</if>
+ 		</trim>
+ 		limit #{start}, #{listsize} 
 	</select>
+	
+	<!-- 여행지 조회 -->
+	<select id="viewTripinfo" parameterType="int" resultMap="tripinfo">
+		select idx, category_name, title, place_name, type, `desc`, oper_time, rest_time, restdate_content, address, lat, loc, sido_code, tel, like_count, view_count
+		from tripinfo
+		where idx = #{idx}
+	</select>
+	
+	<!-- 조회수 카운트 -->
+	<update id="updateHit" parameterType="int">
+		update tripinfo
+		set view_count = view_count + 1
+		where idx = #{idx}
+	</update>
 
-	<!-- 총 여행지 목록 -->
+	<!-- 총 여행지 목록 개수 -->
 	<select id="getTotalTripinfoCount" parameterType="tripinfo" resultType="int">
 		select count(idx)
 		from tripinfo
-<!-- 		<where> -->
-<!-- 			<include refid="search"></include> -->
-<!-- 		</where> -->
+ 		<where>
+			<include refid="search"></include>
+		</where>
+	</select>
+	
+	<!-- 시도 목록 -->
+	<select id="listSido" resultMap="sido">
+		select idx, code, name 
+		from sido
 	</select>
 </mapper>
