@@ -16,7 +16,10 @@ const joinUser = ref({
   pwdCheck: "",
   salt: "",
 });
+
+const emailCodeIsEqual = ref(false);
 const idCheckState = ref(false);
+const codeCheckState = ref(false);
 
 const onIdCheck = (id) => {
   const blank_pattern = /[\s]/g;
@@ -31,6 +34,7 @@ const onIdCheck = (id) => {
           idCheckState.value = true;
           alert(id + "는 사용가능한 아이디입니다.");
         } else {
+          idCheckState.value = false;
           alert("이미 존재하는 아이디입니다.");
         }
       },
@@ -40,18 +44,16 @@ const onIdCheck = (id) => {
 };
 
 const getEmailCode = () => {
-  const blank_pattern = /[\s]/g;
-  if (blank_pattern.test(joinUser.value.emailId)) {
+  if (joinUser.value.emailId == "") {
     alert("이메일을 입력해주세요.");
-  } else if (blank_pattern.test(joinUser.value.emailDomain)) {
+  } else if (joinUser.value.emailDomain == "") {
     alert("이메일을 선택해주세요.");
   } else {
-    console.log(joinUser.value.emailId+"@"+joinUser.value.emailDomain);
     sendEmail(
       joinUser.value.emailId+"@"+joinUser.value.emailDomain,
       ({data}) => {
-        console.log(data);
         alert("인증번호가 전송되었습니다.");
+        
         joinUser.value.emailCode = data.key;
       },
       (error) => console.log(error)
@@ -61,16 +63,25 @@ const getEmailCode = () => {
 
 const onCheckEmailCode = () => {
   const emailCode = document.getElementById("code").value;
-  if (joinUser.value.code === emailCode) {
+  if (joinUser.value.emailCode == emailCode && joinUser.value.emailCode != "") {
     alert("이메일 인증이 완료되었습니다.");
+    codeCheckState.value = true;
+  } else if (emailCode == "") {
+    alert("인증번호를 입력해주세요.");
   } else {
     alert("인증번호가 일치하지 않습니다.");
+    codeCheckState.value = false;
   }
 }
 
 // 아이디 input 변경 감지하는 함수
 const onIdChange = () => {
   idCheckState.value = false;
+};
+
+// 인증번호 input 변경 감지하는 함수
+const onCodeChange = () => {
+  codeCheckState.value = false;
 };
 
 const onSubmit = () => {
@@ -87,7 +98,10 @@ const onSubmit = () => {
     alert("비밀번호를 입력해주세요.");
   } else if (joinUser.value.userPwd !== joinUser.value.pwdCheck) {
     alert("비밀번호가 일치하지 않습니다.");
-  } else {
+  } else if (!codeCheckState.value) {
+    alert("이메일 인증을 완료해주세요.");
+  }
+  else {
     join(
       joinUser.value,
       ({ data }) => {
@@ -145,8 +159,8 @@ const onSubmit = () => {
     </div>
     <div class="input-title">인증번호</div>
     <div class="input-confirm-box">
-      <input id="code"/>
-      <button id="btn-check-code" @click.prevent="onCheckEmailCode()">인증번호 확인</button>
+      <input id="code" @input="onCodeChange"/>
+      <button id="btn-check-code" :disabled="codeCheckState" @click.prevent="onCheckEmailCode()">인증번호 확인</button>
     </div>
     <div class="input-title">전화번호</div>
     <input
