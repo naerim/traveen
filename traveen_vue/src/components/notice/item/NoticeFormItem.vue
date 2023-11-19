@@ -1,12 +1,11 @@
 <script setup>
-import { ref, watch, onMounted } from "vue";
+import { ref, watch, onMounted, computed } from "vue";
 import { registNotice, modifyNotice, detailNotice } from "@/api/notice";
 import { useRoute, useRouter } from "vue-router";
-import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
 
 const memberStore = useMemberStore();
-const { userInfo } = storeToRefs(memberStore);
+const userInfo = computed(() => memberStore.userInfo);
 
 const route = useRoute();
 const router = useRouter();
@@ -26,20 +25,20 @@ const notice = ref({
 });
 
 onMounted(() => {
+  notice.value.userIdx = userInfo.value.idx;
   props.type === "modify" &&
     detailNotice(
       idx,
       ({ data }) => {
+        
         notice.value = data;
       },
       (error) => console.log(error)
     );
-
 });
 
 if (props.type === "modify") {
   let { idx } = route.params;
-  console.log(idx + "번글 얻어와서 수정할거야");
   // API 호출
   isUseId.value = true;
 }

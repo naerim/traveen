@@ -56,6 +56,11 @@ const onPageChange = (val) => {
   getNoticeList();
 };
 
+const searchNotice = () => {
+  param.value.pgno = 1;
+  getNoticeList();
+};
+
 // 공지사항 글 갯수 세기
 watch(notices, (newValue) => {
   len.value = newValue.length;
@@ -66,7 +71,7 @@ watch(notices, (newValue) => {
   <!-- section -->
   <section>
     <!-- top-box -->
-    <div class="top-box" v-if="userInfo.position == `M`">
+    <div class="top-box">
       <div class="left">총 {{ len }}건</div>
       <form class="right" id="form-search" action="#" method="post">
         <select name="select-notice" id="select-notice">
@@ -74,19 +79,8 @@ watch(notices, (newValue) => {
           <option value="subject">제목</option>
         </select>
         <input type="text" name="keyword" id="keyword" placeholder="검색어를 입력해주세요." />
-        <input type="submit" id="btn-search" value="검색" />
+        <input type="submit" id="btn-search" value="검색" @click="searchNotice"/>
         <button id="btn-insert" @click="goNoticeWrite">글쓰기</button>
-      </form>
-    </div>
-    <div class="top-box" v-else>
-      <div class="left">총 {{ len }}건</div>
-      <form class="right" id="form-search" action="#" method="post">
-        <select name="select-notice" id="select-notice">
-          <option value="">전체</option>
-          <option value="subject">제목</option>
-        </select>
-        <input type="text" name="keyword" id="keyword" placeholder="검색어를 입력해주세요." />
-        <input type="submit" id="btn-search" value="검색" />
       </form>
     </div>
     <div class="table-container">

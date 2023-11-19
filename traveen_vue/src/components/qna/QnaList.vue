@@ -1,9 +1,14 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, computed } from "vue";
 import QnaAccordionItem from "@/components/qna/item/QnaAccordionItem.vue";
 import QnaWriteModal from "@/components/qna/QnaWriteModal.vue";
 import VEmptyItem from "@/components/common/VEmptyItem.vue";
 import { registQna, listQna, listQnaComment } from "@/api/qna";
+
+import { useMemberStore } from "@/stores/member";
+
+const memberStore = useMemberStore();
+const userInfo = computed(() => memberStore.userInfo);
 
 const qna = ref({
   idx: 0,

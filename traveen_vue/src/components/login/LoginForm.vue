@@ -22,8 +22,11 @@ const login = async () => {
   let token = sessionStorage.getItem("accessToken");
   if (isLogin) {
     getUserInfo(token);
+    router.push("/");
   }
-  router.push("/");
+  else {
+    alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+  }
 };
 </script>
 
