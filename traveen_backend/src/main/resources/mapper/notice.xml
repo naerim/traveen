@@ -4,6 +4,7 @@
 
 <mapper namespace="com.ssafy.notice.model.mapper.NoticeMapper">
 	<resultMap type="notice" id="notice">
+		<result column="idx" property="idx" />
 		<result column="user_idx" property="userIdx" />
 		<result column="title" property="title" />
 		<result column="content" property="content" />
@@ -12,75 +13,86 @@
 	</resultMap>
 
 	<!-- 검색 -->
- 	<sql id="search">
- 		<if test="word != null and word != ''">
- 		and title like concat('%', #{word}, '%')
- 			<if test="key == 'title'">
- 				and title like concat('%', #{word}, '%')
- 			</if>
- 			<if test="key != 'title'">
- 				and title like concat('%', #{word}, '%')
- 			</if>
- 		</if>
- 	</sql>
+	<sql id="search">
+		<if test="word != null and word != ''">
+			and title like concat('%', #{word}, '%')
+			<if test="key == 'title'">
+				and title like concat('%', #{word}, '%')
+			</if>
+			<if test="key != 'title'">
+				and title like concat('%', #{word}, '%')
+			</if>
+		</if>
+	</sql>
 
 	<!-- 공지사항 목록 -->
 	<select id="listNotice" resultMap="notice">
-		select idx, title, date_format(create_date, '%Y-%m-%d') create_date, view_count, create_date as c_date
+		select idx, title, date_format(create_date, '%Y-%m-%d') create_date,
+		view_count, create_date as c_date
 		from notice
- 		<where>
- 			<include refid="search"></include>
- 		</where>
+		<where>
+			<include refid="search"></include>
+		</where>
 		order by c_date desc
- 		limit #{start}, #{listsize}
+		limit #{start}, #{listsize}
 	</select>
-	
+
 	<!-- 공지사항 조회 -->
 	<select id="viewNotice" parameterType="int" resultMap="notice">
-		select n.idx, u.idx, n.title, n.content, date_format(n.create_date, '%Y-%m-%d') as create_date, n.view_count
+		select
+		n.idx, u.idx, n.title, n.content, date_format(n.create_date,
+		'%Y-%m-%d') as create_date, n.view_count
 		from notice n, users u
-		where n.idx = #{idx} and n.user_idx = u.idx
+		where
+		n.idx = #{idx} and n.user_idx = u.idx
 	</select>
 
 	<!-- 조회수 카운트 -->
 	<update id="updateHit" parameterType="int">
 		update notice
-		set view_count = view_count + 1
+		set view_count
+		= view_count + 1
 		where idx = #{idx}
 	</update>
-	
+
 	<!-- 공지사항 등록 -->
 	<insert id="registNotice" parameterType="notice">
-		insert into notice(user_idx, title, content, create_date, view_count)
+		insert into
+		notice(user_idx, title, content, create_date, view_count)
 		values(#{userIdx}, #{title}, #{content}, now(), 0)
 	</insert>
-	
+
 	<!-- 공지사항 수정 -->
 	<update id="modifyNotice" parameterType="notice">
 		update notice
-		set title = #{title}, content = #{content}
+		set title =
+		#{title}, content = #{content}
 		where idx = #{idx}
 	</update>
-	
+
 	<!-- 공지사항 삭제 -->
 	<delete id="deleteNotice" parameterType="int">
 		delete from notice
-		where idx = #{idx}
+		where
+		idx = #{idx}
 	</delete>
-	
+
 	<!-- idx로 공지사항 찾기 -->
 	<select id="getNotice" parameterType="int" resultMap="notice">
-		select n.idx, u.idx, n.title, n.content, n.create_date, n.view_count
-		from notice n, users u
+		select
+		n.idx, u.idx, n.title, n.content, n.create_date, n.view_count
+		from
+		notice n, users u
 		where n.idx = #{idx} and n.user_idx = u.idx
 	</select>
-	
+
 	<!-- 총 공지사항 개수 -->
-	<select id="getTotalNoticeCount" parameterType="map" resultType="int">
+	<select id="getTotalNoticeCount" parameterType="map"
+		resultType="int">
 		select count(idx)
 		from notice
- 		<where>
- 			<include refid="search"></include>
- 		</where>
+		<where>
+			<include refid="search"></include>
+		</where>
 	</select>
 </mapper>

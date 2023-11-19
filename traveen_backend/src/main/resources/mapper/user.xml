@@ -39,12 +39,12 @@
 	
 	<!-- 아이디로 정보 가져오기 -->
 	<select id="getUser" parameterType="String" resultMap="user">
-		select user_id, user_pwd, user_name, email_id, email_domain, mobile, salt, join_date, position, refresh_token
+		select idx, user_id, user_pwd, user_name, email_id, email_domain, mobile, salt, join_date, position, refresh_token
 		from users
 		where user_id = #{userId}
 	</select>
 	
-	<!-- 회원정보수정 -->
+	<!-- 회원정보 수정 -->
 	<update id="updateUser" parameterType="user">
 		update users
 		<trim prefix="set" suffixOverrides=",">
@@ -78,18 +78,21 @@
 		where user_id = #{userId}
 	</delete>
 	
+	<!-- refresh token 저장 -->
 	<update id="saveRefreshToken" parameterType="map">
 		update users
 		set refresh_token = #{refreshToken}
 		where user_id = #{userId}
 	</update>
 	
+	<!-- refresh token 가져오기  -->
 	<select id="getRefreshToken" parameterType="string" resultType="string">
 		select refresh_token
 		from users
 		where user_id = #{userId}
 	</select>
 	
+	<!-- refresh token 삭제 -->
 	<update id="deleteRefreshToken" parameterType="map">
 		update users
 		set refresh_token = #{refreshToken, jdbcType=VARCHAR}

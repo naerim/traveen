@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.ssafy.notice.model.NoticeList;
+import com.ssafy.tripinfo.model.LikeTrip;
 import com.ssafy.tripinfo.model.Sido;
 import com.ssafy.tripinfo.model.Tripinfo;
 import com.ssafy.tripinfo.model.TripinfoList;
@@ -58,9 +58,17 @@ public class TripinfoServiceImpl implements TripinfoService {
 	}
 
 	@Override
+	public void updateLike(int idx) throws Exception {
+		tripinfoMapper.updateLike(idx);
+	}
+
+	@Override
 	public List<Sido> listSido() throws Exception {
 		return tripinfoMapper.listSido();
 	}
-	
-	
+
+	@Override
+	public void likeTripinfo(LikeTrip likeTrip) throws Exception {
+		tripinfoMapper.likeTripinfo(likeTrip);
+	}
 }

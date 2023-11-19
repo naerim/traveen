@@ -1,0 +1,22 @@
+package com.ssafy.post.model.mapper;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.ssafy.post.model.Post;
+
+@Mapper
+public interface PostMapper {
+	List<Post> listPost(Map<String, Object> map) throws SQLException;
+	void registPost(Post post) throws SQLException;
+	void modifyPost(Post post) throws SQLException;
+	void deletePost(int idx) throws SQLException;
+	Post viewPost(int idx) throws SQLException;
+
+	Post getPost(int idx) throws SQLException;
+	int getTotalPostCount(Map<String, Object> param) throws SQLException;
+	void updateHit(int idx) throws SQLException;
+}

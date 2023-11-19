@@ -35,7 +35,6 @@ public class UserServiceImpl implements UserService {
 		
 		user.setUserPwd(userUtil.getEncrypt(userPwd, salt));
 		
-		System.out.println(user);
 		return userMapper.login(user);
 	}
 
@@ -88,7 +87,7 @@ public class UserServiceImpl implements UserService {
 	public void saveRefreshToken(String userId, String refreshToken) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("userId", userId);
-		map.put("token", refreshToken);
+		map.put("refreshToken", refreshToken);
 		userMapper.saveRefreshToken(map);
 	}
 

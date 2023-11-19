@@ -7,15 +7,20 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ssafy.tripinfo.model.LikeTrip;
 import com.ssafy.tripinfo.model.Sido;
 import com.ssafy.tripinfo.model.Tripinfo;
 import com.ssafy.tripinfo.model.TripinfoList;
@@ -65,5 +70,17 @@ public class TripinfoController {
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 		return ResponseEntity.ok().headers(header).body(list);
+	}
+	
+	@PostMapping("/like")
+	@ApiOperation(value = "여행지 찜하기 API", notes = "여행지를 찜하는 역할을 합니다. /tripinfo/like")
+	public ResponseEntity<?> regist(@RequestBody LikeTrip likeTrip, 
+			RedirectAttributes redirectAttributes) throws Exception {
+		logger.debug("like tripinfo : {}", likeTrip);
+		int tripinfoIdx = likeTrip.getTripinfoIdx();
+		tripinfoService.updateLike(tripinfoIdx);
+		tripinfoService.likeTripinfo(likeTrip);
+
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 }

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.post.model.mapper.PostMapper">
+	<resultMap type="post" id="post">
+		<result column="idx" property="idx" />
+		<result column="user_idx" property="userIdx" />
+		<result column="course_idx" property="courseIdx" />
+		<result column="create_date" property="createDate" />
+		<result column="view_count" property="viewCount" />
+		<result column="like_count" property="likeCount" />
+		<result column="content" property="content" />
+	</resultMap>
+
+	<!-- 검색 -->
+ 	<sql id="search">
+ 		<if test="word != null and word != ''">
+ 		and title like concat('%', #{word}, '%')
+ 			<if test="key == 'title'">
+ 				and title like concat('%', #{word}, '%')
+ 			</if>
+ 			<if test="key != 'title'">
+ 				and title like concat('%', #{word}, '%')
+ 			</if>
+ 		</if>
+ 	</sql>
+
+	<!-- 여행 후기 게시글 목록 -->
+	<select id="listPost" resultMap="post">
+		select idx, user_idx, course_idx, create_date, view_count, like_count, content, create_date as c_date
+		from posts
+ 		<where>
+ 			<include refid="search"></include>
+ 		</where>
+		order by c_date desc
+ 		limit #{start}, #{listsize}
+	</select>
+	
+	<!-- 여행 후기 게시글 조회 -->
+	<select id="viewPost" parameterType="int" resultMap="post">
+		select p.idx, u.idx, c.idx, date_format(p.create_date, '%Y-%m-%d') as create_date, p.view_count,
+		p.like_count, p.content
+		from posts p, users u, courses c
+		where p.idx = #{idx} and p.user_idx = u.idx
+	</select>
+
+	<!-- 조회수 카운트 -->
+	<update id="updateHit" parameterType="int">
+		update posts
+		set view_count = view_count + 1
+		where idx = #{idx}
+	</update>
+	
+	<!-- 여행 후기 게시글 등록 -->
+	<insert id="registPost" parameterType="post">
+		insert into posts(user_idx, course_idx, create_date, view_count, like_count, content)
+		values(#{userIdx}, #{courseIdx}, now(), 0, 0, #{content})
+	</insert>
+	
+	<!-- 여행 후기 게시글 수정 -->
+	<update id="modifyPost" parameterType="post">
+		update posts
+		set content = #{content}
+		where idx = #{idx}
+	</update>
+	
+	<!-- 여행 후기 게시글 삭제 -->
+	<delete id="deletePost" parameterType="int">
+		delete from posts
+		where idx = #{idx}
+	</delete>
+	
+	<!-- idx로 여행 후기 게시글 찾기 -->
+	<select id="getPost" parameterType="int" resultMap="post">
+		select p.idx, u.idx, c.idx, date_format(p.create_date, '%Y-%m-%d') as create_date, p.view_count,
+		p.like_count, p.content
+		from posts p, users u, courses s
+		where p.idx = #{idx} and p.user_idx = u.idx
+	</select>
+	
+	<!-- 총 여행 후기 게시글 개수 -->
+	<select id="getTotalPostCount" parameterType="map" resultType="int">
+		select count(idx)
+		from posts
+ 		<where>
+ 			<include refid="search"></include>
+ 		</where>
+	</select>
+</mapper>

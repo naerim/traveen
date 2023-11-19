@@ -46,7 +46,7 @@ public class NoticeController {
 	
 	@GetMapping("/list")
 	@ApiOperation(value = "공지사항 목록 조회 API", notes = "공지사항 목록을 조회하는 역할을 합니다. /notice/list")
-	public ResponseEntity<?> list(@RequestParam @ApiParam(value = "공지사항 목록을 얻기위한 부가정보.", required = true) Map<String, String> map) throws Exception {
+	public ResponseEntity<?> list(@RequestParam @ApiParam(value = "공지사항 목록을 얻기 위한 부가정보.", required = true) Map<String, String> map) throws Exception {
 		logger.info("listNotice map = {}", map);
 		NoticeList noticeList = noticeService.listNotice(map);
 		HttpHeaders header = new HttpHeaders();
@@ -56,7 +56,7 @@ public class NoticeController {
 	
 	@GetMapping("/view/{idx}")
 	@ApiOperation(value = "공지사항 상세 조회 API", notes = "Notice의 idx를 RequestParam으로 받아 해당 공지사항을 상세 조회하는 역할을 합니다. /notice/view")
-	public ResponseEntity<?> view(@PathVariable(value="idx") int idx, Model model)
+	public ResponseEntity<?> view(@PathVariable(value="idx") int idx)
 			throws Exception {
 		logger.debug("view notice idx : {}", idx);
 		Notice notice = noticeService.viewNotice(idx);
@@ -66,8 +66,7 @@ public class NoticeController {
 	
 	@PostMapping("/regist")
 	@ApiOperation(value = "공지사항 등록 API", notes = "공지사항을 등록하는 역할을 합니다. /notice/regist")
-	public ResponseEntity<?> regist(@RequestBody Notice notice, HttpSession session,
-			RedirectAttributes redirectAttributes) throws Exception {
+	public ResponseEntity<?> regist(@RequestBody Notice notice) throws Exception {
 		logger.debug("write notice : {}", notice);
 		noticeService.registNotice(notice);
 
@@ -76,7 +75,7 @@ public class NoticeController {
 	
 	@GetMapping("/modify/{idx}")
 	@ApiOperation(value = "공지사항 수정 API", notes = "Notice의 idx를 PathVariable으로 받아 해당 공지사항을 수정하는 역할을 합니다. /notice/modify")
-	public ResponseEntity<?> modify(@PathVariable(value="idx") int idx, Model model)
+	public ResponseEntity<?> modify(@PathVariable(value="idx") int idx)
 			throws Exception {
 		logger.debug("modify idx : {}", idx);
 		Notice notice = noticeService.getNotice(idx);
@@ -86,8 +85,7 @@ public class NoticeController {
 
 	@PutMapping("/modify")
 	@ApiOperation(value = "공지사항 수정 API", notes = "공지사항 수정하는 역할을 합니다. /notice/modify")
-	public ResponseEntity<?> modify(@RequestBody Notice notice,
-			RedirectAttributes rttr) throws Exception {
+	public ResponseEntity<?> modify(@RequestBody Notice notice) throws Exception {
 		logger.debug("modify notice : {}", notice);
 		noticeService.modifyNotice(notice);
 		return ResponseEntity.ok().build();
@@ -95,7 +93,7 @@ public class NoticeController {
 	
 	@DeleteMapping("/delete/{idx}")
 	@ApiOperation(value = "공지사항 삭제 API", notes = "Notice의 idx를 PathVariable으로 받아 공지사항을 삭제하는 역할을 합니다. /notice/delete")
-	public ResponseEntity<?> delete(@PathVariable("idx") int idx, Model model, RedirectAttributes rttr)
+	public ResponseEntity<?> delete(@PathVariable("idx") int idx)
 			throws Exception {
 		logger.debug("delete notice idx : {}", idx);
 		noticeService.deleteNotice(idx);

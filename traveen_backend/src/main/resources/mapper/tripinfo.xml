@@ -27,6 +27,13 @@
 		<result column="code" property="code" />
 		<result column="name" property="name" />
 	</resultMap>
+	
+	<resultMap type="liketrip" id="liketrip">
+		<result column="idx" property="idx" />
+		<result column="tripinfo_idx" property="tripinfoIdx" />
+		<result column="user_idx" property="userIdx" />
+		<result column="create_date" property="createDate" />
+	</resultMap>
 			
 	<!-- 검색 -->
  	<sql id="search">
@@ -86,4 +93,17 @@
 		select idx, code, name 
 		from sido
 	</select>
+	
+	<!-- 여행지 좋아요 -->
+	<insert id="likeTripinfo" parameterType="liketrip">
+		insert into like_trip(tripinfo_idx, user_idx, create_date)
+		values(#{tripinfoIdx}, #{userIdx}, now())
+	</insert>
+	
+	<!-- 좋아요 카운트 -->
+	<update id="updateLike" parameterType="int">
+		update tripinfo
+		set like_count = like_count + 1
+		where idx = #{idx}
+	</update>
 </mapper>
