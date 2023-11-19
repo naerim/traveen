@@ -1,15 +1,21 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 import { useCourseStore } from "@/stores/course";
+import { useMemberStore } from "@/stores/member";
 import CourseListModalItem from "@/components/course/item/CourseListModalItem.vue";
 import { registCourse } from "@/api/course";
 
 const courseStore = useCourseStore();
+const memberStore = useMemberStore();
+const router = useRouter();
+
+const userInfo = computed(() => memberStore.userInfo);
 
 const param = ref({
   course: {
     title: "",
-    userIdx: 1,
+    userIdx: userInfo.value.idx,
     startDate: "",
     endDate: "",
     flag: 0,
@@ -50,8 +56,8 @@ const onRegistCourse = (list) => {
     param.value.courseList = makeParamCourseList(list);
     registCourse(
       param.value,
-      (res) => {
-        console.log(res);
+      () => {
+        router.push({ name: "trip-list" });
       },
       (error) => console.log(error)
     );
@@ -97,7 +103,7 @@ const onRegistCourse = (list) => {
         </ul>
         <div class="btn-wrap">
           <button @click="onRegistCourse(courseStore.courseList)">코스 등록</button>
-          <button>닫기</button>
+          <button @click="onClickCloseModal">닫기</button>
         </div>
       </div>
     </div>

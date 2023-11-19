@@ -1,0 +1,28 @@
+h2 {
+  color: var(--tv-c-green);
+}
+
+.trip-menu-wrap {
+  display: flex;
+  align-items: center;
+}
+
+#menuItem {
+  cursor: pointer;
+  margin-right: 20px;
+  font-weight: bold;
+  font-size: 1.1em;
+  padding-bottom: 5px;
+  &:hover {
+    border-bottom: 1px solid #000;
+  }
+}
+.active {
+  border-bottom: 1px solid #000;
+}
+
+.num {
+  margin-left: 6px;
+  color: var(--tv-c-green);
+  font-weight: 400;
+}

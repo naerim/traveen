@@ -1,8 +1,10 @@
 package com.ssafy.course.model.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.ssafy.course.model.Courseinfo;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,6 +34,16 @@ public class CourseServiceImpl implements CourseService {
 		int idx = course.getIdx();
 		param.put("courseIdx", idx);
 		courseMapper.registCourseinfo(param);
+	}
+
+	@Override
+	public List<Course> listCourse(String userIdx) throws Exception {
+		return courseMapper.listCourse(userIdx);
+	}
+
+	@Override
+	public List<Courseinfo> listCourseInfo(String courseIdx) throws Exception {
+		return courseMapper.listCourseInfo(courseIdx);
 	}
 
 }

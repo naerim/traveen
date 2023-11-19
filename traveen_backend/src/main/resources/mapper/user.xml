@@ -4,6 +4,7 @@
 
 <mapper namespace="com.ssafy.user.model.mapper.UserMapper">
 	<resultMap type="user" id="user">
+		<result column="idx" property="idx"/>
 		<result column="user_id" property="userId"/>
 		<result column="user_pwd" property="userPwd"/>
 		<result column="user_name" property="userName"/>
@@ -26,7 +27,7 @@
 
 	<!-- 로그인 -->
 	<select id="login" parameterType="user" resultMap="user">
-		select user_id, user_pwd, refresh_token
+		select idx, user_id, user_pwd, refresh_token
 		from users
 		where user_id = #{userId} and user_pwd = #{userPwd}
 	</select>
