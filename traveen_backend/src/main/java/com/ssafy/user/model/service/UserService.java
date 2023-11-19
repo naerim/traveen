@@ -8,7 +8,8 @@ public interface UserService {
 	void join(User user) throws Exception;
 	void deleteUser(String userId) throws Exception;
 
-	User getUser(String userId) throws Exception;
+	User getUserById(String userId) throws Exception;
+	User getUserByEmail(String emailId, String emailDomain) throws Exception;
 	void updateUser(User user) throws Exception;
 	void updatePwd(User user, String newPwd) throws Exception;
 	int pwdCheck(String userId, String userPwd) throws Exception;

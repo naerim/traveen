@@ -39,10 +39,17 @@
 	</insert>
 	
 	<!-- 아이디로 정보 가져오기 -->
-	<select id="getUser" parameterType="String" resultMap="user">
+	<select id="getUserById" parameterType="String" resultMap="user">
 		select idx, user_id, user_pwd, user_name, email_id, email_domain, mobile, salt, join_date, position, refresh_token
 		from users
 		where user_id = #{userId}
+	</select>
+	
+	<!-- 이메일로 정보 가져오기 -->
+	<select id="getUserByEmail" parameterType="String" resultMap="user">
+		select idx, user_id, user_pwd, user_name, email_id, email_domain, mobile, salt, join_date, position, refresh_token
+		from users
+		where email_id = #{emailId} and email_domain = #{emailDomain}
 	</select>
 	
 	<!-- 회원정보 수정 -->

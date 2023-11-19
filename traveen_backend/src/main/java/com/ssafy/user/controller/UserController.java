@@ -2,7 +2,10 @@ package com.ssafy.user.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Random;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,8 +13,12 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +46,10 @@ public class UserController {
 
 	private UserService userService;
 	private JWTUtil jwtUtil;
+	@Autowired
+	private JavaMailSender mailSender;
+
+	
 
 	public UserController(UserService userService, JWTUtil jwtUtil) {
 		super();
@@ -179,7 +190,7 @@ public class UserController {
 			logger.info("사용 가능한 토큰!!!");
 			try {
 //				로그인 사용자 정보.
-				User user = userService.getUser(userId);
+				User user = userService.getUserById(userId);
 				resultMap.put("userInfo", user);
 				status = HttpStatus.OK;
 			} catch (Exception e) {
@@ -214,6 +225,7 @@ public class UserController {
 	@ApiOperation(value = "비밀번호 변경 API", notes = "회원의 userPwd와 변경할 비밀번호를 받아 userPwd가 같다면 비밀번호를 변경하는 역할을 합니다. /user/myinfo/modifypwd")
 	public String mypwd(@RequestParam User user, @RequestParam String newPwd, HttpSession session,
 			RedirectAttributes rttr) throws Exception {
+		logger.debug("myinfo pwd : {}", newPwd);
 		int cnt = userService.pwdCheck(user.getUserId(), user.getUserPwd());
 		if (cnt == 1) { // 비밀번호가 일치할 때
 			userService.updatePwd(user, newPwd);
@@ -222,5 +234,62 @@ public class UserController {
 			rttr.addFlashAttribute("msg", "비밀번호가 일치하지 않습니다.");
 		}
 		return "redirect:/user/myinfo";
+	}
+	
+	@PostMapping("/email")
+	public Map<String, Object> email(@RequestBody String email) throws Exception {
+		logger.debug("send email : {}", email);
+		Map<String, Object> map = new HashMap<>();
+		int idx = email.indexOf("@");
+		String emailId = email.substring(0, idx);
+		String emailDomain = email.substring(idx + 1);
+		User user = userService.getUserByEmail(emailId, emailDomain);
+        
+		JavaMailSenderImpl mailSenderImpl = new JavaMailSenderImpl();
+		Properties prop = new Properties();
+		mailSenderImpl.setHost("smtp.gmail.com");
+		mailSenderImpl.setPort(587);
+		mailSenderImpl.setUsername("dbsk9012@gmail.com");
+		mailSenderImpl.setPassword("zxhfpticqdaqbgpg");
+		prop.put("mail.smtp.auth", true);
+		prop.put("mail.smtp.starttls.enable", true);
+        
+		mailSenderImpl.setJavaMailProperties(prop);
+		
+		if (user != null) {
+			map.put("exist", "이미 존재하는 이메일입니다.");
+		} else {
+			Random random = new Random(); // 난수 생성을 위한 랜덤 클래스
+			String key = ""; // 인증번호 담을 String key 변수 생성
+            
+			MimeMessage message = mailSender.createMimeMessage();
+			// true는 멀티파트 메세지를 사용하겠다는 의미
+			MimeMessageHelper mailHelper = new MimeMessageHelper(message, true, "UTF-8");
+			
+			// 입력 키를 위한 난수 생성 코드 
+			for (int i = 0; i < 3; i++) {
+				int index = random.nextInt(26) + 65;
+				key += (char) index;
+			}
+			for (int i = 0; i < 6; i++) {
+				int numIndex = random.nextInt(10);
+				key += numIndex;
+			}
+			
+			String htmlMsg = "<h2>Traveen 회원가입 이메일 인증 번호</h2>"
+					+ "인증번호는 " + key + " 입니다.\n올바른 인증번호를 입력해주세요.";
+			mailHelper.setSubject("[Traveen] Traveen 회원가입 이메일 인증번호"); // 이메일 제목
+			mailHelper.setText(htmlMsg, true); // 이메일 내용
+			mailHelper.setTo(email);
+			mailHelper.setFrom("dbsk9012@gmail.com");
+            try {
+            	mailSender.send(message);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			map.put("key", key);
+			map.put("user", user);
+		}
+		return map;
 	}
 }

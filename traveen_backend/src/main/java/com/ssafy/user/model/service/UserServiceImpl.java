@@ -3,6 +3,8 @@ package com.ssafy.user.model.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.user.model.User;
@@ -13,7 +15,7 @@ import com.ssafy.util.UserUtil;
 public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 	private UserUtil userUtil = new UserUtil();
-	
+
 	public UserServiceImpl(UserMapper userMapper) {
 		super();
 		this.userMapper = userMapper;
@@ -24,11 +26,7 @@ public class UserServiceImpl implements UserService {
 		String userId = user.getUserId();
 		String userPwd = user.getUserPwd();
 		
-		if (user == null) {
-			return null;
-		}
-		
-		String salt = userMapper.getUser(userId).getSalt();
+		String salt = userMapper.getUserById(userId).getSalt();
 		if (salt == null) {
 			return null;
 		}
@@ -57,8 +55,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUser(String userId) throws Exception {
-		return userMapper.getUser(userId);
+	public User getUserById(String userId) throws Exception {
+		return userMapper.getUserById(userId);
+	}
+
+	@Override
+	public User getUserByEmail(String emailId, String emailDomain) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("emailId", emailId);
+		map.put("emailDomain", emailDomain);
+		return userMapper.getUserByEmail(map);
 	}
 
 	@Override
@@ -77,7 +83,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int pwdCheck(String userId, String userPwd) throws Exception {
-		User user = userMapper.getUser(userId);
+		User user = userMapper.getUserById(userId);
 		String salt = user.getSalt();
 		userPwd = userUtil.getEncrypt(userPwd, salt);
 		return userMapper.pwdCheck(userId, userPwd);

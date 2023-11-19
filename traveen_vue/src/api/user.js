@@ -55,6 +55,11 @@ async function logout(userid, success, fail) {
   await local.get(`/user/logout/${userid}`).then(success).catch(fail);
 }
 
+// 이메일 전송
+const sendEmail = (email, success, fail) => {
+  local.post(`/user/email`, email).then(success).catch(fail);
+};
+
 export {
   join,
   idCheck,
@@ -66,4 +71,5 @@ export {
   tokenRegeneration,
   logout,
   addToken,
+  sendEmail,
 };

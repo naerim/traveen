@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { join, idCheck } from "@/api/user";
+import { join, idCheck, sendEmail } from "@/api/user";
 
 const router = useRouter();
 
@@ -9,8 +9,8 @@ const joinUser = ref({
   userId: "",
   userName: "",
   emailId: "",
-  emailDomain: "naver.com",
-  emailCode: "1234",
+  emailDomain: "",
+  emailCode: "",
   mobile: "",
   userPwd: "",
   pwdCheck: "",
@@ -38,6 +38,35 @@ const onIdCheck = (id) => {
     );
   }
 };
+
+const getEmailCode = () => {
+  const blank_pattern = /[\s]/g;
+  if (blank_pattern.test(joinUser.value.emailId)) {
+    alert("이메일을 입력해주세요.");
+  } else if (blank_pattern.test(joinUser.value.emailDomain)) {
+    alert("이메일을 선택해주세요.");
+  } else {
+    console.log(joinUser.value.emailId+"@"+joinUser.value.emailDomain);
+    sendEmail(
+      joinUser.value.emailId+"@"+joinUser.value.emailDomain,
+      ({data}) => {
+        console.log(data);
+        alert("인증번호가 전송되었습니다.");
+        joinUser.value.emailCode = data.key;
+      },
+      (error) => console.log(error)
+    );
+  }
+};
+
+const onCheckEmailCode = () => {
+  const emailCode = document.getElementById("code").value;
+  if (joinUser.value.code === emailCode) {
+    alert("이메일 인증이 완료되었습니다.");
+  } else {
+    alert("인증번호가 일치하지 않습니다.");
+  }
+}
 
 // 아이디 input 변경 감지하는 함수
 const onIdChange = () => {
@@ -108,15 +137,16 @@ const onSubmit = () => {
       />
       <span>@</span>
       <select name="emailDomain" id="emailDomain" v-model="joinUser.emailDomain">
+        <option value="">선택</option>
         <option value="naver.com">naver.com</option>
         <option value="google.com">google.com</option>
       </select>
-      <button id="btn-send-code" @click.prevent="">인증번호 받기</button>
+      <button id="btn-send-code" @click.prevent="getEmailCode()">인증번호 받기</button>
     </div>
     <div class="input-title">인증번호</div>
     <div class="input-confirm-box">
-      <input id="code" v-model="joinUser.code" />
-      <button id="btn-check-code" @click.prevent="">인증번호 확인</button>
+      <input id="code"/>
+      <button id="btn-check-code" @click.prevent="onCheckEmailCode()">인증번호 확인</button>
     </div>
     <div class="input-title">전화번호</div>
     <input

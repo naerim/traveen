@@ -14,7 +14,8 @@ public interface UserMapper {
 	void join(User user) throws SQLException;
 	void deleteUser(String userId) throws SQLException;
 
-	User getUser(String userId) throws SQLException;
+	User getUserById(String userId) throws SQLException;
+	User getUserByEmail(Map<String, String> map) throws SQLException;
 	void updateUser(User user) throws SQLException;
 	void updatePwd(User user, String newPwd) throws SQLException;
 	int pwdCheck(String userId, String userPwd) throws SQLException;
