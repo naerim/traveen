@@ -55,7 +55,7 @@ public class CourseController {
 	@ApiOperation(value = "코스 여행지 목록 API", notes = "코스에 속하는 여행지 목록을 조회하는 역할을 합니다. /course/list/{courseIdx}")
 	public ResponseEntity<?> infoList(@PathVariable("courseIdx") String courseIdx) throws Exception {
 		logger.debug("course item list user Idx : {}", courseIdx);
-		List<Courseinfo> courseinfoList = courseService.listCourseInfo(courseIdx);
+		List<Courseinfo> courseinfoList = courseService.listCourseinfo(courseIdx);
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 		return ResponseEntity.ok().headers(header).body(courseinfoList);

@@ -23,5 +23,9 @@ export const useCourseStore = defineStore("course", () => {
     courseList.value.splice(newIndex, 0, movedItem);
   };
 
-  return { courseList, courseListCount, addCourse, deleteCourse, updateCourseListOrder };
+  const setCourse = (list) => {
+    courseList.value = list;
+  };
+
+  return { courseList, courseListCount, addCourse, deleteCourse, updateCourseListOrder, setCourse };
 });

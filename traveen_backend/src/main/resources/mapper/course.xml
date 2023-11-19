@@ -49,9 +49,11 @@
 
 	<!-- 코스 아이템 목록 -->
 	<select id="listCourseinfo" parameterType="String" resultMap="courseinfo">
-		select ci.idx, ci.course_idx, ci.tripinfo_idx, ci.order, c.title
-		from courses c, courseinfo ci, tripinfo t
-		where ci.course_idx=#{courseIdx} and ci.tripinfo_idx=t.idx
+		select ci.idx, ci.course_idx, ci.tripinfo_idx, ci.order, c.title as courseTitle, t.category_name as categoryName, t.title, t.place_name as placeName, t.type, t.address, t.lat, t.loc, t.sido_code as sidoCode
+		from courses c
+		join courseinfo ci on c.idx = ci.course_idx
+		join tripinfo t on ci.tripinfo_idx = t.idx
+		where ci.course_idx=#{courseIdx}
 		order by ci.order
 	</select>
 </mapper>

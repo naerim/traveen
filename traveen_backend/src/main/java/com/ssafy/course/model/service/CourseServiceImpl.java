@@ -42,8 +42,8 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public List<Courseinfo> listCourseInfo(String courseIdx) throws Exception {
-		return courseMapper.listCourseInfo(courseIdx);
+	public List<Courseinfo> listCourseinfo(String courseIdx) throws Exception {
+		return courseMapper.listCourseinfo(courseIdx);
 	}
 
 }

@@ -12,4 +12,9 @@ const listCourse = (userId, success, fail) => {
   local.get(`/course/${userId}/list`).then(success).catch(fail);
 };
 
-export { registCourse, listCourse };
+// 코스에 속한 여행지 목록
+const listCourseItem = (courseIdx, success, fail) => {
+  local.get(`/course/list/${courseIdx}`).then(success).catch(fail);
+};
+
+export { registCourse, listCourse, listCourseItem };

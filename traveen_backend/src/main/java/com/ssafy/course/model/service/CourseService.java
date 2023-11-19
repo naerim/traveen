@@ -9,5 +9,5 @@ import java.util.Map;
 public interface CourseService {
 	void registCourse(Map<String, Object> map) throws Exception;
 	List<Course> listCourse(String userIdx) throws Exception;
-	List<Courseinfo> listCourseInfo(String courseIdx) throws Exception;
+	List<Courseinfo> listCourseinfo(String courseIdx) throws Exception;
 }

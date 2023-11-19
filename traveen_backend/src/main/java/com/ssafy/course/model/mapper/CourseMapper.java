@@ -14,5 +14,5 @@ public interface CourseMapper {
 	int registCourse(Course course) throws SQLException;
 	void registCourseinfo(Map<String, Object> map) throws SQLException;
 	List<Course> listCourse(String userIdx) throws SQLException;
-	List<Courseinfo> listCourseInfo(String courseIdx) throws SQLException;
+	List<Courseinfo> listCourseinfo(String courseIdx) throws SQLException;
 }

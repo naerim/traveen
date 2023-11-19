@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { listCourseItem } from "@/api/course";
+import { useCourseStore } from "@/stores/course";
 
 const props = defineProps({
   course: Object,
@@ -10,8 +12,21 @@ const router = useRouter();
 const show = ref(false);
 const toggleMenu = () => (show.value = !show.value);
 
-const goCourseModifyPage = () =>
+const courseStore = useCourseStore();
+const { setCourse } = courseStore;
+
+// 코스 수정 페이지로 이동
+const goCourseModifyPage = () => {
+  // 코스 아이템 불러오기
+  listCourseItem(
+    props.course.idx,
+    ({ data }) => {
+      setCourse(data);
+    },
+    (err) => console.log(err)
+  );
   router.push({ name: "course-modify", params: { idx: props.course.idx } });
+};
 </script>
 
 <template>
