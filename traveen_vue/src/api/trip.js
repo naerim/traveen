@@ -17,11 +17,14 @@ const listSido = (success, fail) => {
   local.get(`/tripinfo/sidoList`).then(success).catch(fail);
 };
 
-const likeTrip = (tripLike, success, fail) => {
-  local
-    .post(`/tripinfo/like`, JSON.stringify(tripLike))
-    .then(success)
-    .catch(fail);
+// 여행지 좋아요
+const likeTrip = (tripLikeParam, success, fail) => {
+  local.post(`/tripinfo/like`, JSON.stringify(tripLikeParam)).then(success).catch(fail);
 };
 
-export { listTrip, detailTrip, listSido, likeTrip };
+// 여행지 좋아요 취소
+const deleteLikeTrip = (tripinfoIdx, success, fail) => {
+  local.delete(`/tripinfo/like/delete/${tripinfoIdx}`).then(success).catch(fail);
+};
+
+export { listTrip, detailTrip, listSido, likeTrip, deleteLikeTrip };

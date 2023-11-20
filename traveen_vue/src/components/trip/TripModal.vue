@@ -1,17 +1,21 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { useMemberStore } from "@/stores/member";
+import { useTripLikeStore } from "@/stores/triplike";
 import VKakaoMap from "@/components/common/VKakaoMap.vue";
 import { useTripStore } from "@/stores/trip";
 import { useCourseStore } from "@/stores/course";
-import { likeTrip } from "@/api/trip";
+import { likeTrip, deleteLikeTrip } from "@/api/trip";
 
 const memberStore = useMemberStore();
 const { userInfo } = storeToRefs(memberStore);
 const tripStore = useTripStore();
 const courseStore = useCourseStore();
+const tripLikeStore = useTripLikeStore();
+const { addLikeTrip, removeLikeTrip, isLikeTrip } = tripLikeStore;
+const likeTripList = computed(() => tripLikeStore.likeTripList);
 
 const router = useRouter();
 
@@ -21,20 +25,10 @@ const props = defineProps({
   trip: Object,
 });
 
-
-const tripLike = ref({
-  idx: "",
+const likeTripParam = ref({
   tripinfoIdx: "",
-  userId: "",
-  createDate: "",
-})
-
-const select = ref(tripStore.selectTrip);
-
-watch(
-  () => props.show,
-  () => console.log("select : " + tripStore.selectTrip.placeName)
-);
+  userIdx: "",
+});
 
 const emit = defineEmits(["closeModal"]);
 const onClickCloseModal = () => {
@@ -55,13 +49,25 @@ const addCourse = () => {
 
 // 여행지 찜하기
 const clickLike = () => {
-        tripLike.value.userIdx = userInfo.value.idx;
-        tripLike.value.tripinfoIdx = tripStore.selectTrip.idx;
+  likeTripParam.value.tripinfoIdx = props.trip.idx;
+  likeTripParam.value.userIdx = userInfo.value.idx;
   likeTrip(
-    tripLike.value,
+    likeTripParam.value,
     () => {
-        
+      addLikeTrip(props.trip);
       console.log("여행지 찜하기 완료");
+    },
+    (error) => console.log(error)
+  );
+};
+
+// 여행지 찜 취소
+const cancelLike = () => {
+  deleteLikeTrip(
+    props.trip.idx,
+    () => {
+      console.log("여행지 찜하기 취소");
+      removeLikeTrip(props.trip.idx);
     },
     (error) => console.log(error)
   );
@@ -90,7 +96,7 @@ const clickLike = () => {
                 <img src="@/assets/img/icon_view.png" alt="" />{{ tripStore.selectTrip.viewCount }}
               </div>
               <div class="like">
-                <img src="@/assets/img/icon_heart.png" alt="" />{{ tripStore.selectTrip.likeCount }}
+                <img src="@/assets/img/icon_heart.png" alt="" />{{ tripLikeStore.likeCount }}
               </div>
             </div>
           </div>
@@ -123,13 +129,21 @@ const clickLike = () => {
           <div class="button-wrap">
             <button v-if="props.type === 'trip'" @click="goWriteCourse">여행코스 만들기</button>
             <button v-else @click="addCourse">추가하기</button>
-            <button @click="clickLike">
-              찜하기
-              <img src="@/assets/img/icon_heart.png" alt="" />
-            </button>
+            <div v-if="!isLikeTrip(tripStore.selectTrip.tripIdx)">
+              <button @click="clickLike">
+                찜하기
+                <img src="@/assets/img/icon_heart.png" alt="" />
+              </button>
+            </div>
+            <div v-else>
+              <button @click="cancelLike">
+                찜 취소
+                <img src="@/assets/img/icon_empty_heart.png" alt="" />
+              </button>
+            </div>
           </div>
         </div>
-        <div v-if="select" class="right">
+        <div v-if="props.trip" class="right">
           <VKakaoMap />
           <div class="comment-title">Comments</div>
           <div class="comment-box">

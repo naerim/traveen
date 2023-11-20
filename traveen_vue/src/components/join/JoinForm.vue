@@ -50,10 +50,10 @@ const getEmailCode = () => {
     alert("이메일을 선택해주세요.");
   } else {
     sendEmail(
-      joinUser.value.emailId+"@"+joinUser.value.emailDomain,
-      ({data}) => {
+      joinUser.value.emailId + "@" + joinUser.value.emailDomain,
+      ({ data }) => {
         alert("인증번호가 전송되었습니다.");
-        
+
         joinUser.value.emailCode = data.key;
       },
       (error) => console.log(error)
@@ -66,13 +66,15 @@ const onCheckEmailCode = () => {
   if (joinUser.value.emailCode == emailCode && joinUser.value.emailCode != "") {
     alert("이메일 인증이 완료되었습니다.");
     codeCheckState.value = true;
+    emailCodeIsEqual.value = true;
   } else if (emailCode == "") {
     alert("인증번호를 입력해주세요.");
   } else {
     alert("인증번호가 일치하지 않습니다.");
     codeCheckState.value = false;
+    emailCodeIsEqual.value = false;
   }
-}
+};
 
 // 아이디 input 변경 감지하는 함수
 const onIdChange = () => {
@@ -98,10 +100,9 @@ const onSubmit = () => {
     alert("비밀번호를 입력해주세요.");
   } else if (joinUser.value.userPwd !== joinUser.value.pwdCheck) {
     alert("비밀번호가 일치하지 않습니다.");
-  } else if (!codeCheckState.value) {
+  } else if (!emailCodeIsEqual.value) {
     alert("이메일 인증을 완료해주세요.");
-  }
-  else {
+  } else {
     join(
       joinUser.value,
       ({ data }) => {
@@ -159,8 +160,10 @@ const onSubmit = () => {
     </div>
     <div class="input-title">인증번호</div>
     <div class="input-confirm-box">
-      <input id="code" @input="onCodeChange"/>
-      <button id="btn-check-code" :disabled="codeCheckState" @click.prevent="onCheckEmailCode()">인증번호 확인</button>
+      <input id="code" @input="onCodeChange" />
+      <button id="btn-check-code" :disabled="codeCheckState" @click.prevent="onCheckEmailCode()">
+        인증번호 확인
+      </button>
     </div>
     <div class="input-title">전화번호</div>
     <input

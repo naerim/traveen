@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.tripinfo.model.LikeTrip;
+import com.ssafy.tripinfo.model.LikeTripParam;
 import com.ssafy.tripinfo.model.Sido;
 import com.ssafy.tripinfo.model.Tripinfo;
 import com.ssafy.tripinfo.model.TripinfoList;
@@ -61,6 +62,12 @@ public class TripinfoServiceImpl implements TripinfoService {
 	public void updateLike(int idx) throws Exception {
 		tripinfoMapper.updateLike(idx);
 	}
+	
+
+	@Override
+	public void updateDeleteLike(int tripinfoIdx) throws Exception {
+		tripinfoMapper.updateDeleteLike(tripinfoIdx);
+	}
 
 	@Override
 	public List<Sido> listSido() throws Exception {
@@ -68,7 +75,22 @@ public class TripinfoServiceImpl implements TripinfoService {
 	}
 
 	@Override
-	public void likeTripinfo(LikeTrip likeTrip) throws Exception {
+	public void likeTripinfo(LikeTripParam likeTripParam) throws Exception {
+		LikeTrip likeTrip = new LikeTrip();
+		likeTrip.setTripinfoIdx(likeTripParam.getTripinfoIdx());
+		likeTrip.setUserIdx(likeTripParam.getUserIdx());		
 		tripinfoMapper.likeTripinfo(likeTrip);
 	}
+
+	@Override
+	public void deleteLikeTripinfo(int likeTripIdx) throws Exception {
+		tripinfoMapper.deleteLikeTripinfo(likeTripIdx);
+	}
+
+	@Override
+	public int getTripinfoByLikeTripIdx(int likeTripIdx) throws Exception {
+		return tripinfoMapper.getTripinfoByLikeTripIdx(likeTripIdx);
+	}
+	
+	
 }

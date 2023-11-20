@@ -35,7 +35,7 @@
 	<!-- 회원가입 -->
 	<insert id="join" parameterType="user">
 		insert into users (user_id, user_pwd, user_name, email_id, email_domain, mobile, salt, join_date, position, email_code)
-		values (#{userId}, #{userPwd}, #{userName}, #{emailId}, #{emailDomain}, #{mobile}, #{salt}, now(), 'G', '#{emailCode}')
+		values (#{userId}, #{userPwd}, #{userName}, #{emailId}, #{emailDomain}, #{mobile}, #{salt}, now(), 'G', #{emailCode})
 	</insert>
 	
 	<!-- 아이디로 정보 가져오기 -->
