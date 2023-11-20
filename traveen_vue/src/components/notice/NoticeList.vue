@@ -4,8 +4,8 @@ import { useRouter } from "vue-router";
 import { listNotice } from "@/api/notice";
 import NoticeListItem from "@/components/notice/item/NoticeListItem.vue";
 import PageNavigation from "@/components/common/PageNavigation.vue";
-import VEmpimport { storeToRefs } from "pinia";tyItem from "@/components/common/VEmptyItem.vue";
-
+import VEmptyItem from "@/components/common/VEmptyItem.vue";
+import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
 
 const memberStore = useMemberStore();
@@ -42,6 +42,7 @@ const getNoticeList = () => {
   listNotice(
     param.value,
     ({ data }) => {
+      console.log(param.value);
       notices.value = data.notices;
       currentPage.value = data.currentPage;
       totalPage.value = data.totalPageCount;
@@ -73,15 +74,15 @@ watch(notices, (newValue) => {
     <!-- top-box -->
     <div class="top-box">
       <div class="left">총 {{ len }}건</div>
-      <form class="right" id="form-search" action="#" method="post">
-        <select name="select-notice" id="select-notice">
+      <div class="right" id="form-search">
+        <select name="select-notice" id="select-notice" v-model="param.key">
           <option value="">전체</option>
           <option value="subject">제목</option>
         </select>
-        <input type="text" name="keyword" id="keyword" placeholder="검색어를 입력해주세요." />
-        <input type="submit" id="btn-search" value="검색" @click="searchNotice"/>
+        <input type="text" name="keyword" id="keyword" placeholder="검색어를 입력해주세요." v-model="param.word"/>
+        <button id="btn-search" @click="searchNotice">검색</button>
         <button id="btn-insert" @click="goNoticeWrite">글쓰기</button>
-      </form>
+      </div>
     </div>
     <div class="table-container">
       <!-- table -->

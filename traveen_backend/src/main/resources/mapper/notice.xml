@@ -33,7 +33,7 @@
 		<where>
 			<include refid="search"></include>
 		</where>
-		order by c_date desc
+		order by create_date desc
 		limit #{start}, #{listsize}
 	</select>
 
