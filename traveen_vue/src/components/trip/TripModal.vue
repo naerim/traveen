@@ -122,7 +122,7 @@ const clickLike = () => {
           </div>
           <div class="button-wrap">
             <button v-if="props.type === 'trip'" @click="goWriteCourse">여행코스 만들기</button>
-            <button v-else @click="addCourse">추가하기</button>
+            <button v-else @click="onAddCourse">추가하기</button>
             <button @click="clickLike">
               찜하기
               <img src="@/assets/img/icon_heart.png" alt="" />
