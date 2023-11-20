@@ -16,5 +16,9 @@ export const useMyTripStore = defineStore("mytrip", () => {
     mycourse.value = list;
   };
 
-  return { mycourse, mycourseCount, addMycourse };
+  const deleteMycourse = (idx) => {
+    mycourse.value = mycourse.value.filter((item) => item.idx !== idx);
+  };
+
+  return { mycourse, mycourseCount, addMycourse, deleteMycourse };
 });

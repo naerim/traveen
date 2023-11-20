@@ -12,6 +12,7 @@ const memberStore = useMemberStore();
 const { userInfo } = storeToRefs(memberStore);
 const tripStore = useTripStore();
 const courseStore = useCourseStore();
+const { addCourse, setCourseList } = courseStore;
 
 const router = useRouter();
 
@@ -21,13 +22,12 @@ const props = defineProps({
   trip: Object,
 });
 
-
 const tripLike = ref({
   idx: "",
   tripinfoIdx: "",
   userId: "",
   createDate: "",
-})
+});
 
 const select = ref(tripStore.selectTrip);
 
@@ -44,23 +44,23 @@ const onClickCloseModal = () => {
 // 코스짜는 페이지로 이동
 const goWriteCourse = () => {
   router.replace({ name: "course" });
-  courseStore.addCourse(tripStore.selectTrip);
+  setCourseList([]); // 코스리스트 초기화
+  onAddCourse();
 };
 
 // 코스에 추가하기
-const addCourse = () => {
-  courseStore.addCourse(tripStore.selectTrip);
+const onAddCourse = () => {
+  addCourse(tripStore.selectTrip);
   onClickCloseModal();
 };
 
 // 여행지 찜하기
 const clickLike = () => {
-        tripLike.value.userIdx = userInfo.value.idx;
-        tripLike.value.tripinfoIdx = tripStore.selectTrip.idx;
+  tripLike.value.userIdx = userInfo.value.idx;
+  tripLike.value.tripinfoIdx = tripStore.selectTrip.idx;
   likeTrip(
     tripLike.value,
     () => {
-        
       console.log("여행지 찜하기 완료");
     },
     (error) => console.log(error)

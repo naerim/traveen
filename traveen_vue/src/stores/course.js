@@ -2,6 +2,7 @@ import { computed, ref } from "vue";
 import { defineStore } from "pinia";
 
 export const useCourseStore = defineStore("course", () => {
+  const currentCourse = ref({});
   const courseList = ref([]);
   const courseListCount = computed(() => courseList.value.length);
 
@@ -23,9 +24,22 @@ export const useCourseStore = defineStore("course", () => {
     courseList.value.splice(newIndex, 0, movedItem);
   };
 
-  const setCourse = (list) => {
+  const setCourseList = (list) => {
     courseList.value = list;
   };
 
-  return { courseList, courseListCount, addCourse, deleteCourse, updateCourseListOrder, setCourse };
+  const setCourse = (course) => {
+    currentCourse.value = course;
+  };
+
+  return {
+    currentCourse,
+    courseList,
+    courseListCount,
+    addCourse,
+    deleteCourse,
+    updateCourseListOrder,
+    setCourseList,
+    setCourse,
+  };
 });
