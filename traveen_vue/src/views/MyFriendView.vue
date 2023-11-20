@@ -1,13 +1,23 @@
 <script setup>
 import { ref, shallowRef } from "vue";
-import Follower from "../components/myfriend/Follower.vue";
-import Following from "../components/myfriend/Following.vue";
+import Follower from "@/components/myfriend/Follower.vue";
+import Following from "@/components/myfriend/Following.vue";
+import AddFriendModal from "@/components/myfriend/AddFriendModal.vue";
 
 const current = shallowRef(Follower);
 const active = ref("follower");
 const change = (val) => {
   active.value = val;
   current.value = val == "follower" ? Follower : Following;
+};
+
+const show = ref(false);
+// 모달창 닫기
+const closeModal = () => {
+  show.value = false;
+};
+const openModal = () => {
+  show.value = true;
 };
 </script>
 
@@ -18,9 +28,10 @@ const change = (val) => {
       <span @click="change('follower')" :class="{ active: active === 'follower' }">팔로워</span>
       <span @click="change('following')" :class="{ active: active === 'following' }">팔로잉</span>
     </div>
-    <img src="@/assets/img/icon_plus_friend.png" alt="" />
+    <img src="@/assets/img/icon_plus_friend.png" alt="" @click="openModal" />
   </div>
   <component :is="current"></component>
+  <AddFriendModal :show="show" @close-modal="closeModal" />
 </template>
 
 <style scoped>

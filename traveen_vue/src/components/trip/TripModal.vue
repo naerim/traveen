@@ -16,6 +16,7 @@ const courseStore = useCourseStore();
 const tripLikeStore = useTripLikeStore();
 const { addLikeTrip, removeLikeTrip, isLikeTrip } = tripLikeStore;
 const likeTripList = computed(() => tripLikeStore.likeTripList);
+const { addCourse, setCourseList } = courseStore;
 
 const router = useRouter();
 
@@ -38,12 +39,13 @@ const onClickCloseModal = () => {
 // 코스짜는 페이지로 이동
 const goWriteCourse = () => {
   router.replace({ name: "course" });
-  courseStore.addCourse(tripStore.selectTrip);
+  setCourseList([]); // 코스리스트 초기화
+  onAddCourse();
 };
 
 // 코스에 추가하기
-const addCourse = () => {
-  courseStore.addCourse(tripStore.selectTrip);
+const onAddCourse = () => {
+  addCourse(tripStore.selectTrip);
   onClickCloseModal();
 };
 
@@ -141,6 +143,11 @@ const cancelLike = () => {
                 <img src="@/assets/img/icon_empty_heart.png" alt="" />
               </button>
             </div>
+            <button v-else @click="onAddCourse">추가하기</button>
+            <button @click="clickLike">
+              찜하기
+              <img src="@/assets/img/icon_heart.png" alt="" />
+            </button>
           </div>
         </div>
         <div v-if="props.trip" class="right">

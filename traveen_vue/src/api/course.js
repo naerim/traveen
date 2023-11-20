@@ -17,4 +17,9 @@ const listCourseItem = (courseIdx, success, fail) => {
   local.get(`/course/list/${courseIdx}`).then(success).catch(fail);
 };
 
-export { registCourse, listCourse, listCourseItem };
+// 코스 삭제
+const deleteCourse = (courseIdx, success, fail) => {
+  local.delete(`/course/delete/${courseIdx}`).then(success).catch(fail);
+};
+
+export { registCourse, listCourse, listCourseItem, deleteCourse };

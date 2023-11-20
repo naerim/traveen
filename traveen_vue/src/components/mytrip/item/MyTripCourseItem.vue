@@ -1,8 +1,9 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { listCourseItem } from "@/api/course";
+import { listCourseItem, deleteCourse } from "@/api/course";
 import { useCourseStore } from "@/stores/course";
+import { useMyTripStore } from "@/stores/mytrip";
 
 const props = defineProps({
   course: Object,
@@ -13,7 +14,9 @@ const show = ref(false);
 const toggleMenu = () => (show.value = !show.value);
 
 const courseStore = useCourseStore();
-const { setCourse } = courseStore;
+const { setCourseList, setCourse } = courseStore;
+const myTripStore = useMyTripStore();
+const { deleteMycourse } = myTripStore;
 
 // 코스 수정 페이지로 이동
 const goCourseModifyPage = () => {
@@ -21,11 +24,32 @@ const goCourseModifyPage = () => {
   listCourseItem(
     props.course.idx,
     ({ data }) => {
-      setCourse(data);
+      setCourse({
+        idx: data.courseIdx,
+        title: data.courseTitle,
+        startDate: data.startDate,
+        endDate: data.endDate,
+      });
+      setCourseList(data.list);
     },
     (err) => console.log(err)
   );
   router.push({ name: "course-modify", params: { idx: props.course.idx } });
+};
+
+const onDeleteCourse = (idx) => {
+  const flag = confirm("정말로 삭제하시겠습니까?");
+  if (flag) {
+    deleteCourse(
+      idx,
+      () => {
+        deleteMycourse(idx);
+        alert("삭제되었습니다.");
+      },
+      (err) => console.log(err)
+    );
+  }
+  show.value = false;
 };
 </script>
 
@@ -47,7 +71,7 @@ const goCourseModifyPage = () => {
         <li v-else class="done">작성 완료</li>
         <li v-if="props.course.flag === 0" @click="goCourseModifyPage">수정하기</li>
         <li v-else>이 여행 또가기</li>
-        <li>삭제</li>
+        <li @click="onDeleteCourse(props.course.idx)">삭제</li>
       </ul>
     </div>
   </div>

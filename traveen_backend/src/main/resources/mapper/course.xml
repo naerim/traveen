@@ -56,4 +56,17 @@
 		where ci.course_idx=#{courseIdx}
 		order by ci.order
 	</select>
+	
+	<!-- 코스 정보 -->
+	<select id="getCourse" parameterType="String" resultMap="course">
+		select idx, title, user_idx, create_date, start_date, end_date, flag
+		from courses
+		where idx=#{courseIdx}
+	</select>
+	
+	<!-- 코스 삭제 -->
+	<delete id="deleteCourse" parameterType="String">
+		delete from courses
+		where idx=#{courseIdx}
+	</delete>
 </mapper>

@@ -102,7 +102,9 @@ const onRegistCourse = (list) => {
           />
         </ul>
         <div class="btn-wrap">
-          <button @click="onRegistCourse(courseStore.courseList)">코스 등록</button>
+          <button v-if="props.type === 'write'" @click="onRegistCourse(courseStore.courseList)">
+            코스 등록
+          </button>
           <button @click="onClickCloseModal">닫기</button>
         </div>
       </div>

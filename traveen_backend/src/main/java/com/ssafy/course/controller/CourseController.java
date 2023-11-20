@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.ssafy.course.model.Course;
-import com.ssafy.course.model.Courseinfo;
+import com.ssafy.course.model.CourseinfoParam;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -18,7 +19,6 @@ import com.ssafy.course.model.service.CourseService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("/course")
@@ -55,10 +55,19 @@ public class CourseController {
 	@ApiOperation(value = "코스 여행지 목록 API", notes = "코스에 속하는 여행지 목록을 조회하는 역할을 합니다. /course/list/{courseIdx}")
 	public ResponseEntity<?> infoList(@PathVariable("courseIdx") String courseIdx) throws Exception {
 		logger.debug("course item list user Idx : {}", courseIdx);
-		List<Courseinfo> courseinfoList = courseService.listCourseinfo(courseIdx);
+		CourseinfoParam param = courseService.listCourseinfo(courseIdx);
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-		return ResponseEntity.ok().headers(header).body(courseinfoList);
+		return ResponseEntity.ok().headers(header).body(param);
+	}
+	
+	@DeleteMapping("/delete/{courseIdx}")
+	@ApiOperation(value = "코스 삭제 API", notes = "코스의 idx를 PathVariable으로 받아 코스를 삭제하는 역할을 합니다. /notice/delete")
+	public ResponseEntity<?> delete(@PathVariable("courseIdx") String courseIdx)
+			throws Exception {
+		logger.debug("delete course idx : {}", courseIdx);
+		courseService.deleteCourse(courseIdx);
+		return ResponseEntity.ok().build();
 	}
 
 }

@@ -5,11 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import com.ssafy.course.model.Courseinfo;
+import com.ssafy.course.model.CourseinfoParam;
+
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.course.model.Course;
 import com.ssafy.course.model.mapper.CourseMapper;
+import com.ssafy.tripinfo.model.Tripinfo;
+import com.ssafy.tripinfo.model.TripinfoList;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -42,8 +46,22 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public List<Courseinfo> listCourseinfo(String courseIdx) throws Exception {
-		return courseMapper.listCourseinfo(courseIdx);
+	public CourseinfoParam listCourseinfo(String courseIdx) throws Exception {
+		Course course = courseMapper.getCourse(courseIdx);
+		List<Courseinfo> list = courseMapper.listCourseinfo(courseIdx);
+		
+		CourseinfoParam param = new CourseinfoParam();
+		param.setList(list);
+		param.setCourseIdx(courseIdx);
+		param.setCourseTitle(course.getTitle());
+		param.setStartDate(course.getStartDate());
+		param.setEndDate(course.getEndDate());
+		return param;
+	}
+
+	@Override
+	public void deleteCourse(String courseIdx) throws Exception {
+		courseMapper.deleteCourse(courseIdx);
 	}
 
 }

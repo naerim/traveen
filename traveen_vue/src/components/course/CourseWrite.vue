@@ -7,7 +7,7 @@ import CourseList from "@/components/course/CourseList.vue";
   <h1 class="title">나만의 여행코스를<br />만들어보세요.</h1>
   <div class="course-write-container">
     <CourseSearchForm />
-    <CourseList />
+    <CourseList type="write" />
   </div>
 </template>
 

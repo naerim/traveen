@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from "vue";
 import { storeToRefs } from "pinia";
 import MyTripCourseItem from "@/components/mytrip/item/MyTripCourseItem.vue";
 import { useMyTripStore } from "@/stores/mytrip";
