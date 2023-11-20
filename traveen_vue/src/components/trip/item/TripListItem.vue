@@ -1,4 +1,5 @@
 <script setup>
+import noImage from "@/assets/img/no_image.jpeg";
 const emit = defineEmits(["clickItem"]);
 
 const onClickItem = () => {
@@ -13,7 +14,7 @@ defineProps({
 <template>
   <div class="item" @click="onClickItem">
     <div class="imgDiv">
-      <img src="@/assets/img/img_tripinfo.png" alt="" />
+      <img :src="trip.image ? trip.image : noImage" alt="" />
     </div>
     <div class="tag-box">
       <div class="left">{{ trip.title }}</div>

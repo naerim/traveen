@@ -53,7 +53,8 @@ public class Tripinfo {
 	/* 조회수 */
 	@ApiModelProperty(value = "조회수")
 	private String viewCount;
-	
+	@ApiModelProperty(value = "이미지 링크")
+	private String image;
 	
 	public int getIdx() {
 		return idx;
@@ -150,6 +151,12 @@ public class Tripinfo {
 	}
 	public void setViewCount(String viewCount) {
 		this.viewCount = viewCount;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	@Override

@@ -20,6 +20,7 @@
 		<result column="tel" property="tel" />
 		<result column="like_count" property="likeCount" />
 		<result column="view_count" property="viewCount" />
+		<result column="image" property="image" />
 	</resultMap>
 	
 	<resultMap type="sido" id="sido">
@@ -53,7 +54,7 @@
 
 	<!-- 여행지 목록 -->
 	<select id="listTripinfo" parameterType="tripinfo" resultMap="tripinfo">
-		select idx, category_name, title, place_name, type, `desc`, oper_time, rest_time, restdate_content, address, lat, loc, sido_code, tel, like_count, view_count
+		select idx, category_name, title, place_name, type, `desc`, oper_time, rest_time, restdate_content, address, lat, loc, sido_code, tel, like_count, view_count, image
 		from tripinfo
  		<where>
  			<include refid="search"></include>
@@ -67,7 +68,7 @@
 	
 	<!-- 여행지 조회 -->
 	<select id="viewTripinfo" parameterType="int" resultMap="tripinfo">
-		select idx, category_name, title, place_name, type, `desc`, oper_time, rest_time, restdate_content, address, lat, loc, sido_code, tel, like_count, view_count
+		select idx, category_name, title, place_name, type, `desc`, oper_time, rest_time, restdate_content, address, lat, loc, sido_code, tel, like_count, view_count, image
 		from tripinfo
 		where idx = #{idx}
 	</select>
