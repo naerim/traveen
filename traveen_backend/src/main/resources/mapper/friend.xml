@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.friend.model.mapper.FriendMapper">
+	<resultMap type="friend" id="friend">
+		<result column="idx" property="idx" />
+		<result column="from_idx" property="fromIdx" />
+		<result column="to_idx" property="toIdx" />
+	</resultMap>
+	
+	<!-- 친구 등록 -->
+	<insert id="registFriend" parameterType="friend">
+	 	insert into friend (from_idx, to_idx)
+		values (#{fromIdx}, #{toIdx})
+	</insert>
+	
+	<!-- 친구 삭제 -->
+	<delete id="deleteFriend" parameterType="friend">
+		delete from friend
+		where from_idx = #{fromIdx} and to_idx = #{toIdx}
+	</delete>
+</mapper>
