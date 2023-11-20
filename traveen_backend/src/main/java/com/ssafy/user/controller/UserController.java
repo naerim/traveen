@@ -205,16 +205,9 @@ public class UserController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
-//	@GetMapping("/myinfo/{userId}")
-//	@ApiOperation(value = "회원 정보 조회 API", notes = "User의 userId를 PathVariable으로 받아 해당 회원을 상세 조회하는 역할을 합니다. /user/myinfo")
-//	public ResponseEntity<?> myinfo(@PathVariable(value = "userId") String userId) throws Exception {
-//		User user = userService.getUser(userId);
-//		return ResponseEntity.ok(user);
-//	}
-
 	@PutMapping("/myinfo/modify")
 	@ApiOperation(value = "회원 정보 수정 API", notes = "User를 받아 회원정보를 업데이트 해주는 역할을 합니다. /user/myinfo/modify")
-	public ResponseEntity<?> myinfo(@RequestBody User user, RedirectAttributes rttr) throws Exception {
+	public ResponseEntity<?> myinfo(@RequestBody User user) throws Exception {
 		logger.debug("myinfo user : {}", user);
 		userService.updateUser(user);
 		System.out.println(user);

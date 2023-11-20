@@ -56,7 +56,7 @@
 	<update id="updateUser" parameterType="user">
 		update users
 		<trim prefix="set" suffixOverrides=",">
-			<if test="userName != null">user_name = #{userName},</if>
+			<if test="userName != null"></if>
 			<if test="emailId != null">email_id = #{emailId},</if>
 			<if test="emailDomain != null">email_domain = #{emailDomain},</if>
 			<if test="mobile != null">mobile = #{mobile},</if>
