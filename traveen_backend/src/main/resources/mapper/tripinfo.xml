@@ -106,6 +106,14 @@
 		delete from like_trip
 		where tripinfo_idx = #{tripinfoIdx}
 	</delete>
+
+	<!-- 사용자가 찜한 여행지 리스트 -->
+	<select id="listLikeTrip" parameterType="String" resultMap="tripinfo">
+		select t.*
+		from like_trip lt
+				 join tripinfo t on lt.tripinfo_idx = t.idx
+		where lt.user_idx = #{userId}
+	</select>
 	
 	<!-- LikeTrip idx로 tripinfo idx 찾기 -->
 <!-- 	<select id="getTripinfoByLikeTripIdx" parameterType="int" resultType="int"> -->
@@ -122,9 +130,9 @@
 	</update>
 	
 	<!-- 좋아요 카운트 다운 -->
-<!-- 	<update id="updateDeleteLike" parameterType="int"> -->
-<!-- 		update tripinfo -->
-<!-- 		set like_count = like_count - 1 -->
-<!-- 		where idx = #{idx} -->
-<!-- 	</update> -->
+ 	<update id="updateDeleteLike" parameterType="int">
+ 		update tripinfo
+ 		set like_count = like_count - 1
+ 		where idx = #{idx}
+ 	</update>
 </mapper>

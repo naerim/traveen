@@ -27,4 +27,9 @@ const deleteLikeTrip = (tripinfoIdx, success, fail) => {
   local.delete(`/tripinfo/like/delete/${tripinfoIdx}`).then(success).catch(fail);
 };
 
-export { listTrip, detailTrip, listSido, likeTrip, deleteLikeTrip };
+// 사용자 코스 목록
+const listLikeTrip = (userId, success, fail) => {
+  local.get(`/tripinfo/${userId}/list`).then(success).catch(fail);
+};
+
+export { listTrip, detailTrip, listSido, likeTrip, deleteLikeTrip, listLikeTrip };

@@ -3,6 +3,7 @@ import { ref, shallowRef, onMounted, computed } from "vue";
 import { useMemberStore } from "@/stores/member";
 import { useMyTripStore } from "@/stores/mytrip";
 import { listCourse } from "@/api/course";
+import { listLikeTrip } from "@/api/trip";
 import MyTripCourse from "@/components/mytrip/MyTripCourse.vue";
 import MyTripLikeTrip from "@/components/mytrip/MyTripLikeTrip.vue";
 
@@ -14,13 +15,16 @@ const change = (val) => {
 };
 
 const memberStore = useMemberStore();
-const myTripStore = useMyTripStore();
 const userInfo = computed(() => memberStore.userInfo);
+
+const myTripStore = useMyTripStore();
 const mycourseCount = computed(() => myTripStore.mycourseCount);
-const { addMycourse } = myTripStore;
+const mytripLikeCount = computed(() => myTripStore.mytripLikeCount);
+const { addMycourse, setMytripLike } = myTripStore;
 
 onMounted(() => {
   getMyCourseList();
+  getMyTripLikeList();
 });
 
 const getMyCourseList = () => {
@@ -29,6 +33,14 @@ const getMyCourseList = () => {
     ({ data }) => {
       addMycourse(data);
     },
+    (error) => console.log(error)
+  );
+};
+
+const getMyTripLikeList = () => {
+  listLikeTrip(
+    userInfo.value.idx,
+    ({ data }) => setMytripLike(data),
     (error) => console.log(error)
   );
 };
@@ -41,7 +53,7 @@ const getMyCourseList = () => {
       >내 여행 코스<span class="num">{{ mycourseCount }}</span></span
     >
     <span @click="change('liketrip')" :class="{ active: active === 'liketrip' }" id="menuItem"
-      >찜한 여행지<span class="num">0</span></span
+      >찜한 여행지<span class="num">{{ mytripLikeCount }}</span></span
     >
   </div>
   <component :is="current"></component>

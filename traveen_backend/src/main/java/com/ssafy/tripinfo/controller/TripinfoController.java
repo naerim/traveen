@@ -83,12 +83,20 @@ public class TripinfoController {
 	}
 	
 	@DeleteMapping("/like/delete/{idx}")
-	@ApiOperation(value = "여행지 찜하기 취소 API", notes = "여행지 찜을 취소하는 역할을 합니다. /tripinfo/like/delete")
+	@ApiOperation(value = "여행지 찜하기 취소 API", notes = "여행지 찜을 취소하는 역할을 합니다. /tripinfo/delete/{idx}")
 	public ResponseEntity<?> deletelike(@PathVariable("idx") int tripinfoIdx) throws Exception {
 		logger.debug("like delete tripinfo idx : {}", tripinfoIdx);
-//		tripinfoService.updateDeleteLike(tripinfoIdx);
 		tripinfoService.deleteLikeTripinfo(tripinfoIdx);
 
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
+	}
+
+	@GetMapping("/{userId}/list")
+	@ApiOperation(value = "사용자가 찜한 여행지 목록 조회 API", notes = "사용자가 찜한 여행지 목록을 조회하는 역할을 합니다. /tripinfo/{userId}/list")
+	public ResponseEntity<?> list(@PathVariable(value="userId") String userId) throws Exception {
+		List<Tripinfo> list = tripinfoService.listLikeTrip(userId);
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+		return ResponseEntity.ok().headers(header).body(list);
 	}
 }

@@ -62,12 +62,6 @@ public class TripinfoServiceImpl implements TripinfoService {
 	public void updateLike(int idx) throws Exception {
 		tripinfoMapper.updateLike(idx);
 	}
-	
-
-	@Override
-	public void updateDeleteLike(int tripinfoIdx) throws Exception {
-		tripinfoMapper.updateDeleteLike(tripinfoIdx);
-	}
 
 	@Override
 	public List<Sido> listSido() throws Exception {
@@ -85,12 +79,18 @@ public class TripinfoServiceImpl implements TripinfoService {
 	@Override
 	public void deleteLikeTripinfo(int likeTripIdx) throws Exception {
 		tripinfoMapper.deleteLikeTripinfo(likeTripIdx);
+		tripinfoMapper.updateDeleteLike(likeTripIdx);
 	}
 
 	@Override
 	public int getTripinfoByLikeTripIdx(int likeTripIdx) throws Exception {
 		return tripinfoMapper.getTripinfoByLikeTripIdx(likeTripIdx);
 	}
-	
-	
+
+	@Override
+	public List<Tripinfo> listLikeTrip(String userId) throws Exception {
+		return tripinfoMapper.listLikeTrip(userId);
+	}
+
+
 }

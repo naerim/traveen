@@ -7,7 +7,7 @@ const registCourse = (param, success, fail) => {
   local.post(`/course/regist`, JSON.stringify(param)).then(success).catch(fail);
 };
 
-// 코스 목록
+// 사용자 코스 목록
 const listCourse = (userId, success, fail) => {
   local.get(`/course/${userId}/list`).then(success).catch(fail);
 };

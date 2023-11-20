@@ -8,7 +8,7 @@ import CourseModal from "@/components/course/CourseModal.vue";
 const show = ref(false);
 
 const props = defineProps({
-  type: "String",
+  type: String,
 });
 
 const courseStore = useCourseStore();

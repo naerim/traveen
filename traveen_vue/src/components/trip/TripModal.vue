@@ -1,22 +1,24 @@
 <script setup>
-import { ref, watch, computed } from "vue";
+import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { useMemberStore } from "@/stores/member";
-import { useTripLikeStore } from "@/stores/triplike";
 import VKakaoMap from "@/components/common/VKakaoMap.vue";
 import { useTripStore } from "@/stores/trip";
 import { useCourseStore } from "@/stores/course";
 import { likeTrip, deleteLikeTrip } from "@/api/trip";
+import { useMyTripStore } from "../../stores/mytrip";
 
 const memberStore = useMemberStore();
 const { userInfo } = storeToRefs(memberStore);
+
 const tripStore = useTripStore();
+
 const courseStore = useCourseStore();
-const tripLikeStore = useTripLikeStore();
-const { addLikeTrip, removeLikeTrip, isLikeTrip } = tripLikeStore;
-const likeTripList = computed(() => tripLikeStore.likeTripList);
 const { addCourse, setCourseList } = courseStore;
+
+const myTripStore = useMyTripStore();
+const { isMytripLike, addMytripLike, deleteMytripLike } = myTripStore;
 
 const router = useRouter();
 
@@ -56,7 +58,7 @@ const clickLike = () => {
   likeTrip(
     likeTripParam.value,
     () => {
-      addLikeTrip(props.trip);
+      addMytripLike(props.trip);
       console.log("여행지 찜하기 완료");
     },
     (error) => console.log(error)
@@ -69,7 +71,7 @@ const cancelLike = () => {
     props.trip.idx,
     () => {
       console.log("여행지 찜하기 취소");
-      removeLikeTrip(props.trip.idx);
+      deleteMytripLike(props.trip.idx);
     },
     (error) => console.log(error)
   );
@@ -98,7 +100,7 @@ const cancelLike = () => {
                 <img src="@/assets/img/icon_view.png" alt="" />{{ tripStore.selectTrip.viewCount }}
               </div>
               <div class="like">
-                <img src="@/assets/img/icon_heart.png" alt="" />{{ tripLikeStore.likeCount }}
+                <img src="@/assets/img/icon_heart.png" alt="" />{{ tripStore.selectTrip.likeCount }}
               </div>
             </div>
           </div>
@@ -131,23 +133,18 @@ const cancelLike = () => {
           <div class="button-wrap">
             <button v-if="props.type === 'trip'" @click="goWriteCourse">여행코스 만들기</button>
             <button v-else @click="onAddCourse">추가하기</button>
-            <div v-if="!isLikeTrip(tripStore.selectTrip.tripIdx)">
+            <div v-if="!isMytripLike(tripStore.selectTrip.idx)">
               <button @click="clickLike">
                 찜하기
-                <img src="@/assets/img/icon_heart.png" alt="" />
+                <img src="@/assets/img/icon_empty_heart.png" alt="" />
               </button>
             </div>
             <div v-else>
               <button @click="cancelLike">
                 찜 취소
-                <img src="@/assets/img/icon_empty_heart.png" alt="" />
+                <img src="@/assets/img/icon_heart.png" alt="" />
               </button>
             </div>
-            <button v-else @click="onAddCourse">추가하기</button>
-            <button @click="clickLike">
-              찜하기
-              <img src="@/assets/img/icon_heart.png" alt="" />
-            </button>
           </div>
         </div>
         <div v-if="props.trip" class="right">

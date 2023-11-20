@@ -21,6 +21,7 @@ public interface TripinfoMapper {
     void updateLike(int idx) throws SQLException;
     void updateDeleteLike(int idx) throws SQLException;
     int getTripinfoByLikeTripIdx(int likeTripIdx) throws SQLException;
+    List<Tripinfo> listLikeTrip(String userId) throws SQLException;
     
     List<Sido> listSido() throws SQLException;
     

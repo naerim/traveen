@@ -1,14 +1,24 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
-import { listTrip, detailTrip } from "@/api/trip";
+import { ref, onMounted, watch, computed } from "vue";
+import { storeToRefs } from "pinia";
+import { listTrip, detailTrip, listLikeTrip } from "@/api/trip";
 import TripListItem from "@/components/trip/item/TripListItem.vue";
 import PageNavigation from "@/components/common/PageNavigation.vue";
 import VEmptyItem from "@/components/common/VEmptyItem.vue";
 import TripModal from "@/components/trip/TripModal.vue";
 import { useTripStore } from "@/stores/trip";
+import { useMyTripStore } from "@/stores/mytrip";
+import { useMemberStore } from "@/stores/member";
 
 const tripStore = useTripStore();
 const { setTrip } = tripStore;
+
+const memberStore = useMemberStore();
+const userInfo = computed(() => memberStore.userInfo);
+
+const myTripStore = useMyTripStore();
+const { setMytripLike } = myTripStore;
+const { mytripLikeCount } = storeToRefs(myTripStore);
 
 // trip list 길이
 const len = ref(0);
@@ -41,7 +51,10 @@ const closeModal = () => {
 };
 
 onMounted(() => {
+  // 여행지 리스트 불러오기
   getTripList();
+  // 사용자의 찜한 리스트 불러오기
+  getMyTripLikeList();
   len.value = trips.value.length;
 });
 
@@ -65,6 +78,13 @@ watch(
   }
 );
 
+watch(
+  () => mytripLikeCount.value,
+  () => {
+    getTripList();
+  }
+);
+
 const getTrip = (idx) => {
   detailTrip(
     idx,
@@ -72,6 +92,14 @@ const getTrip = (idx) => {
       trip.value = data;
       setTrip(data);
     },
+    (error) => console.log(error)
+  );
+};
+
+const getMyTripLikeList = () => {
+  listLikeTrip(
+    userInfo.value.idx,
+    ({ data }) => setMytripLike(data),
     (error) => console.log(error)
   );
 };
