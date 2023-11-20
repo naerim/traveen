@@ -130,7 +130,7 @@ const cancelLike = () => {
           </div>
           <div class="button-wrap">
             <button v-if="props.type === 'trip'" @click="goWriteCourse">여행코스 만들기</button>
-            <button v-else @click="addCourse">추가하기</button>
+            <button v-else @click="onAddCourse">추가하기</button>
             <div v-if="!isLikeTrip(tripStore.selectTrip.tripIdx)">
               <button @click="clickLike">
                 찜하기
