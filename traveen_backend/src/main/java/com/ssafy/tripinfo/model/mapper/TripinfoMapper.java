@@ -16,8 +16,11 @@ public interface TripinfoMapper {
     Tripinfo viewTripinfo(int idx) throws SQLException;
     int getTotalTripinfoCount(Map<String, Object> param) throws SQLException;
     void likeTripinfo(LikeTrip likeTrip) throws SQLException;
+    void deleteLikeTripinfo(int tripinfoIdx) throws SQLException;
     void updateHit(int idx) throws SQLException;
     void updateLike(int idx) throws SQLException;
+    void updateDeleteLike(int idx) throws SQLException;
+    int getTripinfoByLikeTripIdx(int likeTripIdx) throws SQLException;
     
     List<Sido> listSido() throws SQLException;
     

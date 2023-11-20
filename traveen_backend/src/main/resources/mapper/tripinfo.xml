@@ -100,10 +100,30 @@
 		values(#{tripinfoIdx}, #{userIdx}, now())
 	</insert>
 	
-	<!-- 좋아요 카운트 -->
+	<!-- 여행지 좋아요 취소  -->
+	<delete id="deleteLikeTripinfo" parameterType="int">
+		delete from like_trip
+		where tripinfo_idx = #{tripinfoIdx}
+	</delete>
+	
+	<!-- LikeTrip idx로 tripinfo idx 찾기 -->
+<!-- 	<select id="getTripinfoByLikeTripIdx" parameterType="int" resultType="int"> -->
+<!-- 		select tripinfo_idx -->
+<!-- 		from like_trip -->
+<!-- 		where idx = #{idx} -->
+<!-- 	</select> -->
+	
+	<!-- 좋아요 카운트업 -->
 	<update id="updateLike" parameterType="int">
 		update tripinfo
 		set like_count = like_count + 1
 		where idx = #{idx}
 	</update>
+	
+	<!-- 좋아요 카운트 다운 -->
+<!-- 	<update id="updateDeleteLike" parameterType="int"> -->
+<!-- 		update tripinfo -->
+<!-- 		set like_count = like_count - 1 -->
+<!-- 		where idx = #{idx} -->
+<!-- 	</update> -->
 </mapper>
