@@ -73,12 +73,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updatePwd(User user, String newPwd) throws Exception {
+	public void updatePwd(Map<String, String> map) throws Exception {
+		Map<String, String> param = new HashMap<>();
 		String salt = userUtil.getSalt();
+		String newPwd = map.get("newPwd");
 		newPwd = userUtil.getEncrypt(newPwd, salt);
-		user.setUserPwd(newPwd);
-		user.setSalt(salt);
-		userMapper.updatePwd(user, newPwd);
+		System.out.println("newPwd " + newPwd);
+		param.put("userPwd", newPwd);
+		param.put("salt", salt);
+		param.put("userId", map.get("userId"));
+		
+		userMapper.updatePwd(param);
 	}
 
 	@Override

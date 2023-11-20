@@ -1,5 +1,7 @@
 package com.ssafy.user.model.service;
 
+import java.util.Map;
+
 import com.ssafy.user.model.User;
 
 public interface UserService {
@@ -11,7 +13,7 @@ public interface UserService {
 	User getUserById(String userId) throws Exception;
 	User getUserByEmail(String emailId, String emailDomain) throws Exception;
 	void updateUser(User user) throws Exception;
-	void updatePwd(User user, String newPwd) throws Exception;
+	void updatePwd(Map<String, String> map) throws Exception;
 	int pwdCheck(String userId, String userPwd) throws Exception;
 	
 	void saveRefreshToken(String userId, String refreshToken) throws Exception;

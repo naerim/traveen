@@ -39,6 +39,14 @@ const deleteUser = (userId, success, fail) => {
   local.delete(`/user/delete/${userId}`).then(success).catch(fail);
 };
 
+// 비밀번호 변경
+const modifyPwd = (param, success, fail) => {
+  local
+    .put(`/user/myinfo/modifypwd`, JSON.stringify(param))
+    .then(success)
+    .catch(fail);
+};
+
 async function findById(userid, success, fail) {
   local.defaults.headers["Authorization"] =
     sessionStorage.getItem("accessToken");
@@ -72,4 +80,5 @@ export {
   logout,
   addToken,
   sendEmail,
+  modifyPwd,
 };

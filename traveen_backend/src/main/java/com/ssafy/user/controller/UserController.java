@@ -221,19 +221,22 @@ public class UserController {
 		return ResponseEntity.ok().build();
 	}
 
-	@PostMapping("/myinfo/modifypwd")
+	@PutMapping("/myinfo/modifypwd")
 	@ApiOperation(value = "비밀번호 변경 API", notes = "회원의 userPwd와 변경할 비밀번호를 받아 userPwd가 같다면 비밀번호를 변경하는 역할을 합니다. /user/myinfo/modifypwd")
-	public String mypwd(@RequestParam User user, @RequestParam String newPwd, HttpSession session,
-			RedirectAttributes rttr) throws Exception {
-		logger.debug("myinfo pwd : {}", newPwd);
-		int cnt = userService.pwdCheck(user.getUserId(), user.getUserPwd());
+	public ResponseEntity<?> mypwd(@RequestBody @ApiParam(value = "비밀번호 변경을 위한 정보.", required = true) Map<String, String> param) throws Exception {
+		logger.debug("myinfoPwd map : {}", param);
+		Map<String, String> result = new HashMap<>();
+		String userId = param.get("userId");
+		String userPwd = param.get("userPwd");
+		String newPwd = param.get("newPwd");
+		
+		int cnt = userService.pwdCheck(userId, userPwd);
 		if (cnt == 1) { // 비밀번호가 일치할 때
-			userService.updatePwd(user, newPwd);
-			rttr.addFlashAttribute("msg", "비밀번호가 변경되었습니다.");
-		} else { // 비밀번호가 일치하지 않을때
-			rttr.addFlashAttribute("msg", "비밀번호가 일치하지 않습니다.");
+			result.put("userId", userId);
+			result.put("newPwd", newPwd);
+			userService.updatePwd(result);
 		}
-		return "redirect:/user/myinfo";
+		return ResponseEntity.ok().build();
 	}
 	
 	@PostMapping("/email")

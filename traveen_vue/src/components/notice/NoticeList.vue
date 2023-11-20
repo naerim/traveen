@@ -4,8 +4,8 @@ import { useRouter } from "vue-router";
 import { listNotice } from "@/api/notice";
 import NoticeListItem from "@/components/notice/item/NoticeListItem.vue";
 import PageNavigation from "@/components/common/PageNavigation.vue";
-import VEmptyItem from "@/components/common/VEmptyItem.vue";
-import { storeToRefs } from "pinia";
+import VEmpimport { storeToRefs } from "pinia";tyItem from "@/components/common/VEmptyItem.vue";
+
 import { useMemberStore } from "@/stores/member";
 
 const memberStore = useMemberStore();
