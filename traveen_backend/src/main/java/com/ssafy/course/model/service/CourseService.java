@@ -11,4 +11,5 @@ public interface CourseService {
 	List<Course> listCourse(String userIdx) throws Exception;
 	CourseinfoParam listCourseinfo(String courseIdx) throws Exception;
 	void deleteCourse(String courseIdx) throws Exception;
+	void modifyCourse(Map<String, Object> map) throws Exception;
 }

@@ -15,7 +15,7 @@ const { userInfo } = storeToRefs(memberStore);
 const tripStore = useTripStore();
 
 const courseStore = useCourseStore();
-const { addCourse, setCourseList } = courseStore;
+const { addCourse, setCourseList, setCourse } = courseStore;
 
 const myTripStore = useMyTripStore();
 const { isMytripLike, addMytripLike, deleteMytripLike } = myTripStore;
@@ -41,6 +41,7 @@ const onClickCloseModal = () => {
 // 코스짜는 페이지로 이동
 const goWriteCourse = () => {
   router.replace({ name: "course" });
+  if (props.type === "trip") setCourse({}); // 새로운 코스 생성할때는 선택되었던 코스 초기화
   setCourseList([]); // 코스리스트 초기화
   onAddCourse();
 };

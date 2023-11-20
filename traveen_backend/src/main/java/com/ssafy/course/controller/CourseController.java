@@ -70,4 +70,11 @@ public class CourseController {
 		return ResponseEntity.ok().build();
 	}
 
+	@PostMapping("/modify")
+	@ApiOperation(value = "코스 수정 API", notes = "코스를 수정하는 역할을 합니다. /course/modify")
+	public ResponseEntity<?> modify(@RequestBody Map<String, Object> map) throws Exception {
+		logger.debug("modify course : {}", map);
+		courseService.modifyCourse(map);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
+	}
 }

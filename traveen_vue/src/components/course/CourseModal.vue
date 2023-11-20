@@ -1,23 +1,26 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
+import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { useCourseStore } from "@/stores/course";
 import { useMemberStore } from "@/stores/member";
 import CourseListModalItem from "@/components/course/item/CourseListModalItem.vue";
-import { registCourse } from "@/api/course";
+import { registCourse, modifyCourse } from "@/api/course";
 
-const courseStore = useCourseStore();
-const memberStore = useMemberStore();
 const router = useRouter();
 
+const memberStore = useMemberStore();
 const userInfo = computed(() => memberStore.userInfo);
+
+const courseStore = useCourseStore();
+const { currentCourse } = storeToRefs(courseStore);
 
 const param = ref({
   course: {
-    title: "",
+    title: currentCourse.value.title,
     userIdx: userInfo.value.idx,
-    startDate: "",
-    endDate: "",
+    startDate: currentCourse.value.startDate,
+    endDate: currentCourse.value.endDate,
     flag: 0,
   },
   courseList: [],
@@ -46,6 +49,15 @@ const makeParamCourseList = (list) => {
   return paramList;
 };
 
+watch(
+  () => currentCourse.value,
+  (newValue) => {
+    console.log(newValue);
+    param.value.course = newValue;
+    param.value.course.userIdx = userInfo.value.idx;
+  }
+);
+
 const onRegistCourse = (list) => {
   if (param.value.course.title === "") {
     alert("제목을 입력해주세요.");
@@ -55,6 +67,24 @@ const onRegistCourse = (list) => {
     param.value.course.endDate = param.value.course.startDate;
     param.value.courseList = makeParamCourseList(list);
     registCourse(
+      param.value,
+      () => {
+        router.push({ name: "trip-list" });
+      },
+      (error) => console.log(error)
+    );
+  }
+};
+
+const onModifyCourse = (list) => {
+  if (param.value.course.title === "") {
+    alert("제목을 입력해주세요.");
+  } else if (param.value.course.startDate === "") {
+    alert("여행 시작일을 선택해주세요.");
+  } else {
+    param.value.course.endDate = param.value.course.startDate;
+    param.value.courseList = makeParamCourseList(list);
+    modifyCourse(
       param.value,
       () => {
         router.push({ name: "trip-list" });
@@ -105,6 +135,7 @@ const onRegistCourse = (list) => {
           <button v-if="props.type === 'write'" @click="onRegistCourse(courseStore.courseList)">
             코스 등록
           </button>
+          <button v-else @click="onModifyCourse(courseStore.courseList)">코스 수정</button>
           <button @click="onClickCloseModal">닫기</button>
         </div>
       </div>

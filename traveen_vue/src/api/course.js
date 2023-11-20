@@ -22,4 +22,9 @@ const deleteCourse = (courseIdx, success, fail) => {
   local.delete(`/course/delete/${courseIdx}`).then(success).catch(fail);
 };
 
-export { registCourse, listCourse, listCourseItem, deleteCourse };
+// 코스 수정
+const modifyCourse = (param, success, fail) => {
+  local.post(`/course/modify`, JSON.stringify(param)).then(success).catch(fail);
+};
+
+export { registCourse, listCourse, listCourseItem, deleteCourse, modifyCourse };

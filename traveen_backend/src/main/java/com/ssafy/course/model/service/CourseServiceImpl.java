@@ -64,4 +64,27 @@ public class CourseServiceImpl implements CourseService {
 		courseMapper.deleteCourse(courseIdx);
 	}
 
+	@Override
+	public void modifyCourse(Map<String, Object> map) throws Exception {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("course", map.get("course") == null ? "" : map.get("course"));
+		param.put("courseList", map.get("courseList") == null ? "" : map.get("courseList"));
+
+		// Course객체로 cast
+		Course course =  new ObjectMapper().convertValue(param.get("course"), Course.class);
+
+		// 코스 삭제
+		courseMapper.deleteCourse(Integer.toString(course.getIdx()));
+
+//		Map<String, Object> modifyParam = new HashMap<String, Object>();
+//		modifyParam.put("course", course);
+		courseMapper.registCourse(course);
+
+//		modifyParam.put("courseList", param.get("courseList"));
+		int idx = course.getIdx();
+		System.out.println("course Idx : " + idx);
+		param.put("courseIdx", idx);
+		courseMapper.registCourseinfo(param);
+	}
+
 }
