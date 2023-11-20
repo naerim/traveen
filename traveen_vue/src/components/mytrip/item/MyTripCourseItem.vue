@@ -15,13 +15,14 @@ const toggleMenu = () => (show.value = !show.value);
 
 const courseStore = useCourseStore();
 const { setCourseList, setCourse } = courseStore;
+
 const myTripStore = useMyTripStore();
 const { deleteMycourse } = myTripStore;
 
 // 코스 수정 페이지로 이동
-const goCourseModifyPage = () => {
+const goCourseModifyPage = async () => {
   // 코스 아이템 불러오기
-  listCourseItem(
+  await listCourseItem(
     props.course.idx,
     ({ data }) => {
       setCourse({
@@ -30,11 +31,12 @@ const goCourseModifyPage = () => {
         startDate: data.startDate,
         endDate: data.endDate,
       });
+      console.log("코스 아이템 불렁오기 : " + data.courseTitle);
       setCourseList(data.list);
     },
     (err) => console.log(err)
   );
-  router.push({ name: "course-modify", params: { idx: props.course.idx } });
+  await router.push({ name: "course-modify", params: { idx: props.course.idx } });
 };
 
 const onDeleteCourse = (idx) => {

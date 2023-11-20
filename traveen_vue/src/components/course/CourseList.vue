@@ -19,10 +19,7 @@ const handleDrag = (e) => {
   updateCourseListOrder(oldIndex, newIndex);
 };
 
-const registCourse = () => {
-  courseStore.courseList.map((item) => {
-    console.log(item.placeName);
-  });
+const openModal = () => {
   show.value = true;
 };
 
@@ -46,8 +43,11 @@ const closeModal = () => {
         <CourseListItem :course="course" :index="courseStore.courseList.indexOf(course) + 1" />
       </template>
     </draggable>
-    <button id="btn-sort-path">최단경로로 정렬</button>
-    <button id="btn-regist-course" @click="registCourse">등록하기</button>
+    <!-- <button id="btn-sort-path">최단경로로 정렬</button> -->
+    <button v-if="props.type === 'write'" id="btn-regist-course" @click="openModal">
+      등록하기
+    </button>
+    <button v-else id="btn-regist-course" @click="openModal">수정하기</button>
   </div>
   <CourseModal :show="show" @close-modal="closeModal" :type="props.type" />
 </template>
