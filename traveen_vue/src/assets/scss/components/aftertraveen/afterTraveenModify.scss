@@ -20,3 +20,27 @@ h5 {
   justify-content: space-between;
   margin-top: 40px;
 }
+
+.btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px;
+
+  button {
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    height: 40px;
+    width: 140px;
+    background-color: #f7f8fa;
+    color: #6b7684;
+    border: 1px solid #e3e3e3;
+    &:last-child {
+      color: #fff;
+      background-color: var(--tv-c-green);
+      margin-left: 40px;
+      border: 1px solid var(--tv-c-green);
+    }
+  }
+}

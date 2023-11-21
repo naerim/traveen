@@ -62,3 +62,18 @@ a {
 ul {
   list-style: none;
 }
+
+li {
+  padding: 0;
+}
+
+div {
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+input,
+textarea,
+button {
+  box-sizing: border-box;
+}

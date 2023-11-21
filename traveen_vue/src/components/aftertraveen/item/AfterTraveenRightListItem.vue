@@ -4,8 +4,10 @@ import noImage from "@/assets/img/no_image.jpeg";
 
 <template>
   <li>
-    <div class="num">1</div>
-    <!-- <div class="wrap">
+    <div class="num-wrap">
+      <div class="num">1</div>
+    </div>
+    <div class="wrap">
       <div class="item-info">
         <img :src="noImage" alt="" />
         <div class="content">
@@ -14,11 +16,11 @@ import noImage from "@/assets/img/no_image.jpeg";
             <span :id="drama">드라마</span>
           </div>
           <div class="name">라라무리</div>
-          <div class="address">경기도 파주시 회동길 445-1</div>
+          <div class="address">경기도 파주시 회동길 445-1sadfsdafsadfas</div>
         </div>
       </div>
       <textarea name="" id="" cols="30" rows="10" placeholder="후기를 작성해주세요."></textarea>
-    </div> -->
+    </div>
   </li>
 </template>
 

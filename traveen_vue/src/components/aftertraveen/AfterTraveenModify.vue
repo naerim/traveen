@@ -11,6 +11,10 @@ import AfterTraveenRightFormVue from "@/components/aftertraveen/item/AfterTravee
       <AfterTraveenLeftForm />
       <AfterTraveenRightFormVue />
     </div>
+    <div class="btn-container">
+      <button>취소</button>
+      <button>수정하기</button>
+    </div>
   </article>
 </template>
 
