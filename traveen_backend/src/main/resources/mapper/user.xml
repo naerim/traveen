@@ -105,4 +105,10 @@
 		where user_id = #{userId}
 	</update>
 	
+	<!-- 팔로잉 목록 -->
+	<select id="listFollowing" parameterType="int" resultMap="user">
+		select u.idx, u.user_id, u.user_pwd, u.user_name, u.email_id, u.email_domain, u.mobile
+		from friend f, users u
+		where u.idx in (select to_idx from friend where from_idx = #{fromIdx});
+	</select>	
 </mapper>
