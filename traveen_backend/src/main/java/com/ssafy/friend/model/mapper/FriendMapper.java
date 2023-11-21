@@ -10,6 +10,6 @@ import com.ssafy.user.model.User;
 
 @Mapper
 public interface FriendMapper {
-	int registFriend(Friend friend) throws SQLException;
+	int followUser(Friend friend) throws SQLException;
 	void deleteFriend(Friend friend) throws SQLException;
 }

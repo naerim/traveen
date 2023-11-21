@@ -15,19 +15,12 @@ public class FriendServiceImpl implements FriendService {
 	}
 
 	@Override
-	public int registFriend(Friend friend) throws Exception {
-		return friendMapper.registFriend(friend);
+	public int followUser(Friend friend) throws Exception {
+		return friendMapper.followUser(friend);
 	}
 
 	@Override
 	public void deleteFriend(Friend friend) throws Exception {
 		friendMapper.deleteFriend(friend);
 	}
-
-//	@Override
-//	public List<User> listFollowing(int fromIdx) throws Exception {
-//		return friendMapper.listFollowing(fromIdx);
-//	}
-	
-	
 }

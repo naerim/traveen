@@ -10,6 +10,7 @@ import com.ssafy.user.model.User;
 
 @Mapper
 public interface UserMapper {
+	List<User> listUser(Map<String, String> map) throws SQLException;
 	int idCheck(String userId) throws SQLException;
 	User login(User user) throws SQLException;
 	void join(User user) throws SQLException;

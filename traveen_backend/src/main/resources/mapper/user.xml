@@ -4,54 +4,83 @@
 
 <mapper namespace="com.ssafy.user.model.mapper.UserMapper">
 	<resultMap type="user" id="user">
-		<result column="idx" property="idx"/>
-		<result column="user_id" property="userId"/>
-		<result column="user_pwd" property="userPwd"/>
-		<result column="user_name" property="userName"/>
-		<result column="email_id" property="emailId"/>
-		<result column="email_domain" property="emailDomain"/>
-		<result column="mobile" property="mobile"/>
-		<result column="salt" property="salt"/>
-		<result column="join_date" property="joinDate"/>
-		<result column="position" property="position"/>
-		<result column="email_code" property="emailCode"/>
-		<result column="refresh_token" property="refreshToken"/>
+		<result column="idx" property="idx" />
+		<result column="user_id" property="userId" />
+		<result column="user_pwd" property="userPwd" />
+		<result column="user_name" property="userName" />
+		<result column="email_id" property="emailId" />
+		<result column="email_domain" property="emailDomain" />
+		<result column="mobile" property="mobile" />
+		<result column="salt" property="salt" />
+		<result column="join_date" property="joinDate" />
+		<result column="position" property="position" />
+		<result column="email_code" property="emailCode" />
+		<result column="refresh_token" property="refreshToken" />
 	</resultMap>
+
+	<!-- 검색 -->
+	<sql id="search">
+		<if test="word != null and word != ''">
+			and user_id like concat('%', #{word}, '%')
+			or email_id like concat('%', #{word}, '%')
+		</if>
+	</sql>
+
+	<!-- 회원 목록 -->
+	<select id="listUser" resultMap="user">
+		select idx, user_id, user_name, email_id, email_domain
+		from users
+		<where>
+			<include refid="search"></include>
+		</where>
+	</select>
 
 	<!-- 아이디 중복 체크 -->
 	<select id="idCheck" parameterType="String" resultType="int">
-		select count(user_id)
+		select
+		count(user_id)
 		from users
 		where user_id = #{userId}
 	</select>
 
 	<!-- 로그인 -->
 	<select id="login" parameterType="user" resultMap="user">
-		select idx, user_id, user_pwd, refresh_token
-		from users
-		where user_id = #{userId} and user_pwd = #{userPwd}
-	</select>
-	
-	<!-- 회원가입 -->
-	<insert id="join" parameterType="user">
-		insert into users (user_id, user_pwd, user_name, email_id, email_domain, mobile, salt, join_date, position, email_code)
-		values (#{userId}, #{userPwd}, #{userName}, #{emailId}, #{emailDomain}, #{mobile}, #{salt}, now(), 'G', #{emailCode})
-	</insert>
-	
-	<!-- 아이디로 정보 가져오기 -->
-	<select id="getUserById" parameterType="String" resultMap="user">
-		select idx, user_id, user_pwd, user_name, email_id, email_domain, mobile, salt, join_date, position, refresh_token
+		select idx,
+		user_id, user_pwd, refresh_token
 		from users
 		where user_id = #{userId}
+		and user_pwd = #{userPwd}
 	</select>
-	
-	<!-- 이메일로 정보 가져오기 -->
-	<select id="getUserByEmail" parameterType="String" resultMap="user">
-		select idx, user_id, user_pwd, user_name, email_id, email_domain, mobile, salt, join_date, position, refresh_token
+
+	<!-- 회원가입 -->
+	<insert id="join" parameterType="user">
+		insert into users (user_id,
+		user_pwd, user_name, email_id, email_domain, mobile, salt, join_date,
+		position, email_code)
+		values (#{userId}, #{userPwd}, #{userName},
+		#{emailId}, #{emailDomain}, #{mobile}, #{salt}, now(), 'G',
+		#{emailCode})
+	</insert>
+
+	<!-- 아이디로 정보 가져오기 -->
+	<select id="getUserById" parameterType="String" resultMap="user">
+		select idx, user_id, user_pwd, user_name, email_id, email_domain,
+		mobile, salt, join_date, position, refresh_token
 		from users
+		where
+		user_id = #{userId}
+	</select>
+
+	<!-- 이메일로 정보 가져오기 -->
+	<select id="getUserByEmail" parameterType="String"
+		resultMap="user">
+		select idx, user_id, user_pwd, user_name, email_id,
+		email_domain, mobile, salt, join_date, position, refresh_token
+		from
+		users
 		where email_id = #{emailId} and email_domain = #{emailDomain}
 	</select>
-	
+
 	<!-- 회원정보 수정 -->
 	<update id="updateUser" parameterType="user">
 		update users
@@ -66,65 +95,75 @@
 
 	<!-- 비밀번호 체크 -->
 	<select id="pwdCheck" parameterType="map" resultType="int">
-		select count(user_id)
+		select
+		count(user_id)
 		from users
-		where user_id = #{userId} and user_pwd = #{userPwd}
+		where user_id = #{userId} and user_pwd =
+		#{userPwd}
 	</select>
 
 	<!-- 비밀번호 수정 -->
 	<update id="updatePwd" parameterType="map">
 		update users
-		set user_pwd = #{userPwd}, salt = #{salt}
+		set user_pwd =
+		#{userPwd}, salt = #{salt}
 		where user_id = #{userId}
 	</update>
-	
+
 	<!-- 회원탈퇴 -->
 	<delete id="deleteUser" parameterType="String">
 		delete from users
-		where user_id = #{userId}
+		where
+		user_id = #{userId}
 	</delete>
-	
+
 	<!-- refresh token 저장 -->
 	<update id="saveRefreshToken" parameterType="map">
 		update users
-		set refresh_token = #{refreshToken}
+		set
+		refresh_token = #{refreshToken}
 		where user_id = #{userId}
 	</update>
-	
-	<!-- refresh token 가져오기  -->
-	<select id="getRefreshToken" parameterType="string" resultType="string">
+
+	<!-- refresh token 가져오기 -->
+	<select id="getRefreshToken" parameterType="string"
+		resultType="string">
 		select refresh_token
 		from users
 		where user_id = #{userId}
 	</select>
-	
+
 	<!-- refresh token 삭제 -->
 	<update id="deleteRefreshToken" parameterType="map">
 		update users
-		set refresh_token = #{refreshToken, jdbcType=VARCHAR}
-		where user_id = #{userId}
+		set
+		refresh_token = #{refreshToken, jdbcType=VARCHAR}
+		where user_id =
+		#{userId}
 	</update>
-	
+
 	<!-- 팔로잉 목록 -->
 	<select id="listFollowing" parameterType="int" resultMap="user">
-		select idx, user_id, user_name, email_id, email_domain, mobile
+		select
+		idx, user_id, user_name, email_id, email_domain, mobile
 		from users
 		where idx in (select to_idx from friend where from_idx = #{fromIdx});
 	</select>
-	
+
 	<!-- 팔로워 목록 -->
 	<select id="listFollower" parameterType="int" resultMap="user">
-		select idx, user_id, user_name, email_id, email_domain, mobile
+		select
+		idx, user_id, user_name, email_id, email_domain, mobile
 		from users
 		where idx in (select from_idx from friend where to_idx = #{toIdx});
 	</select>
-	
+
 	<!-- 팔로잉 삭제 -->
 	<delete id="deleteFollowing" parameterType="int">
 		delete from friend
 		where to_idx = #{toIdx}
 	</delete>
-	
+
 	<!-- 팔로우 삭제 -->
 	<delete id="deleteFollower" parameterType="int">
 		delete from friend

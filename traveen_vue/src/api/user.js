@@ -47,6 +47,11 @@ const modifyPwd = (param, success, fail) => {
     .catch(fail);
 };
 
+// 회원 목록
+const listUser = (param, success, fail) => {
+  local.get(`/user/list`, { params: param }).then(success).catch(fail);
+};
+
 async function findById(userid, success, fail) {
   local.defaults.headers["Authorization"] =
     sessionStorage.getItem("accessToken");
@@ -76,6 +81,7 @@ export {
   modifyUser,
   deleteUser,
   findById,
+  listUser,
   tokenRegeneration,
   logout,
   addToken,

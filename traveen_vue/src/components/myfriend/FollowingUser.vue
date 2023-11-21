@@ -5,10 +5,6 @@ import { useFriendStore } from "@/stores/friend";
 
 const type = "following";
 
-defineProps({
-  friends: Array,
-});
-
 const friendStore = useFriendStore();
 const { following } = storeToRefs(friendStore);
 </script>

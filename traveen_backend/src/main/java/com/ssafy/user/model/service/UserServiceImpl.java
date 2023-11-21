@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService {
 		super();
 		this.userMapper = userMapper;
 	}
+	
+	@Override
+	public List<User> listUser(Map<String, String> map) throws Exception {
+		return userMapper.listUser(map);
+	}
 
 	@Override
 	public User login(User user) throws Exception {
@@ -37,7 +42,7 @@ public class UserServiceImpl implements UserService {
 		
 		return userMapper.login(user);
 	}
-
+	
 	@Override
 	public int idCheck(String userId) throws Exception {
 		return userMapper.idCheck(userId);

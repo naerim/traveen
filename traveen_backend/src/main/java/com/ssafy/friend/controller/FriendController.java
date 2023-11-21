@@ -2,12 +2,18 @@ package com.ssafy.friend.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.friend.model.Friend;
 import com.ssafy.friend.model.service.FriendService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/friend")
@@ -22,13 +28,11 @@ public class FriendController {
 		this.friendService = friendService;
 	}
 	
-//	@GetMapping("/following/{userIdx}")
-//	@ApiOperation(value = "팔로잉 목록 API", notes = "팔로잉 목록을 조회하는 역할을 합니다. /following/{userIdx}")
-//	public ResponseEntity<?> list(@PathVariable("userIdx") int userIdx) throws Exception {
-//		logger.debug("following list user Idx : {}", userIdx);
-//		List<User> followingList = friendService.listFollowing(userIdx);
-//		HttpHeaders header = new HttpHeaders();
-//		header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-//		return ResponseEntity.ok().headers(header).body(followingList);
-//	}
+	@PostMapping("/regist")
+	@ApiOperation(value = "코스 등록 API", notes = "코스를 등록하는 역할을 합니다. /course/regist")
+	public ResponseEntity<?> regist(@RequestBody Friend friend) throws Exception {
+		logger.debug("regist friend : {}", friend);
+		friendService.followUser(friend);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
+	}
 }

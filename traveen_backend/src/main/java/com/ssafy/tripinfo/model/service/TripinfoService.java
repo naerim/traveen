@@ -1,10 +1,12 @@
 package com.ssafy.tripinfo.model.service;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import com.ssafy.tripinfo.model.*;
+import com.ssafy.tripinfo.model.LikeTripParam;
+import com.ssafy.tripinfo.model.Sido;
+import com.ssafy.tripinfo.model.Tripinfo;
+import com.ssafy.tripinfo.model.TripinfoList;
 
 
 public interface TripinfoService {

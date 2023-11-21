@@ -37,7 +37,6 @@ onMounted(() => {
 });
 
 const getNoticeList = () => {
-  console.log("서버에서 공지사항 목록 얻어오자");
   // API 호출
   listNotice(
     param.value,

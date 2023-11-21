@@ -21,4 +21,15 @@ const deleteFollowing = (userIdx, success, fail) => {
 const deleteFollower = (userIdx, success, fail) => {
   local.delete(`/user/follower/delete/${userIdx}`).then(success).catch(fail);
 };
-export { listFollowing, listFollower, deleteFollowing, deleteFollower };
+
+// 팔로잉 추가
+const followUser = (param, success, fail) => {
+  local.post(`/friend/regist`, JSON.stringify(param)).then(success).catch(fail);
+};
+export {
+  listFollowing,
+  listFollower,
+  deleteFollowing,
+  deleteFollower,
+  followUser,
+};

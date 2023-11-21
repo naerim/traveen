@@ -2,9 +2,6 @@
 import FriendListItem from "@/components/myfriend/item/FriendListItem.vue";
 import { storeToRefs } from "pinia";
 import { useFriendStore } from "@/stores/friend";
-defineProps({
-  friends: Array,
-});
 
 const type = "follower";
 

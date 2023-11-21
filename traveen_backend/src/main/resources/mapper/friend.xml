@@ -9,8 +9,15 @@
 		<result column="to_idx" property="toIdx" />
 	</resultMap>
 	
-	<!-- 친구 등록 -->
-	<insert id="registFriend" parameterType="friend">
+	<!-- 검색 -->
+	<sql id="search">
+		<if test="word != null and word != ''">
+			and title like concat('%', #{word}, '%')
+		</if>
+	</sql>
+	
+	<!-- 팔로잉 추가 -->
+	<insert id="followUser" parameterType="friend">
 	 	insert into friend (from_idx, to_idx)
 		values (#{fromIdx}, #{toIdx})
 	</insert>

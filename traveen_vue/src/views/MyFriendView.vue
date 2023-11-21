@@ -41,6 +41,7 @@ const getFollowingList = () => {
 
 const current = shallowRef(Follower);
 const active = ref("follower");
+
 const change = (val) => {
   active.value = val;
   current.value = val == "follower" ? Follower : Following;

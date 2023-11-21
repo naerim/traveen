@@ -6,6 +6,7 @@ import java.util.Map;
 import com.ssafy.user.model.User;
 
 public interface UserService {
+	List<User> listUser(Map<String, String> map) throws Exception;
 	int idCheck(String userId) throws Exception;
 	User login(User user) throws Exception;
 	void join(User user) throws Exception;
