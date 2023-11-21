@@ -1,3 +1,18 @@
 .container {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
+}
+.info-wrap {
+  width: 64%;
+  background-color: antiquewhite;
+  p {
+    height: 50vh;
+  }
+}
+
+.comments-wrap {
+  width: 34%;
+  height: auto;
+  background-color: bisque;
 }

@@ -2,8 +2,10 @@
 
 <template>
   <div class="container">
-    <div class="info-wrap"></div>
-    <div class="comments-wrap"></div>
+    <div class="info-wrap">
+      <p>info</p>
+    </div>
+    <div class="comments-wrap">wrap</div>
   </div>
 </template>
 
