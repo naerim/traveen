@@ -13,10 +13,11 @@ const memberStore = useMemberStore();
 const userInfo = computed(() => memberStore.userInfo);
 
 const courseStore = useCourseStore();
-const { currentCourse } = storeToRefs(courseStore);
+const { currentCourse, courseList } = storeToRefs(courseStore);
 
 const param = ref({
   course: {
+    idx: currentCourse.value.idx,
     title: currentCourse.value.title,
     userIdx: userInfo.value.idx,
     startDate: currentCourse.value.startDate,
@@ -41,7 +42,7 @@ const makeParamCourseList = (list) => {
   list.forEach((item, index) => {
     const courseItem = {
       courseIdx: "",
-      tripinfoIdx: item.idx,
+      tripinfoIdx: item.tripinfoIdx,
       order: index + 1,
     };
     paramList.push(courseItem);
@@ -54,6 +55,7 @@ watch(
   (newValue) => {
     console.log(newValue);
     param.value.course = newValue;
+    param.value.course.idx = newValue.idx;
     param.value.course.userIdx = userInfo.value.idx;
   }
 );
@@ -84,6 +86,8 @@ const onModifyCourse = (list) => {
   } else {
     param.value.course.endDate = param.value.course.startDate;
     param.value.courseList = makeParamCourseList(list);
+    // console.log("수정할 여행지들 : " + JSON.stringify(courseStore.courseList));
+    console.log("수정할 여행지들 : " + JSON.stringify(param.value.courseList));
     modifyCourse(
       param.value,
       () => {
@@ -135,7 +139,7 @@ const onModifyCourse = (list) => {
           <button v-if="props.type === 'write'" @click="onRegistCourse(courseStore.courseList)">
             코스 등록
           </button>
-          <button v-else @click="onModifyCourse(courseStore.courseList)">코스 수정</button>
+          <button v-else @click="onModifyCourse(courseList)">코스 수정</button>
           <button @click="onClickCloseModal">닫기</button>
         </div>
       </div>
