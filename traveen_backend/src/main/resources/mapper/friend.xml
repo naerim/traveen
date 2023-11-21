@@ -20,11 +20,4 @@
 		delete from friend
 		where from_idx = #{fromIdx} and to_idx = #{toIdx}
 	</delete>
-	
-	<!-- 팔로잉 목록 -->
-	<select id="listFollowing" parameterType="int" resultMap="friend">
-		select u.idx, u.user_id, u.user_pwd, u.user_name, u.email_id, u.email_domain, u.mobile, u.join_date
-		from friend f, users u
-		where f.from_idx = #{fromIdx} and u.idx = #{fromIdx} 
-	</select>
 </mapper>

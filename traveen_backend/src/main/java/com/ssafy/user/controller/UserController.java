@@ -1,6 +1,8 @@
 package com.ssafy.user.controller;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
@@ -14,7 +16,9 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -287,5 +291,16 @@ public class UserController {
 			map.put("user", user);
 		}
 		return map;
+	}
+	
+	@GetMapping("/following/{idx}")
+	@ApiOperation(value = "팔로잉 목록 API", notes = "회원의 팔로잉 목록을 조회하는 역할을 합니다. /user/following/{userIdx}")
+	public ResponseEntity<?> list(@PathVariable("idx") int idx) throws Exception {
+		logger.debug("following list user Idx : {}", idx);
+		List<User> followingList = userService.listFollowing(idx);
+		System.out.println(followingList);
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+		return ResponseEntity.ok().headers(header).body(followingList);
 	}
 }

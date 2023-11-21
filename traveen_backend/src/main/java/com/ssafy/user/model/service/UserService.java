@@ -1,5 +1,6 @@
 package com.ssafy.user.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.ssafy.user.model.User;
@@ -19,4 +20,5 @@ public interface UserService {
 	void saveRefreshToken(String userId, String refreshToken) throws Exception;
 	Object getRefreshToken(String userId) throws Exception;
 	void deleRefreshToken(String userId) throws Exception;
+	List<User> listFollowing(int fromIdx) throws Exception;
 }

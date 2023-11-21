@@ -10,30 +10,31 @@ public class Friend {
 	private int idx;
 	/* 팔로워 고유번호 */
 	@ApiModelProperty(value = "팔로워 고유번호")
-	private String fromIdx;
+	private int fromIdx;
 	/* 팔로잉 고유번호 */
 	@ApiModelProperty(value = "팔로잉 고유번호")
-	private String toIdx;
+	private int toIdx;
 	public int getIdx() {
 		return idx;
 	}
 	public void setIdx(int idx) {
 		this.idx = idx;
 	}
-	public String getFromIdx() {
+	public int getFromIdx() {
 		return fromIdx;
 	}
-	public void setFromIdx(String fromIdx) {
+	public void setFromIdx(int fromIdx) {
 		this.fromIdx = fromIdx;
 	}
-	public String getToIdx() {
+	public int getToIdx() {
 		return toIdx;
 	}
-	public void setToIdx(String toIdx) {
+	public void setToIdx(int toIdx) {
 		this.toIdx = toIdx;
 	}
 	@Override
 	public String toString() {
 		return "Friend [idx=" + idx + ", fromIdx=" + fromIdx + ", toIdx=" + toIdx + "]";
 	}
+	
 }

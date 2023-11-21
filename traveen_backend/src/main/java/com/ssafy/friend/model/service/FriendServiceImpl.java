@@ -1,12 +1,12 @@
 package com.ssafy.friend.model.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import com.ssafy.friend.model.Friend;
 import com.ssafy.friend.model.mapper.FriendMapper;
+import com.ssafy.user.model.User;
 
 @Service
 public class FriendServiceImpl implements FriendService {
@@ -28,9 +28,15 @@ public class FriendServiceImpl implements FriendService {
 	}
 
 	@Override
-	public List<Friend> listFollowing(int fromIdx) throws Exception {
-		return friendMapper.listFollowing(fromIdx);
+	public List<User> listFollowing(int fromIdx) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+//	@Override
+//	public List<User> listFollowing(int fromIdx) throws Exception {
+//		return friendMapper.listFollowing(fromIdx);
+//	}
 	
 	
 }

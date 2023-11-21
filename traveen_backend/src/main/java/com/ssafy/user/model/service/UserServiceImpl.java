@@ -1,6 +1,7 @@
 package com.ssafy.user.model.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,5 +114,10 @@ public class UserServiceImpl implements UserService {
 		map.put("userId", userId);
 		map.put("token", null);
 		userMapper.deleteRefreshToken(map);
+	}
+
+	@Override
+	public List<User> listFollowing(int fromIdx) throws Exception {
+		return userMapper.listFollowing(fromIdx);
 	}
 }
