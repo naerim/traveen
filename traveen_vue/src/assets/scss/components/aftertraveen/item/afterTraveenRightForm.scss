@@ -1,0 +1,31 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  width: 64%;
+  height: 800px;
+
+  border-radius: 6px;
+}
+
+.wrap-top {
+  display: flex;
+  background-color: var(--tv-c-green);
+  border-radius: 6px 6px 0 0;
+  height: 34px;
+  color: #fff;
+  align-items: center;
+  padding-left: 20px;
+  border: 1px solid var(--tv-c-green);
+}
+
+.wrap-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid #e3e3e3;
+  border-radius: 0 0 6px 6px;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}

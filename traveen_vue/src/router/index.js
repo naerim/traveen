@@ -93,6 +93,21 @@ const router = createRouter({
           name: "aftertraveen-list",
           component: () => import("@/components/aftertraveen/AftertraveenList.vue"),
         },
+        {
+          path: "write",
+          name: "aftertraveen-write",
+          component: () => import("@/components/aftertraveen/AftertraveenWrite.vue"),
+        },
+        {
+          path: "detail/:idx",
+          name: "aftertraveen-detail",
+          component: () => import("@/components/aftertraveen/AftertraveenDetail.vue"),
+        },
+        {
+          path: "modify/:idx",
+          name: "aftertraveen-modify",
+          component: () => import("@/components/aftertraveen/AftertraveenModify.vue"),
+        },
       ],
     },
     {
