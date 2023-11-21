@@ -107,8 +107,27 @@
 	
 	<!-- 팔로잉 목록 -->
 	<select id="listFollowing" parameterType="int" resultMap="user">
-		select u.idx, u.user_id, u.user_pwd, u.user_name, u.email_id, u.email_domain, u.mobile
-		from friend f, users u
-		where u.idx in (select to_idx from friend where from_idx = #{fromIdx});
-	</select>	
+		select idx, user_id, user_name, email_id, email_domain, mobile
+		from users
+		where idx in (select to_idx from friend where from_idx = #{fromIdx});
+	</select>
+	
+	<!-- 팔로워 목록 -->
+	<select id="listFollower" parameterType="int" resultMap="user">
+		select idx, user_id, user_name, email_id, email_domain, mobile
+		from users
+		where idx in (select from_idx from friend where to_idx = #{toIdx});
+	</select>
+	
+	<!-- 팔로잉 삭제 -->
+	<delete id="deleteFollowing" parameterType="int">
+		delete from friend
+		where to_idx = #{toIdx}
+	</delete>
+	
+	<!-- 팔로우 삭제 -->
+	<delete id="deleteFollower" parameterType="int">
+		delete from friend
+		where to_idx = #{toIdx}
+	</delete>
 </mapper>

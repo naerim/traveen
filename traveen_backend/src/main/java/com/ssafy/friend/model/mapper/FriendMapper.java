@@ -12,5 +12,4 @@ import com.ssafy.user.model.User;
 public interface FriendMapper {
 	int registFriend(Friend friend) throws SQLException;
 	void deleteFriend(Friend friend) throws SQLException;
-//	List<User> listFollowing(int fromIdx) throws SQLException;
 }

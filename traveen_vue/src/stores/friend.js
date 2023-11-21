@@ -1,11 +1,12 @@
 import { computed, ref } from "vue";
 import { defineStore } from "pinia";
 
-export const useCourseStore = defineStore(
+export const useFriendStore = defineStore(
   "friend",
   () => {
     const following = ref([]);
     const follower = ref([]);
+    const followingCount = computed(() => following.value.length);
     const followerCount = computed(() => follower.value.length);
 
     const addFollowing = (user) => {
@@ -15,8 +16,19 @@ export const useCourseStore = defineStore(
       } else following.value.push(user);
     };
 
-    const deleteFollowing = (idx) => {
+    const addFollower = (user) => {
+      const check = follower.value.some((item) => item.idx === user.idx);
+      if (check) {
+        alert("이미 팔로우한 회원입니다.");
+      } else follower.value.push(user);
+    };
+
+    const deleteMyFollowing = (idx) => {
       following.value = following.value.filter((item) => item.idx !== idx);
+    };
+
+    const deleteMyFollower = (idx) => {
+      follower.value = follower.value.filter((item) => item.idx !== idx);
     };
 
     const setFollowingList = (list) => {
@@ -30,11 +42,14 @@ export const useCourseStore = defineStore(
     return {
       following,
       follower,
+      followingCount,
       followerCount,
       addFollowing,
-      deleteFollowing,
       setFollowingList,
       setFollowerList,
+      addFollower,
+      deleteMyFollowing,
+      deleteMyFollower,
     };
   },
   { persist: true }

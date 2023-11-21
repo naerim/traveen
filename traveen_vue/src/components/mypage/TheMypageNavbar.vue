@@ -1,8 +1,13 @@
 <script setup>
+import { computed } from "vue";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { useMemberStore } from "@/stores/member";
+import { useFriendStore } from "@/stores/friend";
 import { deleteUser } from "@/api/user";
+
+const friendStore = useFriendStore();
+const followerCount = computed(() => friendStore.followerCount);
 
 const router = useRouter();
 const memberStore = useMemberStore();
@@ -29,7 +34,6 @@ const removeUser = () => {
     (error) => console.log(error)
   );
 };
-
 </script>
 
 <template>
@@ -45,7 +49,7 @@ const removeUser = () => {
       <!-- name -->
       <div id="user_name">{{ userInfo.userName }}</div>
       <!-- follower -->
-      <div id="follower">팔로워 10</div>
+      <div id="follower">팔로워 {{ followerCount }}</div>
       <ul class="menu">
         <li><router-link :to="{ name: 'myinfo' }">나의 정보</router-link></li>
         <li><router-link :to="{ name: 'mytrip' }">나의 여행</router-link></li>

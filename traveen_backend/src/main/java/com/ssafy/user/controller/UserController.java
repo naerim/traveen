@@ -295,12 +295,37 @@ public class UserController {
 	
 	@GetMapping("/following/{idx}")
 	@ApiOperation(value = "팔로잉 목록 API", notes = "회원의 팔로잉 목록을 조회하는 역할을 합니다. /user/following/{userIdx}")
-	public ResponseEntity<?> list(@PathVariable("idx") int idx) throws Exception {
+	public ResponseEntity<?> listfollowing(@PathVariable("idx") int idx) throws Exception {
 		logger.debug("following list user Idx : {}", idx);
 		List<User> followingList = userService.listFollowing(idx);
-		System.out.println(followingList);
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 		return ResponseEntity.ok().headers(header).body(followingList);
+	}
+	
+	@GetMapping("/follower/{idx}")
+	@ApiOperation(value = "팔로워 목록 API", notes = "회원의 팔로워 목록을 조회하는 역할을 합니다. /user/follower/{userIdx}")
+	public ResponseEntity<?> listfollower(@PathVariable("idx") int idx) throws Exception {
+		logger.debug("follower list user Idx : {}", idx);
+		List<User> followerList = userService.listFollower(idx);
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+		return ResponseEntity.ok().headers(header).body(followerList);
+	}
+	
+	@DeleteMapping("/following/delete/{idx}")
+	@ApiOperation(value = "팔로잉 삭제 API", notes = "회원의 idx를 PathVariable으로 받아 팔로잉을 삭제하는 역할을 합니다. /following/delete/{idx}")
+	public ResponseEntity<?> deleteFollowing(@PathVariable("idx") int idx) throws Exception {
+		logger.debug("delete following idx : {}", idx);
+		userService.deleteFollowing(idx);
+		return ResponseEntity.ok().build();
+	}
+	
+	@DeleteMapping("/follower/delete/{idx}")
+	@ApiOperation(value = "팔로워 삭제 API", notes = "회원의 idx를 PathVariable으로 받아 팔로워를 삭제하는 역할을 합니다. /follower/delete/{idx}")
+	public ResponseEntity<?> deleteFollower(@PathVariable("idx") int idx) throws Exception {
+		logger.debug("delete follower idx : {}", idx);
+		userService.deleteFollower(idx);
+		return ResponseEntity.ok().build();
 	}
 }

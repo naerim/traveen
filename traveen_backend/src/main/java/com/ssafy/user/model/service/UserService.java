@@ -20,5 +20,9 @@ public interface UserService {
 	void saveRefreshToken(String userId, String refreshToken) throws Exception;
 	Object getRefreshToken(String userId) throws Exception;
 	void deleRefreshToken(String userId) throws Exception;
+	
 	List<User> listFollowing(int fromIdx) throws Exception;
+	List<User> listFollower(int toIdx) throws Exception;
+	void deleteFollowing(int fromIdx) throws Exception;
+	void deleteFollower(int toIdx) throws Exception;
 }

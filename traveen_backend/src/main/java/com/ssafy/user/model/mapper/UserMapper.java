@@ -25,5 +25,9 @@ public interface UserMapper {
 	Object getRefreshToken(String userid) throws SQLException;
 	void deleteRefreshToken(Map<String, String> map) throws SQLException;
 	
+	// 팔로잉, 팔로워
 	List<User> listFollowing(int fromIdx) throws SQLException;
+	List<User> listFollower(int toIdx) throws SQLException;
+	void deleteFollowing(int fromIdx) throws SQLException;
+	void deleteFollower(int toIdx) throws SQLException;
 }

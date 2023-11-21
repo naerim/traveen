@@ -1,5 +1,6 @@
 package com.ssafy.user.model.service;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -120,4 +121,19 @@ public class UserServiceImpl implements UserService {
 	public List<User> listFollowing(int fromIdx) throws Exception {
 		return userMapper.listFollowing(fromIdx);
 	}
+
+	@Override
+	public List<User> listFollower(int toIdx) throws SQLException {
+		return userMapper.listFollower(toIdx);
+	}
+
+	@Override
+	public void deleteFollowing(int fromIdx) throws Exception {
+		userMapper.deleteFollowing(fromIdx);
+	}
+
+	@Override
+	public void deleteFollower(int toIdx) throws Exception {
+		userMapper.deleteFollower(toIdx);
+	}	
 }
