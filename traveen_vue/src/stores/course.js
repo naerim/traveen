@@ -12,7 +12,10 @@ export const useCourseStore = defineStore(
       const check = courseList.value.some((item) => item.idx === trip.idx);
       if (check) {
         alert("이미 추가된 항목입니다.");
-      } else courseList.value.push(trip);
+      } else {
+        trip.tripinfoIdx = trip.idx;
+        courseList.value.push(trip);
+      }
     };
 
     const deleteCourse = (idx) => {
@@ -27,6 +30,8 @@ export const useCourseStore = defineStore(
     };
 
     const setCourseList = (list) => {
+      console.log("set course");
+      list.map((item) => console.log(item));
       courseList.value = list;
     };
 

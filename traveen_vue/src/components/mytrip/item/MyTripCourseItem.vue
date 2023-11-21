@@ -31,8 +31,11 @@ const goCourseModifyPage = async () => {
         startDate: data.startDate,
         endDate: data.endDate,
       });
-      console.log("코스 아이템 불렁오기 : " + data.courseTitle);
+      console.log(data);
+      console.log("코스 고유번호 : " + data.courseIdx);
       setCourseList(data.list);
+      console.log("수정 페이지 이동 전 여행지 목록");
+      data.list.map((item) => console.log(item.tripinfoIdx));
     },
     (err) => console.log(err)
   );
