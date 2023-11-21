@@ -49,7 +49,7 @@
 
 	<!-- 코스 아이템 목록 -->
 	<select id="listCourseinfo" parameterType="String" resultMap="courseinfo">
-		select ci.idx, ci.course_idx, ci.tripinfo_idx, ci.order, c.title as courseTitle, t.category_name as categoryName, t.title, t.place_name as placeName, t.type, t.address, t.lat, t.loc, t.sido_code as sidoCode
+		select ci.idx, ci.course_idx, ci.tripinfo_idx, ci.order, c.title as courseTitle, t.category_name as categoryName, t.title, t.place_name as placeName, t.type, t.address, t.lat, t.loc, t.sido_code as sidoCode, t.image
 		from courses c
 		join courseinfo ci on c.idx = ci.course_idx
 		join tripinfo t on ci.tripinfo_idx = t.idx
@@ -59,7 +59,7 @@
 	
 	<!-- 코스 정보 -->
 	<select id="getCourse" parameterType="String" resultMap="course">
-		select idx, title, user_idx, create_date, start_date, end_date, flag
+		select idx, title, user_idx, create_date, date_format(start_date, '%Y-%m-%d') start_date, date_format(end_date, '%Y-%m-%d') , flag
 		from courses
 		where idx=#{courseIdx}
 	</select>

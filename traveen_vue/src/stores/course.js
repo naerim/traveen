@@ -30,8 +30,6 @@ export const useCourseStore = defineStore(
     };
 
     const setCourseList = (list) => {
-      console.log("set course");
-      list.map((item) => console.log(item));
       courseList.value = list;
     };
 

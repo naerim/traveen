@@ -3,6 +3,7 @@ import noImage from "@/assets/img/no_image.jpeg";
 defineProps({
   course: Object,
   index: Number,
+  imageSrc: String,
 });
 </script>
 

@@ -86,8 +86,6 @@ const onModifyCourse = (list) => {
   } else {
     param.value.course.endDate = param.value.course.startDate;
     param.value.courseList = makeParamCourseList(list);
-    // console.log("수정할 여행지들 : " + JSON.stringify(courseStore.courseList));
-    console.log("수정할 여행지들 : " + JSON.stringify(param.value.courseList));
     modifyCourse(
       param.value,
       () => {
@@ -129,10 +127,11 @@ const onModifyCourse = (list) => {
         </div>
         <ul class="course-list-wrap">
           <CourseListModalItem
-            v-for="(course, index) in courseStore.courseList"
+            v-for="(course, index) in courseList"
             :key="course.idx"
             :index="index + 1"
             :course="course"
+            :imageSrc="course.image"
           />
         </ul>
         <div class="btn-wrap">

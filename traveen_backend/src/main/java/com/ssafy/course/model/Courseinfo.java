@@ -44,7 +44,9 @@ public class Courseinfo {
 	/* 코스 제목 */
 	@ApiModelProperty(value = "코스 제목")
 	private String courseTitle;
-	
+	/* 이미지 주소 */
+	@ApiModelProperty(value = "이미지 주소")
+	private String image;
 	
 	public int getIdx() {
 		return idx;
@@ -124,14 +126,22 @@ public class Courseinfo {
 	public void setCourseTitle(String courseTitle) {
 		this.courseTitle = courseTitle;
 	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	
 	
 	@Override
 	public String toString() {
 		return "Courseinfo [idx=" + idx + ", courseIdx=" + courseIdx + ", tripinfoIdx=" + tripinfoIdx + ", order="
 				+ order + ", categoryName=" + categoryName + ", title=" + title + ", placeName=" + placeName + ", type="
-				+ type + ", address=" + address + ", lat=" + lat + ", loc=" + loc + ", sidoCode=" + sidoCode + "]";
+				+ type + ", address=" + address + ", lat=" + lat + ", loc=" + loc + ", sidoCode=" + sidoCode
+				+ ", courseTitle=" + courseTitle + ", image=" + image + "]";
 	}
+	
 	
 	
 	
