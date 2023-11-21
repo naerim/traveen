@@ -3,6 +3,7 @@ import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import TripListItem from "@/components/trip/item/TripListItem.vue";
 import TripModal from "@/components/trip/TripModal.vue";
+import VEmptyItem from "@/components/common/VEmptyItem.vue";
 import { useMyTripStore } from "@/stores/mytrip";
 import { useTripStore } from "@/stores/trip";
 import { detailTrip } from "@/api/trip";
@@ -11,7 +12,7 @@ const tripStore = useTripStore();
 const { setTrip } = tripStore;
 
 const myTripStore = useMyTripStore();
-const { mytripLike } = storeToRefs(myTripStore);
+const { mytripLike, mytripLikeCount } = storeToRefs(myTripStore);
 
 const show = ref(false);
 const trip = ref({});
@@ -46,7 +47,8 @@ const closeModal = () => {
 </script>
 
 <template>
-  <div class="container">
+  <VEmptyItem v-if="mytripLikeCount === 0" text="찜한 여행지가 없습니다." />
+  <div v-if="mytripLikeCount !== 0" class="container">
     <TripListItem
       v-for="trip in mytripLike"
       :key="trip.idx"
