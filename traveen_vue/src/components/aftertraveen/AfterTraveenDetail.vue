@@ -1,7 +1,10 @@
 <script setup></script>
 
 <template>
-  <div></div>
+  <div class="container">
+    <div class="info-wrap"></div>
+    <div class="comments-wrap"></div>
+  </div>
 </template>
 
 <style scoped>
