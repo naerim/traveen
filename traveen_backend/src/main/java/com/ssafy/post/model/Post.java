@@ -29,6 +29,15 @@ public class Post {
 	/* 제목 */
 	@ApiModelProperty(value = "제목")
 	private String title;
+	/* 여행 시작일 */
+	@ApiModelProperty(value = "여행 시작일")
+	private String startDate;
+	/* 여행 종료일 */
+	@ApiModelProperty(value = "여행 종료일")
+	private String endDate;
+	/* 이미지 */
+	@ApiModelProperty(value = "이미지")
+	private String image;
 	
 	
 	public int getIdx() {
@@ -79,6 +88,24 @@ public class Post {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	

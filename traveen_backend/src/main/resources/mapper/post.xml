@@ -50,29 +50,29 @@
 		set flag = 1
 		where idx=#{courseIdx}
 	</update>
-	
+
 	<!-- 검색 -->
  	<sql id="search">
  		<if test="word != null and word != ''">
- 		and title like concat('%', #{word}, '%')
- 			<if test="key == 'title'">
- 				and title like concat('%', #{word}, '%')
- 			</if>
- 			<if test="key != 'title'">
- 				and title like concat('%', #{word}, '%')
+ 			<if test="key == 'p.title'">
+ 				and ${key} like concat('%', #{word}, '%')
  			</if>
  		</if>
  	</sql>
 
 	<!-- 여행 후기 게시글 목록 -->
 	<select id="listPost" resultMap="post">
-		select idx, user_idx, course_idx, create_date, view_count, like_count, content, create_date as c_date
-		from posts
- 		<where>
- 			<include refid="search"></include>
- 		</where>
-		order by c_date desc
- 		limit #{start}, #{listsize}
+		select p.idx, p.title, p.user_idx, p.course_idx, p.create_date, p.view_count, p.like_count, p.content,
+		date_format(c.start_date, '%Y-%m-%d') startDate, date_format(c.end_date, '%Y-%m-%d') endDate, ti.image as image
+		from posts p
+		join courses c on p.course_idx = c.idx
+		left join courseinfo ci on c.idx = ci.course_idx and ci.order = 1
+		left join tripinfo ti on ci.tripinfo_idx = ti.idx
+		<where>
+			<include refid="search"></include>
+		</where>
+		order by p.create_date desc
+		limit #{start}, #{listsize}
 	</select>
 	
 	<!-- 여행 후기 게시글 조회 -->
@@ -107,8 +107,8 @@
 	<!-- idx로 여행 후기 게시글 찾기 -->
 	<select id="getPost" parameterType="int" resultMap="post">
 		select p.idx, u.idx, c.idx, date_format(p.create_date, '%Y-%m-%d') as create_date, p.view_count,
-		p.like_count, p.content
-		from posts p, users u, courses s
+		p.like_count, p.content, u.user_name as userName, date_format(c.start_date, '%Y-%m-%d') as startDate, date_format(c.end_date, '%Y-%m-%d') as endDate
+		from posts p, users u, courses c
 		where p.idx = #{idx} and p.user_idx = u.idx
 	</select>
 	

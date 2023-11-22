@@ -34,7 +34,6 @@ export const useCourseStore = defineStore(
       list.map((item) => {
         item.content = "";
         courseList.value.push(item);
-        console.log(courseList.value);
       });
     };
 

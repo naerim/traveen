@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted, watch, computed } from "vue";
-import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import { listTrip, detailTrip, listLikeTrip } from "@/api/trip";
 import TripListItem from "@/components/trip/item/TripListItem.vue";
@@ -13,7 +12,6 @@ import { useMemberStore } from "@/stores/member";
 
 const tripStore = useTripStore();
 const { setTrip } = tripStore;
-const route = useRoute();
 
 const memberStore = useMemberStore();
 const userInfo = computed(() => memberStore.userInfo);
@@ -26,9 +24,12 @@ const { mytripLikeCount } = storeToRefs(myTripStore);
 const len = ref(0);
 const show = ref(false);
 
+<<<<<<< HEAD
 const { pgno } = route.params;
 const { word } = route.params;
 
+=======
+>>>>>>> 1a6f0ca01f8935c69d52f0a0c3f27b21a8004b56
 const trips = ref([]);
 const trip = ref({});
 

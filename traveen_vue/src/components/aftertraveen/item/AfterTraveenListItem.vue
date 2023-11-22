@@ -1,26 +1,31 @@
 <script setup>
 import { useRouter } from "vue-router";
+import noImage from "@/assets/img/no_image.jpeg";
 
 const router = useRouter();
 
+const props = defineProps({
+  post: Object,
+});
+
 const goAfterTraveenDetailPage = () =>
-  router.push({ name: "aftertraveen-detail", params: { idx: 1 } });
+  router.push({ name: "aftertraveen-detail", params: { idx: props.post.idx } });
 </script>
 
 <template>
   <div class="item-box" @click="goAfterTraveenDetailPage">
     <div class="course-img">
-      <img src="@/assets/img/img_aftertraveen.png" alt="" />
+      <img :src="props.post.image || noImage" alt="" />
     </div>
     <div class="item-content">
       <div class="content-top">
-        <div class="course-title">내가 다녀왔던 아름다운 제주도</div>
-        <div class="course-view-count">조회수 117</div>
+        <div class="course-title">{{ props.post.title }}</div>
+        <div class="course-view-count">조회수 {{ props.post.viewCount }}</div>
       </div>
       <p class="course-content">
-        다음번에 제주도를 가면 지금 이 코스 그대로 다시 가고 싶다. 너무 추천한다 !!
+        {{ props.post.content }}
       </p>
-      <div class="course-date">2023-10-27 ~ 2023-10-27</div>
+      <div class="course-date">{{ props.post.startDate }} ~ {{ props.post.endDate }}</div>
     </div>
   </div>
 </template>
