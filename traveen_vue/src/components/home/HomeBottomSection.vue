@@ -1,43 +1,19 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { listPopularTrip, listTrip } from "@/api/trip";
+import { listPopularTrip } from "@/api/trip";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
 const popularTrips = ref([]);
-const currentPage = ref(1);
-const totalPage = ref(0);
-const { VITE_TRIP_LIST_SIZE } = import.meta.env;
 
-const trips = ref([]);
 
 onMounted(() => {
   getPopularTripList();
 });
 
-const param = ref({
-  pgno: currentPage.value,
-  spp: VITE_TRIP_LIST_SIZE,
-  word: "",
-  type: "",
-  order: "",
-  category: "",
-});
-
 const onClickTrip = (placeName) => {
-  param.value.word = placeName;
-  listTrip(
-    param.value,
-    ({ data }) => {
-      console.log(param.value);
-      trips.value = data.tripinfos;
-      currentPage.value = data.currentPage;
-      totalPage.value = data.totalPageCount;
-      router.push({ name: "trip-list", query: { param: param.value } });
-    },
-    (error) => console.log(error)
-  );
+  router.push({ name: "trip-list", params: { pgno: 1, word: placeName }});
 };
 
 const getPopularTripList = () => {
