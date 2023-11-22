@@ -23,7 +23,7 @@
 ul {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 0 20px;
   box-sizing: border-box;
   height: 620px;
   overflow-y: scroll;
@@ -31,7 +31,7 @@ ul {
 
 #btn-sort-path {
   background-color: #f7f8fa;
-  margin: auto 20px 0 20px;
+
   border: 1px solid #e3e3e3;
   height: 40px;
   border-radius: 6px;
@@ -42,7 +42,7 @@ ul {
 
 #btn-regist-course {
   background-color: #51cd89;
-  margin: 20px;
+  margin: auto 20px 20px 20px;
   border: none;
   color: #fff;
   height: 40px;

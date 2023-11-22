@@ -26,6 +26,11 @@ public class Post {
 	/* 내용 */
 	@ApiModelProperty(value = "내용")
 	private String content;
+	/* 제목 */
+	@ApiModelProperty(value = "제목")
+	private String title;
+	
+	
 	public int getIdx() {
 		return idx;
 	}
@@ -68,9 +73,21 @@ public class Post {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "Post [idx=" + idx + ", userIdx=" + userIdx + ", courseIdx=" + courseIdx + ", createDate=" + createDate
-				+ ", viewCount=" + viewCount + ", likeCount=" + likeCount + ", content=" + content + "]";
+				+ ", viewCount=" + viewCount + ", likeCount=" + likeCount + ", content=" + content + ", title=" + title
+				+ "]";
 	}
+	
+	
 }

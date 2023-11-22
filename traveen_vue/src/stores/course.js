@@ -30,7 +30,12 @@ export const useCourseStore = defineStore(
     };
 
     const setCourseList = (list) => {
-      courseList.value = list;
+      courseList.value = [];
+      list.map((item) => {
+        item.content = "";
+        courseList.value.push(item);
+        console.log(courseList.value);
+      });
     };
 
     const setCourse = (course) => {

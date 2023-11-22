@@ -19,6 +19,24 @@ const { setCourseList, setCourse } = courseStore;
 const myTripStore = useMyTripStore();
 const { deleteMycourse } = myTripStore;
 
+// 여행 후기 작성 페이지로 이동
+const goAftertraveenWritePage = () => {
+  listCourseItem(
+    props.course.idx,
+    ({ data }) => {
+      setCourse({
+        idx: data.courseIdx,
+        title: data.courseTitle,
+        startDate: data.startDate,
+        endDate: data.endDate,
+      });
+      setCourseList(data.list);
+      router.push({ name: "aftertraveen-write" });
+    },
+    (err) => console.log(err)
+  );
+};
+
 // 코스 수정 페이지로 이동
 const goCourseModifyPage = async () => {
   // 코스 아이템 불러오기
@@ -52,8 +70,6 @@ const onDeleteCourse = (idx) => {
   }
   show.value = false;
 };
-
-const goAftertraveenWritePage = () => router.push({ name: "aftertraveen-write" });
 </script>
 
 <template>

@@ -6,12 +6,15 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ssafy.course.model.Course;
 import com.ssafy.post.model.Post;
 
 @Mapper
 public interface PostMapper {
 	List<Post> listPost(Map<String, Object> map) throws SQLException;
-	void registPost(Post post) throws SQLException;
+	int registPost(Post post) throws SQLException;
+	void registPostItem(Map<String, Object> map) throws SQLException;
+	
 	void modifyPost(Post post) throws SQLException;
 	void deletePost(int idx) throws SQLException;
 	Post viewPost(int idx) throws SQLException;

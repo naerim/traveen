@@ -61,9 +61,9 @@ public class PostController {
 	
 	@PostMapping("/regist")
 	@ApiOperation(value = "여행 후기 게시글 등록 API", notes = "여행 후기 게시글을 등록하는 역할을 합니다. /post/regist")
-	public ResponseEntity<?> regist(@RequestBody Post post) throws Exception {
-		logger.debug("write post : {}", post);
-		postService.registPost(post);
+	public ResponseEntity<?> regist(@RequestBody Map<String, Object> map) throws Exception {
+		logger.debug("write post : {}", map);
+		postService.registPost(map);
 
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}

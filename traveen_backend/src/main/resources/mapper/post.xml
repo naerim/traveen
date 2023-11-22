@@ -11,8 +11,38 @@
 		<result column="view_count" property="viewCount" />
 		<result column="like_count" property="likeCount" />
 		<result column="content" property="content" />
+		<result column="title" property="title" />
 	</resultMap>
-
+	
+	<resultMap type="postItem" id="postItem">
+		<result column="idx" property="idx" />
+		<result column="post_idx" property="postIdx" />
+		<result column="tripinfo_idx" property="tripinfoIdx" />
+		<result column="course_idx" property="courseIdx" />
+		<result column="content" property="content" />
+		<result column="order" property="order" />
+	</resultMap>
+	
+	<!-- 여행 후기 게시글 등록 -->
+	<insert id="registPost" parameterType="post" useGeneratedKeys="true" keyColumn="idx" keyProperty="idx">
+	 	insert into posts(user_idx, course_idx, create_date, view_count, like_count, content, title)
+		values(#{userIdx}, #{courseIdx}, now(), 0, 0, #{content}, #{title})
+	</insert>
+	
+	<!-- 여행 후기 게시글 아이템 등록 -->
+	<insert id="registPostItem" parameterType="map">
+	 	insert into post_item (post_idx, tripinfo_idx, course_idx, content, `order`)
+	 	values
+	 	<foreach collection="list" item="item" separator=",">
+		(
+			#{postIdx},
+			#{item.tripinfoIdx},
+			#{item.courseIdx},
+			#{item.content},
+			#{item.order}
+		)
+		</foreach>
+	
 	<!-- 검색 -->
  	<sql id="search">
  		<if test="word != null and word != ''">
@@ -52,11 +82,6 @@
 		where idx = #{idx}
 	</update>
 	
-	<!-- 여행 후기 게시글 등록 -->
-	<insert id="registPost" parameterType="post">
-		insert into posts(user_idx, course_idx, create_date, view_count, like_count, content)
-		values(#{userIdx}, #{courseIdx}, now(), 0, 0, #{content})
-	</insert>
 	
 	<!-- 여행 후기 게시글 수정 -->
 	<update id="modifyPost" parameterType="post">

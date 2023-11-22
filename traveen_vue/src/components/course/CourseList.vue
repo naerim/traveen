@@ -32,13 +32,15 @@ const closeModal = () => {
 <template>
   <div class="container">
     <div class="course-top">나의 여행 코스</div>
-    <VueDraggableNext v-model="courseStore.courseList" @change="handleDrag" style="padding: 20px">
-      <CourseListItem
-        :course="course"
-        v-for="(course, index) in courseStore.courseList"
-        :key="index"
-        :index="courseStore.courseList.indexOf(course) + 1"
-      />
+    <VueDraggableNext v-model="courseStore.courseList" @change="handleDrag">
+      <ul>
+        <CourseListItem
+          :course="course"
+          v-for="(course, index) in courseStore.courseList"
+          :key="index"
+          :index="courseStore.courseList.indexOf(course) + 1"
+        />
+      </ul>
     </VueDraggableNext>
     <!-- <button id="btn-sort-path">최단경로로 정렬</button> -->
     <button v-if="props.type === 'write'" id="btn-regist-course" @click="openModal">
