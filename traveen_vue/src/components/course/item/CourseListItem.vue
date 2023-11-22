@@ -15,7 +15,7 @@ const deleteItem = (val) => {
 </script>
 
 <template>
-  <li draggable="true">
+  <div draggable="true" id="course-draggable-item">
     <div class="num">{{ index }}</div>
     <div class="right">
       <div class="top">
@@ -26,7 +26,7 @@ const deleteItem = (val) => {
       <div class="title">{{ course.placeName }}</div>
       <div class="addr">{{ course.address }}</div>
     </div>
-  </li>
+  </div>
 </template>
 
 <style scoped>

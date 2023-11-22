@@ -1,7 +1,14 @@
-<script setup></script>
+<script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const goAfterTraveenDetailPage = () =>
+  router.push({ name: "aftertraveen-detail", params: { idx: 1 } });
+</script>
 
 <template>
-  <div class="item-box">
+  <div class="item-box" @click="goAfterTraveenDetailPage">
     <div class="course-img">
       <img src="@/assets/img/img_aftertraveen.png" alt="" />
     </div>

@@ -38,6 +38,7 @@ watch(
     });
     loadMarkers();
     addLines();
+    loadCustomOverlay();
   },
   { deep: true }
 );
@@ -61,6 +62,7 @@ const initMap = () => {
 
   loadMarkers();
   addLines();
+  loadCustomOverlay();
 };
 
 const loadMarkers = () => {
@@ -90,6 +92,20 @@ const loadMarkers = () => {
   );
 
   map.setBounds(bounds);
+};
+
+const loadCustomOverlay = () => {
+  positions.value.forEach((pos, index) => {
+    let content = `<div id="map-num" style="background:#51CD89;color:#fff;width:20px;height:20px;border-radius:50%;text-align:center;font-size:0.9em;line-height:1.2;">${
+      index + 1
+    }</div>`;
+
+    let customOverlay = new kakao.maps.CustomOverlay({
+      position: pos.latlng,
+      content: content,
+    });
+    customOverlay.setMap(map);
+  });
 };
 
 // 마커 삭제

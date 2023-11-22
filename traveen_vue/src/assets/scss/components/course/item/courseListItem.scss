@@ -1,4 +1,4 @@
-li {
+#course-draggable-item {
   display: flex;
   background-color: #fff;
   margin-bottom: 20px;
@@ -6,9 +6,10 @@ li {
   border-radius: 6px;
   box-sizing: border-box;
   padding: 10px;
+  cursor: pointer;
 }
 
-li .num {
+#course-draggable-item .num {
   display: flex;
   background-color: #51cd89;
   width: 26px;
