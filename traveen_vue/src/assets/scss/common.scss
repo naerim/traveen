@@ -73,7 +73,11 @@ div {
 }
 
 input,
-textarea,
+textarea {
+  box-sizing: border-box;
+}
+
 button {
+  cursor: pointer;
   box-sizing: border-box;
 }
