@@ -10,10 +10,11 @@ export const useFriendStore = defineStore(
     const followerCount = computed(() => follower.value.length);
 
     const addFollowing = (user) => {
-      const check = following.value.some((item) => item.idx === user.idx);
-      if (check) {
-        alert("이미 팔로우한 회원입니다.");
-      } else following.value.push(user);
+      following.value.push(user);
+    };
+
+    const addFollower = (user) => {
+      follower.value.push(user);
     };
 
     const deleteMyFollowing = (idx) => {
@@ -34,7 +35,8 @@ export const useFriendStore = defineStore(
 
     // 팔로잉한 사용자인지 확인
     const isMyFollowing = (idx) => {
-      following.value.some((item) => item.idx == idx);
+      console.log(following.value);
+      return following.value.some((item) => item.idx == idx);
     };
 
     return {
@@ -43,6 +45,7 @@ export const useFriendStore = defineStore(
       followingCount,
       followerCount,
       addFollowing,
+      addFollower,
       setFollowingList,
       setFollowerList,
       deleteMyFollowing,

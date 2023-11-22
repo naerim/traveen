@@ -18,7 +18,6 @@ const param = ref({
 onMounted(() => {
   param.value.userId = userInfo.value.userId;
   param.value.userPwd = userInfo.value.userPwd;
-  console.log(userInfo.value);
 });
 
 const modifyUserPwd = () => {
@@ -31,16 +30,16 @@ const modifyUserPwd = () => {
   else if (param.value.newPwd !== pwdCheck) alert("비밀번호가 일치하지 않습니다.");
   else {
     modifyPwd(
-      param.value, () => {
+      param.value,
+      () => {
         alert("비밀번호가 변경되었습니다.");
         userInfo.value.userPwd = param.value.newPwd;
         router.go(0);
       },
       (error) => console.log(error)
-      );
-    } 
+    );
+  }
 };
-
 </script>
 
 <template>
@@ -55,7 +54,7 @@ const modifyUserPwd = () => {
       <div class="pwd-bottom-box">
         <div class="left">
           <div class="input-title">바꿀 비밀번호</div>
-          <input type="password" id="userPwd" name="userPwd" v-model="param.newPwd"/>
+          <input type="password" id="userPwd" name="userPwd" v-model="param.newPwd" />
         </div>
         <div class="right">
           <div class="input-title">비밀번호 확인</div>

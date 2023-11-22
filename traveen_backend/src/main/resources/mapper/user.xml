@@ -22,7 +22,7 @@
 	<sql id="search">
 		<if test="word != null and word != ''">
 			and user_id like concat('%', #{word}, '%')
-			or email_id like concat('%', #{word}, '%')
+			or concat(email_id, '@', email_domain) like concat('%', #{word}, '%')
 		</if>
 	</sql>
 
@@ -167,6 +167,6 @@
 	<!-- 팔로우 삭제 -->
 	<delete id="deleteFollower" parameterType="int">
 		delete from friend
-		where to_idx = #{toIdx}
+		where from_idx = #{fromIdx}
 	</delete>
 </mapper>

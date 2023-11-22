@@ -34,7 +34,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ssafy.tripinfo.model.TripinfoList;
 import com.ssafy.user.model.User;
 import com.ssafy.user.model.service.UserService;
 import com.ssafy.util.JWTUtil;
@@ -65,6 +64,8 @@ public class UserController {
 	public ResponseEntity<?> list(@RequestParam @ApiParam(value = "회원 목록을 얻기위한 부가정보.", required = true) Map<String, String> map) throws Exception {
 		logger.info("listUser map = {}", map);
 		List<User> list = userService.listUser(map);
+		System.out.println(map);
+		System.out.println(list);
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 		return ResponseEntity.ok().headers(header).body(list);

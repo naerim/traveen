@@ -21,10 +21,4 @@
 	 	insert into friend (from_idx, to_idx)
 		values (#{fromIdx}, #{toIdx})
 	</insert>
-	
-	<!-- 친구 삭제 -->
-	<delete id="deleteFriend" parameterType="friend">
-		delete from friend
-		where from_idx = #{fromIdx} and to_idx = #{toIdx}
-	</delete>
 </mapper>

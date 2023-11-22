@@ -26,10 +26,4 @@ const deleteFollower = (userIdx, success, fail) => {
 const followUser = (param, success, fail) => {
   local.post(`/friend/regist`, JSON.stringify(param)).then(success).catch(fail);
 };
-export {
-  listFollowing,
-  listFollower,
-  deleteFollowing,
-  deleteFollower,
-  followUser,
-};
+export { listFollowing, listFollower, deleteFollowing, deleteFollower, followUser };

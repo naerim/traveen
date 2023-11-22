@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import {listUser} from "@/api/user";
+import { listUser } from "@/api/user";
 import SearchFriendListItem from "@/components/myfriend/item/SearchFriendListItem.vue";
 import VEmptyItem from "@/components/common/VEmptyItem.vue";
 defineProps({
@@ -27,19 +27,17 @@ const getUserList = () => {
     param.value,
     ({ data }) => {
       users.value = data;
-      console.log(users);
+      len.value = users.value.length;
     },
     (error) => console.log(error)
   );
-
-  len.value = users.value.length;
 };
 
 const emit = defineEmits(["closeModal"]);
 const onClickCloseModal = () => {
   emit("closeModal");
   param.value.word = "";
-  users.value = "";
+  users.value = [];
 };
 </script>
 
@@ -59,14 +57,18 @@ const onClickCloseModal = () => {
         </div>
         <div class="line"></div>
         <div class="input-box">
-          <input type="text" placeholder="친구의 아이디나 이메일을 검색해보세요." v-model="param.word"/>
+          <input
+            type="text"
+            placeholder="친구의 아이디나 이메일을 검색해보세요."
+            v-model="param.word"
+          />
           <button @click="searchUser">검색</button>
         </div>
-        <div v-if="len !== 0" class="searh-list-box">
-          <SearchFriendListItem v-for="user in users" :key="user.idx" :user="user"/>
-        </div>
-        <div v-else class="searh-list-box">
+        <div v-if="len === 0" class="searh-list-box">
           <VEmptyItem text="해당 회원이 존재하지 않습니다." />
+        </div>
+        <div v-else>
+          <SearchFriendListItem v-for="user in users" :key="user.idx" :user="user" />
         </div>
       </div>
     </div>

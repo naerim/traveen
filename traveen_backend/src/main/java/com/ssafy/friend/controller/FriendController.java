@@ -32,6 +32,7 @@ public class FriendController {
 	@ApiOperation(value = "코스 등록 API", notes = "코스를 등록하는 역할을 합니다. /course/regist")
 	public ResponseEntity<?> regist(@RequestBody Friend friend) throws Exception {
 		logger.debug("regist friend : {}", friend);
+		System.out.println(friend);
 		friendService.followUser(friend);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}

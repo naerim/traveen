@@ -41,7 +41,6 @@ const getNoticeList = () => {
   listNotice(
     param.value,
     ({ data }) => {
-      console.log(param.value);
       notices.value = data.notices;
       currentPage.value = data.currentPage;
       totalPage.value = data.totalPageCount;
@@ -78,7 +77,13 @@ watch(notices, (newValue) => {
           <option value="">전체</option>
           <option value="subject">제목</option>
         </select>
-        <input type="text" name="keyword" id="keyword" placeholder="검색어를 입력해주세요." v-model="param.word"/>
+        <input
+          type="text"
+          name="keyword"
+          id="keyword"
+          placeholder="검색어를 입력해주세요."
+          v-model="param.word"
+        />
         <button id="btn-search" @click="searchNotice">검색</button>
         <button id="btn-insert" @click="goNoticeWrite">글쓰기</button>
       </div>

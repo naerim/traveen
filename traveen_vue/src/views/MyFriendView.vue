@@ -10,9 +10,11 @@ import { useFriendStore } from "@/stores/friend";
 const memberStore = useMemberStore();
 const friendStore = useFriendStore();
 const userInfo = computed(() => memberStore.userInfo);
-const { setFollowerList, setFollowingList } = friendStore;
+const { setFollowerList, setFollowingList, following, follower } = friendStore;
 const followerCount = computed(() => friendStore.followerCount);
 const followingCount = computed(() => friendStore.followingCount);
+
+const friends = ref([]);
 
 onMounted(() => {
   getFollowingList();
@@ -23,6 +25,7 @@ const getFollowerList = () => {
   listFollower(
     userInfo.value.idx,
     ({ data }) => {
+      friends.value = data;
       setFollowerList(data);
     },
     (error) => console.log(error)
@@ -33,6 +36,7 @@ const getFollowingList = () => {
   listFollowing(
     userInfo.value.idx,
     ({ data }) => {
+      friends.value = data;
       setFollowingList(data);
     },
     (error) => console.log(error)
@@ -65,12 +69,14 @@ const openModal = () => {
         @click="change('follower')"
         :class="{ active: active === 'follower' }"
         :friends="friends"
+        id="friend"
         >팔로워 <span class="num">{{ followerCount }}</span></span
       >
       <span
         @click="change('following')"
         :class="{ active: active === 'following' }"
         :friends="friends"
+        id="friend"
         >팔로잉 <span class="num">{{ followingCount }}</span></span
       >
     </div>
