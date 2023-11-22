@@ -24,12 +24,9 @@ const { mytripLikeCount } = storeToRefs(myTripStore);
 const len = ref(0);
 const show = ref(false);
 
-<<<<<<< HEAD
 const { pgno } = route.params;
 const { word } = route.params;
 
-=======
->>>>>>> 1a6f0ca01f8935c69d52f0a0c3f27b21a8004b56
 const trips = ref([]);
 const trip = ref({});
 
