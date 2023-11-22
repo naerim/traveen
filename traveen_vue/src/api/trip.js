@@ -7,6 +7,11 @@ const listTrip = (param, success, fail) => {
   local.get(`/tripinfo/list`, { params: param }).then(success).catch(fail);
 };
 
+// 인기 trip 목록
+const listPopularTrip = (success, fail) => {
+  local.get(`/tripinfo/list/popular`).then(success).catch(fail);
+};
+
 // trip idx로 trip 가져오기
 const detailTrip = (idx, success, fail) => {
   local.get(`/tripinfo/view/${idx}`).then(success).catch(fail);
@@ -31,5 +36,4 @@ const deleteLikeTrip = (tripinfoIdx, success, fail) => {
 const listLikeTrip = (userId, success, fail) => {
   local.get(`/tripinfo/${userId}/list`).then(success).catch(fail);
 };
-
-export { listTrip, detailTrip, listSido, likeTrip, deleteLikeTrip, listLikeTrip };
+export { listTrip, detailTrip, listSido, likeTrip, listPopularTrip, deleteLikeTrip, listLikeTrip };

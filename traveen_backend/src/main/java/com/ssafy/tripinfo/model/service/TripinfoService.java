@@ -11,6 +11,7 @@ import com.ssafy.tripinfo.model.TripinfoList;
 
 public interface TripinfoService {
     TripinfoList listTripinfo(Map<String, String> map) throws Exception;
+    List<Tripinfo> listPopularTripinfo() throws Exception;
     Tripinfo viewTripinfo(int idx) throws Exception;
     void updateHit(int idx) throws Exception;
     void updateLike(int idx) throws Exception;

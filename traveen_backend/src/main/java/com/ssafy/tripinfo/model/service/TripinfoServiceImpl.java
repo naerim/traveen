@@ -47,6 +47,11 @@ public class TripinfoServiceImpl implements TripinfoService {
 		tripinfoList.setTotalPageCount(totalPageCount);
 		return tripinfoList;
 	}
+	
+	@Override
+	public List<Tripinfo> listPopularTripinfo() throws Exception {
+		return tripinfoMapper.listPopularTripinfo();				
+	}
 
 	@Override
 	public Tripinfo viewTripinfo(int idx) throws Exception {

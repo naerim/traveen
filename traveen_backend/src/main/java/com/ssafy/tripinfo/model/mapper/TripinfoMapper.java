@@ -13,6 +13,7 @@ import com.ssafy.tripinfo.model.Tripinfo;
 @Mapper
 public interface TripinfoMapper {
     List<Tripinfo> listTripinfo(Map<String, Object> map) throws SQLException;
+    List<Tripinfo> listPopularTripinfo() throws SQLException;
     Tripinfo viewTripinfo(int idx) throws SQLException;
     int getTotalTripinfoCount(Map<String, Object> param) throws SQLException;
     void likeTripinfo(LikeTrip likeTrip) throws SQLException;

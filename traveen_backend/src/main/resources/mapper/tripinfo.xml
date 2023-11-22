@@ -73,6 +73,14 @@
 		where idx = #{idx}
 	</select>
 	
+	<!-- 인기 여행지 목록 -->
+	<select id="listPopularTripinfo" resultMap="tripinfo">
+		select idx, title, place_name, address, image
+		from tripinfo
+		order by like_count desc
+		limit 12
+	</select>
+	
 	<!-- 조회수 카운트 -->
 	<update id="updateHit" parameterType="int">
 		update tripinfo

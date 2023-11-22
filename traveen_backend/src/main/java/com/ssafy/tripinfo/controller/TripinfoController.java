@@ -52,6 +52,15 @@ public class TripinfoController {
 		return ResponseEntity.ok().headers(header).body(tripinfoList);
 	}
 	
+	@GetMapping("/list/popular")
+	@ApiOperation(value = "인기 여행지 목록 조회 API", notes = "인기 여행지 목록을 조회하는 역할을 합니다. /tripinfo/list/popular")
+	public ResponseEntity<?> listPopular() throws Exception {
+		List<Tripinfo> list = tripinfoService.listPopularTripinfo();
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+		return ResponseEntity.ok().headers(header).body(list);
+	}
+	
 	@GetMapping("/view/{idx}")
 	@ApiOperation(value = "여행지 상세 조회 API", notes = "Tripinfo의 idx를 RequestParam으로 받아서 해당 여행지를 상세 조회하는 역할을 합니다. /tripinfo/view")
 	public ResponseEntity<?> view(@PathVariable(value="idx") int idx)
