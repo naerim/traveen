@@ -1,17 +1,20 @@
 <script setup>
-import { ref, onMounted, watch, computed } from "vue";
+import { ref, computed } from "vue";
 import { storeToRefs } from "pinia";
 import AfterTraveenLeftForm from "@/components/aftertraveen/item/AfterTraveenLeftForm.vue";
 import AfterTraveenRightForm from "@/components/aftertraveen/item/AfterTraveenRightForm.vue";
 import { useCourseStore } from "@/stores/course";
 import { useMemberStore } from "@/stores/member";
 import { registPost } from "@/api/post";
+import { useRouter } from "vue-router";
 
 const courseStore = useCourseStore();
 const { currentCourse, courseList } = storeToRefs(courseStore);
 
 const memberStore = useMemberStore();
 const userInfo = computed(() => memberStore.userInfo);
+
+const router = useRouter();
 
 const postParam = ref({
   post: {
@@ -29,16 +32,15 @@ const writePost = () => {
   } else if (postParam.value.post.content === "") {
     alert("여행 후기 요약을 입력해주세요.");
   } else {
-    console.log("선택");
     registPost(
       postParam.value,
       () => {
+        alert("글이 등록되었습니다.");
         router.push({ name: "aftertraveen-list" });
       },
       (error) => console.log(error)
     );
   }
-  // courseList.value.map((item) => console.log(JSON.stringify(item)));
 };
 </script>
 
