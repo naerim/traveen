@@ -12,7 +12,7 @@ const userInfo = computed(() => memberStore.userInfo);
 
 const qna = ref({
   idx: 0,
-  userIdx: 1,
+  userIdx: userInfo.value.idx,
   title: "",
   content: "",
 });

@@ -56,21 +56,13 @@ const closeModal = () => {
 };
 
 onMounted(() => {
-  if (word == "") {
-    // 여행지 리스트 불러오기
-    getTripList();
-    // 사용자의 찜한 리스트 불러오기
-    getMyTripLikeList();
-    len.value = trips.value.length;
-  } else {
-    param.value.pgno = 1;
-    param.value.word = word;
-    // 여행지 리스트 불러오기
-    getTripList();
-    // 사용자의 찜한 리스트 불러오기
-    getMyTripLikeList();
-    len.value = trips.value.length; 
-  }
+  window.scrollTo(0, 0);
+  param.value.word = word;
+  // 여행지 리스트 불러오기
+  getTripList();
+  // 사용자의 찜한 리스트 불러오기
+  getMyTripLikeList();
+  len.value = trips.value.length;
 });
 
 const getTripList = () => {

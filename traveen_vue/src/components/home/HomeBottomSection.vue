@@ -2,18 +2,18 @@
 import { ref, onMounted } from "vue";
 import { listPopularTrip } from "@/api/trip";
 import { useRouter } from "vue-router";
+import noImage from "@/assets/img/no_image.jpeg";
 
 const router = useRouter();
 
 const popularTrips = ref([]);
-
 
 onMounted(() => {
   getPopularTripList();
 });
 
 const onClickTrip = (placeName) => {
-  router.push({ name: "trip-list-popular", params: { word: placeName }});
+  router.push({ name: "trip-list-popular", params: { word: placeName } });
 };
 
 const getPopularTripList = () => {
@@ -29,7 +29,7 @@ const getPopularTripList = () => {
       <div class="title">#인기 여행지</div>
       <div class="content">
         <div class="item" v-for="popularTrip in popularTrips" :key="popularTrip.idx">
-          <img :src="popularTrip.image" alt="" class="img-popular" />
+          <img :src="popularTrip.image || noImage" alt="" class="img-popular" />
           <div class="caption" @click="onClickTrip(popularTrip.placeName)">
             <h4 class="title">{{ popularTrip.title }}</h4>
             <p class="placeName">{{ popularTrip.placeName }}</p>

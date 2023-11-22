@@ -62,7 +62,7 @@ public class QnaController {
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping("/{idx}")
+	@DeleteMapping("/delete/{idx}")
 	@ApiOperation(value = "QnA 삭제 API", notes = "QnA의 idx를 PathVariable으로 받아서 QnA를 삭제하는 역할을 합니다. /qna/delete")
 	public ResponseEntity<?> delete(@PathVariable("idx") int idx, Model model, RedirectAttributes rttr)
 			throws Exception {

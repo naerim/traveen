@@ -1,15 +1,14 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, computed } from "vue";
 import { useRouter } from "vue-router";
 import { listNotice } from "@/api/notice";
 import NoticeListItem from "@/components/notice/item/NoticeListItem.vue";
 import PageNavigation from "@/components/common/PageNavigation.vue";
 import VEmptyItem from "@/components/common/VEmptyItem.vue";
-import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
 
 const memberStore = useMemberStore();
-const { userInfo } = storeToRefs(memberStore);
+const userInfo = computed(() => memberStore.userInfo);
 
 const router = useRouter();
 
@@ -34,6 +33,7 @@ const param = ref({
 onMounted(() => {
   getNoticeList();
   len.value = notices.value.length;
+  console.log(JSON.stringify(userInfo.value));
 });
 
 const getNoticeList = () => {
@@ -85,7 +85,9 @@ watch(notices, (newValue) => {
           v-model="param.word"
         />
         <button id="btn-search" @click="searchNotice">검색</button>
-        <button id="btn-insert" @click="goNoticeWrite">글쓰기</button>
+        <button id="btn-insert" v-show="userInfo.userId === 'admin'" @click="goNoticeWrite">
+          글쓰기
+        </button>
       </div>
     </div>
     <div class="table-container">
