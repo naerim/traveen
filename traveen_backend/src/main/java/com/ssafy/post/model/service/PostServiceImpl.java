@@ -32,13 +32,11 @@ public class PostServiceImpl implements PostService {
 		param.put("listsize", sizePerPage);
 
 		String key = map.get("key");
-		param.put("key", key == null ? "" : key);
-		if ("user_id".equals(key))
-			param.put("key", key == null ? "" : "b.user_id");
+		param.put("key", key == null ? "" : "p.title");
+
 		List<Post> list = postMapper.listPost(param);
 
-		if ("user_id".equals(key))
-			param.put("key", key == null ? "" : "user_id");
+		param.put("key", key == null ? "" : "title");
 		int totalPostCount = postMapper.getTotalPostCount(param);
 		int totalPageCount = (totalPostCount - 1) / sizePerPage + 1;
 
