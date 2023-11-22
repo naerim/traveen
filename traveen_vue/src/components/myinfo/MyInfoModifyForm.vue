@@ -16,6 +16,7 @@ const router = useRouter();
 const { userId } = route.params;
 
 onMounted(() => {
+  // user.value = userInfo.value;
   user.value.userId = userInfo.value.userId;
   user.value.userName = userInfo.value.userName;
   user.value.emailId = userInfo.value.emailId;
@@ -27,10 +28,10 @@ const onUserModify = () => {
   modifyUser(
     user.value,
     () => {
-      console.log(userInfo.value);
       alert("수정되었습니다.");
       router.push({ name: "myinfo", params: { userId: userId } });
 
+      // userInfo.value = user.value;
       userInfo.value.userId = user.value.userId;
       userInfo.value.userName = user.value.userName;
       userInfo.value.emailId = user.value.emailId;

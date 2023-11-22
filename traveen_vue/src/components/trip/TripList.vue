@@ -24,6 +24,9 @@ const { mytripLikeCount } = storeToRefs(myTripStore);
 const len = ref(0);
 const show = ref(false);
 
+const { pgno } = route.params;
+const { word } = route.params;
+
 const trips = ref([]);
 const trip = ref({});
 
@@ -56,6 +59,11 @@ onMounted(() => {
   // 사용자의 찜한 리스트 불러오기
   getMyTripLikeList();
   len.value = trips.value.length;
+  console.log(pgno);
+  console.log(word);
+  
+  param.value.pgno = pgno;
+  param.value.word = word;
 });
 
 const getTripList = () => {
