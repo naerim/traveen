@@ -2,6 +2,7 @@
 import { ref, onMounted, watch } from "vue";
 import AfterTraveenListItem from "@/components/aftertraveen/item/AfterTraveenListItem.vue";
 import PageNavigation from "@/components/common/PageNavigation.vue";
+import VEmptyItem from "@/components/common/VEmptyItem.vue";
 import { listPost } from "@/api/post";
 
 const currentPage = ref(1);
@@ -37,7 +38,6 @@ const getPostList = () => {
       posts.value = data.posts;
       currentPage.value = data.currentPage;
       totalPage.value = data.totalPageCount;
-      console.log(data);
     },
     (error) => console.log(error)
   );
@@ -78,7 +78,10 @@ watch(posts, (newValue) => {
       </form>
     </div>
     <div class="line"></div>
-    <div class="content-box">
+    <div v-if="len == 0">
+      <VEmptyItem text="검색 결과가 없습니다." />
+    </div>
+    <div v-else class="content-box">
       <AfterTraveenListItem v-for="post in posts" :key="post.idx" :post="post" />
     </div>
     <PageNavigation

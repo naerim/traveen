@@ -107,8 +107,8 @@
 	<!-- idx로 여행 후기 게시글 찾기 -->
 	<select id="getPost" parameterType="int" resultMap="post">
 		select p.idx, u.idx, c.idx, date_format(p.create_date, '%Y-%m-%d') as create_date, p.view_count,
-		p.like_count, p.content
-		from posts p, users u, courses s
+		p.like_count, p.content, u.user_name as userName, date_format(c.start_date, '%Y-%m-%d') as startDate, date_format(c.end_date, '%Y-%m-%d') as endDate
+		from posts p, users u, courses c
 		where p.idx = #{idx} and p.user_idx = u.idx
 	</select>
 	

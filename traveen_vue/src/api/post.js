@@ -12,4 +12,9 @@ const listPost = (param, success, fail) => {
   local.get(`/post/list`, { params: param }).then(success).catch(fail);
 };
 
-export { registPost, listPost };
+// 여행 후기 글에 속한 아이템 목록
+const listPostItem = (postIdx, success, fail) => {
+  local.get(`/post/list/${postIdx}`).then(success).catch(fail);
+};
+
+export { registPost, listPost, listPostItem };

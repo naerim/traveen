@@ -9,7 +9,7 @@ const props = defineProps({
 });
 
 const goAfterTraveenDetailPage = () =>
-  router.push({ name: "aftertraveen-detail", params: { idx: 1 } });
+  router.push({ name: "aftertraveen-detail", params: { idx: props.post.idx } });
 </script>
 
 <template>
