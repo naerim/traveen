@@ -9,6 +9,7 @@ const currentPage = ref(1);
 const totalPage = ref(0);
 const { VITE_AFTERTRAVEEN_LIST_SIZE } = import.meta.env;
 
+
 const param = ref({
   pgno: currentPage.value,
   spp: VITE_AFTERTRAVEEN_LIST_SIZE,

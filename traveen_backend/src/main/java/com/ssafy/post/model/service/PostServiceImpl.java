@@ -79,8 +79,6 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public Post viewPost(int idx) throws Exception {
-		//		Course course = courseMapper.getCourse(courseIdx);
-		Post post = postMapper.getPost(idx);
 		return postMapper.viewPost(idx);
 	}
 

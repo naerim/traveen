@@ -72,6 +72,7 @@ const onRegistCourse = (list) => {
       param.value,
       () => {
         router.push({ name: "trip-list" });
+        alert("코스 등록이 완료됐습니다.");
       },
       (error) => console.log(error)
     );

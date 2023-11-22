@@ -12,6 +12,10 @@
 		<result column="like_count" property="likeCount" />
 		<result column="content" property="content" />
 		<result column="title" property="title" />
+		<result column="start_date" property="startDate" />
+		<result column="end_date" property="endDate" />
+		<result column="image" property="image" />
+		<result column="user_name" property="userName" />
 	</resultMap>
 	
 	<resultMap type="postItem" id="postItem">
@@ -62,7 +66,7 @@
 
 	<!-- 여행 후기 게시글 목록 -->
 	<select id="listPost" resultMap="post">
-		select p.idx, p.title, p.user_idx, p.course_idx, p.create_date, p.view_count, p.like_count, p.content,
+		select p.idx, p.title, p.user_idx, p.course_idx, p.create_date, p.view_count, p.like_count, p.content, p.title, 
 		date_format(c.start_date, '%Y-%m-%d') startDate, date_format(c.end_date, '%Y-%m-%d') endDate, ti.image as image
 		from posts p
 		join courses c on p.course_idx = c.idx
@@ -77,10 +81,11 @@
 	
 	<!-- 여행 후기 게시글 조회 -->
 	<select id="viewPost" parameterType="int" resultMap="post">
-		select p.idx, u.idx, c.idx, date_format(p.create_date, '%Y-%m-%d') as create_date, p.view_count,
-		p.like_count, p.content
+		select p.idx, u.idx, u.user_name, c.idx, date_format(p.create_date, '%Y-%m-%d') as createDate,
+		date_format(c.start_date, '%Y-%m-%d') as start_date, date_format(c.end_date, '%Y-%m-%d') as end_date,
+		p.view_count, p.like_count, p.content, p.title
 		from posts p, users u, courses c
-		where p.idx = #{idx} and p.user_idx = u.idx
+		where p.idx = #{idx} and p.user_idx = u.idx and p.course_idx = c.idx;
 	</select>
 
 	<!-- 조회수 카운트 -->

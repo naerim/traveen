@@ -36,7 +36,7 @@ const writePost = () => {
     registPost(
       postParam.value,
       () => {
-        alert("글이 등록되었습니다.");
+        alert("게시글이 등록되었습니다.");
         router.push({ name: "aftertraveen-list" });
       },
       (error) => console.log(error)

@@ -41,8 +41,6 @@ public class Post {
 	/* 작성자 이름 */
 	@ApiModelProperty(value = "작성자 이름")
 	private String userName;
-	
-	
 	public int getIdx() {
 		return idx;
 	}
@@ -85,7 +83,6 @@ public class Post {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
 	public String getTitle() {
 		return title;
 	}
@@ -116,14 +113,11 @@ public class Post {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
-	
 	@Override
 	public String toString() {
 		return "Post [idx=" + idx + ", userIdx=" + userIdx + ", courseIdx=" + courseIdx + ", createDate=" + createDate
 				+ ", viewCount=" + viewCount + ", likeCount=" + likeCount + ", content=" + content + ", title=" + title
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", image=" + image + ", userName=" + userName
 				+ "]";
 	}
-	
-	
 }

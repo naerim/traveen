@@ -55,6 +55,7 @@ public class PostController {
 	public ResponseEntity<?> view(@PathVariable(value="idx") int idx) throws Exception {
 		logger.debug("view post idx : {}", idx);
 		Post post = postService.viewPost(idx);
+		System.out.println(post);
 		postService.updateHit(idx);
 		return ResponseEntity.ok(post);
 	}
