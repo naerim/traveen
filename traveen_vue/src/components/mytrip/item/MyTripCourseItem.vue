@@ -32,6 +32,7 @@ const goAftertraveenWritePage = () => {
       });
       setCourseList(data.list);
       router.push({ name: "aftertraveen-write" });
+      console.log(JSON.stringify(data));
     },
     (err) => console.log(err)
   );

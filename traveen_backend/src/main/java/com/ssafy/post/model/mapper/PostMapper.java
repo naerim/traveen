@@ -14,7 +14,7 @@ public interface PostMapper {
 	List<Post> listPost(Map<String, Object> map) throws SQLException;
 	int registPost(Post post) throws SQLException;
 	void registPostItem(Map<String, Object> map) throws SQLException;
-	
+	void updateCourseFlag(String courseIdx) throws SQLException;
 	void modifyPost(Post post) throws SQLException;
 	void deletePost(int idx) throws SQLException;
 	Post viewPost(int idx) throws SQLException;

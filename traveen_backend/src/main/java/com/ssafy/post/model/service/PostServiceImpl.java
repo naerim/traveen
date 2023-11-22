@@ -4,12 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.course.model.mapper.CourseMapper;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.course.model.Course;
-import com.ssafy.notice.model.Notice;
-import com.ssafy.notice.model.NoticeList;
 import com.ssafy.post.model.Post;
 import com.ssafy.post.model.PostList;
 import com.ssafy.post.model.mapper.PostMapper;
@@ -55,16 +53,20 @@ public class PostServiceImpl implements PostService {
 	public void registPost(Map<String, Object> map) throws Exception {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("post", map.get("post") == null ? "" : map.get("post"));
+		param.put("courseIdx", map.get("courseIdx") == null ? "" : map.get("courseIdx"));
 		param.put("list", map.get("list") == null ? "" : map.get("list"));
-		
+
 		// Post객체로 cast
 		Post post =  new ObjectMapper().convertValue(param.get("post"), Post.class);
 		postMapper.registPost(post);
-		
+
 		// 생성된 글의 고유 아이디
 		int idx = post.getIdx();
 		param.put("postIdx", idx);
 		postMapper.registPostItem(param);
+
+		// 여행 완료
+		postMapper.updateCourseFlag((String) param.get("courseIdx"));
 	}
 
 	@Override

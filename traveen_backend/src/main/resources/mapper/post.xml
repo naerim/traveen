@@ -37,12 +37,19 @@
 		(
 			#{postIdx},
 			#{item.tripinfoIdx},
-			#{item.courseIdx},
+			#{courseIdx},
 			#{item.content},
 			#{item.order}
 		)
 		</foreach>
 	</insert>
+
+	<!-- 코스 여행 완료 -->
+	<update id="updateCourseFlag" parameterType="String">
+		update courses
+		set flag = 1
+		where idx=#{courseIdx}
+	</update>
 	
 	<!-- 검색 -->
  	<sql id="search">

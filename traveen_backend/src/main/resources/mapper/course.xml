@@ -59,7 +59,7 @@
 	
 	<!-- 코스 정보 -->
 	<select id="getCourse" parameterType="String" resultMap="course">
-		select idx, title, user_idx, create_date, date_format(start_date, '%Y-%m-%d') start_date, date_format(end_date, '%Y-%m-%d') , flag
+		select idx, title, user_idx, create_date, date_format(start_date, '%Y-%m-%d') start_date, date_format(end_date, '%Y-%m-%d') end_date, flag
 		from courses
 		where idx=#{courseIdx}
 	</select>

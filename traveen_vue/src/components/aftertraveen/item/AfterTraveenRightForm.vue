@@ -4,7 +4,7 @@ import AfterTraveenRightListItem from "@/components/aftertraveen/item/AfterTrave
 import { useCourseStore } from "@/stores/course";
 
 const courseStore = useCourseStore();
-const { currentCourse, courseList } = storeToRefs(courseStore);
+const { courseList } = storeToRefs(courseStore);
 </script>
 
 <template>
@@ -14,6 +14,7 @@ const { currentCourse, courseList } = storeToRefs(courseStore);
       <AfterTraveenRightListItem
         v-for="(trip, index) in courseList"
         :trip="trip"
+        :key="trip.idx"
         :index="index + 1"
       />
     </div>

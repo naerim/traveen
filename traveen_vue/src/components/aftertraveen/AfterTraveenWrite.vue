@@ -18,11 +18,12 @@ const router = useRouter();
 
 const postParam = ref({
   post: {
-    title: "테스트글1",
+    title: "",
     userIdx: userInfo.value.idx,
     courseIdx: currentCourse.value.idx,
-    content: "테스트내용1",
+    content: "",
   },
+  courseIdx: currentCourse.value.idx,
   list: courseList,
 });
 
@@ -42,6 +43,9 @@ const writePost = () => {
     );
   }
 };
+
+const onInputTitle = (val) => (postParam.value.post.title = val);
+const onInputContent = (val) => (postParam.value.post.content = val);
 </script>
 
 <template>
@@ -49,7 +53,7 @@ const writePost = () => {
     <h2>여행 후기 작성</h2>
     <h5>나의 여행 코스가 마음에 들었다면 후기를 통해 다른 사람들에게 공유해볼까요?</h5>
     <div class="container">
-      <AfterTraveenLeftForm />
+      <AfterTraveenLeftForm @on-input-title="onInputTitle" @on-input-content="onInputContent" />
       <AfterTraveenRightForm />
     </div>
     <div class="btn-container">
