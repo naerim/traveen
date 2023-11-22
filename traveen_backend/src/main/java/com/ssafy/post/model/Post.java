@@ -38,6 +38,9 @@ public class Post {
 	/* 이미지 */
 	@ApiModelProperty(value = "이미지")
 	private String image;
+	/* 작성자 이름 */
+	@ApiModelProperty(value = "작성자 이름")
+	private String userName;
 	
 	
 	public int getIdx() {
@@ -106,6 +109,12 @@ public class Post {
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 	
