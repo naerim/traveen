@@ -6,6 +6,7 @@ import TripListItem from "@/components/trip/item/TripListItem.vue";
 import PageNavigation from "@/components/common/PageNavigation.vue";
 import VEmptyItem from "@/components/common/VEmptyItem.vue";
 import TripModal from "@/components/trip/TripModal.vue";
+import { useRoute } from "vue-router";
 import { useTripStore } from "@/stores/trip";
 import { useMyTripStore } from "@/stores/mytrip";
 import { useMemberStore } from "@/stores/member";
@@ -20,11 +21,12 @@ const myTripStore = useMyTripStore();
 const { setMytripLike } = myTripStore;
 const { mytripLikeCount } = storeToRefs(myTripStore);
 
+const route = useRoute();
+
 // trip list 길이
 const len = ref(0);
 const show = ref(false);
 
-const { pgno } = route.params;
 const { word } = route.params;
 
 const trips = ref([]);
@@ -54,16 +56,21 @@ const closeModal = () => {
 };
 
 onMounted(() => {
-  // 여행지 리스트 불러오기
-  getTripList();
-  // 사용자의 찜한 리스트 불러오기
-  getMyTripLikeList();
-  len.value = trips.value.length;
-  console.log(pgno);
-  console.log(word);
-  
-  param.value.pgno = pgno;
-  param.value.word = word;
+  if (word == "") {
+    // 여행지 리스트 불러오기
+    getTripList();
+    // 사용자의 찜한 리스트 불러오기
+    getMyTripLikeList();
+    len.value = trips.value.length;
+  } else {
+    param.value.pgno = 1;
+    param.value.word = word;
+    // 여행지 리스트 불러오기
+    getTripList();
+    // 사용자의 찜한 리스트 불러오기
+    getMyTripLikeList();
+    len.value = trips.value.length; 
+  }
 });
 
 const getTripList = () => {

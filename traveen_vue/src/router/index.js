@@ -62,6 +62,11 @@ const router = createRouter({
           name: "trip-detail",
           component: () => import("@/components/trip/TripModal.vue"),
         },
+        {
+          path: "list/:word",
+          name: "trip-list-popular",
+          component: () => import("@/components/trip/TripList.vue"),
+        },
       ],
     },
     {

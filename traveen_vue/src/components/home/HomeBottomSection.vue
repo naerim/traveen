@@ -13,7 +13,7 @@ onMounted(() => {
 });
 
 const onClickTrip = (placeName) => {
-  router.push({ name: "trip-list", params: { pgno: 1, word: placeName }});
+  router.push({ name: "trip-list-popular", params: { word: placeName }});
 };
 
 const getPopularTripList = () => {
