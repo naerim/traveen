@@ -14,7 +14,7 @@ const registQna = (qna, success, fail) => {
 
 // qna 삭제
 const deleteQna = (qna_idx, success, fail) => {
-  local.delete(`/qna//delete/${qna_idx}`).then(success).catch(fail);
+  local.delete(`/qna/delete/${qna_idx}`).then(success).catch(fail);
 };
 
 // qna comment 목록

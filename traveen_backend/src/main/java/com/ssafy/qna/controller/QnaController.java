@@ -64,11 +64,10 @@ public class QnaController {
 	
 	@DeleteMapping("/delete/{idx}")
 	@ApiOperation(value = "QnA 삭제 API", notes = "QnA의 idx를 PathVariable으로 받아서 QnA를 삭제하는 역할을 합니다. /qna/delete")
-	public ResponseEntity<?> delete(@PathVariable("idx") int idx, Model model, RedirectAttributes rttr)
+	public ResponseEntity<?> delete(@PathVariable("idx") int idx)
 			throws Exception {
 		logger.debug("delete qna idx : {}", idx);
 		qnaService.deleteQna(idx);
-		rttr.addFlashAttribute("msg", "QnA가 삭제되었습니다.");
 		return ResponseEntity.ok().build();
 	}
 }
