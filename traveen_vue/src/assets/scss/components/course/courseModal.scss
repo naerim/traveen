@@ -92,11 +92,11 @@
 .course-list-wrap {
   display: flex;
   flex-direction: column;
-
   overflow-y: scroll;
   height: 400px;
   border-bottom: 1px solid #e3e3e3;
   box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
 .btn-wrap {
