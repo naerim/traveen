@@ -1,16 +1,47 @@
 <script setup>
-import MyActivePostItemVue from "./item/MyActivePostItem.vue";
+import { ref, computed, onMounted } from "vue";
+import MyActivePostItemVue from "@/components/myactive/item/MyActivePostItem.vue";
+import { useMemberStore } from "@/stores/member";
+import { listPost } from "@/api/post";
+
+const memberStore = useMemberStore();
+const userInfo = computed(() => memberStore.userInfo);
+
+const param = ref({
+  pgno: 1,
+  spp: 20,
+  key: "title",
+  word: "",
+  userIdx: userInfo.value.idx,
+});
+
+const posts = ref([]);
+
+onMounted(() => {
+  // 내가 쓴 여행 후기 글 불러오기
+  getPostList();
+});
+
+const getPostList = () => {
+  listPost(
+    param.value,
+    ({ data }) => {
+      posts.value = data.posts;
+    },
+    (error) => console.log(error)
+  );
+};
 </script>
 
 <template>
   <div class="subtitle">내가 쓴 글</div>
   <div class="container">
     <div class="search-wrap">
-      <input type="text" placeholder="글 제목을 입력해주세요." />
-      <button>검색</button>
+      <input type="text" placeholder="글 제목을 입력해주세요." v-model="param.word" />
+      <button @click="getPostList">검색</button>
     </div>
     <ul>
-      <MyActivePostItemVue />
+      <MyActivePostItemVue v-for="post in posts" :key="post.idx" :post="post" />
     </ul>
   </div>
 </template>

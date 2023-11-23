@@ -35,6 +35,8 @@ public class PostServiceImpl implements PostService {
 		String key = map.get("key");
 		param.put("key", key == null ? "" : "p.title");
 
+		param.put("userIdx", map.get("userIdx") == null ? "" : map.get("userIdx"));
+
 		List<Post> list = postMapper.listPost(param);
 
 		param.put("key", key == null ? "" : "title");

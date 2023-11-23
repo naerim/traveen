@@ -71,7 +71,7 @@
 
 	<!-- 여행 후기 게시글 목록 -->
 	<select id="listPost" resultMap="post">
-		select p.idx, p.title, p.user_idx, p.course_idx, p.create_date, p.view_count, p.like_count, p.content, p.title, 
+		select p.idx, p.title, p.user_idx, p.course_idx, date_format(p.create_date, '%Y-%m-%d') create_date, p.view_count, p.like_count, p.content, p.title, p.view_count,
 		date_format(c.start_date, '%Y-%m-%d') start_date, date_format(c.end_date, '%Y-%m-%d') end_date, ti.image as image
 		from posts p
 		join courses c on p.course_idx = c.idx
@@ -79,8 +79,11 @@
 		left join tripinfo ti on ci.tripinfo_idx = ti.idx
 		<where>
 			<include refid="search"></include>
+			<if test="userIdx != null and userIdx != ''">
+				and p.user_idx = #{userIdx}
+			</if>
 		</where>
-		order by p.create_date desc
+		order by create_date desc
 		limit #{start}, #{listsize}
 	</select>
 	

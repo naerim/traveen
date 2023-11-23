@@ -2,8 +2,7 @@
 import { useRouter } from "vue-router";
 import noImage from "@/assets/img/no_image.jpeg";
 import { useCourseStore } from "@/stores/course";
-import { listCourseItem, deleteCourse } from "@/api/course";
-import { detailPost } from "@/api/post";
+import { listCourseItem } from "@/api/course";
 
 const router = useRouter();
 
