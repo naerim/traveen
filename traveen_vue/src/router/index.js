@@ -1,5 +1,28 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import { storeToRefs } from "pinia";
+import { useMemberStore } from "@/stores/member";
+
+const onlyAuthUser = async (to, from, next) => {
+  const memberStore = useMemberStore();
+  const { userInfo, isValidToken } = storeToRefs(memberStore);
+  const { getUserInfo } = memberStore;
+  let token = sessionStorage.getItem("accessToken");
+  console.log("로그인 처리 전", userInfo, token);
+
+  if (userInfo.value !== null && token) {
+    console.log("토큰 유효성 체크하러 가자!!!!");
+    await getUserInfo(token);
+  }
+  if (!isValidToken.value || userInfo.value === null) {
+    alert("로그인이 필요한 페이지입니다..");
+    next({ name: "login" });
+    // router.push({ name: "login" });
+  } else {
+    console.log("로그인 했다!!!!!!!!!!!!!.");
+    next();
+  }
+};
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -95,34 +118,40 @@ const router = createRouter({
     {
       path: "/aftertraveen",
       name: "aftertraveen",
+      beforeEnter: onlyAuthUser,
       component: () => import("@/views/AfterTraveenView.vue"),
       redirect: { name: "aftertraveen-list" },
       children: [
         {
           path: "list",
           name: "aftertraveen-list",
-          component: () => import("@/components/aftertraveen/AftertraveenList.vue"),
+          component: () =>
+            import("@/components/aftertraveen/AftertraveenList.vue"),
         },
         {
           path: "write",
           name: "aftertraveen-write",
-          component: () => import("@/components/aftertraveen/AftertraveenWrite.vue"),
+          component: () =>
+            import("@/components/aftertraveen/AftertraveenWrite.vue"),
         },
         {
           path: "detail/:idx",
           name: "aftertraveen-detail",
-          component: () => import("@/components/aftertraveen/AftertraveenDetail.vue"),
+          component: () =>
+            import("@/components/aftertraveen/AftertraveenDetail.vue"),
         },
         {
           path: "modify/:idx",
           name: "aftertraveen-modify",
-          component: () => import("@/components/aftertraveen/AftertraveenModify.vue"),
+          component: () =>
+            import("@/components/aftertraveen/AftertraveenModify.vue"),
         },
       ],
     },
     {
       path: "/center",
       name: "center",
+      beforeEnter: onlyAuthUser,
       component: () => import("@/views/CenterView.vue"),
       redirect: { name: "notice-list" },
       children: [

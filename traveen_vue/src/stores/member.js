@@ -36,9 +36,10 @@ export const useMemberStore = defineStore(
           }
         },
         (error) => {
-          console.error(error);
           if (error.response.status === 406) {
-            alert("아이디 혹은 비밀번호를 다시 확인해주세요.");
+            console.log("로그인실패", error.response);
+            alert("로그인 실패");
+            router.push({ name: "login" });
           }
         }
       );
@@ -54,6 +55,7 @@ export const useMemberStore = defineStore(
               userInfo.value = response.data.userInfo;
             } else {
               console.log("유저 정보 없음!!!!");
+              router.push({ name: "login" });
             }
           },
           async (error) => {

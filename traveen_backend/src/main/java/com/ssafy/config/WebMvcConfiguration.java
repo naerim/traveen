@@ -4,58 +4,49 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.mybatis.spring.annotation.MapperScan;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.ssafy.interceptor.JWTInterceptor;
-
-//import com.ssafy.interceptor.ConfirmInterceptor;
-
 
 @Configuration
 @EnableAspectJAutoProxy
 @MapperScan(basePackages = { "com.ssafy.**.mapper" })
 public class WebMvcConfiguration implements WebMvcConfigurer {
 	
-	private final Logger logger = LoggerFactory.getLogger(WebMvcConfiguration.class);
-	
 	@Autowired
-	private JWTInterceptor jwtInterceptor = new JWTInterceptor();
+	private JWTInterceptor jwtInterceptor;
 
 	public WebMvcConfiguration(JWTInterceptor jwtInterceptor) {
 		super();
 		this.jwtInterceptor = jwtInterceptor;
 	}
-
-	private final List<String> patterns = Arrays.asList("*/center/**", "*/aftertraveen/**");
-
-//	@Autowired
-//	private ConfirmInterceptor confirmInterceptor;
-
-//	private final String uploadFilePath;
-
-//	public WebMvcConfiguration(@Value("${file.path.upload-files}") String uploadFilePath) {
-//		this.uploadFilePath = uploadFilePath;
-//	}
+	
+	private final List<String> patterns = Arrays.asList("/post/**", "*/notice/*", "*/qna/*");
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**").allowedOrigins("*")
-//			.allowedOrigins("http://localhost:5173")
-				.allowedMethods(HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(),
+//		default 설정.
+//		Allow all origins.
+//		Allow "simple" methods GET, HEAD and POST.
+//		Allow all headers.
+//		Set max age to 1800 seconds (30 minutes).
+		registry
+			.addMapping("/**")
+			.allowedOrigins("*")
+//			.allowedOrigins("http://localhost:5173", "http://localhost:5174")
+			.allowedMethods(HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(),
 						HttpMethod.DELETE.name(), HttpMethod.HEAD.name(), HttpMethod.OPTIONS.name(),
 						HttpMethod.PATCH.name())
-//				.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD")
-//				.allowedMethods("*")
-				.maxAge(1800); // 1800초 동안 preflight 결과를 캐시에 저장
+//			.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD")
+//			.allowCredentials(true)
+//			.exposedHeaders("*")
+			.maxAge(1800); // Pre-flight Caching
 	}
 
 	@Override
@@ -63,14 +54,13 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 		registry.addInterceptor(jwtInterceptor).addPathPatterns(patterns);
 	}
 
+//	Swagger UI 실행시 404처리
+//	Swagger2 일경우
 //	@Override
-//	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//		registry.addResourceHandler("/upload/file/**").addResourceLocations("file:///" + uploadFilePath + "/")
-//				.setCachePeriod(3600).resourceChain(true).addResolver(new PathResourceResolver());
-//	}
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+//        registry.addResourceHandler("/swagger-ui.html**").addResourceLocations("classpath:/META-INF/resources/swagger-ui.html");
+//        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+//    }
 
-//	@Override
-//	public void addViewControllers(ViewControllerRegistry registry) {
-//		registry.addViewController("/").setViewName("index");
-//	}
 }
