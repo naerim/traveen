@@ -52,8 +52,6 @@ const getQnaComment = () => {
   viewQnaComment(
     qnaIdx.value,
     ({ data }) => {
-      console.log("불러오기");
-      console.log(data);
       if (data) {
         qnaComment.value = data;
         currentComment.value = data;

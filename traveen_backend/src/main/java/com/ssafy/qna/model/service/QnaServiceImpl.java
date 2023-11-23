@@ -1,6 +1,8 @@
 package com.ssafy.qna.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -17,8 +19,12 @@ public class QnaServiceImpl implements QnaService {
 	}
 
 	@Override
-	public List<Qna> listQna() throws Exception {
-		return qnaMapper.listQna();
+	public List<Qna> listQna(Map<String, String> map) throws Exception {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("word", map.get("word") == null ? "" : map.get("word"));
+		param.put("key",  map.get("key") == null ? "" : map.get("key"));
+
+		return qnaMapper.listQna(param);
 	}
 
 	@Override

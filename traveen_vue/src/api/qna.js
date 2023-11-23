@@ -4,7 +4,7 @@ const local = localAxios();
 
 // qna 목록
 const listQna = (param, success, fail) => {
-  local.get(`/qna/list`).then(success).catch(fail);
+  local.get(`/qna/list`, { params: param }).then(success).catch(fail);
 };
 
 // qna 등록
