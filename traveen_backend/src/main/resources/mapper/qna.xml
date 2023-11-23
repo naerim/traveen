@@ -10,11 +10,27 @@
 		<result column="content" property="content" />
 		<result column="create_date" property="createDate" />
 	</resultMap>
+	
+	<!-- 검색 -->
+ 	<sql id="search">
+ 		<if test="word != null and word != ''">
+ 			<if test="key != ''">
+ 				and ${key} like concat('%', #{word}, '%')
+ 			</if>
+ 			 <if test="key == ''">
+ 				and title like concat('%', #{word}, '%') or content like concat('%', #{word}, '%')
+ 			</if>
+ 		</if>
+ 	</sql>
 
 	<!-- QnA 목록 -->
 	<select id="listQna" resultMap="qna">
 		select idx, user_idx, title, content, create_date
 		from qna
+		<where>
+			<include refid="search"></include>
+		</where>
+		order by create_date desc
 	</select>
 	
 	<!-- QnA 조회 -->

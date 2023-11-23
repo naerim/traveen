@@ -1,12 +1,16 @@
 package com.ssafy.qna.controller;
 
+import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,9 +43,11 @@ public class QnaController {
 	
 	@GetMapping("/list")
 	@ApiOperation(value = "QnA 목록 조회 API", notes = "QnA 목록을 조회하는 역할을 합니다. /qna/list")
-	public ResponseEntity<?> list() throws Exception {
-		List<Qna> list = qnaService.listQna();
-		return ResponseEntity.ok(list);
+	public ResponseEntity<?> list(@RequestParam Map<String, String> map) throws Exception {
+		List<Qna> list = qnaService.listQna(map);
+		HttpHeaders header = new HttpHeaders();
+		header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+		return ResponseEntity.ok().headers(header).body(list);
 	}
 	
 	@GetMapping("/view")
@@ -64,11 +70,10 @@ public class QnaController {
 	
 	@DeleteMapping("/delete/{idx}")
 	@ApiOperation(value = "QnA 삭제 API", notes = "QnA의 idx를 PathVariable으로 받아서 QnA를 삭제하는 역할을 합니다. /qna/delete")
-	public ResponseEntity<?> delete(@PathVariable("idx") int idx, Model model, RedirectAttributes rttr)
+	public ResponseEntity<?> delete(@PathVariable("idx") int idx)
 			throws Exception {
 		logger.debug("delete qna idx : {}", idx);
 		qnaService.deleteQna(idx);
-		rttr.addFlashAttribute("msg", "QnA가 삭제되었습니다.");
 		return ResponseEntity.ok().build();
 	}
 }

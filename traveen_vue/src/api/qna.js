@@ -4,7 +4,7 @@ const local = localAxios();
 
 // qna 목록
 const listQna = (param, success, fail) => {
-  local.get(`/qna/list`).then(success).catch(fail);
+  local.get(`/qna/list`, { params: param }).then(success).catch(fail);
 };
 
 // qna 등록
@@ -14,7 +14,7 @@ const registQna = (qna, success, fail) => {
 
 // qna 삭제
 const deleteQna = (qna_idx, success, fail) => {
-  local.delete(`/qna//delete/${qna_idx}`).then(success).catch(fail);
+  local.delete(`/qna/delete/${qna_idx}`).then(success).catch(fail);
 };
 
 // qna comment 목록

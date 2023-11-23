@@ -47,7 +47,7 @@ public class QnaCommentController {
 	
 	@GetMapping("/view/{idx}")
 	@ApiOperation(value = "QnA 댓글 상세 조회 API", notes = "QnA 댓글의 idx를 RequestParam으로 받아서 해당 QnA 댓글을 상세 조회하는 역할을 합니다. /qna/qnaComment/view")
-	public ResponseEntity<?> view(@PathVariable(value="idx") int idx, Model model)
+	public ResponseEntity<?> view(@PathVariable(value="idx") int idx)
 			throws Exception {
 		logger.debug("view qnaComment idx : {}", idx);
 		System.out.println("view: " + idx);
@@ -76,11 +76,9 @@ public class QnaCommentController {
 
 	@PutMapping("/modify")
 	@ApiOperation(value = "QnA 댓글 수정 조회 API", notes = "QnA 댓글을 수정하는 역할을 합니다. /qna/qnaComment/modify")
-	public ResponseEntity<?> modify(@RequestBody QnaComment qnaComment,
-			RedirectAttributes rttr) throws Exception {
+	public ResponseEntity<?> modify(@RequestBody QnaComment qnaComment) throws Exception {
 		logger.debug("modify qnaComment : {}", qnaComment);
-		System.out.println("댓글 수정");
-		rttr.addFlashAttribute("msg", "QnA 댓글이 수정되었습니다.");
+		qnaCommentService.modifyQnaComment(qnaComment);
 		return ResponseEntity.ok().build();
 	}
 	

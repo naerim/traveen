@@ -30,7 +30,6 @@ onMounted(() => {
     detailNotice(
       idx,
       ({ data }) => {
-        
         notice.value = data;
       },
       (error) => console.log(error)
@@ -84,7 +83,6 @@ function writeArticle() {
   registNotice(
     notice.value,
     ({ data }) => {
-      console.log(data);
       alert("공지사항이 등록되었습니다.");
       router.push({ name: "notice-list" });
       // currentPage.value = data.currentPage;

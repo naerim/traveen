@@ -10,6 +10,11 @@ import { useMemberStore } from "@/stores/member";
 const memberStore = useMemberStore();
 const userInfo = computed(() => memberStore.userInfo);
 
+const param = ref({
+  key: "",
+  word: "",
+});
+
 const qna = ref({
   idx: 0,
   userIdx: userInfo.value.idx,
@@ -31,7 +36,7 @@ onMounted(() => {
 const getQnaList = () => {
   // API 호출
   listQna(
-    {},
+    param.value,
     ({ data }) => {
       QnaList.value = data;
     },
@@ -76,6 +81,10 @@ const writeQna = () => {
   );
 };
 
+const searchQna = () => {
+  getQnaList();
+};
+
 // qna가 추가될때마다 qna 리스트 갱신
 watch(qna.value, () => {
   getQnaList();
@@ -93,13 +102,20 @@ watch(QnaList, (newValue) => {
       <div class="left">
         <label><input type="checkbox" />내가 쓴 글</label>
       </div>
-      <form class="right" id="form-search" action="#" method="post">
-        <select name="select-notice" id="select-notice">
+      <form class="right" id="form-search" action="#">
+        <select name="select-notice" id="select-notice" v-model="param.key">
           <option value="">전체</option>
-          <option value="subject">제목</option>
+          <option value="title">제목</option>
+          <option value="content">내용</option>
         </select>
-        <input type="text" name="keyword" id="keyword" placeholder="검색어를 입력해주세요." />
-        <input type="submit" id="btn-search" value="검색" />
+        <input
+          type="text"
+          name="keyword"
+          id="keyword"
+          placeholder="검색어를 입력해주세요."
+          v-model="param.word"
+        />
+        <input type="submit" id="btn-search" value="검색" @click.prevent="searchQna" />
         <button type="button" @click="openModal">글쓰기</button>
       </form>
     </div>

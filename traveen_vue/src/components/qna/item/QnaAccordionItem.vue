@@ -12,6 +12,9 @@ import { useMemberStore } from "@/stores/member";
 const memberStore = useMemberStore();
 const userInfo = computed(() => memberStore.userInfo);
 
+const qnaIdx = computed(() => props.qna.idx);
+const currentComment = ref("");
+
 const props = defineProps({
   qna: Object,
 });
@@ -20,12 +23,10 @@ const isOpen = ref(false);
 
 const qnaComment = ref({
   idx: 0,
-  userIdx: props.qna.userIdx,
-  qnaIdx: props.qna.idx,
+  userIdx: userInfo.value.idx,
+  qnaIdx: qnaIdx,
   content: "",
 });
-
-const qnaIdx = computed(() => props.qna.idx);
 
 onMounted(() => {
   getQnaComment();
@@ -37,7 +38,7 @@ const toggleAccordion = () => {
 
 // QnA Comment 등록하기
 const writeQnaComment = () => {
-  console.log(qnaComment.value);
+  console.log("등록할 답변 : " + qnaComment.value);
   registQnaComment(
     qnaComment.value,
     () => {
@@ -48,13 +49,13 @@ const writeQnaComment = () => {
 };
 
 const getQnaComment = () => {
-  console.log(qnaIdx.value);
   viewQnaComment(
     qnaIdx.value,
     ({ data }) => {
-      console.log("불러오기");
-      console.log(data);
-      qnaComment.value = data;
+      if (data) {
+        qnaComment.value = data;
+        currentComment.value = data;
+      }
     },
     (error) => console.log(error)
   );
@@ -65,7 +66,7 @@ const onDeleteQna = () => {
   const flag = confirm("정말로 삭제하시겠습니끼?");
   if (flag) {
     deleteQna(
-      props.qna.idx,
+      qnaIdx.value,
       () => {
         alert("QnA가 삭제되었습니다.");
         location.reload();
@@ -91,6 +92,7 @@ const onDeleteQnaComment = () => {
 
 // QnA Comment 수정하기
 const onModifyQnaComment = () => {
+  console.log(qnaComment.value);
   modifyQnaComment(
     qnaComment.value,
     () => {
@@ -122,18 +124,23 @@ const onModifyQnaComment = () => {
         placeholder="답변을 입력해주세요."
         v-model="qnaComment.content"
       ></textarea>
-      <div v-if="qnaComment.content == null" class="btn-wrap">
-        <button @click="writeQnaComment">등록</button>
-      </div>
-      <div v-else class="btn-wrap">
+
+      <div v-if="currentComment != ''" class="btn-wrap">
         <button @click="onModifyQnaComment">수정</button>
         <button @click="onDeleteQnaComment">삭제</button>
+      </div>
+      <div v-else class="btn-wrap">
+        <button @click="writeQnaComment">등록</button>
       </div>
     </div>
     <!-- 사용자가 회원일 때 -->
     <div v-else class="right">
-      <div v-if="qnaComment.content != ''" class="content">{{ qnaComment.content }}</div>
-      <div v-else class="title">답변이 아직 등록되지 않은 질문입니다.</div>
+      <div v-if="qnaComment.content == null || qnaComment.content == ''" class="title">
+        답변이 아직 등록되지 않은 질문입니다.
+      </div>
+      <div v-else class="content">
+        {{ qnaComment.content }}
+      </div>
     </div>
   </div>
 </template>
