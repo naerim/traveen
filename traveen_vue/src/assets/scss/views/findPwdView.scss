@@ -1,0 +1,84 @@
+article {
+  max-width: 400px;
+  margin: 0 auto;
+  padding-bottom: 100px;
+  padding-top: 60px;
+}
+
+/* 제목 */
+.auth-top {
+  h2 {
+    font-size: 2em;
+    font-weight: 700;
+    text-align: center;
+    white-space: pre-line;
+  }
+  h5 {
+    padding: 0;
+    color: #8b95a1;
+    margin-bottom: 40px;
+  }
+}
+
+.form-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.email-wrap {
+  display: flex;
+  justify-content: space-between;
+  input {
+    width: 70%;
+  }
+  button {
+    border: none;
+    border-radius: 6px;
+    background-color: var(--tv-c-green);
+    height: 36px;
+    color: #fff;
+    padding: 4px 10px;
+  }
+}
+
+label {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1em;
+  margin-bottom: 4px;
+}
+
+input {
+  border: 1px solid #dadee2;
+  border-radius: 6px;
+  height: 36px;
+  margin-bottom: 20px;
+  padding: 6px;
+  &::placeholder {
+    color: #d3d3d3;
+  }
+}
+
+#btn-reset-pwd {
+  border: none;
+  border-radius: 6px;
+  background-color: var(--tv-c-green);
+  height: 36px;
+  color: #fff;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.bottom-wrap {
+  display: flex;
+  width: 60%;
+  justify-content: space-around;
+  margin: 20px auto 0 auto;
+
+  a {
+    color: var(--tv-c-green);
+    cursor: pointer;
+    font-size: 0.9em;
+    text-decoration: none;
+  }
+}

@@ -303,6 +303,63 @@ public class UserController {
 		return map;
 	}
 	
+	@PostMapping("/email/pwd")
+	public Map<String, Object> emailPwd(@RequestBody String email) throws Exception {
+		logger.debug("send email : {}", email);
+		Map<String, Object> map = new HashMap<>();
+		int idx = email.indexOf("@");
+		String emailId = email.substring(0, idx);
+		String emailDomain = email.substring(idx + 1);
+		User user = userService.getUserByEmail(emailId, emailDomain);
+        
+		JavaMailSenderImpl mailSenderImpl = new JavaMailSenderImpl();
+		Properties prop = new Properties();
+		mailSenderImpl.setHost("smtp.gmail.com");
+		mailSenderImpl.setPort(587);
+		mailSenderImpl.setUsername("dbsk9012@gmail.com");
+		mailSenderImpl.setPassword("zxhfpticqdaqbgpg");
+		prop.put("mail.smtp.auth", true);
+		prop.put("mail.smtp.starttls.enable", true);
+        
+		mailSenderImpl.setJavaMailProperties(prop);
+		
+		if (user != null) {
+			map.put("exist", "이미 존재하는 이메일입니다.");
+		} else {
+			Random random = new Random(); // 난수 생성을 위한 랜덤 클래스
+			String key = ""; // 인증번호 담을 String key 변수 생성
+            
+			MimeMessage message = mailSender.createMimeMessage();
+			// true는 멀티파트 메세지를 사용하겠다는 의미
+			MimeMessageHelper mailHelper = new MimeMessageHelper(message, true, "UTF-8");
+			
+			// 입력 키를 위한 난수 생성 코드 
+			for (int i = 0; i < 3; i++) {
+				int index = random.nextInt(26) + 65;
+				key += (char) index;
+			}
+			for (int i = 0; i < 6; i++) {
+				int numIndex = random.nextInt(10);
+				key += numIndex;
+			}
+			
+			String htmlMsg = "<h2>Traveen 임시 비밀번호 발급</h2>"
+					+ "회원님의 임시 비밀번호는 " + key + " 입니다.";
+			mailHelper.setSubject("[Traveen] Traveen 임시 비밀번호"); // 이메일 제목
+			mailHelper.setText(htmlMsg, true); // 이메일 내용
+			mailHelper.setTo(email);
+			mailHelper.setFrom("dbsk9012@gmail.com");
+            try {
+            	mailSender.send(message);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			map.put("key", key);
+			map.put("user", user);
+		}
+		return map;
+	}
+	
 	@GetMapping("/following/{idx}")
 	@ApiOperation(value = "팔로잉 목록 API", notes = "회원의 팔로잉 목록을 조회하는 역할을 합니다. /user/following/{userIdx}")
 	public ResponseEntity<?> listfollowing(@PathVariable("idx") int idx) throws Exception {
@@ -336,6 +393,13 @@ public class UserController {
 	public ResponseEntity<?> deleteFollower(@PathVariable("idx") int idx) throws Exception {
 		logger.debug("delete follower idx : {}", idx);
 		userService.deleteFollower(idx);
+		return ResponseEntity.ok().build();
+	}
+	
+	@ApiOperation(value = "비밀번호 초기화 API", notes = "비밀번호를 초기화하는 역할을 합니다.", response = Map.class)
+	@GetMapping("/resetPwd")
+	public ResponseEntity<?> resetPwd(@RequestParam Map<String, String> map) throws Exception{
+		userService.resetPwd(map);
 		return ResponseEntity.ok().build();
 	}
 }

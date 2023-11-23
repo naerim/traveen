@@ -11,6 +11,7 @@ public interface UserService {
 	User login(User user) throws Exception;
 	void join(User user) throws Exception;
 	void deleteUser(String userId) throws Exception;
+	void resetPwd(Map<String, String> map) throws Exception;
 
 	User getUserById(String userId) throws Exception;
 	User getUserByEmail(String emailId, String emailDomain) throws Exception;

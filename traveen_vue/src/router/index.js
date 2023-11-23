@@ -20,6 +20,11 @@ const router = createRouter({
       component: () => import("@/views/JoinView.vue"),
     },
     {
+      path: "/findPwd",
+      name: "findPwd",
+      component: () => import("@/views/findPwdView.vue"),
+    },
+    {
       path: "/mypage",
       name: "mypage",
       component: () => import("@/views/MyPageView.vue"),
@@ -96,26 +101,22 @@ const router = createRouter({
         {
           path: "list",
           name: "aftertraveen-list",
-          component: () =>
-            import("@/components/aftertraveen/AftertraveenList.vue"),
+          component: () => import("@/components/aftertraveen/AftertraveenList.vue"),
         },
         {
           path: "write",
           name: "aftertraveen-write",
-          component: () =>
-            import("@/components/aftertraveen/AftertraveenWrite.vue"),
+          component: () => import("@/components/aftertraveen/AftertraveenWrite.vue"),
         },
         {
           path: "detail/:idx",
           name: "aftertraveen-detail",
-          component: () =>
-            import("@/components/aftertraveen/AftertraveenDetail.vue"),
+          component: () => import("@/components/aftertraveen/AftertraveenDetail.vue"),
         },
         {
           path: "modify/:idx",
           name: "aftertraveen-modify",
-          component: () =>
-            import("@/components/aftertraveen/AftertraveenModify.vue"),
+          component: () => import("@/components/aftertraveen/AftertraveenModify.vue"),
         },
       ],
     },

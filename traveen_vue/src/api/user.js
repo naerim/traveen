@@ -28,10 +28,7 @@ const detailUser = (userId, success, fail) => {
 
 // 회원 정보 수정
 const modifyUser = (user, success, fail) => {
-  local
-    .put(`/user/myinfo/modify`, JSON.stringify(user))
-    .then(success)
-    .catch(fail);
+  local.put(`/user/myinfo/modify`, JSON.stringify(user)).then(success).catch(fail);
 };
 
 // 회원 탈퇴
@@ -41,10 +38,12 @@ const deleteUser = (userId, success, fail) => {
 
 // 비밀번호 변경
 const modifyPwd = (param, success, fail) => {
-  local
-    .put(`/user/myinfo/modifypwd`, JSON.stringify(param))
-    .then(success)
-    .catch(fail);
+  local.put(`/user/myinfo/modifypwd`, JSON.stringify(param)).then(success).catch(fail);
+};
+
+// 비밀번호 초기화
+const resetPwd = (param, success, fail) => {
+  local.get(`/user/resetPwd`, { params: param }).then(success).catch(fail);
 };
 
 // 회원 목록
@@ -53,14 +52,12 @@ const listUser = (param, success, fail) => {
 };
 
 async function findById(userid, success, fail) {
-  local.defaults.headers["Authorization"] =
-    sessionStorage.getItem("accessToken");
+  local.defaults.headers["Authorization"] = sessionStorage.getItem("accessToken");
   await local.get(`/user/myinfo/${userid}`).then(success).catch(fail);
 }
 
 async function tokenRegeneration(user, success, fail) {
-  local.defaults.headers["refreshToken"] =
-    sessionStorage.getItem("refreshToken"); //axios header에 refresh-token 셋팅
+  local.defaults.headers["refreshToken"] = sessionStorage.getItem("refreshToken"); //axios header에 refresh-token 셋팅
   await local.post(`/user/refresh`, user).then(success).catch(fail);
 }
 
@@ -73,11 +70,17 @@ const sendEmail = (email, success, fail) => {
   local.post(`/user/email`, email).then(success).catch(fail);
 };
 
+// 이메일 전송(비밀번호 찾기)
+const sendEmailPwd = (email, success, fail) => {
+  local.post(`/user/email/pwd`, email).then(success).catch(fail);
+};
+
 export {
   join,
   idCheck,
   userConfirm,
   detailUser,
+  resetPwd,
   modifyUser,
   deleteUser,
   findById,
@@ -87,4 +90,5 @@ export {
   addToken,
   sendEmail,
   modifyPwd,
+  sendEmailPwd,
 };

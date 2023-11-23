@@ -140,5 +140,21 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteFollower(int toIdx) throws Exception {
 		userMapper.deleteFollower(toIdx);
+	}
+
+	@Override
+	public void resetPwd(Map<String, String> map) throws Exception {
+		Map<String, String> param = new HashMap<>();
+		param.put("userId", map.get("userId"));
+		param.put("newPwd", map.get("newPwd"));
+		User user = userMapper.getUserById(param.get("userId"));
+		
+		user.setUserPwd(userUtil.getEncrypt(param.get("newPwd"), user.getSalt()));
+		
+		param.put("userPwd", user.getUserPwd());
+		param.put("salt", user.getSalt());
+
+		
+		userMapper.updatePwd(param);
 	}	
 }

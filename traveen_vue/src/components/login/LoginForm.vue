@@ -23,8 +23,7 @@ const login = async () => {
   if (isLogin) {
     getUserInfo(token);
     router.push("/");
-  }
-  else {
+  } else {
     alert("아이디 또는 비밀번호가 일치하지 않습니다.");
   }
 };
@@ -53,7 +52,7 @@ const login = async () => {
     </div>
     <div class="input-mid-box">
       <div class="checkbox-box">
-        <label> <input type="checkbox" name="idSave"/> 아이디 기억하기 </label>
+        <label> <input type="checkbox" name="idSave" /> 아이디 기억하기 </label>
       </div>
       <RouterLink :to="{ name: 'join' }">회원가입</RouterLink>
     </div>
@@ -64,7 +63,7 @@ const login = async () => {
   <div class="input-buttom-box">
     <a href="#">아이디 찾기</a>
     <div class="vertical"></div>
-    <a href="#">비밀번호 찾기</a>
+    <a href="/findPwd">비밀번호 찾기</a>
   </div>
 </template>
 
