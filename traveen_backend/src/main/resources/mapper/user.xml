@@ -98,15 +98,13 @@
 		select
 		count(user_id)
 		from users
-		where user_id = #{userId} and user_pwd =
-		#{userPwd}
+		where user_id = #{userId} and user_pwd = #{userPwd}
 	</select>
 
 	<!-- 비밀번호 수정 -->
 	<update id="updatePwd" parameterType="map">
 		update users
-		set user_pwd =
-		#{userPwd}, salt = #{salt}
+		set user_pwd = #{userPwd}
 		where user_id = #{userId}
 	</update>
 

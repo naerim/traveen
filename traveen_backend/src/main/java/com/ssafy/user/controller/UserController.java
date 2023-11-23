@@ -229,7 +229,7 @@ public class UserController {
 	}
 
 	@PutMapping("/myinfo/modifypwd")
-	@ApiOperation(value = "비밀번호 변경 API", notes = "회원의 userPwd와 변경할 비밀번호를 받아 userPwd가 같다면 비밀번호를 변경하는 역할을 합니다. /user/myinfo/modifypwd")
+	@ApiOperation(value = "비밀번호 변경 API", notes = "회원의 userId와 userPwd, 변경할 비밀번호를 받아 userPwd가 같다면 비밀번호를 변경하는 역할을 합니다. /user/myinfo/modifypwd")
 	public ResponseEntity<?> mypwd(@RequestBody @ApiParam(value = "비밀번호 변경을 위한 정보.", required = true) Map<String, String> param) throws Exception {
 		logger.debug("myinfoPwd map : {}", param);
 		Map<String, String> result = new HashMap<>();
@@ -238,12 +238,19 @@ public class UserController {
 		String newPwd = param.get("newPwd");
 		
 		int cnt = userService.pwdCheck(userId, userPwd);
+		System.out.println(cnt);
 		if (cnt == 1) { // 비밀번호가 일치할 때
 			result.put("userId", userId);
 			result.put("newPwd", newPwd);
 			userService.updatePwd(result);
+			
+			User user = userService.getUserById(userId);
+			userPwd = user.getUserPwd();
+			
+			return new ResponseEntity<String>(userPwd, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("일치x", HttpStatus.OK);
 		}
-		return ResponseEntity.ok().build();
 	}
 	
 	@PostMapping("/email")

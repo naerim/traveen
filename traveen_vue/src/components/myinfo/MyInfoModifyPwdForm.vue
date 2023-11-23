@@ -1,13 +1,11 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { storeToRefs } from "pinia";
-import { useRouter } from "vue-router";
 import { useMemberStore } from "@/stores/member";
 import { modifyPwd } from "@/api/user";
 
 const memberStore = useMemberStore();
 const { userInfo } = storeToRefs(memberStore);
-const router = useRouter();
 
 const param = ref({
   userId: "",
@@ -27,14 +25,19 @@ const modifyUserPwd = () => {
   if (userPwd === "") alert("비밀번호를 입력해주세요.");
   else if (param.value.newPwd === "") alert("변경할 비밀번호를 입력해주세요.");
   else if (pwdCheck === "") alert("비밀번호 확인을 입력해주세요.");
-  else if (param.value.newPwd !== pwdCheck) alert("비밀번호가 일치하지 않습니다.");
+  else if (param.value.newPwd !== pwdCheck) alert("변경할 비밀번호가 일치하지 않습니다.");
   else {
     modifyPwd(
       param.value,
-      () => {
-        alert("비밀번호가 변경되었습니다.");
-        userInfo.value.userPwd = param.value.newPwd;
-        router.go(0);
+      ({ data }) => {
+        if (data === "일치x") {
+          alert("비밀번호가 일치하지 않습니다.");
+        } else {
+          userInfo.userPwd = data;
+          param.value.userPwd = data;
+          alert("비밀번호가 변경되었습니다.");
+        }
+        location.reload();
       },
       (error) => console.log(error)
     );

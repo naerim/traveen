@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.user.model.User;
@@ -82,22 +80,21 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void updatePwd(Map<String, String> map) throws Exception {
 		Map<String, String> param = new HashMap<>();
-		String salt = userUtil.getSalt();
+		String userId = map.get("userId");
+		User user = userMapper.getUserById(userId);
+		
+		String salt = user.getSalt();
 		String newPwd = map.get("newPwd");
 		newPwd = userUtil.getEncrypt(newPwd, salt);
-		System.out.println("newPwd " + newPwd);
+		
 		param.put("userPwd", newPwd);
-		param.put("salt", salt);
-		param.put("userId", map.get("userId"));
+		param.put("userId", userId);
 		
 		userMapper.updatePwd(param);
 	}
 
 	@Override
 	public int pwdCheck(String userId, String userPwd) throws Exception {
-		User user = userMapper.getUserById(userId);
-		String salt = user.getSalt();
-		userPwd = userUtil.getEncrypt(userPwd, salt);
 		return userMapper.pwdCheck(userId, userPwd);
 	}
 	
