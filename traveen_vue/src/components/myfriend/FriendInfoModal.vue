@@ -118,7 +118,7 @@ const getListCourseitem = (idx) => {
             </div>
           </div>
         </div>
-        <label>관리자님이 찜한 여행지</label>
+        <label>{{ props.friend.userName }}님이 찜한 여행지</label>
         <ul class="ul-like" v-if="friendLiketrip.length === 0">
           <VEmptyItem text="찜한 여행지가 없습니다." />
         </ul>
@@ -134,7 +134,7 @@ const getListCourseitem = (idx) => {
             </div>
           </li>
         </ul>
-        <label>관리자님이 쓴 글</label>
+        <label>{{ props.friend.userName }}님이 쓴 글</label>
         <ul class="ul-post" v-if="friendPost.length === 0">
           <VEmptyItem text="작성한 글이 없습니다." />
         </ul>

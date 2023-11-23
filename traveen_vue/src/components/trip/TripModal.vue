@@ -1,6 +1,5 @@
 <script setup>
-import { ref } from "vue";
-import { storeToRefs } from "pinia";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useMemberStore } from "@/stores/member";
 import VKakaoMap from "@/components/common/VKakaoMap.vue";
@@ -10,7 +9,7 @@ import { likeTrip, deleteLikeTrip } from "@/api/trip";
 import { useMyTripStore } from "../../stores/mytrip";
 
 const memberStore = useMemberStore();
-const { userInfo } = storeToRefs(memberStore);
+const userInfo = computed(() => memberStore.userInfo);
 
 const tripStore = useTripStore();
 
@@ -40,10 +39,15 @@ const onClickCloseModal = () => {
 
 // 코스짜는 페이지로 이동
 const goWriteCourse = () => {
-  router.replace({ name: "course" });
-  if (props.type === "trip") setCourse({}); // 새로운 코스 생성할때는 선택되었던 코스 초기화
-  setCourseList([]); // 코스리스트 초기화
-  onAddCourse();
+  if (userInfo.value) {
+    router.replace({ name: "course" });
+    if (props.type === "trip") setCourse({}); // 새로운 코스 생성할때는 선택되었던 코스 초기화
+    setCourseList([]); // 코스리스트 초기화
+    onAddCourse();
+  } else {
+    alert("로그인 후 이용해주세요.");
+    router.push({ name: "login" });
+  }
 };
 
 // 코스에 추가하기
@@ -54,7 +58,7 @@ const onAddCourse = () => {
 
 // 여행지 찜하기
 const clickLike = () => {
-  if (userInfo.value === "") {
+  if (!userInfo.value || userInfo.value === "") {
     alert("로그인 후 이용해주세요.");
     router.push({ name: "login" });
   } else {

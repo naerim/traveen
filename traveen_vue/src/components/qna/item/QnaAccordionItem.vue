@@ -38,7 +38,6 @@ const toggleAccordion = () => {
 
 // QnA Comment 등록하기
 const writeQnaComment = () => {
-  console.log("등록할 답변 : " + qnaComment.value);
   registQnaComment(
     qnaComment.value,
     () => {

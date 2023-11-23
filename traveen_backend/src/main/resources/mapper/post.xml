@@ -79,11 +79,11 @@
 		left join tripinfo ti on ci.tripinfo_idx = ti.idx
 		<where>
 			<include refid="search"></include>
-<!--			<if test="userIdx != null and userIdx != ''">-->
-<!--				and p.user_idx = #{userIdx}-->
-<!--			</if>-->
+			<if test="userIdx != null and userIdx != ''">
+				and p.user_idx = #{userIdx}
+			</if>
 		</where>
-		order by create_date desc
+		order by p.create_date desc
 		limit #{start}, #{listsize}
 	</select>
 	
