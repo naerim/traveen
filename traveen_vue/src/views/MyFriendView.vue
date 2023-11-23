@@ -8,8 +8,9 @@ import { useMemberStore } from "@/stores/member";
 import { useFriendStore } from "@/stores/friend";
 
 const memberStore = useMemberStore();
-const friendStore = useFriendStore();
 const userInfo = computed(() => memberStore.userInfo);
+
+const friendStore = useFriendStore();
 const { setFollowerList, setFollowingList } = friendStore;
 const followerCount = computed(() => friendStore.followerCount);
 const followingCount = computed(() => friendStore.followingCount);
@@ -38,7 +39,6 @@ const getFollowingList = () => {
     ({ data }) => {
       friends.value = data;
       setFollowingList(data);
-      console.log("팔로잉 목록 : " + JSON.stringify(data));
     },
     (error) => console.log(error)
   );
@@ -53,6 +53,7 @@ const change = (val) => {
 };
 
 const show = ref(false);
+
 // 모달창 닫기
 const closeModal = () => {
   show.value = false;

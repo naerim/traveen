@@ -2,9 +2,13 @@
 import { ref } from "vue";
 import { useFriendStore } from "@/stores/friend";
 import { deleteFollowing, deleteFollower } from "@/api/friend";
+import FriendInfoModal from "@/components/myfriend/FriendInfoModal.vue";
 
 const show = ref(false);
+const infoShow = ref(false);
+
 const props = defineProps({ friend: Object, type: String });
+
 const toggleMenu = () => (show.value = !show.value);
 const friendStore = useFriendStore();
 const { deleteMyFollowing, deleteMyFollower } = friendStore;
@@ -31,6 +35,15 @@ const onDeleteFriend = (idx) => {
   }
   show.value = false;
 };
+
+const openInfoModal = () => {
+  infoShow.value = true;
+};
+
+const closeInfoModal = () => {
+  infoShow.value = false;
+  show.value = false;
+};
 </script>
 
 <template>
@@ -41,11 +54,12 @@ const onDeleteFriend = (idx) => {
     <div class="userId">{{ props.friend.userId }}</div>
     <div v-show="show" id="menu">
       <ul>
-        <li>친구 정보</li>
+        <li @click="openInfoModal">친구 정보</li>
         <li @click="onDeleteFriend(props.friend.idx)">삭제</li>
       </ul>
     </div>
   </div>
+  <FriendInfoModal :show="infoShow" @close-modal="closeInfoModal" :friend="props.friend" />
 </template>
 
 <style scoped>
