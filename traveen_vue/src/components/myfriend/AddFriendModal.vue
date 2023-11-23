@@ -67,7 +67,7 @@ const onClickCloseModal = () => {
         <div v-if="len === 0" class="searh-list-box">
           <VEmptyItem text="해당 회원이 존재하지 않습니다." />
         </div>
-        <div v-else>
+        <div v-else class="searh-list-box">
           <SearchFriendListItem v-for="user in users" :key="user.idx" :user="user" />
         </div>
       </div>

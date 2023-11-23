@@ -109,7 +109,7 @@
 	<!-- 여행 후기 아이템 조회 -->
 	<!-- t.image, t.placeName, t.type, t.category_name, t.address, pi.content, pi.order -->
 	<select id="viewPostItem" parameterType="int" resultMap="postItem">
-		select pi.idx, p.idx, u.idx, c.idx, t.image, t.place_name, t.type, t.category_name, t.address, pi.content, pi.order
+		select pi.idx, p.idx, u.idx, c.idx, t.image, t.place_name, t.type, t.category_name, t.address, pi.content, pi.order, t.lat, t.loc
 		from posts p, users u, courses c, tripinfo t, post_item pi
 		where p.idx = #{idx} and p.idx = pi.post_idx and p.user_idx = u.idx and pi.course_idx = c.idx and pi.tripinfo_idx = t.idx;
 	</select>

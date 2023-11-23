@@ -38,6 +38,7 @@ const getFollowingList = () => {
     ({ data }) => {
       friends.value = data;
       setFollowingList(data);
+      console.log("팔로잉 목록 : " + JSON.stringify(data));
     },
     (error) => console.log(error)
   );

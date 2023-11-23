@@ -1,6 +1,9 @@
 <script setup>
 import { useRouter } from "vue-router";
 import noImage from "@/assets/img/no_image.jpeg";
+import { useCourseStore } from "@/stores/course";
+import { listCourseItem, deleteCourse } from "@/api/course";
+import { detailPost } from "@/api/post";
 
 const router = useRouter();
 
@@ -8,8 +11,24 @@ const props = defineProps({
   post: Object,
 });
 
-const goAfterTraveenDetailPage = () =>
+const courseStore = useCourseStore();
+const { setCourseList } = courseStore;
+
+const goAfterTraveenDetailPage = () => {
+  getListCourseitem(props.post.courseIdx);
   router.push({ name: "aftertraveen-detail", params: { idx: props.post.idx } });
+};
+
+// 미리 store의 courseList에 등록해주기
+const getListCourseitem = (idx) => {
+  listCourseItem(
+    idx,
+    ({ data }) => {
+      setCourseList(data.list);
+    },
+    (err) => console.log(err)
+  );
+};
 </script>
 
 <template>
