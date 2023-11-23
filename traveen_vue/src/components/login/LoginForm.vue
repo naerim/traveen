@@ -1,6 +1,5 @@
 <script setup>
-import { ref } from "vue";
-import { storeToRefs } from "pinia";
+import { ref, computed } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 import { useMemberStore } from "@/stores/member";
 
@@ -8,7 +7,7 @@ const router = useRouter();
 
 const memberStore = useMemberStore();
 
-const { isLogin } = storeToRefs(memberStore);
+const isLogin = computed(() => memberStore.isLogin);
 const { userLogin, getUserInfo } = memberStore;
 
 const loginUser = ref({
@@ -17,18 +16,16 @@ const loginUser = ref({
   refreshToken: "",
 });
 
-// onMounted(() => {
-//   loginUser.value.userId.focus();
-// });
-
 const login = async () => {
   await userLogin(loginUser.value);
   let token = sessionStorage.getItem("accessToken");
-  if (isLogin) {
+  if (isLogin.value) {
     getUserInfo(token);
     router.push("/");
   } else {
     alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+    loginUser.value.userId = "";
+    loginUser.value.userPwd = "";
   }
 };
 </script>

@@ -47,6 +47,7 @@ public class PostController {
 	@ApiOperation(value = "여행 후기 게시글 목록 조회 API", notes = "여행 후기 게시글 목록을 조회하는 역할을 합니다. /post/list")
 	public ResponseEntity<?> list(@RequestParam @ApiParam(value = "여행 후기 게시글 목록을 얻기 위한 부가정보.", required = true) Map<String, String> map) throws Exception {
 		logger.info("listPost map = {}", map);
+		System.out.println("여행 후기 !!!!!!");
 		PostList postList = postService.listPost(map);
 		HttpHeaders header = new HttpHeaders();
 		header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));

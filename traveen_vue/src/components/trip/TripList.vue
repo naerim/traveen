@@ -104,11 +104,12 @@ const getTrip = (idx) => {
 };
 
 const getMyTripLikeList = () => {
-  listLikeTrip(
-    userInfo.value.idx,
-    ({ data }) => setMytripLike(data),
-    (error) => console.log(error)
-  );
+  userInfo.value &&
+    listLikeTrip(
+      userInfo.value.idx,
+      ({ data }) => setMytripLike(data),
+      (error) => console.log(error)
+    );
 };
 
 const onPageChange = (val) => {

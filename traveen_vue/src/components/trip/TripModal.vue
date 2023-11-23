@@ -134,6 +134,9 @@ const cancelLike = () => {
               <span class="detail-info-right">{{ tripStore.selectTrip.address }}</span>
             </div>
           </div>
+        </div>
+        <div v-if="props.trip" class="right">
+          <VKakaoMap />
           <div class="button-wrap">
             <button v-if="props.type === 'trip'" @click="goWriteCourse">여행코스 만들기</button>
             <button v-else @click="onAddCourse">추가하기</button>
@@ -150,10 +153,8 @@ const cancelLike = () => {
               </button>
             </div>
           </div>
-        </div>
-        <div v-if="props.trip" class="right">
-          <VKakaoMap />
-          <div class="comment-title">Comments</div>
+          <!-- 준비 중인 댓글 서비스 -->
+          <!-- <div class="comment-title">Comments</div>
           <div class="comment-box">
             <div class="comments">
               <div class="userName">예핑고</div>
@@ -177,7 +178,7 @@ const cancelLike = () => {
           <form action="" id="form-detail-comment">
             <input type="text" placeholder="댓글 달기.." id="input-detail-comment" />
             <button type="button" id="btn-comment-trip">등록</button>
-          </form>
+          </form> -->
         </div>
       </div>
     </div>

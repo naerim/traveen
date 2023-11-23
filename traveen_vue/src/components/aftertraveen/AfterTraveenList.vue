@@ -9,12 +9,12 @@ const currentPage = ref(1);
 const totalPage = ref(0);
 const { VITE_AFTERTRAVEEN_LIST_SIZE } = import.meta.env;
 
-
 const param = ref({
   pgno: currentPage.value,
   spp: VITE_AFTERTRAVEEN_LIST_SIZE,
   key: "",
   word: "",
+  userIdx: "",
 });
 
 const len = ref(0);
@@ -39,6 +39,7 @@ const getPostList = () => {
       posts.value = data.posts;
       currentPage.value = data.currentPage;
       totalPage.value = data.totalPageCount;
+      len.value = posts.value.length;
     },
     (error) => console.log(error)
   );
@@ -68,13 +69,7 @@ watch(posts, (newValue) => {
           <option value="">전체</option>
           <option value="title">제목</option>
         </select>
-        <input
-          type="text"
-          name="keyword"
-          id="keyword"
-          placeholder="검색어를 입력해주세요."
-          v-model="param.word"
-        />
+        <input type="text" placeholder="검색어를 입력해주세요." v-model="param.word" />
         <input type="submit" id="btn-search" value="검색" @click.prevent="searchPost" />
       </form>
     </div>

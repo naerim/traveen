@@ -27,7 +27,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 		this.jwtInterceptor = jwtInterceptor;
 	}
 	
-	private final List<String> patterns = Arrays.asList("/post/**", "*/notice/*", "*/qna/*");
+	private final List<String> patterns = Arrays.asList("*/notice/*", "*/qna/*");
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {

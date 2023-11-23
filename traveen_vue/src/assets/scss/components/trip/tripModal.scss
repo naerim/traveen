@@ -109,12 +109,13 @@
 .detail-place-category {
   font-size: 0.9em;
   margin-top: 20px;
+  color: #51cd89;
 }
 
 .detail-desc {
   margin-top: 6px;
   color: #8b95a1;
-  height: 50px;
+  height: 100px;
   overflow-y: scroll;
 }
 
@@ -170,7 +171,7 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  width: 40%;
+  width: 42%;
   height: 100%;
 }
 

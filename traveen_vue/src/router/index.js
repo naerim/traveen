@@ -13,6 +13,7 @@ const onlyAuthUser = async (to, from, next) => {
     await getUserInfo(token);
   }
   if (!isValidToken.value || userInfo.value === null) {
+    alert("로그인 후 이용해 주시기 바랍니다.");
     next({ name: "login" });
   } else {
     next();
@@ -113,33 +114,28 @@ const router = createRouter({
     {
       path: "/aftertraveen",
       name: "aftertraveen",
-      beforeEnter: onlyAuthUser,
       component: () => import("@/views/AfterTraveenView.vue"),
       redirect: { name: "aftertraveen-list" },
       children: [
         {
           path: "list",
           name: "aftertraveen-list",
-          component: () =>
-            import("@/components/aftertraveen/AftertraveenList.vue"),
+          component: () => import("@/components/aftertraveen/AftertraveenList.vue"),
         },
         {
           path: "write",
           name: "aftertraveen-write",
-          component: () =>
-            import("@/components/aftertraveen/AftertraveenWrite.vue"),
+          component: () => import("@/components/aftertraveen/AftertraveenWrite.vue"),
         },
         {
           path: "detail/:idx",
           name: "aftertraveen-detail",
-          component: () =>
-            import("@/components/aftertraveen/AftertraveenDetail.vue"),
+          component: () => import("@/components/aftertraveen/AftertraveenDetail.vue"),
         },
         {
           path: "modify/:idx",
           name: "aftertraveen-modify",
-          component: () =>
-            import("@/components/aftertraveen/AftertraveenModify.vue"),
+          component: () => import("@/components/aftertraveen/AftertraveenModify.vue"),
         },
       ],
     },
