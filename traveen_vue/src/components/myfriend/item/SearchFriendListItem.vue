@@ -25,8 +25,7 @@ const onClickFollow = () => {
         followUserParam.value,
         () => {
           addFollowing(props.user);
-          alert("팔로우 완료!");
-          console.log("팔로우 완료");
+          alert("팔로우가 완료됐습니다.");
         },
         (error) => console.log(error)
       );

@@ -21,6 +21,7 @@ public interface PostMapper {
 	void deletePost(int idx) throws SQLException;
 
 	Post viewPost(int idx) throws SQLException;
+	List<PostItem> viewPostItem(int idx) throws SQLException;
 	List<PostItem> listPostItem(String courseIdx) throws SQLException;
 	Post getPost(int idx) throws SQLException;
 

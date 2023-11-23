@@ -17,14 +17,27 @@ public class PostItem {
 	/* 코스 고유번호 */
 	@ApiModelProperty(value = "코스 고유번호")
 	private int courseIdx;
+	/* 이미지 링크 */
+	@ApiModelProperty(value = "이미지 링크")
+	private String image;
+	/* 장소이름 */
+	@ApiModelProperty(value = "장소이름")
+	private String placeName;
+	/* 장소 카테고리 */
+	@ApiModelProperty(value = "장소 카테고리")
+	private String type;
+	/* 카테고리 */
+	@ApiModelProperty(value = "카테고리")
+	private String categoryName;
+	/* 주소 */
+	@ApiModelProperty(value = "주소")
+	private String address;
 	/* 내용 */
-	@ApiModelProperty(value = "content")
+	@ApiModelProperty(value = "내용")
 	private String content;
 	/* 순서 */
-	@ApiModelProperty(value = "content")
+	@ApiModelProperty(value = "order")
 	private int order;
-	
-	
 	public int getIdx() {
 		return idx;
 	}
@@ -49,6 +62,36 @@ public class PostItem {
 	public void setCourseIdx(int courseIdx) {
 		this.courseIdx = courseIdx;
 	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	public String getPlaceName() {
+		return placeName;
+	}
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	public String getContent() {
 		return content;
 	}
@@ -61,13 +104,10 @@ public class PostItem {
 	public void setOrder(int order) {
 		this.order = order;
 	}
-	
-	
 	@Override
 	public String toString() {
 		return "PostItem [idx=" + idx + ", postIdx=" + postIdx + ", tripinfoIdx=" + tripinfoIdx + ", courseIdx="
-				+ courseIdx + ", content=" + content + ", order=" + order + "]";
+				+ courseIdx + ", image=" + image + ", placeName=" + placeName + ", type=" + type + ", categoryName="
+				+ categoryName + ", address=" + address + ", content=" + content + ", order=" + order + "]";
 	}
-	
-	
 }

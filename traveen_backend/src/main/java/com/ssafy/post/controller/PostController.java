@@ -1,6 +1,8 @@
 package com.ssafy.post.controller;
 
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.post.model.Post;
+import com.ssafy.post.model.PostItem;
 import com.ssafy.post.model.PostList;
 import com.ssafy.post.model.service.PostService;
 
@@ -55,9 +58,13 @@ public class PostController {
 	public ResponseEntity<?> view(@PathVariable(value="idx") int idx) throws Exception {
 		logger.debug("view post idx : {}", idx);
 		Post post = postService.viewPost(idx);
-		System.out.println(post);
+		List<PostItem> postItemList = postService.viewPostItem(idx);
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("post", post);
+		result.put("postItem", postItemList);
 		postService.updateHit(idx);
-		return ResponseEntity.ok(post);
+		return ResponseEntity.ok(result);
 	}
 	
 	@PostMapping("/regist")

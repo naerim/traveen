@@ -11,7 +11,6 @@ const { deleteMyFollowing, deleteMyFollower } = friendStore;
 
 const onDeleteFriend = (idx) => {
   if (props.type === "following") {
-    console.log(idx);
     deleteFollowing(
       idx,
       () => {

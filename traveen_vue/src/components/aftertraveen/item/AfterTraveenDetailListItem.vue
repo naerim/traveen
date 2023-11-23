@@ -1,25 +1,29 @@
 <script setup>
 import noImage from "@/assets/img/no_image.jpeg";
+
+const props = defineProps({
+  trip: Object,
+});
 </script>
 
 <template>
   <li>
     <div class="num-wrap">
-      <div class="num">1</div>
+      <div class="num">{{ props.trip.order }}</div>
     </div>
     <div class="wrap">
       <div class="item-info">
-        <img :src="noImage" alt="" />
+        <img :src="props.trip.image || noImage" alt="" />
         <div class="content">
           <div class="top-box">
-            <span>레스토랑</span>
-            <span id="drama">드라마</span>
+            <span>{{ props.trip.type }}</span>
+            <span id="drama">{{ props.trip.categoryName }}</span>
           </div>
-          <div class="name">라라무리</div>
-          <div class="address">경기도 파주시 회동길 445-1sadfsdafsadfas</div>
+          <div class="name">{{ props.trip.placeName }}</div>
+          <div class="address">{{ props.trip.address }}</div>
         </div>
       </div>
-      <div class="memo">후기</div>
+      <div class="memo">{{ props.trip.content }}</div>
     </div>
   </li>
 </template>

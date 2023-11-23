@@ -10,7 +10,7 @@ import { useFriendStore } from "@/stores/friend";
 const memberStore = useMemberStore();
 const friendStore = useFriendStore();
 const userInfo = computed(() => memberStore.userInfo);
-const { setFollowerList, setFollowingList, following, follower } = friendStore;
+const { setFollowerList, setFollowingList } = friendStore;
 const followerCount = computed(() => friendStore.followerCount);
 const followingCount = computed(() => friendStore.followingCount);
 

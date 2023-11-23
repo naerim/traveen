@@ -33,7 +33,6 @@ const param = ref({
 onMounted(() => {
   getNoticeList();
   len.value = notices.value.length;
-  console.log(JSON.stringify(userInfo.value));
 });
 
 const getNoticeList = () => {

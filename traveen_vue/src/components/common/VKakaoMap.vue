@@ -51,7 +51,6 @@ onMounted(() => {
 // );
 
 const initMap = () => {
-  console.log("tripStore : " + tripStore.selectTrip.placeName);
   const container = document.getElementById("map");
   const options = {
     center: new kakao.maps.LatLng(tripStore.selectTrip.lat, tripStore.selectTrip.loc),

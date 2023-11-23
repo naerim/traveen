@@ -35,7 +35,6 @@ export const useFriendStore = defineStore(
 
     // 팔로잉한 사용자인지 확인
     const isMyFollowing = (idx) => {
-      console.log(following.value);
       return following.value.some((item) => item.idx == idx);
     };
 

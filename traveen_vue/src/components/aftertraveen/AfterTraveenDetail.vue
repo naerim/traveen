@@ -1,28 +1,51 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import { storeToRefs } from "pinia";
 import { useRoute, useRouter } from "vue-router";
 import KakaoMapLine from "@/components/common/VKakaoMapLine.vue";
 import AfterTraveenDetailListItem from "@/components/aftertraveen/item/AfterTraveenDetailListItem.vue";
 import AfterTraveenCommentItem from "@/components/aftertraveen/item/AfterTraveenCommentItem.vue";
 import { detailPost, deletePost } from "@/api/post";
+import { listFollowing, deleteFollowing, followUser } from "@/api/friend";
+import { useMemberStore } from "@/stores/member";
+import { useFriendStore } from "@/stores/friend";
 
 const route = useRoute();
 const router = useRouter();
 const post = ref({});
 
 const { idx } = route.params;
+const items = ref([]);
+const memberStore = useMemberStore();
+const friendStore = useFriendStore();
+const { setFollowingList } = friendStore;
+const { userInfo } = storeToRefs(memberStore);
+const { addFollowing, isMyFollowing, deleteMyFollowing } = friendStore;
+
+const followUserParam = ref({
+  fromIdx: userInfo.value.idx,
+  toIdx: "",
+});
 
 onMounted(() => {
   // 여행 후기 글 불러오기
   getPost();
-  console.log(post);
+
+  listFollowing(
+    userInfo.value.idx,
+    ({ data }) => {
+      setFollowingList(data);
+    },
+    (error) => console.log(error)
+  );
 });
 
 const getPost = () => {
   detailPost(
     idx,
     ({ data }) => {
-      post.value = data;
+      post.value = data.post;
+      items.value = data.postItem;
     },
     (error) => console.log(error)
   );
@@ -41,22 +64,57 @@ const onPostDelete = () => {
   );
 };
 
+const onClickFollow = () => {
+  followUserParam.value.toIdx = post.value.userIdx;
+  if (followUserParam.value.toIdx !== userInfo.value.idx) {
+    if (!isMyFollowing(followUserParam.value.toIdx)) {
+      followUser(
+        followUserParam.value,
+        () => {
+          addFollowing(post.value.userIdx);
+          alert("팔로우가 완료됐습니다.");
+          location.reload();
+        },
+        (error) => console.log(error)
+      );
+    } else {
+      alert("이미 팔로우한 회원입니다.");
+    }
+  }
+};
+
+const onDeleteFollow = (idx) => {
+  deleteFollowing(
+    idx,
+    () => {
+      deleteMyFollowing(idx);
+      alert("팔로우가 취소됐습니다.");
+    },
+    (error) => console.log(error)
+  );
+};
 </script>
 
 <template>
   <div class="info-wrap">
     <div class="title-wrap">
       <div class="title">{{ post.title }}</div>
-      <div class="button-wrap">
+      <div v-if="post.userIdx === userInfo.idx" class="button-wrap">
         <button @click="onPostDelete">삭제</button>
         <button>수정</button>
       </div>
+      <div v-else class="button-wrap"></div>
     </div>
 
     <div class="profile-wrap">
       <img src="@/assets/img/img_profile.png" alt="" />
       <div class="name">{{ post.userName }}</div>
-      <button>팔로우</button>
+      <div v-if="isMyFollowing(post.userIdx)">
+        <button @click="onDeleteFollow(post.userIdx)">팔로우 취소</button>
+      </div>
+      <div v-else>
+        <button @click="onClickFollow">팔로우</button>
+      </div>
     </div>
 
     <div class="line"></div>
@@ -82,9 +140,7 @@ const onPostDelete = () => {
     <div class="line"></div>
 
     <div class="content-wrap">
-      <AfterTraveenDetailListItem />
-      <AfterTraveenDetailListItem />
-      <AfterTraveenDetailListItem />
+      <AfterTraveenDetailListItem v-for="trip in items" :key="trip.idx" :trip="trip" />
     </div>
   </div>
   <div class="comments-wrap">

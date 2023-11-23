@@ -1,14 +1,15 @@
 package com.ssafy.post.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.ssafy.course.model.mapper.CourseMapper;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.post.model.Post;
+import com.ssafy.post.model.PostItem;
 import com.ssafy.post.model.PostList;
 import com.ssafy.post.model.mapper.PostMapper;
 
@@ -80,6 +81,11 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public Post viewPost(int idx) throws Exception {
 		return postMapper.viewPost(idx);
+	}
+	
+	@Override
+	public List<PostItem> viewPostItem(int idx) throws Exception {
+		return postMapper.viewPostItem(idx);
 	}
 
 	@Override
