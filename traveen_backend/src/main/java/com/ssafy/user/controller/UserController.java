@@ -286,8 +286,8 @@ public class UserController {
 				key += numIndex;
 			}
 			
-			String htmlMsg = "<h2>Traveen 회원가입 이메일 인증 번호</h2>"
-					+ "인증번호는 " + key + " 입니다.\n올바른 인증번호를 입력해주세요.";
+			String htmlMsg = "<h3>Traveen 회원가입 이메일 인증 번호</h3>"
+					+ "인증번호는 [ " + key + " ] 입니다.<br>인증번호를 정확히 입력해주세요 :)";
 			mailHelper.setSubject("[Traveen] Traveen 회원가입 이메일 인증번호"); // 이메일 제목
 			mailHelper.setText(htmlMsg, true); // 이메일 내용
 			mailHelper.setTo(email);

@@ -112,7 +112,7 @@ const onDeleteFollow = (idx) => {
       <div v-if="isMyFollowing(post.userIdx)">
         <button @click="onDeleteFollow(post.userIdx)">팔로우 취소</button>
       </div>
-      <div v-else>
+      <div v-if="post.userIdx !== userInfo.idx">
         <button @click="onClickFollow">팔로우</button>
       </div>
     </div>

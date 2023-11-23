@@ -84,6 +84,19 @@
 		limit #{start}, #{listsize}
 	</select>
 	
+	<!-- 내가 작성한 여행 후기 게시글 목록 -->
+	<select id="listMyPost" resultMap="post">
+		select p.idx, p.title, p.user_idx, p.course_idx, p.create_date, p.view_count, p.like_count, p.content, p.title, 
+		date_format(c.start_date, '%Y-%m-%d') start_date, date_format(c.end_date, '%Y-%m-%d') end_date, ti.image as image
+		from posts p
+		join courses c on p.course_idx = c.idx
+		left join courseinfo ci on c.idx = ci.course_idx and ci.order = 1
+		left join tripinfo ti on ci.tripinfo_idx = ti.idx
+		where p.user_idx = #{userIdx}
+		order by p.create_date desc
+		limit #{start}, #{listsize}
+	</select>
+	
 	<!-- 여행 후기 게시글 조회 -->
 	<select id="viewPost" parameterType="int" resultMap="post">
 		select p.idx, u.idx as user_idx, u.user_name, c.idx, date_format(p.create_date, '%Y-%m-%d') as create_date,
