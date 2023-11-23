@@ -8,10 +8,7 @@ import java.util.Properties;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ssafy.user.model.User;
 import com.ssafy.user.model.service.UserService;
@@ -90,7 +86,6 @@ public class UserController {
 		logger.debug("login user : {}", user);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		HttpStatus status = HttpStatus.ACCEPTED;
-		
 		
 		try {
 			User loginUser = userService.login(user);
@@ -171,24 +166,9 @@ public class UserController {
 
 	@DeleteMapping("/delete/{userId}")
 	@ApiOperation(value = "회원 탈퇴 API", notes = "userId를 PathVariable으로 받아 회원 탈퇴를 하는 역할을 합니다. /user/delete")
-	public String delete(@PathVariable("userId") String userId, HttpSession session, HttpServletRequest request,
-			HttpServletResponse response, RedirectAttributes rttr) throws Exception {
+	public String delete(@PathVariable("userId") String userId) throws Exception {
 		logger.debug("delete user userId : {}", userId);
 		userService.deleteUser(userId);
-		session.invalidate();
-
-		Cookie cookies[] = request.getCookies();
-		if (cookies != null && cookies.length != 0) {
-			for (Cookie cookie : cookies) {
-				String name = cookie.getName(); // '쿠키변수'값 구하기
-				if ("login_id".equals(name)) {// 삭제할 쿠키 찾기
-					cookie.setMaxAge(0);
-					response.addCookie(cookie);// 변경된 쿠키를 저장한다.
-				}
-			}
-		}
-
-		rttr.addFlashAttribute("msg", "회원 탈퇴가 완료 되었습니다.");
 		return "redirect:/";
 	}
 	

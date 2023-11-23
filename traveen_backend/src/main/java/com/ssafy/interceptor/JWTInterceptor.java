@@ -18,10 +18,7 @@ public class JWTInterceptor implements HandlerInterceptor {
 	
 	private JWTUtil jwtUtil;
 
-	public JWTInterceptor(JWTUtil jwtUtil) {
-		super();
-		this.jwtUtil = jwtUtil;
-	}
+	
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -30,9 +27,12 @@ public class JWTInterceptor implements HandlerInterceptor {
 
 		if (token != null && jwtUtil.checkToken(token)) {
 			log.info("토큰 사용 가능 : {}", token);
+			
 			return true;
 		} else {
 			log.info("토큰 사용 불가능 : {}", token);
+//			response.sendRedirect(request.getContextPath() + "/user/login");
+//            return false;
 			throw new UnAuthorizedException();
 		}
 

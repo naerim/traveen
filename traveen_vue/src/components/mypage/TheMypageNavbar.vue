@@ -28,6 +28,7 @@ const removeUser = () => {
     userInfo.value.userId,
     () => {
       sessionStorage.clear();
+      userInfo.value = "";
       alert("회원탈퇴가 완료되었습니다.");
       router.push("/");
     },

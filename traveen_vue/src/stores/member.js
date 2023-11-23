@@ -37,31 +37,38 @@ export const useMemberStore = defineStore(
         },
         (error) => {
           console.error(error);
+          if (error.response.status === 406) {
+            alert("아이디 혹은 비밀번호를 다시 확인해주세요.");
+          }
         }
       );
     };
 
     const getUserInfo = (token) => {
-      let decodeToken = jwtDecode(token);
-      findById(
-        decodeToken.userId,
-        (response) => {
-          if (response.status === httpStatusCode.OK) {
-            userInfo.value = response.data.userInfo;
-          } else {
-            console.log("유저 정보 없음!!!!");
-          }
-        },
-        async (error) => {
-          console.error(
-            "getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ",
-            error.response.status
-          );
-          isValidToken.value = false;
+      try {
+        let decodeToken = jwtDecode(token);
+        findById(
+          decodeToken.userId,
+          (response) => {
+            if (response.status === httpStatusCode.OK) {
+              userInfo.value = response.data.userInfo;
+            } else {
+              console.log("유저 정보 없음!!!!");
+            }
+          },
+          async (error) => {
+            console.error(
+              "getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ",
+              error.response.status
+            );
+            isValidToken.value = false;
 
-          await tokenRegenerate();
-        }
-      );
+            await tokenRegenerate();
+          }
+        );
+      } catch (error) {
+        alert("아이디 혹은 비밀번호를 다시 확인해주세요.");
+      }
     };
 
     const tokenRegenerate = async () => {

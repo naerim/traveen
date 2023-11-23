@@ -54,16 +54,21 @@ const onAddCourse = () => {
 
 // 여행지 찜하기
 const clickLike = () => {
-  likeTripParam.value.tripinfoIdx = props.trip.idx;
-  likeTripParam.value.userIdx = userInfo.value.idx;
-  likeTrip(
-    likeTripParam.value,
-    () => {
-      addMytripLike(props.trip);
-      console.log("여행지 찜하기 완료");
-    },
-    (error) => console.log(error)
-  );
+  if (userInfo.value === "") {
+    alert("로그인 후 이용해주세요.");
+    router.push({ name: "login" });
+  } else {
+    likeTripParam.value.tripinfoIdx = props.trip.idx;
+    likeTripParam.value.userIdx = userInfo.value.idx;
+    likeTrip(
+      likeTripParam.value,
+      () => {
+        addMytripLike(props.trip);
+        console.log("여행지 찜하기 완료");
+      },
+      (error) => console.log(error)
+    );
+  }
 };
 
 // 여행지 찜 취소

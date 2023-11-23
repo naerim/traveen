@@ -17,6 +17,10 @@ const loginUser = ref({
   refreshToken: "",
 });
 
+// onMounted(() => {
+//   loginUser.value.userId.focus();
+// });
+
 const login = async () => {
   await userLogin(loginUser.value);
   let token = sessionStorage.getItem("accessToken");
@@ -38,7 +42,6 @@ const login = async () => {
         id="userId"
         v-model="loginUser.userId"
         placeholder="아이디를 입력해주세요."
-        autofocus
       />
     </div>
     <div class="input-box-one">
