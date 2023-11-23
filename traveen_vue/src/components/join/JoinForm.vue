@@ -29,7 +29,6 @@ const onIdCheck = (id) => {
     idCheck(
       id,
       ({ data }) => {
-        console.log(data);
         if (data === "사용가능") {
           idCheckState.value = true;
           alert(id + "는 사용가능한 아이디입니다.");
@@ -53,7 +52,6 @@ const getEmailCode = () => {
       joinUser.value.emailId + "@" + joinUser.value.emailDomain,
       ({ data }) => {
         alert("인증번호가 전송되었습니다.");
-
         joinUser.value.emailCode = data.key;
       },
       (error) => console.log(error)
@@ -105,8 +103,7 @@ const onSubmit = () => {
   } else {
     join(
       joinUser.value,
-      ({ data }) => {
-        console.log(data);
+      () => {
         alert("회원가입이 완료되었습니다.");
         router.push({ name: "login" });
       },
@@ -154,7 +151,7 @@ const onSubmit = () => {
       <select name="emailDomain" id="emailDomain" v-model="joinUser.emailDomain">
         <option value="">선택</option>
         <option value="naver.com">naver.com</option>
-        <option value="google.com">google.com</option>
+        <option value="google.com">gmail.com</option>
       </select>
       <button id="btn-send-code" @click.prevent="getEmailCode()">인증번호 받기</button>
     </div>

@@ -84,7 +84,7 @@ watch(notices, (newValue) => {
           v-model="param.word"
         />
         <button id="btn-search" @click="searchNotice">검색</button>
-        <button id="btn-insert" v-show="userInfo.userId === 'admin'" @click="goNoticeWrite">
+        <button id="btn-insert" v-show="userInfo.position === 'M'" @click="goNoticeWrite">
           글쓰기
         </button>
       </div>

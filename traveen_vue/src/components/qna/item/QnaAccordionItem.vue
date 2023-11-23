@@ -117,7 +117,7 @@ const onModifyQnaComment = () => {
   <div v-show="isOpen" class="accordion-content">
     <div class="left">A</div>
     <!-- 사용자가 관리자일 때 -->
-    <div v-if="userInfo.userId === 'admin'" class="right">
+    <div v-if="userInfo.position === 'M'" class="right">
       <textarea
         cols="30"
         rows="8"

@@ -8,7 +8,7 @@ import { useMemberStore } from "@/stores/member";
 const memberStore = useMemberStore();
 const { userInfo } = storeToRefs(memberStore);
 
-const user = ref({})
+const user = ref({});
 
 const route = useRoute();
 const router = useRouter();
@@ -59,7 +59,7 @@ const onUserModify = () => {
       <span>@</span>
       <select name="emailDomain" id="emailDomain" v-model="user.emailDomain">
         <option value="naver.com">naver.com</option>
-        <option value="google.com">google.com</option>
+        <option value="google.com">gmail.com</option>
       </select>
       <div class="input-title">전화번호</div>
       <input type="text" id="mobile" name="mobile" v-model="user.mobile" />

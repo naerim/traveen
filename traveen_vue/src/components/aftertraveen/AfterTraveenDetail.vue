@@ -17,6 +17,8 @@ const post = ref({});
 
 const { idx } = route.params;
 
+const items = ref([]);
+
 const memberStore = useMemberStore();
 const userInfo = computed(() => memberStore.userInfo);
 
@@ -50,6 +52,7 @@ const getPost = () => {
     idx,
     ({ data }) => {
       post.value = data.post;
+      items.value = data.postItem;
     },
     (error) => console.log(error)
   );
@@ -139,7 +142,7 @@ const onDeleteFollow = (idx) => {
     <div class="line"></div>
 
     <div class="content-wrap">
-      <AfterTraveenDetailListItem v-for="trip in courseList" :key="trip.idx" :trip="trip" />
+      <AfterTraveenDetailListItem v-for="trip in items" :key="trip.idx" :trip="trip" />
     </div>
   </div>
   <div class="comments-wrap">

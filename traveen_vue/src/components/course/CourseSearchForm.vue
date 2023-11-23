@@ -100,6 +100,7 @@ watch(trips, (newValue) => {
         <option value="cafe">카페</option>
         <option value="stay">숙소</option>
         <option value="playground">장소</option>
+        <option value="store">상점</option>
       </select>
       <select name="category" v-model="param.category">
         <option value="">전체</option>

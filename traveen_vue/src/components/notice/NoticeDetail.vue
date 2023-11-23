@@ -1,13 +1,17 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { detailNotice, deleteNotice } from "@/api/notice";
 import NoticeGoListButton from "@/components/notice/item/NoticeGoListButton.vue";
+import { useMemberStore } from "@/stores/member";
 
 const route = useRoute();
 const router = useRouter();
 
 const { idx } = route.params;
+
+const memberStore = useMemberStore();
+const userInfo = computed(() => memberStore.userInfo);
 
 const notice = ref({});
 
@@ -58,7 +62,7 @@ const onNoticeDelete = () => {
         <div class="content">{{ notice.content }}</div>
       </div>
       <div class="line"></div>
-      <div class="btn-notice-admin-box">
+      <div v-if="userInfo.position === 'M'" class="btn-notice-admin-box">
         <button id="btn-modify" @click="goNoticeModify">수정</button>
         <button id="btn-delete" @click="onNoticeDelete">삭제</button>
       </div>
