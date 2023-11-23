@@ -13,16 +13,17 @@
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
   .title {
+    width: 80%;
     font-weight: bold;
     font-size: 1.2em;
     line-height: 2;
   }
 
   .button-wrap {
-    margin-left: auto;
+    width: 20%;
     button {
       border: 1px solid #e3e3e3;
       background-color: #f2f4f6;
@@ -149,4 +150,20 @@
   height: 1px;
   background-color: #e5e8eb;
   margin: 20px 0;
+}
+
+.button-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#btn-go-list {
+  width: 200px;
+  margin: 0 auto;
+  color: #fff;
+  border: none;
+  background-color: var(--tv-c-green);
+  border-radius: 6px;
+  height: 36px;
 }

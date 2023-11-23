@@ -1,0 +1,27 @@
+li {
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  padding: 4px 20px;
+  justify-content: space-between;
+
+  &:hover {
+    background-color: #edf6f1;
+  }
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+
+  .date {
+    color: #8b95a1;
+  }
+  img {
+    width: 20px;
+    height: 20px;
+    margin: 0 6px 0 30px;
+  }
+}

@@ -9,7 +9,6 @@ import { detailPost, deletePost } from "@/api/post";
 import { listFollowing, deleteFollowing, followUser } from "@/api/friend";
 import { useMemberStore } from "@/stores/member";
 import { useFriendStore } from "@/stores/friend";
-import { useCourseStore } from "@/stores/course";
 
 const route = useRoute();
 const router = useRouter();
@@ -21,9 +20,6 @@ const items = ref([]);
 
 const memberStore = useMemberStore();
 const userInfo = computed(() => memberStore.userInfo);
-
-const courseStore = useCourseStore();
-const { courseList } = storeToRefs(courseStore);
 
 const friendStore = useFriendStore();
 const { setFollowingList } = friendStore;
@@ -95,6 +91,11 @@ const onDeleteFollow = (idx) => {
     (error) => console.log(error)
   );
 };
+
+const goAftertraveenListpage = () => {
+  window.scrollTo(0, 0);
+  router.push({ name: "aftertraveen-list" });
+};
 </script>
 
 <template>
@@ -145,6 +146,7 @@ const onDeleteFollow = (idx) => {
       <AfterTraveenDetailListItem v-for="trip in items" :key="trip.idx" :trip="trip" />
     </div>
   </div>
+
   <div class="comments-wrap">
     <div class="comment-title">Comments</div>
     <div class="comment-content">
@@ -156,6 +158,10 @@ const onDeleteFollow = (idx) => {
       <input type="text" placeholder="댓글 달기.." />
       <button>등록</button>
     </div>
+  </div>
+
+  <div class="button-wrap">
+    <button id="btn-go-list" @click="goAftertraveenListpage">목록으로</button>
   </div>
 </template>
 
