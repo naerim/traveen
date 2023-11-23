@@ -64,7 +64,6 @@ const clickLike = () => {
       likeTripParam.value,
       () => {
         addMytripLike(props.trip);
-        console.log("여행지 찜하기 완료");
       },
       (error) => console.log(error)
     );
@@ -76,7 +75,6 @@ const cancelLike = () => {
   deleteLikeTrip(
     props.trip.idx,
     () => {
-      console.log("여행지 찜하기 취소");
       deleteMytripLike(props.trip.idx);
     },
     (error) => console.log(error)

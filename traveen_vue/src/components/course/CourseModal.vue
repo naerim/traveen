@@ -53,7 +53,6 @@ const makeParamCourseList = (list) => {
 watch(
   () => currentCourse.value,
   (newValue) => {
-    console.log(newValue);
     param.value.course = newValue;
     param.value.course.idx = newValue.idx;
     param.value.course.userIdx = userInfo.value.idx;
