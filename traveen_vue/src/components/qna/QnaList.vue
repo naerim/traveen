@@ -72,13 +72,13 @@ const writeQna = () => {
     qna.value,
     () => {
       QnaList.value.push(qna);
-      qna.value.title = "";
-      qna.value.content = "";
       alert("질문이 등록되었습니다.");
       closeModal();
     },
     (error) => console.log(error)
   );
+  qna.value.title = "";
+  qna.value.content = "";
 };
 
 const searchQna = () => {
