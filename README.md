@@ -12,6 +12,15 @@ K-드라마, K-영화, K-POP 등 감명깊게 본 작품의 촬영지나 맛집�
 <img width="490" alt="image" src="https://github.com/naerim/traveen/assets/61643122/bd90e1fa-29c9-4f44-9a86-a9fab23baad7">
 
 ## Pages
+#### 🧩 메인페이지
+#### 🧩 찜하기 / 찜취소
+#### 🧩 여행코스 등록
+#### 🧩 애프터트래빈
+#### 🧩 공지사항
+#### 🧩 qna
+#### 🧩 나의친구
+#### 🧩 로그인/로그아웃
+#### 🧩 회원가입
 
 ## 👩🏻‍💻&nbsp;팀원 소개
 <div>
